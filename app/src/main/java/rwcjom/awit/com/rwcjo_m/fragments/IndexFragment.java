@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,13 +14,16 @@ import android.view.ViewGroup;
 
 import com.astuetz.PagerSlidingTabStrip;
 
+import de.greenrobot.event.EventBus;
 import rwcjom.awit.com.rwcjo_m.R;
 import rwcjom.awit.com.rwcjo_m.SuperAwesomeCardFragment;
+import rwcjom.awit.com.rwcjo_m.event.MainActivityEvent;
 
 /**
  * Created by Fantasy on 15/4/8.
  */
 public class IndexFragment extends Fragment {
+    private final String LOGTAG="IndexFragment";
 
     private PagerSlidingTabStrip mPagerSlidingTabStrip;
     private ViewPager mViewPager;
@@ -29,7 +33,7 @@ public class IndexFragment extends Fragment {
     {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        System.out.println("ExampleFragment--onCreate");
+        EventBus.getDefault().post(new MainActivityEvent("首页"));
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,7 +52,12 @@ public class IndexFragment extends Fragment {
 
             @Override
             public void onPageSelected(int arg0) {
-                //colorChange(arg0);
+                Log.i(LOGTAG, "argo:" + arg0);
+                if(arg0==1){
+                    EventBus.getDefault().post(new MainActivityEvent(true));
+                }else{
+                    EventBus.getDefault().post(new MainActivityEvent(false));
+                }
             }
 
             @Override

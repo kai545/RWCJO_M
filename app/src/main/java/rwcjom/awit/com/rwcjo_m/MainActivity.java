@@ -20,7 +20,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import de.greenrobot.event.EventBus;
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
+import rwcjom.awit.com.rwcjo_m.event.MainActivityEvent;
 import rwcjom.awit.com.rwcjo_m.fragments.IndexFragment;
 import rwcjom.awit.com.rwcjo_m.fragments.ProjectFragment;
 
@@ -38,6 +40,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);//注册事件总线
         setContentView(R.layout.activity_main_out);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
@@ -87,8 +90,6 @@ public class MainActivity extends ActionBarActivity {
                 int img_id=Integer.parseInt(left_menu_list.get(position).get("img").toString());
                 switch (img_id){
                     case R.mipmap.ic_drawer_home_normal:
-                        toolbar.setTitle("首页");
-                        smthPrsbar.setVisibility(View.GONE);
                         fragment=new IndexFragment();
                         ft.replace(R.id.drawer_fragment_layout, fragment);
                         ft.commit();
@@ -130,6 +131,18 @@ public class MainActivity extends ActionBarActivity {
 
 
 
+    }
+
+    //处理事件
+    public void onEventMainThread(MainActivityEvent event) {
+        toolbar.setTitle(event.getTitle());
+        smthPrsbar.setVisibility(event.isProgressBarState()?View.VISIBLE:View.GONE);
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
 
