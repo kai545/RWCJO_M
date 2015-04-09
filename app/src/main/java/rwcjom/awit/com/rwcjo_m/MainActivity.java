@@ -27,7 +27,7 @@ import rwcjom.awit.com.rwcjo_m.fragments.IndexFragment;
 import rwcjom.awit.com.rwcjo_m.fragments.ProjectFragment;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements Toolbar.OnMenuItemClickListener,AdapterView.OnItemClickListener{
     private Toolbar toolbar;
     private SmoothProgressBar smthPrsbar;
     private DrawerLayout mDrawerLayout;
@@ -42,101 +42,27 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);//注册事件总线
         setContentView(R.layout.activity_main_out);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-        }
-
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.menu_checkupdate:
-                        Toast.makeText(MainActivity.this, "检查更新", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.menu_aboutus:
-                        Toast.makeText(MainActivity.this, "关于我们", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.menu_exit:
-                        Toast.makeText(MainActivity.this, "退出", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.menu_clouddown:
-                        Toast.makeText(MainActivity.this, "下载", Toast.LENGTH_SHORT).show();
-                        break;
-                    default:
-                        break;
-                }
-                return true;
-            }
-        });
-
-        smthPrsbar=(SmoothProgressBar)findViewById(R.id.toolbar_progreebar);
-
-        getData();
-        mDrawerList = (ListView) findViewById(R.id.navdrawer);
-        SimpleAdapter drawerAdapter = new SimpleAdapter(this,left_menu_list,R.layout.drawer_list_item,
-                new String[]{"img","text"},
-                new int[]{R.id.drawer_list_itme_img,R.id.drawer_list_itme_text});
-        mDrawerList.setAdapter(drawerAdapter);
-
-        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                // TODO Auto-generated method stub
-                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                Fragment fragment = null;
-
-                int img_id=Integer.parseInt(left_menu_list.get(position).get("img").toString());
-                switch (img_id){
-                    case R.mipmap.ic_drawer_home_normal:
-                        fragment=new IndexFragment();
-                        ft.replace(R.id.drawer_fragment_layout, fragment);
-                        ft.commit();
-                        break;
-                    case R.mipmap.ic_drawer_search_normal:
-                        toolbar.setTitle("项目查看");
-                        smthPrsbar.setVisibility(View.VISIBLE);
-                        fragment=new ProjectFragment();
-                        ft.replace(R.id.drawer_fragment_layout, fragment);
-                        ft.commit();
-                        break;
-                    case R.mipmap.ic_drawer_explore_normal:
-                        toolbar.setTitle("通讯设置");
-                        break;
-                    case R.mipmap.ic_drawer_follow_normal:
-                        toolbar.setTitle("参数设置");
-                        break;
-                    case R.mipmap.ic_drawer_setting_normal:
-                        toolbar.setTitle("系统设置");
-                        break;
-                    case R.mipmap.ic_drawer_question_normal:
-                        toolbar.setTitle("用户手册");
-                        break;
-                    default:break;
-                }
-
-
-                mDrawerLayout.closeDrawers();
-            }
-        });
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		/* findView */
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.drawer_open,
-                R.string.drawer_close);
-        mDrawerToggle.syncState();
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-
-
+        initToolbar();
+        initDrawerMenu();
     }
 
     //处理事件
     public void onEventMainThread(MainActivityEvent event) {
         toolbar.setTitle(event.getTitle());
-        smthPrsbar.setVisibility(event.isProgressBarState()?View.VISIBLE:View.GONE);
+        //smthPrsbar.setVisibility(event.isProgressBarState()?View.VISIBLE:View.INVISIBLE);
+        isShowProgressbar(event.isProgressBarState());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
     }
 
     @Override
@@ -152,8 +78,35 @@ public class MainActivity extends ActionBarActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+    private void initToolbar(){
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+        }
+        toolbar.setOnMenuItemClickListener(this);
 
-    private void getData() {
+        smthPrsbar=(SmoothProgressBar)findViewById(R.id.toolbar_progreebar);
+    }
+    private void initDrawerMenu(){
+        initDrawerMenuData();
+        mDrawerList = (ListView) findViewById(R.id.navdrawer);
+        SimpleAdapter drawerAdapter = new SimpleAdapter(this,left_menu_list,R.layout.drawer_list_item,
+                new String[]{"img","text"},
+                new int[]{R.id.drawer_list_itme_img,R.id.drawer_list_itme_text});
+        mDrawerList.setAdapter(drawerAdapter);
+        mDrawerList.setOnItemClickListener(this);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		/* findView */
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.drawer_open,
+                R.string.drawer_close);
+        mDrawerToggle.syncState();
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+    }
+
+
+    private void initDrawerMenuData() {
         left_menu_list = new ArrayList<Map<String, Object>>();
 
         Map<String, Object> map = new HashMap<String, Object>();
@@ -186,6 +139,80 @@ public class MainActivity extends ActionBarActivity {
         map.put("img", R.mipmap.ic_drawer_question_normal);
         left_menu_list.add(map);
 
+    }
+    /*
+    * 抽屉菜单监听
+    * */
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view,
+                            int position, long id) {
+        // TODO Auto-generated method stub
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        Fragment fragment = null;
+
+        int img_id=Integer.parseInt(left_menu_list.get(position).get("img").toString());
+        switch (img_id){
+            case R.mipmap.ic_drawer_home_normal:
+                fragment=new IndexFragment();
+                ft.replace(R.id.drawer_fragment_layout, fragment);
+                ft.commit();
+                break;
+            case R.mipmap.ic_drawer_search_normal:
+                toolbar.setTitle("项目查看");
+
+                fragment=new ProjectFragment();
+                ft.replace(R.id.drawer_fragment_layout, fragment);
+                ft.commit();
+                break;
+            case R.mipmap.ic_drawer_explore_normal:
+                toolbar.setTitle("通讯设置");
+                break;
+            case R.mipmap.ic_drawer_follow_normal:
+                toolbar.setTitle("参数设置");
+                break;
+            case R.mipmap.ic_drawer_setting_normal:
+                toolbar.setTitle("系统设置");
+                break;
+            case R.mipmap.ic_drawer_question_normal:
+                toolbar.setTitle("用户手册");
+                break;
+            default:break;
+        }
+
+        mDrawerLayout.closeDrawers();
+    }
+/*
+* 右上角菜单监听
+* */
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_checkupdate:
+                Toast.makeText(MainActivity.this, "检查更新", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menu_aboutus:
+                Toast.makeText(MainActivity.this, "关于我们", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menu_exit:
+                Toast.makeText(MainActivity.this, "退出", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.menu_clouddown:
+                Toast.makeText(MainActivity.this, "下载", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                break;
+        }
+        return true;
+    }
+
+    private void isShowProgressbar(boolean tf){
+        if (tf){
+            smthPrsbar.setVisibility(View.VISIBLE);
+            smthPrsbar.progressiveStart();
+        }else{
+            smthPrsbar.progressiveStop();
+            smthPrsbar.setVisibility(View.INVISIBLE);
+        }
     }
 
 }

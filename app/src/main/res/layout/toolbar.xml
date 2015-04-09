@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="start"
     android:layout_width="match_parent"
@@ -19,8 +19,8 @@
     <fr.castorflex.android.smoothprogressbar.SmoothProgressBar
         android:id="@+id/toolbar_progreebar"
         android:layout_width="match_parent"
-        android:layout_height="3dp"
+        android:layout_height="2dp"
         android:indeterminate="true"
-        style="@style/GNowProgressBar"
-        android:visibility="gone" />
-</LinearLayout>
+        android:visibility="invisible"
+        style="@style/GNowProgressBar" android:layout_gravity="bottom"/>
+</FrameLayout>
