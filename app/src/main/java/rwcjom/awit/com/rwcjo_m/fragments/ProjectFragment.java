@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import com.astuetz.PagerSlidingTabStrip;
 
 import rwcjom.awit.com.rwcjo_m.R;
-import rwcjom.awit.com.rwcjo_m.SuperAwesomeCardFragment;
 
 
 public class ProjectFragment extends Fragment {
@@ -105,7 +104,7 @@ public class ProjectFragment extends Fragment {
 
         @Override
         public android.support.v4.app.Fragment getItem(int position) {
-            return SuperAwesomeCardFragment.newInstance(position);
+            return ShuiZhunXianLuFragment.newInstance(position);
         }
 
     }

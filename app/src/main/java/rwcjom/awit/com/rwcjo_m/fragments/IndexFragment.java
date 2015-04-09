@@ -16,7 +16,6 @@ import com.astuetz.PagerSlidingTabStrip;
 
 import de.greenrobot.event.EventBus;
 import rwcjom.awit.com.rwcjo_m.R;
-import rwcjom.awit.com.rwcjo_m.SuperAwesomeCardFragment;
 import rwcjom.awit.com.rwcjo_m.event.MainActivityEvent;
 
 /**
@@ -117,7 +116,7 @@ public class IndexFragment extends Fragment {
 
         @Override
         public Fragment getItem(int position) {
-            return SuperAwesomeCardFragment.newInstance(position);
+            return ShuiZhunXianLuFragment.newInstance(position);
         }
 
     }
