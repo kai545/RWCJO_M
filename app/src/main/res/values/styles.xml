@@ -1,0 +1,48 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="BaseTheme"></style>
+
+    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textColorPrimary" >@android:color/white</item>
+        <item name="colorPrimary" >@color/Primary</item>
+        <item name="colorPrimaryDark">@color/PrimaryDark</item>
+        <item name="colorAccent">@color/Accent</item>
+        <item name="android:windowBackground">@color/WindowBackground</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+
+    <!-- progressbar -->
+    <style name="GPlusProgressBar" parent="SmoothProgressBar">
+        <item name="spb_stroke_separator_length">12dp</item>
+        <item name="spb_sections_count">4</item>
+        <item name="spb_speed">0.7</item>
+        <item name="spb_interpolator">spb_interpolator_linear</item>
+        <item name="spb_colors">@array/gplus_colors</item>
+    </style>
+
+    <style name="GNowProgressBar" parent="SmoothProgressBar">
+        <item name="spb_stroke_separator_length">0dp</item>
+        <item name="spb_sections_count">4</item>
+        <item name="spb_speed">2</item>
+        <item name="spb_progressiveStart_speed">2</item>
+        <item name="spb_progressiveStop_speed">3.4</item>
+        <item name="spb_interpolator">spb_interpolator_acceleratedecelerate</item>
+        <item name="spb_mirror_mode">true</item>
+        <item name="spb_reversed">true</item>
+        <item name="spb_colors">@array/gplus_colors</item>
+        <item name="spb_progressiveStart_activated">true</item>
+        <item name="spb_generate_background_with_colors">false</item>
+    </style>
+
+    <style name="GradientProgressBar" parent="SmoothProgressBar">
+        <item name="spb_stroke_separator_length">0dp</item>
+        <item name="spb_sections_count">3</item>
+        <item name="spb_speed">1.7</item>
+        <item name="android:interpolator">@android:anim/decelerate_interpolator</item>
+        <item name="spb_colors">@array/gplus_colors</item>
+        <item name="spb_gradients">true</item>
+    </style>
+
+</resources>
