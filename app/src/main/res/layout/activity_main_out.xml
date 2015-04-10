@@ -23,7 +23,7 @@
         <LinearLayout
             android:id="@+id/drawer_left"
             android:layout_gravity="start"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:background="@android:color/white">
@@ -39,13 +39,19 @@
                 android:drawSelectorOnTop="false">
             </ListView>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="bottom"
+                android:paddingBottom="20dp">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/drawer_shtoone_logo_iv"
                 android:layout_gravity="center_horizontal"
                 android:src="@mipmap/shtoone_logo"
-                android:paddingTop="60dp"
                 android:paddingLeft="40dp"
                 android:paddingRight="40dp" />
 
@@ -63,7 +69,7 @@
                 android:id="@+id/drawer_version_tv"
                 android:layout_gravity="center_horizontal"
                 android:textSize="16dp" />
-
+            </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.DrawerLayout>
 
