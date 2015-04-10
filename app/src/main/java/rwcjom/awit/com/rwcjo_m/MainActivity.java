@@ -11,12 +11,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
+import com.afollestad.materialdialogs.ThemeSingleton;
+import com.afollestad.materialdialogs.internal.MDTintHelper;
+
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +29,9 @@ import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 import rwcjom.awit.com.rwcjo_m.event.MainActivityEvent;
 import rwcjom.awit.com.rwcjo_m.fragments.IndexFragment;
 import rwcjom.awit.com.rwcjo_m.fragments.ProjectFragment;
+import rwcjom.awit.com.rwcjo_m.fragments.ShuiZhunXianLuFragmentContainer;
+import rwcjom.awit.com.rwcjo_m.util.CommonTools;
+import rwcjom.awit.com.rwcjo_m.util.ValueConfig;
 
 
 public class MainActivity extends ActionBarActivity implements Toolbar.OnMenuItemClickListener,AdapterView.OnItemClickListener{
@@ -49,7 +56,6 @@ public class MainActivity extends ActionBarActivity implements Toolbar.OnMenuIte
     //处理事件
     public void onEventMainThread(MainActivityEvent event) {
         toolbar.setTitle(event.getTitle());
-        //smthPrsbar.setVisibility(event.isProgressBarState()?View.VISIBLE:View.INVISIBLE);
         isShowProgressbar(event.isProgressBarState());
     }
 
@@ -87,10 +93,12 @@ public class MainActivity extends ActionBarActivity implements Toolbar.OnMenuIte
 
         smthPrsbar=(SmoothProgressBar)findViewById(R.id.toolbar_progreebar);
     }
+
+    //初始化抽屉菜单
     private void initDrawerMenu(){
-        initDrawerMenuData();
+        left_menu_list=ValueConfig.getDrawerMenuData();
         mDrawerList = (ListView) findViewById(R.id.navdrawer);
-        SimpleAdapter drawerAdapter = new SimpleAdapter(this,left_menu_list,R.layout.drawer_list_item,
+        SimpleAdapter drawerAdapter = new SimpleAdapter(this,left_menu_list ,R.layout.drawer_list_item,
                 new String[]{"img","text"},
                 new int[]{R.id.drawer_list_itme_img,R.id.drawer_list_itme_text});
         mDrawerList.setAdapter(drawerAdapter);
@@ -105,41 +113,6 @@ public class MainActivity extends ActionBarActivity implements Toolbar.OnMenuIte
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
-
-    private void initDrawerMenuData() {
-        left_menu_list = new ArrayList<Map<String, Object>>();
-
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("text", "首页");
-        map.put("img", R.mipmap.ic_drawer_home_normal);
-        left_menu_list.add(map);
-
-        map = new HashMap<String, Object>();
-        map.put("text", "项目查看");
-        map.put("img", R.mipmap.ic_drawer_search_normal);
-        left_menu_list.add(map);
-
-        map = new HashMap<String, Object>();
-        map.put("text", "通讯设置");
-        map.put("img", R.mipmap.ic_drawer_explore_normal);
-        left_menu_list.add(map);
-
-        map = new HashMap<String, Object>();
-        map.put("text", "参数设置");
-        map.put("img", R.mipmap.ic_drawer_follow_normal);
-        left_menu_list.add(map);
-
-        map = new HashMap<String, Object>();
-        map.put("text", "系统设置");
-        map.put("img", R.mipmap.ic_drawer_setting_normal);
-        left_menu_list.add(map);
-
-        map = new HashMap<String, Object>();
-        map.put("text", "用户手册");
-        map.put("img", R.mipmap.ic_drawer_question_normal);
-        left_menu_list.add(map);
-
-    }
     /*
     * 抽屉菜单监听
     * */
@@ -152,8 +125,13 @@ public class MainActivity extends ActionBarActivity implements Toolbar.OnMenuIte
 
         int img_id=Integer.parseInt(left_menu_list.get(position).get("img").toString());
         switch (img_id){
-            case R.mipmap.ic_drawer_home_normal:
+            case R.mipmap.ic_drawer_index_normal:
                 fragment=new IndexFragment();
+                ft.replace(R.id.drawer_fragment_layout, fragment);
+                ft.commit();
+                break;
+            case R.mipmap.ic_drawer_line_normal:
+                fragment=new ShuiZhunXianLuFragmentContainer();
                 ft.replace(R.id.drawer_fragment_layout, fragment);
                 ft.commit();
                 break;
@@ -197,7 +175,7 @@ public class MainActivity extends ActionBarActivity implements Toolbar.OnMenuIte
                 Toast.makeText(MainActivity.this, "退出", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.menu_clouddown:
-                Toast.makeText(MainActivity.this, "下载", Toast.LENGTH_SHORT).show();
+                showLoginView();
                 break;
             default:
                 break;
@@ -213,6 +191,50 @@ public class MainActivity extends ActionBarActivity implements Toolbar.OnMenuIte
             smthPrsbar.progressiveStop();
             smthPrsbar.setVisibility(View.INVISIBLE);
         }
+    }
+
+    private EditText accountInput,passwordInput;
+    private void showLoginView() {
+
+        MaterialDialog dialog = new MaterialDialog.Builder(this)
+                .theme(Theme.LIGHT)
+                .title(R.string.login_dialog_title)
+                .titleColor(R.color.syscolor)
+                .customView(R.layout.dialog_login_view, true)
+                .positiveText(R.string.login_positive_button_text)
+                .negativeText(R.string.login_negative_button_text)
+                .autoDismiss(false)
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+                        //CommonTools.showToast(MainActivity.this, "登录成功，开始同步数据");
+                        CommonTools.showProgressDialog(MainActivity.this,"正在登录……");
+                    }
+
+                    @Override
+                    public void onNegative(MaterialDialog dialog) {
+                        dialog.dismiss();
+                    }
+                }).build();
+        dialog.setCanceledOnTouchOutside(false);
+
+        accountInput = (EditText) dialog.getCustomView().findViewById(R.id.login_account);
+        passwordInput = (EditText) dialog.getCustomView().findViewById(R.id.login_password);
+
+        if (ValueConfig.DEBUG_MODE){
+            accountInput.setText(ValueConfig.TEST_ACCOUNT);
+            passwordInput.setText(ValueConfig.TEST_PASSWORD);
+        }
+
+        int widgetColor = ThemeSingleton.get().widgetColor;
+
+        MDTintHelper.setEditTextTint(accountInput,
+                widgetColor == 0 ? getResources().getColor(R.color.syscolor) : widgetColor);
+
+        MDTintHelper.setEditTextTint(passwordInput,
+                widgetColor == 0 ? getResources().getColor(R.color.syscolor) : widgetColor);
+
+        dialog.show();
     }
 
 }

@@ -10,7 +10,6 @@
     <file url="file://$PROJECT_DIR$/app/src/main/java/rwcjom/awit/com/rwcjo_m/bean/CJDownperson.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/rwcjom/awit/com/rwcjo_m/bean/CJDownpntinfo.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/rwcjom/awit/com/rwcjo_m/bean/CJDownsectsite.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/rwcjom/awit/com/rwcjo_m/bean/ValueConfig.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/rwcjom/awit/com/rwcjo_m/bean/exceptionHandle.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/rwcjom/awit/com/rwcjo_m/bean/getPublicKey.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/rwcjom/awit/com/rwcjo_m/bean/pubUtil.java" charset="GBK" />
@@ -40,6 +39,7 @@
     <file url="file://$PROJECT_DIR$/app/src/main/java/rwcjom/awit/com/rwcjo_m/interfaces/HTTPResultListener.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/rwcjom/awit/com/rwcjo_m/interfaces/getPublicKeyInterface.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/rwcjom/awit/com/rwcjo_m/interfaces/verifyAppUserInterface.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/rwcjom/awit/com/rwcjo_m/util/ValueConfig.java" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

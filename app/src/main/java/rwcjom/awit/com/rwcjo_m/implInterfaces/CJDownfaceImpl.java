@@ -9,7 +9,7 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
 import rwcjom.awit.com.rwcjo_m.bean.CJDownface;
-import rwcjom.awit.com.rwcjo_m.bean.ValueConfig;
+import rwcjom.awit.com.rwcjo_m.util.ValueConfig;
 import rwcjom.awit.com.rwcjo_m.bean.pubUtil;
 import rwcjom.awit.com.rwcjo_m.interfaces.CJDownfaceInterface;
 

@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,10 +14,16 @@ import android.view.ViewGroup;
 
 import com.astuetz.PagerSlidingTabStrip;
 
+import de.greenrobot.event.EventBus;
 import rwcjom.awit.com.rwcjo_m.R;
+import rwcjom.awit.com.rwcjo_m.event.MainActivityEvent;
 
+/**
+ * Created by Fantasy on 15/4/8.
+ */
+public class ShuiZhunXianLuFragmentContainer extends Fragment {
+    private final String LOGTAG="IndexFragment";
 
-public class ProjectFragment extends Fragment {
     private PagerSlidingTabStrip mPagerSlidingTabStrip;
     private ViewPager mViewPager;
 
@@ -25,7 +32,7 @@ public class ProjectFragment extends Fragment {
     {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        System.out.println("ExampleFragment--onCreate");
+        EventBus.getDefault().post(new MainActivityEvent("水准线路"));
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,14 +44,19 @@ public class ProjectFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mPagerSlidingTabStrip = (PagerSlidingTabStrip) getView().findViewById(R.id.tabs);
         mViewPager = (ViewPager) getView().findViewById(R.id.pager);
-        String[] titles={ "工点", "人员", "基点" };
+        String[] titles={ "待测量", "待上传", "全部" };
         mViewPager.setAdapter(new MyPagerAdapter(getChildFragmentManager(),titles));
         mPagerSlidingTabStrip.setViewPager(mViewPager);
         mPagerSlidingTabStrip.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
             public void onPageSelected(int arg0) {
-                //colorChange(arg0);
+                Log.i(LOGTAG, "argo:" + arg0);
+                if(arg0==1){
+                    EventBus.getDefault().post(new MainActivityEvent(true));
+                }else{
+                    EventBus.getDefault().post(new MainActivityEvent(false));
+                }
             }
 
             @Override
@@ -103,7 +115,7 @@ public class ProjectFragment extends Fragment {
         }
 
         @Override
-        public android.support.v4.app.Fragment getItem(int position) {
+        public Fragment getItem(int position) {
             return ShuiZhunXianLuFragment.newInstance(position);
         }
 
