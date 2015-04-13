@@ -8,6 +8,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,6 +37,7 @@ import rwcjom.awit.com.rwcjo_m.fragments.IndexFragment;
 import rwcjom.awit.com.rwcjo_m.fragments.ProjectFragment;
 import rwcjom.awit.com.rwcjo_m.fragments.ShuiZhunXianLuFragmentContainer;
 import rwcjom.awit.com.rwcjo_m.implInterfaces.getPublicKeyImpl;
+import rwcjom.awit.com.rwcjo_m.implInterfaces.verifyAppUserImpl;
 import rwcjom.awit.com.rwcjo_m.util.CommonTools;
 import rwcjom.awit.com.rwcjo_m.util.ValueConfig;
 
@@ -223,27 +225,25 @@ public class MainActivity extends ActionBarActivity implements Toolbar.OnMenuIte
                                 //CommonTools.showProgressDialog(MainActivity.this, "正在登录……");
                                 if (passwordInput.getText().length() != 0) {
                                     getPublicKeyImpl getPubKeyImpl = new getPublicKeyImpl();
-                                    result = getPubKeyImpl.getPublicKey(accountInput.getText() + "", null);
-                                    /*if (result.length() == 128) {
+                                    String publicKey= getPubKeyImpl.getPublicKey(accountInput.getText() + "", null);
+                                    if (publicKey.length() == 128) {
                                         verifyAppUserImpl verify = new verifyAppUserImpl();
-                                        randomCode=verify.getVerifyAppUser(accountInput.getText() + "", passwordInput.getText() + "", null,
+                                        result = verify.getVerifyAppUser(accountInput.getText() + "", passwordInput.getText() + "", null,
                                                 result);
-                                        Log.i(TAG, "randomCode"+randomCode);
-                                        if (randomCode.length() == 13) {
-                                            CommonTools.showProgressDialog(MainActivity.this, "登录成功："+randomCode);
-                                        } else {
-                                            CommonTools.showToast(MainActivity.this, randomCode + "，" + pubUtil.exception.getExceptionMsg());
-                                        }
-                                    } else {
-                                        CommonTools.showToast(MainActivity.this,result+"，"+pubUtil.exception.getExceptionMsg());
-                                    }*/
+                                        Log.i(TAG, "randomCode" + result);
+                                    }
                                 }
                                 return result;
                             }
                         }, new Completion<String>() {
                             @Override
                             public void onSuccess(Context context, String result) {
-                                CommonTools.showToast(MainActivity.this, result + "，" + pubUtil.exception.getExceptionMsg());                            }
+                                if (result.length() == 13) {
+                                    CommonTools.showToast(MainActivity.this, "登录成功：" + result);
+                                } else {
+                                    CommonTools.showToast(MainActivity.this, result + "，" + pubUtil.exception.getExceptionMsg());
+                                }
+                            }
 
                             @Override
                             public void onError(Context context, Exception e) {
