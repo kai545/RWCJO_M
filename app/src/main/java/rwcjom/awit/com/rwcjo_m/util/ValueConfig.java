@@ -11,7 +11,7 @@ public class ValueConfig {
 	public static final String SPLIT_CHAR="λ";
 	public static final String NAMESPACE_STRING="http://www.xfiretest.com/";
 	//cjgc2为试点环境 cjgc为测试环境
-	public static final String ENDPOINT_STRING="http://61.237.239.144/cjgc2/services/DownLoadData";
+	public static final String ENDPOINT_STRING="http://61.237.239.144/cjgc/services/DownLoadData";
 
 	public static final boolean DEBUG_MODE=true;
 	public static final String TEST_ACCOUNT="liuyang2";

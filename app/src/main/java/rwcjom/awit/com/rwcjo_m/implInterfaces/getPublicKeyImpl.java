@@ -13,7 +13,8 @@ import rwcjom.awit.com.rwcjo_m.interfaces.getPublicKeyInterface;
 
 
 public class getPublicKeyImpl implements getPublicKeyInterface {
-	private String result;
+	private final String TAG="getPublicKeyImpl";
+	private String result="-100";
 	@Override
 	public String getPublicKey(String account, String mac) {
 		// 命名空间
@@ -47,12 +48,21 @@ public class getPublicKeyImpl implements getPublicKeyInterface {
 				try {
 					// 调用WebService
 					transport.call(soapAction, envelope);
+					if (envelope.getResponse()!=null)
+					{
+						Log.i(TAG, "Object is not null");
+					}
 				} catch (Exception e) {
 //					handler.sendEmptyMessage(3);
 				}
 
+
+
 				// 获取返回的数据
 				SoapObject object = (SoapObject) envelope.bodyIn;
+				if (object==null){
+					Log.i(TAG, "Object is null");
+				}
 				try {
 					// 获取返回的结果
 					result = object.getProperty(0).toString();
@@ -65,6 +75,8 @@ public class getPublicKeyImpl implements getPublicKeyInterface {
 						Log.i("存进去的结果：", pubUtil.getPubKey.getPublicKey());
 					}
 				} catch (Exception e) {
+					Log.i(TAG, "出现异常：" + e.getMessage());
+					e.printStackTrace();
 					pubUtil.getPubKey.setPublicKey("网络异常");
 				}
 				return result;

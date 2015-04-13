@@ -1,5 +1,6 @@
 package rwcjom.awit.com.rwcjo_m;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -20,21 +21,27 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.afollestad.materialdialogs.ThemeSingleton;
 import com.afollestad.materialdialogs.internal.MDTintHelper;
+import com.nanotasks.BackgroundWork;
+import com.nanotasks.Completion;
+import com.nanotasks.Tasks;
 
 import java.util.List;
 import java.util.Map;
 
 import de.greenrobot.event.EventBus;
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
+import rwcjom.awit.com.rwcjo_m.bean.pubUtil;
 import rwcjom.awit.com.rwcjo_m.event.MainActivityEvent;
 import rwcjom.awit.com.rwcjo_m.fragments.IndexFragment;
 import rwcjom.awit.com.rwcjo_m.fragments.ProjectFragment;
 import rwcjom.awit.com.rwcjo_m.fragments.ShuiZhunXianLuFragmentContainer;
+import rwcjom.awit.com.rwcjo_m.implInterfaces.getPublicKeyImpl;
 import rwcjom.awit.com.rwcjo_m.util.CommonTools;
 import rwcjom.awit.com.rwcjo_m.util.ValueConfig;
 
 
 public class MainActivity extends ActionBarActivity implements Toolbar.OnMenuItemClickListener,AdapterView.OnItemClickListener{
+    public final String TAG="MainActivity";
     private Toolbar toolbar;
     private SmoothProgressBar smthPrsbar;
     private DrawerLayout mDrawerLayout;
@@ -208,7 +215,43 @@ public class MainActivity extends ActionBarActivity implements Toolbar.OnMenuIte
                     @Override
                     public void onPositive(MaterialDialog dialog) {
                         //CommonTools.showToast(MainActivity.this, "登录成功，开始同步数据");
-                        CommonTools.showProgressDialog(MainActivity.this,"正在登录……");
+
+                        Tasks.executeInBackground(MainActivity.this, new BackgroundWork<String>() {
+                            @Override
+                            public String doInBackground() throws Exception {
+                                String result = "-200";
+                                //CommonTools.showProgressDialog(MainActivity.this, "正在登录……");
+                                if (passwordInput.getText().length() != 0) {
+                                    getPublicKeyImpl getPubKeyImpl = new getPublicKeyImpl();
+                                    result = getPubKeyImpl.getPublicKey(accountInput.getText() + "", null);
+                                    /*if (result.length() == 128) {
+                                        verifyAppUserImpl verify = new verifyAppUserImpl();
+                                        randomCode=verify.getVerifyAppUser(accountInput.getText() + "", passwordInput.getText() + "", null,
+                                                result);
+                                        Log.i(TAG, "randomCode"+randomCode);
+                                        if (randomCode.length() == 13) {
+                                            CommonTools.showProgressDialog(MainActivity.this, "登录成功："+randomCode);
+                                        } else {
+                                            CommonTools.showToast(MainActivity.this, randomCode + "，" + pubUtil.exception.getExceptionMsg());
+                                        }
+                                    } else {
+                                        CommonTools.showToast(MainActivity.this,result+"，"+pubUtil.exception.getExceptionMsg());
+                                    }*/
+                                }
+                                return result;
+                            }
+                        }, new Completion<String>() {
+                            @Override
+                            public void onSuccess(Context context, String result) {
+                                CommonTools.showToast(MainActivity.this, result + "，" + pubUtil.exception.getExceptionMsg());                            }
+
+                            @Override
+                            public void onError(Context context, Exception e) {
+                                //showError(e);
+                            }
+                        });
+
+
                     }
 
                     @Override
