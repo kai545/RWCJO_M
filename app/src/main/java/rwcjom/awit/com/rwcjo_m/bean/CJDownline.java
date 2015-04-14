@@ -1,4 +1,7 @@
 package rwcjom.awit.com.rwcjo_m.bean;
+
+import java.util.List;
+
 /**
  * 下载测量水准线路信息接口
  * @author Administrator
@@ -7,8 +10,7 @@ package rwcjom.awit.com.rwcjo_m.bean;
 public class CJDownline {
 	public String lc;
 	public String ln;
-	public String bp;
-	public String wp;
+	public List<Bw> bw;
 	public String getLc() {
 		return lc;
 	}
@@ -21,17 +23,10 @@ public class CJDownline {
 	public void setLn(String ln) {
 		this.ln = ln;
 	}
-	public String getBp() {
-		return bp;
+	public List<Bw> getBw() {
+		return bw;
 	}
-	public void setBp(String bp) {
-		this.bp = bp;
+	public void setBw(List<Bw> bw) {
+		this.bw = bw;
 	}
-	public String getWp() {
-		return wp;
-	}
-	public void setWp(String wp) {
-		this.wp = wp;
-	}
-	
 }

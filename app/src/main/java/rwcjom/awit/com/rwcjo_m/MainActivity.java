@@ -225,11 +225,11 @@ public class MainActivity extends ActionBarActivity implements Toolbar.OnMenuIte
                                 //CommonTools.showProgressDialog(MainActivity.this, "正在登录……");
                                 if (passwordInput.getText().length() != 0) {
                                     getPublicKeyImpl getPubKeyImpl = new getPublicKeyImpl();
-                                    String publicKey= getPubKeyImpl.getPublicKey(accountInput.getText() + "", null);
+                                    String publicKey= getPubKeyImpl.getPublicKey(accountInput.getText() + "", "password");
                                     if (publicKey.length() == 128) {
                                         verifyAppUserImpl verify = new verifyAppUserImpl();
-                                        result = verify.getVerifyAppUser(accountInput.getText() + "", passwordInput.getText() + "", null,
-                                                result);
+                                        result = verify.getVerifyAppUser(accountInput.getText() + "", passwordInput.getText() + "","password",
+                                                pubUtil.getPubKey.getPublicKey());
                                         Log.i(TAG, "randomCode" + result);
                                     }
                                 }
