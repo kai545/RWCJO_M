@@ -69,7 +69,7 @@ public class verifyAppUserImpl implements verifyAppUserInterface {
 //				// 获取返回的数据
 //				SoapObject object = (SoapObject) envelope.bodyIn;
 				try {
-					String methodName="verifyAppUser";
+					String methodNameString="verifyAppUser";
 					endPwd=RSACoder.encnryptDes(pwd,preKey);
 					endKey=RSACoder.encnryptRSA(preKey, deskey);
 					Map<String,String> paramsvalue=new HashMap<String ,String >();
@@ -77,7 +77,7 @@ public class verifyAppUserImpl implements verifyAppUserInterface {
 					paramsvalue.put("mac",mac);
 					paramsvalue.put("pwd",endPwd);
 					paramsvalue.put("deskey",endKey);
-					SoapObject object= CommonTools.getObject(methodName,paramsvalue);
+					SoapObject object=CommonTools.getObject(methodNameString,paramsvalue);
 					if(object !=null){
 						Log.i(TAG,"object is not null!");
 					}

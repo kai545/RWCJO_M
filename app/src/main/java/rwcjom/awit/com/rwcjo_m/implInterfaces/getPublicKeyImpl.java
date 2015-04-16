@@ -18,7 +18,7 @@ import rwcjom.awit.com.rwcjo_m.interfaces.getPublicKeyInterface;
 
 public class getPublicKeyImpl implements getPublicKeyInterface {
 	private final String TAG="getPublicKeyImpl";
-	private String result="-100";
+	private static String result="-100";
 	@Override
 	public String getPublicKey(String account, String mac) {
 //			    // 命名空间
@@ -69,13 +69,14 @@ public class getPublicKeyImpl implements getPublicKeyInterface {
 //				}
 
 				try {
+					Log.i(TAG,"登录实现");
 					String methodNameString="getPublicKey";
 					Map<String,String> paramsvalue=new HashMap<String,String>();
 					paramsvalue.put("account",account);
 					paramsvalue.put("mac",mac);
-					SoapObject object= CommonTools.getObject(methodNameString,paramsvalue);
-					if(object !=null){
-						Log.i(TAG, "Object is not null");
+					SoapObject object=CommonTools.getObject(methodNameString,paramsvalue);
+					if(object ==null){
+						Log.i(TAG, "Object is null");
 					}
 					// 获取返回的结果
 					result = object.getProperty(0).toString();
@@ -94,6 +95,7 @@ public class getPublicKeyImpl implements getPublicKeyInterface {
 					}
 				} catch(NullPointerException e){
 					Log.i(TAG,"空指针异常");
+					result="-300";
 					e.printStackTrace();
 					pubUtil.exception.setExceptionMsg("空指针异常");
 				}catch (Exception e) {
@@ -101,7 +103,6 @@ public class getPublicKeyImpl implements getPublicKeyInterface {
 					e.printStackTrace();
 					pubUtil.exception.setExceptionMsg("网络异常");
 				}
-
 				return result;
 			}
 	

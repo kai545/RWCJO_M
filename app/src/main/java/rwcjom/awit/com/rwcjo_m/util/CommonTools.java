@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Set;
 
 import ICT.utils.RSACoder;
+import rwcjom.awit.com.rwcjo_m.bean.pubUtil;
 
 /**
  * Created by Fantasy on 15/4/10.
@@ -43,7 +44,7 @@ public class CommonTools {
                 .show();
     }
 
-    public static SoapObject getObject(String methodNameString, Map<String ,String> paramsvalue){
+    public static SoapObject getObject(String methodNameString, Map<String ,String> paramsvalue) {
         // 命名空间
         String nameSpace = ValueConfig.NAMESPACE_STRING;
 
@@ -52,20 +53,20 @@ public class CommonTools {
         // EndPoint
         String endPoint = ValueConfig.ENDPOINT_STRING;
         // SOAP Action
-        String soapAction = ValueConfig.NAMESPACE_STRING+methodNameString;
+        String soapAction = ValueConfig.NAMESPACE_STRING + methodNameString;
 
         // 指定WebService的命名空间和调用的方法名
         SoapObject rpc = new SoapObject(nameSpace, methodNames);
-            java.util.Iterator iter = paramsvalue.entrySet().iterator();
-            while (iter.hasNext()) {
-                Map.Entry entry = (Map.Entry) iter.next();
-                key=entry.getKey().toString();
-                val=entry.getValue().toString();
-                Log.i("key",key);
-                Log.i("Val", val);
-                rpc.addProperty(key, val);
-            }
-       // 生成调用WebService方法的SOAP请求信息,并指定SOAP的版本
+        java.util.Iterator iter = paramsvalue.entrySet().iterator();
+        while (iter.hasNext()) {
+            Map.Entry entry = (Map.Entry) iter.next();
+            key = entry.getKey().toString();
+            val = entry.getValue().toString();
+            Log.i("key", key);
+            Log.i("Val", val);
+            rpc.addProperty(key, val);
+        }
+        // 生成调用WebService方法的SOAP请求信息,并指定SOAP的版本
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
                 SoapEnvelope.VER10);
 
@@ -79,17 +80,19 @@ public class CommonTools {
         try {
             // 调用WebService
             transport.call(soapAction, envelope);
-            if (envelope.getResponse()!=null)
-            {
+            if (envelope.getResponse() != null) {
                 Log.i("TAG", "Object is not null");
             }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            Log.i("TAG", "空指针异常");
         } catch (Exception e) {
-//					handler.sendEmptyMessage(3);
+            e.printStackTrace();
+            pubUtil.exception.setExceptionMsg("网络异常");
         }
         // 获取返回的数据
         SoapObject object = (SoapObject) envelope.bodyIn;
-        Log.i("object",object.toString());
+        Log.i("object", object.toString());
         return object;
     }
-
 }
