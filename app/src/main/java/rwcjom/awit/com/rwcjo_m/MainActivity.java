@@ -33,6 +33,7 @@ import de.greenrobot.event.EventBus;
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
 import rwcjom.awit.com.rwcjo_m.bean.pubUtil;
 import rwcjom.awit.com.rwcjo_m.event.MainActivityEvent;
+import rwcjom.awit.com.rwcjo_m.fragments.DataSyncFragment;
 import rwcjom.awit.com.rwcjo_m.fragments.IndexFragment;
 import rwcjom.awit.com.rwcjo_m.fragments.ProjectFragment;
 import rwcjom.awit.com.rwcjo_m.fragments.ShuiZhunXianLuFragmentContainer;
@@ -50,7 +51,6 @@ public class MainActivity extends ActionBarActivity implements Toolbar.OnMenuIte
     private ActionBarDrawerToggle mDrawerToggle;
     private ListView mDrawerList;
 
-
     private List<Map<String, Object>> left_menu_list;
 
     @Override
@@ -58,6 +58,10 @@ public class MainActivity extends ActionBarActivity implements Toolbar.OnMenuIte
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);//注册事件总线
         setContentView(R.layout.activity_main_out);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        Fragment fragment=new IndexFragment();
+        ft.replace(R.id.drawer_fragment_layout, fragment);
+        ft.commit();
         initToolbar();
         initDrawerMenu();
     }
@@ -203,9 +207,10 @@ public class MainActivity extends ActionBarActivity implements Toolbar.OnMenuIte
     }
 
     private EditText accountInput,passwordInput;
+    private MaterialDialog loginDialog;
     private void showLoginView() {
 
-        MaterialDialog dialog = new MaterialDialog.Builder(this)
+        loginDialog = new MaterialDialog.Builder(this)
                 .theme(Theme.LIGHT)
                 .title(R.string.login_dialog_title)
                 .titleColor(R.color.syscolor)
@@ -240,6 +245,16 @@ public class MainActivity extends ActionBarActivity implements Toolbar.OnMenuIte
                             public void onSuccess(Context context, String result) {
                                 if (result.length() == 13) {
                                     CommonTools.showToast(MainActivity.this, "登录成功：" + result);
+                                    loginDialog.dismiss();
+
+                                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                                    Fragment dataSyncFragment=new DataSyncFragment();
+                                    Bundle b = new Bundle();
+                                    b.putString("username",accountInput.getText()+"");
+                                    b.putString("randomCode", result);
+                                    dataSyncFragment.setArguments(b);
+                                    ft.replace(R.id.drawer_fragment_layout,dataSyncFragment);
+                                    ft.commit();
                                 } else {
                                     CommonTools.showToast(MainActivity.this, result + "，" + pubUtil.exception.getExceptionMsg());
                                 }
@@ -259,10 +274,10 @@ public class MainActivity extends ActionBarActivity implements Toolbar.OnMenuIte
                         dialog.dismiss();
                     }
                 }).build();
-        dialog.setCanceledOnTouchOutside(false);
+        loginDialog.setCanceledOnTouchOutside(false);
 
-        accountInput = (EditText) dialog.getCustomView().findViewById(R.id.login_account);
-        passwordInput = (EditText) dialog.getCustomView().findViewById(R.id.login_password);
+        accountInput = (EditText) loginDialog.getCustomView().findViewById(R.id.login_account);
+        passwordInput = (EditText) loginDialog.getCustomView().findViewById(R.id.login_password);
 
         if (ValueConfig.DEBUG_MODE){
             accountInput.setText(ValueConfig.TEST_ACCOUNT);
@@ -277,7 +292,7 @@ public class MainActivity extends ActionBarActivity implements Toolbar.OnMenuIte
         MDTintHelper.setEditTextTint(passwordInput,
                 widgetColor == 0 ? getResources().getColor(R.color.syscolor) : widgetColor);
 
-        dialog.show();
+        loginDialog.show();
     }
 
 }

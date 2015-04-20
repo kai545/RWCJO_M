@@ -1,0 +1,48 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="rwcjom.awit.com.rwcjo_m.fragments.DataSyncFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="@string/logineduser_label" />
+    <TextView android:id="@+id/logined_username" android:layout_width="match_parent" android:layout_height="wrap_content"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/data_sync_dl_section_btn_text"
+        android:id="@+id/data_sync_dl_section" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/data_sync_dl_face_btn_text"
+        android:id="@+id/data_sync_dl_face" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/data_sync_dl_testPoint_btn_text"
+        android:id="@+id/data_sync_dl_testPoint" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/data_sync_dl_person_btn_text"
+        android:id="@+id/data_sync_dl_person" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/data_sync_dl_basePoint_btn_text"
+        android:id="@+id/data_sync_dl_basePoint" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/data_sync_dl_line_btn_text"
+        android:id="@+id/data_sync_dl_line" />
+</LinearLayout>
