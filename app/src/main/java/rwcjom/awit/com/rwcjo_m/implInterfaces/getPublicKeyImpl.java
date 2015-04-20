@@ -8,6 +8,7 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import rwcjom.awit.com.rwcjo_m.util.CommonTools;
@@ -71,10 +72,12 @@ public class getPublicKeyImpl implements getPublicKeyInterface {
 				try {
 					Log.i(TAG,"登录实现");
 					String methodNameString="getPublicKey";
-					Map<String,String> paramsvalue=new HashMap<String,String>();
+					Map<String,String> paramsvalue=new LinkedHashMap<>();
 					paramsvalue.put("account",account);
 					paramsvalue.put("mac",mac);
-					SoapObject object=CommonTools.getObject(methodNameString,paramsvalue);
+					//SoapObject object=CommonTools.getObject(methodNameString,paramsvalue);
+					SoapSerializationEnvelope envelope=CommonTools.getEnvelope(methodNameString,paramsvalue);
+					SoapObject object=(SoapObject)envelope.bodyIn;
 					if(object ==null){
 						Log.i(TAG, "Object is null");
 					}

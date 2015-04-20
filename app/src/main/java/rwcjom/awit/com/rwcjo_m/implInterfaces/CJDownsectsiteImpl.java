@@ -8,7 +8,9 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import rwcjom.awit.com.rwcjo_m.bean.CJDownsectsite;
@@ -19,6 +21,7 @@ import rwcjom.awit.com.rwcjo_m.interfaces.CJDownsectsiteInterface;
 
 
 public class CJDownsectsiteImpl implements CJDownsectsiteInterface {
+	private List<String> putlist=new ArrayList<String>();
 	private final String TAG="CJDownsectsiteImpl";
 	private String result="";
 	private String[] secStr;
@@ -64,19 +67,23 @@ public class CJDownsectsiteImpl implements CJDownsectsiteInterface {
 //				SoapObject object = (SoapObject)  envelope.bodyIn;
 //				Log.i("object", object+"");
 				try {
+					Log.i(TAG,randomcode);
 					String methodNameString="CJDownsectsite";
-					Map<String,String> paramsvalue=new HashMap<String,String>();
-					paramsvalue.put("sectid",sectid);
-					paramsvalue.put("sitetype",sitetype);
-					paramsvalue.put("randomcode",randomcode);
-					SoapObject object= CommonTools.getObject(methodNameString, paramsvalue);
-					if(object !=null){
-						Log.i(TAG, "Object is not null");
+					Map<String,String> paramsvalue=new LinkedHashMap<String,String>();
+					paramsvalue.put("sectid", sectid);
+					paramsvalue.put("sitetype", sitetype);
+					paramsvalue.put("randomcode", randomcode);
+					SoapSerializationEnvelope envelope=CommonTools.getEnvelope(methodNameString,paramsvalue);
+					SoapObject object=(SoapObject)envelope.getResponse();
+					if(object ==null){
+						Log.i(TAG, "Object is null");
 					}
+					Log.i(TAG,pubUtil.downsectsites.size()+"");
 					if(pubUtil.downsectsites.size()>0){
 						pubUtil.downsectsites.clear();
 					}
 					// 获取返回的结果
+					Log.i(TAG,object.getPropertyCount()+"");
 					for(int i =0;i<object.getPropertyCount();i++){
 						CJDownsectsite downsectsite=new CJDownsectsite();
 						result = object.getProperty(i).toString();
@@ -98,7 +105,7 @@ public class CJDownsectsiteImpl implements CJDownsectsiteInterface {
 							downsectsite.setSectionCode(secStr[1]);
 							downsectsite.setSectionName(secStr[2]);
 							pubUtil.downsectsites.add(downsectsite);
-						}else{
+						}else if(secStr.length==5){
 							downsectsite.setSectionId(secStr[0]);
 							downsectsite.setSectionCode(secStr[1]);
 							downsectsite.setSectionName(secStr[2]);
@@ -108,6 +115,10 @@ public class CJDownsectsiteImpl implements CJDownsectsiteInterface {
 						}
 					}
 					
+				}catch(ArrayIndexOutOfBoundsException e){
+					Log.i(TAG,"数组下标越界");
+					e.printStackTrace();
+					pubUtil.exception.setExceptionMsg("下标越界");
 				}catch(NullPointerException e){
 					e.printStackTrace();
 					Log.i(TAG, "空指针异常");

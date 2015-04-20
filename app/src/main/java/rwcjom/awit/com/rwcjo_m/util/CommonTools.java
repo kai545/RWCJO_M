@@ -7,10 +7,12 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import org.ksoap2.SoapEnvelope;
+import org.ksoap2.SoapFault;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -26,8 +28,8 @@ public class CommonTools {
     private static String preKey="AWITRWCJ";
     private static String endPwd="";
     private static String endKey="";
-    private static String key="";
     private static String val="";
+    private static String TAG="CommonTools";
     public static void showToast(Context cxt,String message) {
         if (mToast != null) {
             mToast.cancel();
@@ -44,7 +46,7 @@ public class CommonTools {
                 .show();
     }
 
-    public static SoapObject getObject(String methodNameString, Map<String ,String> paramsvalue) {
+    public static SoapSerializationEnvelope getEnvelope(String methodNameString, Map<String ,String> paramsvalue) {
         // 命名空间
         String nameSpace = ValueConfig.NAMESPACE_STRING;
 
@@ -57,14 +59,13 @@ public class CommonTools {
 
         // 指定WebService的命名空间和调用的方法名
         SoapObject rpc = new SoapObject(nameSpace, methodNames);
-        java.util.Iterator iter = paramsvalue.entrySet().iterator();
-        while (iter.hasNext()) {
-            Map.Entry entry = (Map.Entry) iter.next();
-            key = entry.getKey().toString();
-            val = entry.getValue().toString();
-            Log.i("key", key);
+        for (Iterator it =  paramsvalue.keySet().iterator();it.hasNext();)
+        {
+            Object key = it.next();
+            val=paramsvalue.get(key);
+            Log.i("key", key.toString());
             Log.i("Val", val);
-            rpc.addProperty(key, val);
+            rpc.addProperty(key.toString(),val);
         }
         // 生成调用WebService方法的SOAP请求信息,并指定SOAP的版本
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
@@ -83,16 +84,23 @@ public class CommonTools {
             if (envelope.getResponse() != null) {
                 Log.i("TAG", "Object is not null");
             }
-        } catch (NullPointerException e) {
+        } catch(SoapFault e){
             e.printStackTrace();
-            Log.i("TAG", "空指针异常");
+            Log.i(TAG, "soap异常");
+            pubUtil.exception.setExceptionMsg("soap异常");
+        }catch(ClassCastException e){
+            e.printStackTrace();
+            Log.i(TAG, "造型异常");
+            pubUtil.exception.setExceptionMsg("造型异常");
+        }catch (NullPointerException e) {
+            e.printStackTrace();
+            Log.i(TAG, "空指针异常");
+            pubUtil.exception.setExceptionMsg("空指针异常");
         } catch (Exception e) {
             e.printStackTrace();
+            Log.i(TAG, "网络异常");
             pubUtil.exception.setExceptionMsg("网络异常");
         }
-        // 获取返回的数据
-        SoapObject object = (SoapObject) envelope.bodyIn;
-        Log.i("object", object.toString());
-        return object;
+        return envelope;
     }
 }

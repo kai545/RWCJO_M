@@ -8,6 +8,7 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import ICT.utils.RSACoder;
@@ -72,14 +73,16 @@ public class verifyAppUserImpl implements verifyAppUserInterface {
 					String methodNameString="verifyAppUser";
 					endPwd=RSACoder.encnryptDes(pwd,preKey);
 					endKey=RSACoder.encnryptRSA(preKey, deskey);
-					Map<String,String> paramsvalue=new HashMap<String ,String >();
+					Map<String,String> paramsvalue=new LinkedHashMap<>();
 					paramsvalue.put("account",account);
-					paramsvalue.put("mac",mac);
 					paramsvalue.put("pwd",endPwd);
+					paramsvalue.put("mac",mac);
 					paramsvalue.put("deskey",endKey);
-					SoapObject object=CommonTools.getObject(methodNameString,paramsvalue);
-					if(object !=null){
-						Log.i(TAG,"object is not null!");
+					//SoapObject object=CommonTools.getObject();
+					SoapSerializationEnvelope envelope=CommonTools.getEnvelope(methodNameString,paramsvalue);
+					SoapObject object=(SoapObject)envelope.bodyIn;
+					if(object ==null){
+						Log.i(TAG,"object is null!");
 					}
 					// 获取返回的结果
 					 result = object.getProperty(0).toString();
@@ -99,6 +102,10 @@ public class verifyAppUserImpl implements verifyAppUserInterface {
 					 }else{
 						 pubUtil.exception.setExceptionMsg("账号过期"); 
 					 }
+				}catch(ClassCastException e){
+					e.printStackTrace();
+					Log.i(TAG, "造型异常");
+					pubUtil.exception.setExceptionMsg("造型异常");
 				} catch(NullPointerException e){
 					Log.i(TAG,"空指针异常");
 					e.printStackTrace();
