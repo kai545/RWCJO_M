@@ -11,6 +11,7 @@ import org.ksoap2.transport.HttpTransportSE;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -71,10 +72,15 @@ public class CJDownlineImpl implements CJDownlineInterface {
 			try {
 				Log.i(TAG, randomcode);
 				String methodNameString="CJDownline";
-				Map<String,String> paramsvalue=new HashMap<String,String>();
+				Map<String,String> paramsvalue=new LinkedHashMap<>();
 				paramsvalue.put("sectid",sectid);
+				paramsvalue.put("startdate",startdate);
+				paramsvalue.put("enddate",enddate);
 				paramsvalue.put("randomcode",randomcode);
-				object=CommonTools.getObject(methodNameString,paramsvalue);
+				//object=CommonTools.getObject(methodNameString,paramsvalue);
+				SoapSerializationEnvelope envelope=CommonTools.getEnvelope(methodNameString,paramsvalue);
+				object=(SoapObject)envelope.bodyIn;
+				Log.i(TAG,object.toString());
 				if(object ==null){
 					Log.i(TAG, "Object is null");
 				}
