@@ -28,44 +28,6 @@ public class CJDownsectsiteImpl implements CJDownsectsiteInterface {
 	@Override
 	public void getCJDownsectsite(String sectid, String sitetype,
 			String randomcode) {
-//				// 命名空间
-//				String nameSpace = ValueConfig.NAMESPACE_STRING;
-//
-//				// 调用的方法名称
-//				String methodName = "CJDownsectsite";
-//				// EndPoint
-//				String endPoint = ValueConfig.ENDPOINT_STRING;
-//				// SOAP Action
-//				String soapAction = ValueConfig.NAMESPACE_STRING+"CJDownsectsite";
-//
-//				// 指定WebService的命名空间和调用的方法名
-//				SoapObject rpc = new SoapObject(nameSpace, methodName);
-//				// 设置需调用WebService接口需要传入的两个参数mobileCode、userId
-//				Log.i("randomcode",randomcode);
-//				rpc.addProperty("sectid", sectid);
-//				rpc.addProperty("sitetype", sitetype);
-//				rpc.addProperty("randomcode", randomcode);
-//				// 生成调用WebService方法的SOAP请求信息,并指定SOAP的版本
-//				SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
-//						SoapEnvelope.VER10);
-//
-//				envelope.bodyOut = rpc;
-//				// 设置是否调用的是dotNet开发的WebService
-//				envelope.dotNet = true;
-//				// 等价于envelope.bodyOut = rpc;
-//				envelope.setOutputSoapObject(rpc);
-//
-//				HttpTransportSE transport = new HttpTransportSE(endPoint);
-//				try {
-//					// 调用WebService
-//					transport.call(soapAction, envelope);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//
-//				// 获取返回的数据
-//				SoapObject object = (SoapObject)  envelope.bodyIn;
-//				Log.i("object", object+"");
 				try {
 					Log.i(TAG,randomcode);
 					String methodNameString="CJDownsectsite";
@@ -115,6 +77,10 @@ public class CJDownsectsiteImpl implements CJDownsectsiteInterface {
 						}
 					}
 					
+				}catch(ClassCastException e){
+					e.printStackTrace();
+					Log.i(TAG, "造型异常");
+					pubUtil.exception.setExceptionMsg("造型异常");
 				}catch(ArrayIndexOutOfBoundsException e){
 					Log.i(TAG,"数组下标越界");
 					e.printStackTrace();

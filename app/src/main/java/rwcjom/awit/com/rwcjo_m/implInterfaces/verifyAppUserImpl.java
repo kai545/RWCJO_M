@@ -27,48 +27,6 @@ public class verifyAppUserImpl implements verifyAppUserInterface {
 	@Override
 	public  String  getVerifyAppUser(String account, String pwd, String mac,
 			String deskey) {
-//				// 命名空间
-//				String nameSpace = ValueConfig.NAMESPACE_STRING;
-//				// 调用的方法名称
-//				String methodName = "verifyAppUser";
-//				// EndPoint
-//				String endPoint = ValueConfig.ENDPOINT_STRING;
-//				// SOAP Action
-//				String soapAction = ValueConfig.NAMESPACE_STRING+"verifyAppUser";
-//
-//				// 指定WebService的命名空间和调用的方法名
-//				SoapObject rpc = new SoapObject(nameSpace, methodName);
-//				/**
-//				 *密码和公钥加密
-//				 */
-//				Log.i("deskey", deskey);
-//				endPwd=RSACoder.encnryptDes(pwd,preKey);
-//				Log.i("endPwd", endPwd);
-//				endKey=RSACoder.encnryptRSA(preKey,deskey);
-//				Log.i("endKey", endKey);
-//				// 设置需调用WebService接口需要传入的两个参数mobileCode、userId
-//				rpc.addProperty("account", account);
-//				rpc.addProperty("pwd", endPwd);
-//				rpc.addProperty("mac", mac);
-//				rpc.addProperty("deskey", endKey);
-//				// 生成调用WebService方法的SOAP请求信息,并指定SOAP的版本
-//				SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
-//						SoapEnvelope.VER10);
-//				envelope.bodyOut = rpc;
-//				// 设置是否调用的是dotNet开发的WebService
-//				envelope.dotNet = true;
-//				// 等价于envelope.bodyOut = rpc;
-//				envelope.setOutputSoapObject(rpc);
-//
-//				HttpTransportSE transport = new HttpTransportSE(endPoint);
-//				try {
-//					// 调用WebService
-//					transport.call(soapAction, envelope);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//				// 获取返回的数据
-//				SoapObject object = (SoapObject) envelope.bodyIn;
 				try {
 					String methodNameString="verifyAppUser";
 					endPwd=RSACoder.encnryptDes(pwd,preKey);
@@ -78,7 +36,6 @@ public class verifyAppUserImpl implements verifyAppUserInterface {
 					paramsvalue.put("pwd",endPwd);
 					paramsvalue.put("mac",mac);
 					paramsvalue.put("deskey",endKey);
-					//SoapObject object=CommonTools.getObject();
 					SoapSerializationEnvelope envelope=CommonTools.getEnvelope(methodNameString,paramsvalue);
 					SoapObject object=(SoapObject)envelope.bodyIn;
 					if(object ==null){

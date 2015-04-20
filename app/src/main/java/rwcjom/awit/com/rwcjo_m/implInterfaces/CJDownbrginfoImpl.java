@@ -7,54 +7,37 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import rwcjom.awit.com.rwcjo_m.bean.CJDownbrginfo;
+import rwcjom.awit.com.rwcjo_m.util.CommonTools;
 import rwcjom.awit.com.rwcjo_m.util.ValueConfig;
 import rwcjom.awit.com.rwcjo_m.bean.pubUtil;
 import rwcjom.awit.com.rwcjo_m.interfaces.CJDownbrginfoInterface;
 
 public class CJDownbrginfoImpl implements CJDownbrginfoInterface {
+	private String TAG="CJDownbrginfoImpl";
 	private String result;
 	@Override
 	public void getCJDownbrginfo(String siteid, String faceid, String randomcode) {
-		// 命名空间
-				String nameSpace = ValueConfig.NAMESPACE_STRING;
-
-				// 调用的方法名称
-				String methodName = "CJDownbrginfo";
-				// EndPoint
-				String endPoint = ValueConfig.ENDPOINT_STRING;
-				// SOAP Action
-				String soapAction =ValueConfig.NAMESPACE_STRING+"CJDownbrginfo";
-
-				// 指定WebService的命名空间和调用的方法名
-				SoapObject rpc = new SoapObject(nameSpace, methodName);
-				// 设置需调用WebService接口需要传入的两个参数mobileCode、userId
-				Log.i("randomcode",randomcode);
-				rpc.addProperty("siteid", siteid);
-				rpc.addProperty("faceid", faceid);
-				rpc.addProperty("randomcode", randomcode);
-				// 生成调用WebService方法的SOAP请求信息,并指定SOAP的版本
-				SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
-						SoapEnvelope.VER10);
-
-				envelope.bodyOut = rpc;
-				// 设置是否调用的是dotNet开发的WebService
-				envelope.dotNet = true;
-				// 等价于envelope.bodyOut = rpc;
-				envelope.setOutputSoapObject(rpc);
-
-				HttpTransportSE transport = new HttpTransportSE(endPoint);
 				try {
-					// 调用WebService
-					transport.call(soapAction, envelope);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				try {
-					// 获取返回的数据
-					SoapObject object = (SoapObject) envelope.getResponse();
-					pubUtil.downbrginfos.clear();
-					Log.i("objectLength", object.getPropertyCount()+"");
+					Log.i(TAG,randomcode);
+					String methodNameString="CJDownbrginfo";
+					Map<String,String> paramsvalue=new LinkedHashMap<>();
+					paramsvalue.put("siteid",siteid);
+					paramsvalue.put("faceid",faceid);
+					paramsvalue.put("randomcode",randomcode);
+					SoapSerializationEnvelope envelope=CommonTools.getEnvelope(methodNameString,paramsvalue);
+					SoapObject object=(SoapObject)envelope.getResponse();
+					if(object ==null){
+						Log.i(TAG, "Object is null");
+					}
+					if(pubUtil.downbrginfos.size()>0){
+						pubUtil.downbrginfos.clear();
+					}
+					Log.i("CJDownbrginfoLength", object.getPropertyCount() + "");
 					if(object.getPropertyCount()==3){
 						if(object.getProperty(0).toString().equals("-1")){
 							pubUtil.exception.setExceptionMsg("siteid有误");
@@ -64,7 +47,7 @@ public class CJDownbrginfoImpl implements CJDownbrginfoInterface {
 							pubUtil.exception.setExceptionMsg("randomcode有误");
 						}
 						Log.i("exception", pubUtil.exception.getExceptionMsg());
-					}else{
+					}else if(object.getPropertyCount()==6){
 						CJDownbrginfo downbrginfo=new CJDownbrginfo();
 						downbrginfo.setFaceid(object.getProperty(object.getPropertyCount()-6).toString());
 						downbrginfo.setStructname(object.getProperty(object.getPropertyCount()-5).toString());
@@ -74,8 +57,18 @@ public class CJDownbrginfoImpl implements CJDownbrginfoInterface {
 						downbrginfo.setRemark(object.getProperty(object.getPropertyCount()-1).toString());
 						pubUtil.downbrginfos.add(downbrginfo);
 					}
+				}catch(ClassCastException e){
+					e.printStackTrace();
+					Log.i(TAG, "造型异常");
+					pubUtil.exception.setExceptionMsg("造型异常");
+				}catch(NullPointerException e){
+					e.printStackTrace();
+					Log.i(TAG, "空指针异常");
+					pubUtil.exception.setExceptionMsg("空指针异常");
 				} catch (Exception e) {
 					e.printStackTrace();
+					Log.i(TAG, "网络异常");
+					pubUtil.exception.setExceptionMsg("网络异常");
 				}
 	}
 
