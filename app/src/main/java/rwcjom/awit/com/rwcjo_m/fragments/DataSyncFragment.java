@@ -85,11 +85,13 @@ public class DataSyncFragment extends Fragment {
                             mCJDownsectsite = new ArrayList<CJDownsectsite>();
                             CJDownsectsiteImpl mCJDownsectsiteImpl = new CJDownsectsiteImpl();
                             for (int i = 0; i < 3; i++) {
-                                mCJDownsectsiteImpl.getCJDownsectsite("0", i + "", randomCode);//调用接口
-                                if (pubUtil.downsectsites.size() >= 2) {
+                                List<CJDownsectsite> thismCJDownsectsite = mCJDownsectsiteImpl.getCJDownsectsite("0", i + "", randomCode);//调用接口
+                                Log.i(TAG, "本次（" + i + "）数据条目：" + thismCJDownsectsite.size());
+                                if (thismCJDownsectsite.size() >= 2) {
                                     //有工点信息
-                                    mCJDownsectsite.addAll(pubUtil.downsectsites);
-                                    Log.i(TAG,"数据条目："+mCJDownsectsite.size());
+                                    mCJDownsectsite.addAll(thismCJDownsectsite);
+                                    Log.i(TAG, "总数据条目：" + mCJDownsectsite.size());
+                                    Log.i(TAG, mCJDownsectsite + "");
                                 } else if (mCJDownsectsite.size() == 1) {
                                     //有错误信息
                                 } else {
@@ -104,12 +106,10 @@ public class DataSyncFragment extends Fragment {
                 }, new Completion<List<CJDownsectsite>>() {
                     @Override
                     public void onSuccess(Context context, List<CJDownsectsite> result) {
-                        CommonTools.showToast(context, "下载完毕");
-                        if (result!=null && result.size() != 0) {
-                            CommonTools.showToast(context, "下载成功");
+                        if (result != null && result.size() != 0) {
                             EventBus.getDefault().post(new DataSyncFragmentEvent(100));
                         } else {
-                            CommonTools.showToast(context,  "Exception：" + pubUtil.exception.getExceptionMsg());
+                            CommonTools.showToast(context, "Exception：" + pubUtil.exception.getExceptionMsg());
                         }
                     }
 
