@@ -13,7 +13,6 @@ public class ExampleDaoGenerator {
         addSection(schema);
         addSite(schema);
         addFaceNews(schema);
-        //addCustomerOrder(schema);
 
         new DaoGenerator().generateAll(schema, "./app/src/main/java");
     }
