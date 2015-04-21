@@ -23,9 +23,9 @@ public class FaceNewsDao extends AbstractDao<FaceNews, String> {
      * Can be used for QueryBuilder and for referencing column names.
     */
     public static class Properties {
-        public final static Property FaceId = new Property(0, String.class, "faceId", true, "FACE_ID");
-        public final static Property FaceCode = new Property(1, String.class, "faceCode", false, "FACE_CODE");
-        public final static Property FaceName = new Property(2, String.class, "faceName", false, "FACE_NAME");
+        public final static Property Faceid = new Property(0, String.class, "faceid", true, "FACEID");
+        public final static Property Facecode = new Property(1, String.class, "facecode", false, "FACECODE");
+        public final static Property Facename = new Property(2, String.class, "facename", false, "FACENAME");
     };
 
 
@@ -41,9 +41,9 @@ public class FaceNewsDao extends AbstractDao<FaceNews, String> {
     public static void createTable(SQLiteDatabase db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "'FACE_NEWS' (" + //
-                "'FACE_ID' TEXT PRIMARY KEY NOT NULL ," + // 0: faceId
-                "'FACE_CODE' TEXT," + // 1: faceCode
-                "'FACE_NAME' TEXT);"); // 2: faceName
+                "'FACEID' TEXT PRIMARY KEY NOT NULL ," + // 0: faceid
+                "'FACECODE' TEXT," + // 1: facecode
+                "'FACENAME' TEXT);"); // 2: facename
     }
 
     /** Drops the underlying database table. */
@@ -57,19 +57,19 @@ public class FaceNewsDao extends AbstractDao<FaceNews, String> {
     protected void bindValues(SQLiteStatement stmt, FaceNews entity) {
         stmt.clearBindings();
  
-        String faceId = entity.getFaceId();
-        if (faceId != null) {
-            stmt.bindString(1, faceId);
+        String faceid = entity.getFaceid();
+        if (faceid != null) {
+            stmt.bindString(1, faceid);
         }
  
-        String faceCode = entity.getFaceCode();
-        if (faceCode != null) {
-            stmt.bindString(2, faceCode);
+        String facecode = entity.getFacecode();
+        if (facecode != null) {
+            stmt.bindString(2, facecode);
         }
  
-        String faceName = entity.getFaceName();
-        if (faceName != null) {
-            stmt.bindString(3, faceName);
+        String facename = entity.getFacename();
+        if (facename != null) {
+            stmt.bindString(3, facename);
         }
     }
 
@@ -83,9 +83,9 @@ public class FaceNewsDao extends AbstractDao<FaceNews, String> {
     @Override
     public FaceNews readEntity(Cursor cursor, int offset) {
         FaceNews entity = new FaceNews( //
-            cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0), // faceId
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // faceCode
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2) // faceName
+            cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0), // faceid
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // facecode
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2) // facename
         );
         return entity;
     }
@@ -93,22 +93,22 @@ public class FaceNewsDao extends AbstractDao<FaceNews, String> {
     /** @inheritdoc */
     @Override
     public void readEntity(Cursor cursor, FaceNews entity, int offset) {
-        entity.setFaceId(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
-        entity.setFaceCode(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setFaceName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setFaceid(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
+        entity.setFacecode(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setFacename(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
      }
     
     /** @inheritdoc */
     @Override
     protected String updateKeyAfterInsert(FaceNews entity, long rowId) {
-        return entity.getFaceId();
+        return entity.getFaceid();
     }
     
     /** @inheritdoc */
     @Override
     public String getKey(FaceNews entity) {
         if(entity != null) {
-            return entity.getFaceId();
+            return entity.getFaceid();
         } else {
             return null;
         }
