@@ -2,31 +2,33 @@ package rwcjom.awit.com.rwcjo_m.implInterfaces;
 
 import android.util.Log;
 
-import org.ksoap2.SoapEnvelope;
-import org.ksoap2.SoapFault;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import rwcjom.awit.com.rwcjo_m.bean.CJDownface;
+import rwcjom.awit.com.rwcjo_m.bean.FaceNews;
 import rwcjom.awit.com.rwcjo_m.util.CommonTools;
 import rwcjom.awit.com.rwcjo_m.util.ValueConfig;
-import rwcjom.awit.com.rwcjo_m.bean.pubUtil;
 import rwcjom.awit.com.rwcjo_m.interfaces.CJDownfaceInterface;
 
 
 public class CJDownfaceImpl implements CJDownfaceInterface {
 	private String TAG="CJDownfaceImpl";
+	private List<CJDownface> cjdownfacelist;
+	private CJDownface cjdownface;
+	private FaceNews faceObj;
 	private String result;
+	private String[] faceStr;
 	@Override
-	public void getCJDownface(String siteid, String startdate, String enddate,
+	public List<CJDownface> getCJDownface(String siteid, String startdate, String enddate,
 			String randomcode) {
-				String[] faceStr;
 				try {
+					cjdownfacelist=new ArrayList<CJDownface>();
 					Log.i(TAG,randomcode);
 					String methodNameString="CJDownface";
 					Map<String,String> paramsvalue=new LinkedHashMap<>();
@@ -39,52 +41,59 @@ public class CJDownfaceImpl implements CJDownfaceInterface {
 					if(object ==null){
 						Log.i(TAG, "Object is null");
 					}
-					if(pubUtil.downfaces.size()>0){
-						pubUtil.downfaces.clear();
-					}
 					// 获取返回的结果
 					for(int i =0;i<object.getPropertyCount();i++){
 						result = object.getProperty(i).toString();
 						Log.i("result", result);
 						faceStr=result.split(ValueConfig.SPLIT_CHAR);
 						if(faceStr.length==5){
+							cjdownface=new CJDownface();
+							cjdownface.setFlag(-1);
 							if(faceStr[0].equals("-1")){
-								pubUtil.exception.setExceptionMsg("siteid有误");
+								cjdownface.setMsg("siteid有误");
 							}else if(faceStr[1].equals("-1")){
-								pubUtil.exception.setExceptionMsg("startdate有误");
+								cjdownface.setMsg("startdate有误");
 							}else if(faceStr[2].equals("-1")){
-								pubUtil.exception.setExceptionMsg("enddate有误");
+								cjdownface.setMsg("enddate有误");
 							}else if(faceStr[3].equals("-1")){
-								pubUtil.exception.setExceptionMsg("randomcode有误");
+								cjdownface.setMsg("randomcode有误");
 							}else {
-								pubUtil.exception.setExceptionMsg("该标段下无相应的工点");
+								cjdownface.setMsg("该标段下无相应的工点");
 							}
-							Log.i("exception", pubUtil.exception.getExceptionMsg());
+							Log.i("exception",cjdownface.getMsg());
 						}else if (faceStr.length==3){
-								CJDownface downface=new CJDownface();
-								downface.setFaceId(faceStr[0]);
-								downface.setFaceCode(faceStr[1]);
-								downface.setFaceName(faceStr[2]);
-								pubUtil.downfaces.add(downface);
+								cjdownface=new CJDownface();
+								faceObj=new FaceNews();
+								cjdownface.setFlag(0);
+								faceObj.setFaceId(faceStr[0]);
+								faceObj.setFaceCode(faceStr[1]);
+								faceObj.setFaceName(faceStr[2]);
+								cjdownface.setFaceObj(faceObj);
+								cjdownfacelist.add(cjdownface);
 						}
 					}
 				} catch(ClassCastException e){
 					e.printStackTrace();
 					Log.i(TAG, "造型异常");
-					pubUtil.exception.setExceptionMsg("造型异常");
+					cjdownface.setFlag(-2);
+					cjdownface.setMsg("造型异常");
 				}catch(ArrayIndexOutOfBoundsException e){
-					Log.i(TAG,"数组下标越界");
+					Log.i(TAG, "数组下标越界");
 					e.printStackTrace();
-					pubUtil.exception.setExceptionMsg("下标越界");
+					cjdownface.setFlag(-2);
+					cjdownface.setMsg("下标越界");
 				}catch(NullPointerException e){
 					e.printStackTrace();
 					Log.i(TAG, "空指针异常");
-					pubUtil.exception.setExceptionMsg("空指针异常");
+					cjdownface.setFlag(-2);
+					cjdownface.setMsg("空指针异常");
 				}catch (Exception e) {
 					e.printStackTrace();
 					Log.i(TAG, "网络异常");
-					pubUtil.exception.setExceptionMsg("网络异常");
+					cjdownface.setFlag(-2);
+					cjdownface.setMsg("网络异常");
 				}
+		return cjdownfacelist;
 	}
 	
 }

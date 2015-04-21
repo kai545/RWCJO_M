@@ -5,26 +5,31 @@ package rwcjom.awit.com.rwcjo_m.bean;
  *
  */
 public class CJDownface {
-	public String faceId;
-	public String faceCode;
-	public String faceName;
-	public String getFaceId() {
-		return faceId;
+	private FaceNews faceObj;
+	private String msg;
+	private Integer Flag;
+
+	public Integer getFlag() {
+		return Flag;
 	}
-	public void setFaceId(String faceId) {
-		this.faceId = faceId;
+
+	public void setFlag(Integer flag) {
+		Flag = flag;
 	}
-	public String getFaceCode() {
-		return faceCode;
+
+	public String getMsg() {
+		return msg;
 	}
-	public void setFaceCode(String faceCode) {
-		this.faceCode = faceCode;
+
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
-	public String getFaceName() {
-		return faceName;
+
+	public FaceNews getFaceObj() {
+		return faceObj;
 	}
-	public void setFaceName(String faceName) {
-		this.faceName = faceName;
+
+	public void setFaceObj(FaceNews faceObj) {
+		this.faceObj = faceObj;
 	}
-	
 }
