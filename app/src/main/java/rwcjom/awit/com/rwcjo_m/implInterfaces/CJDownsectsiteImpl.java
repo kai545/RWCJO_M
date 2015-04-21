@@ -14,19 +14,26 @@ import java.util.List;
 import java.util.Map;
 
 import rwcjom.awit.com.rwcjo_m.bean.CJDownsectsite;
+import rwcjom.awit.com.rwcjo_m.bean.sect;
+import rwcjom.awit.com.rwcjo_m.bean.siteObject;
 import rwcjom.awit.com.rwcjo_m.util.CommonTools;
 import rwcjom.awit.com.rwcjo_m.util.ValueConfig;
 import rwcjom.awit.com.rwcjo_m.bean.pubUtil;
 import rwcjom.awit.com.rwcjo_m.interfaces.CJDownsectsiteInterface;
 
 
+
 public class CJDownsectsiteImpl implements CJDownsectsiteInterface {
+	private List<CJDownsectsite> cjdownsectsitelist=new ArrayList<CJDownsectsite>();
+	private sect sectObj;
+	private List<siteObject> sitelist;
+	private siteObject siteobj;
 	private List<String> putlist=new ArrayList<String>();
 	private final String TAG="CJDownsectsiteImpl";
 	private String result="";
 	private String[] secStr;
 	@Override
-	public void getCJDownsectsite(String sectid, String sitetype,
+	public List<CJDownsectsite> getCJDownsectsite(String sectid, String sitetype,
 			String randomcode) {
 				try {
 					Log.i(TAG,randomcode);
@@ -52,31 +59,38 @@ public class CJDownsectsiteImpl implements CJDownsectsiteInterface {
 						Log.i("result", result);
 						secStr=result.split(ValueConfig.SPLIT_CHAR);
 						if(secStr.length==4){
+							downsectsite.setFlag(-1);
 							if(secStr[0].equals("-1")){
-								pubUtil.exception.setExceptionMsg("sectid有误");
+								downsectsite.setMsg("sectid有误");
 							}else if(secStr[1].equals("-1")){
-								pubUtil.exception.setExceptionMsg("sitetype有误");
+								downsectsite.setMsg("sitetype有误");
 							}else if(secStr[2].equals("-1")){
-								pubUtil.exception.setExceptionMsg("randomcode有误");
+								downsectsite.setMsg("randomcode有误");
 							}else{
-								pubUtil.exception.setExceptionMsg("该标段下无相应的工点");
+								downsectsite.setMsg("该标段下无相应的工点");
 							}
-							Log.i("exception", pubUtil.exception.getExceptionMsg());
+							Log.i("exception",downsectsite.getMsg());
 						}else if(secStr.length==3){
-							downsectsite.setSectionId(secStr[0]);
-							downsectsite.setSectionCode(secStr[1]);
-							downsectsite.setSectionName(secStr[2]);
-							pubUtil.downsectsites.add(downsectsite);
+							downsectsite.setFlag(0);
+							sectObj=new sect();
+							sectObj.setSectid(secStr[0]);
+							sectObj.setSectcode(secStr[1]);
+							sectObj.setSectname(secStr[2]);
+							downsectsite.setSectObj(sectObj);
+							cjdownsectsitelist.add(downsectsite);
 						}else if(secStr.length==5){
-							downsectsite.setSectionId(secStr[0]);
-							downsectsite.setSectionCode(secStr[1]);
-							downsectsite.setSectionName(secStr[2]);
-							downsectsite.setEndSite(secStr[3]);
-							downsectsite.setStartSite(secStr[4]);
-							pubUtil.downsectsites.add(downsectsite);
+							sitelist=new ArrayList<siteObject>();
+							siteobj=new siteObject();
+							siteobj.setSiteid(secStr[0]);
+							siteobj.setSitecode(secStr[1]);
+							siteobj.setSitename(secStr[2]);
+							siteobj.setStartsite(secStr[3]);
+							siteobj.setEndsite(secStr[4]);
+							sitelist.add(siteobj);
+							downsectsite.setSitelist(sitelist);
+							cjdownsectsitelist.add(downsectsite);
 						}
 					}
-					
 				}catch(ClassCastException e){
 					e.printStackTrace();
 					Log.i(TAG, "造型异常");
@@ -93,6 +107,7 @@ public class CJDownsectsiteImpl implements CJDownsectsiteInterface {
 					e.printStackTrace();
 					pubUtil.exception.setExceptionMsg("网络异常");
 				}
+		return cjdownsectsitelist;
 	}
 	
 }

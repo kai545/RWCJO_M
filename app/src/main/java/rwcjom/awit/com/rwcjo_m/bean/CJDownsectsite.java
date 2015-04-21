@@ -1,44 +1,46 @@
 package rwcjom.awit.com.rwcjo_m.bean;
+
+import java.util.List;
+
 /**
  * 下载标段和工点信息接口
  * @author Administrator
  *
  */
 public class CJDownsectsite {
-	public String sectionId;
-	public String sectionCode;
-	public String sectionName;
-	public String startSite;
-	public String endSite;
-	public String getSectionId() {
-		return sectionId;
+	private sect  sectObj;
+	private List<siteObject> sitelist;
+	private Integer Flag;
+	private String msg;
+	public sect getSectObj() {
+		return sectObj;
 	}
-	public void setSectionId(String sectionId) {
-		this.sectionId = sectionId;
+
+	public void setSectObj(sect sectObj) {
+		this.sectObj = sectObj;
 	}
-	public String getSectionCode() {
-		return sectionCode;
+
+	public List<siteObject> getSitelist() {
+		return sitelist;
 	}
-	public void setSectionCode(String sectionCode) {
-		this.sectionCode = sectionCode;
+
+	public void setSitelist(List<siteObject> sitelist) {
+		this.sitelist = sitelist;
 	}
-	public String getSectionName() {
-		return sectionName;
+
+	public Integer getFlag() {
+		return Flag;
 	}
-	public void setSectionName(String sectionName) {
-		this.sectionName = sectionName;
+
+	public void setFlag(Integer flag) {
+		Flag = flag;
 	}
-	public String getStartSite() {
-		return startSite;
+
+	public String getMsg() {
+		return msg;
 	}
-	public void setStartSite(String startSite) {
-		this.startSite = startSite;
+
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
-	public String getEndSite() {
-		return endSite;
-	}
-	public void setEndSite(String endSite) {
-		this.endSite = endSite;
-	}
-	
 }
