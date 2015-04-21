@@ -8,23 +8,23 @@ import java.util.List;
  *
  */
 public class CJDownsectsite {
-	private sect  sectObj;
-	private List<siteObject> sitelist;
+	private SectNews sectObj;
+	private List<SiteNews> sitelist;
 	private Integer Flag;
 	private String msg;
-	public sect getSectObj() {
+	public SectNews getSectObj() {
 		return sectObj;
 	}
 
-	public void setSectObj(sect sectObj) {
+	public void setSectObj(SectNews sectObj) {
 		this.sectObj = sectObj;
 	}
 
-	public List<siteObject> getSitelist() {
+	public List<SiteNews> getSitelist() {
 		return sitelist;
 	}
 
-	public void setSitelist(List<siteObject> sitelist) {
+	public void setSitelist(List<SiteNews> sitelist) {
 		this.sitelist = sitelist;
 	}
 
