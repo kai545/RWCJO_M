@@ -12,6 +12,7 @@ public class ExampleDaoGenerator {
 
         addSection(schema);
         addSite(schema);
+        addFaceNews(schema);
         //addCustomerOrder(schema);
 
         new DaoGenerator().generateAll(schema, "./app/src/main/java");
@@ -31,6 +32,13 @@ public class ExampleDaoGenerator {
         section.addStringProperty("sitename");
         section.addStringProperty("startsite");
         section.addStringProperty("endsite");
+    }
+
+    private static void addFaceNews(Schema schema) {
+        Entity section = schema.addEntity("FaceNews");
+        section.addStringProperty("faceId").primaryKey();
+        section.addStringProperty("faceCode");
+        section.addStringProperty("faceName");
     }
 
     private static void addCustomerOrder(Schema schema) {
