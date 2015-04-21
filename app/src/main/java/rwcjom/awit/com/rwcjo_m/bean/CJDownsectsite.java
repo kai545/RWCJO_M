@@ -10,6 +10,7 @@ public class CJDownsectsite {
 	public String sectionName;
 	public String startSite;
 	public String endSite;
+
 	public String getSectionId() {
 		return sectionId;
 	}

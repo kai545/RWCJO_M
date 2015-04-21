@@ -234,8 +234,8 @@ public class MainActivity extends ActionBarActivity implements Toolbar.OnMenuIte
                                     if (publicKey.length() == 128) {
                                         verifyAppUserImpl verify = new verifyAppUserImpl();
                                         result = verify.getVerifyAppUser(accountInput.getText() + "", passwordInput.getText() + "","password",
-                                                pubUtil.getPubKey.getPublicKey());
-                                        Log.i(TAG, "randomCode" + result);
+                                                publicKey);
+                                        Log.i(TAG, "randomCode：" + result);
                                     }
                                 }
                                 return result;

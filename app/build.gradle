@@ -28,5 +28,6 @@ dependencies {
     compile 'de.greenrobot:eventbus:2.4.0'
     compile 'com.afollestad:material-dialogs:0.7.1.1'//material dialog
     compile 'com.fabiendevos:nanotasks:1.1.0'//back task
+    compile 'com.github.dmytrodanylyk.circular-progress-button:library:1.1.3'
 }
 

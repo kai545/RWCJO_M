@@ -22,9 +22,12 @@
     <string name="logineduser_label">当前登录用户：</string>
 
     <string name="data_sync_dl_section_btn_text">下载标段和工点信息</string>
-    <string name="data_sync_dl_face_btn_text">下载断面信息：</string>
-    <string name="data_sync_dl_line_btn_text">下载水准线路：</string>
+    <string name="data_sync_dl_face_btn_text">下载断面信息</string>
+    <string name="data_sync_dl_line_btn_text">下载水准线路</string>
     <string name="data_sync_dl_person_btn_text">下载人员信息</string>
     <string name="data_sync_dl_basePoint_btn_text">下载基点信息</string>
     <string name="data_sync_dl_testPoint_btn_text">下载测点信息</string>
+    <string name="data_sync_dl_all_btn_text">一键全部下载</string>
+    <string name="data_sync_dl_complete_btn_text">下载完成</string>
+    <string name="data_sync_dl_error_btn_text">下载出错</string>
 </resources>
