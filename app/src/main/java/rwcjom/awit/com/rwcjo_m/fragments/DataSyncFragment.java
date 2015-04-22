@@ -92,6 +92,9 @@ public class DataSyncFragment extends Fragment {
                                     mCJDownsectsite.addAll(thismCJDownsectsite);
                                     Log.i(TAG, "总数据条目：" + mCJDownsectsite.size());
                                     Log.i(TAG, mCJDownsectsite + "");
+
+                                    //开始保存数据
+
                                 } else if (mCJDownsectsite.size() == 1) {
                                     //有错误信息
                                 } else {

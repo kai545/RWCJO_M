@@ -58,4 +58,6 @@ public class ValueConfig {
 
 		return left_menu_list;
 	}
+
+	public static final String DB_NAME="RWCJO_DB";
 }
