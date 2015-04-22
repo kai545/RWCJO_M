@@ -45,11 +45,13 @@ public class CJDownsectsiteImpl implements CJDownsectsiteInterface {
 					}
 					// 获取返回的结果
 					Log.i(TAG,object.getPropertyCount()+"");
+					downsectsite=new CJDownsectsite();
 					for(int i =0;i<object.getPropertyCount();i++){
-						downsectsite=new CJDownsectsite();
 						result = object.getProperty(i).toString();
 						Log.i("result", result);
 						resultStr=result.split(ValueConfig.SPLIT_CHAR);
+						sitelist=new ArrayList<SiteNews>();
+
 						if(resultStr.length==4){
 							downsectsite.setFlag(-1);
 							if(resultStr[0].equals("-1")){
@@ -69,8 +71,8 @@ public class CJDownsectsiteImpl implements CJDownsectsiteInterface {
 							sectObj.setSectname(resultStr[2]);
 							downsectsite.setSecObj(sectObj);
 						}else if(resultStr.length==5){
+							Log.i(TAG,"进来了"+i);
 							downsectsite.setFlag(0);
-							sitelist=new ArrayList<SiteNews>();
 							siteobj=new SiteNews();
 							siteobj.setSiteid(resultStr[0]);
 							siteobj.setSitecode(resultStr[1]);
@@ -78,6 +80,7 @@ public class CJDownsectsiteImpl implements CJDownsectsiteInterface {
 							siteobj.setStartsite(resultStr[3]);
 							siteobj.setEndsite(resultStr[4]);
 							sitelist.add(siteobj);
+							Log.i(TAG,sitelist.size()+"");
 							downsectsite.setSitelist(sitelist);
 						}
 					}

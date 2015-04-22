@@ -39,7 +39,6 @@ import rwcjom.awit.com.rwcjo_m.bean.CJDownpntinfo;
 public class TestInterfaceActivity extends Activity{
     private String publicKey;
     private String randomcode;
-    private List<CJDownsectsite> downsectsiteList;
     private CJDownsectsite downsectsiteObj;
     private List<SiteNews> sitelist;
     private SiteNews siteObj;
@@ -82,34 +81,29 @@ public class TestInterfaceActivity extends Activity{
                 Log.i("verifyAppUserImpl",randomcode);
 
                 //下载标段和工点信息接口
-                /*CJDownsectsiteImpl downsectsiteImpl=new CJDownsectsiteImpl();
-                downsectsiteList=new ArrayList<CJDownsectsite>();
-                downsectsiteList=downsectsiteImpl.getCJDownsectsite("0","2",randomcode);
-                Log.i("CJDownsectsiteImpl",downsectsiteList.size()+"");
-                for(int i=0;i<downsectsiteList.size();i++){
-                    downsectsiteObj=new CJDownsectsite();
-                    downsectsiteObj=downsectsiteList.get(i);
-                    sitelist=new ArrayList<SiteNews>();
-                    sitelist=downsectsiteObj.getSitelist();
-                    if(sitelist==null){
-                        sectObj=new SecNews();
-                        sectObj=downsectsiteObj.getSecObj();
+                CJDownsectsiteImpl downsectsiteImpl=new CJDownsectsiteImpl();
+                downsectsiteObj=new CJDownsectsite();
+                downsectsiteObj=downsectsiteImpl.getCJDownsectsite("0","2",randomcode);
+                sitelist=new ArrayList<SiteNews>();
+                sitelist=downsectsiteObj.getSitelist();
+                sectObj=new SecNews();
+                sectObj=downsectsiteObj.getSecObj();
+                Log.i("sitelistLength",sitelist.size()+"");
+                    //if(sectObj!=null){
                         Log.i("sectid",sectObj.getSectid());
                         Log.i("sectcode",sectObj.getSectcode());
                         Log.i("sectname",sectObj.getSectname());
-                    }else{
-                        for(int j=0;j<sitelist.size();j++){
-                            siteObj=new SiteNews();
-                            siteObj=sitelist.get(j);
-                            Log.i("siteid",siteObj.getSiteid());
-                            Log.i("sitecode",siteObj.getSitecode());
-                            Log.i("sitename",siteObj.getSitename());
-                            Log.i("startsite",siteObj.getStartsite());
-                            Log.i("endsite",siteObj.getEndsite());
-                        }
-                    }*/
+                   // }else {
 
-                    //下载断面(梁体)基础信息接口
+                        for (int j = 0; j < sitelist.size(); j++) {
+                            Log.i("siteid", sitelist.get(j).getSiteid());
+                            Log.i("sitecode", sitelist.get(j).getSitecode());
+                            Log.i("sitename", sitelist.get(j).getSitename());
+                            Log.i("startsite", sitelist.get(j).getStartsite());
+                            Log.i("endsite", sitelist.get(j).getEndsite());
+                        }
+                  //  }
+                        //下载断面(梁体)基础信息接口
                     /*CJDownfaceImpl downfaceImpl=new CJDownfaceImpl();
                     downfaceList=new ArrayList<CJDownface>();
                     downfaceList=downfaceImpl.getCJDownface("8456","2015-01-01","2015-04-22",randomcode);
@@ -128,7 +122,7 @@ public class TestInterfaceActivity extends Activity{
                     }*/
 
 
-                    //下载沉降观测断面详细信息接口
+                        //下载沉降观测断面详细信息接口
                     /*CJDownfaceinfoImpl downfaceinfoImpl=new CJDownfaceinfoImpl();
                     downfaceinfoList=new ArrayList<CJDownfaceinfo>();
                     downfaceinfoList=downfaceinfoImpl.getCJDownfaceinfo("5055","54",randomcode);
@@ -151,7 +145,7 @@ public class TestInterfaceActivity extends Activity{
                         Log.i("rchain",faceinfoObj.getRchain());
                         Log.i("remark",faceinfoObj.getRemark());*/
 
-                //下载梁体徐变详细信息接口
+                        //下载梁体徐变详细信息接口
                 /*CJDownbrginfoImpl downbrginfoImpl=new CJDownbrginfoImpl();
                 downbrginfoList=new ArrayList<CJDownbrginfo>();
                 downbrginfoList=downbrginfoImpl.getCJDownbrginfo("8456","135",randomcode);
@@ -166,7 +160,7 @@ public class TestInterfaceActivity extends Activity{
                 Log.i("beamtype",brginfoObj.getBeamtype());
                 Log.i("remark",brginfoObj.getRemark());*/
 
-                //下载沉降(徐变)观测点信息接口
+                        //下载沉降(徐变)观测点信息接口
                 /*CJDownpntinfoImpl downpntinfoImpl=new CJDownpntinfoImpl();
                 downpntinfoList=new ArrayList<CJDownpntinfo>();
                 downpntinfoList=downpntinfoImpl.getCJDownputinfo("54","1",randomcode);
@@ -192,7 +186,7 @@ public class TestInterfaceActivity extends Activity{
                 }*/
 
 
-                //下载司镜(内业)人员接口
+                        //下载司镜(内业)人员接口
                 /*CJDownpersonImpl downpersonImpl=new CJDownpersonImpl();
                 downpersonList=new ArrayList<CJDownperson>();
                 downpersonList=downpersonImpl.getCJDownperson("0","1",randomcode);
@@ -211,7 +205,7 @@ public class TestInterfaceActivity extends Activity{
                 }*/
 
 
-                //下载工作基点信息接口
+                        //下载工作基点信息接口
                 /*CJDownbasepntImpl downbasepntImpl=new CJDownbasepntImpl();
                 downbasepntList=new ArrayList<CJDownbasepnt>();
                 downbasepntList=downbasepntImpl.getCJDownbasepnt("5921",randomcode);
@@ -233,7 +227,7 @@ public class TestInterfaceActivity extends Activity{
                 }*/
 
 
-                //下载水准线路信息接口
+                        //下载水准线路信息接口
             }
         }).start();
     }
