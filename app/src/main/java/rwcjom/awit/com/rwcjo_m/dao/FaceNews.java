@@ -6,45 +6,45 @@ package rwcjom.awit.com.rwcjo_m.dao;
  */
 public class FaceNews {
 
-    private String faceid;
-    private String facecode;
-    private String facename;
+    private String faceId;
+    private String faceCode;
+    private String faceName;
 
     public FaceNews() {
     }
 
-    public FaceNews(String faceid) {
-        this.faceid = faceid;
+    public FaceNews(String faceId) {
+        this.faceId = faceId;
     }
 
-    public FaceNews(String faceid, String facecode, String facename) {
-        this.faceid = faceid;
-        this.facecode = facecode;
-        this.facename = facename;
+    public FaceNews(String faceId, String faceCode, String faceName) {
+        this.faceId = faceId;
+        this.faceCode = faceCode;
+        this.faceName = faceName;
     }
 
-    public String getFaceid() {
-        return faceid;
+    public String getFaceId() {
+        return faceId;
     }
 
-    public void setFaceid(String faceid) {
-        this.faceid = faceid;
+    public void setFaceId(String faceId) {
+        this.faceId = faceId;
     }
 
-    public String getFacecode() {
-        return facecode;
+    public String getFaceCode() {
+        return faceCode;
     }
 
-    public void setFacecode(String facecode) {
-        this.facecode = facecode;
+    public void setFaceCode(String faceCode) {
+        this.faceCode = faceCode;
     }
 
-    public String getFacename() {
-        return facename;
+    public String getFaceName() {
+        return faceName;
     }
 
-    public void setFacename(String facename) {
-        this.facename = facename;
+    public void setFaceName(String faceName) {
+        this.faceName = faceName;
     }
 
 }

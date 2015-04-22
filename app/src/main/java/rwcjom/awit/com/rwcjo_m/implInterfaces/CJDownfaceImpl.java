@@ -67,9 +67,9 @@ public class CJDownfaceImpl implements CJDownfaceInterface {
 								facelist=new ArrayList<FaceNews>();
 								faceObj=new FaceNews();
 								cjdownface.setFlag(0);
-								faceObj.setFaceid(faceStr[0]);
-								faceObj.setFacecode(faceStr[1]);
-								faceObj.setFacename(faceStr[2]);
+								faceObj.setFaceId(faceStr[0]);
+								faceObj.setFaceCode(faceStr[1]);
+								faceObj.setFaceName(faceStr[2]);
 								facelist.add(faceObj);
 								cjdownface.setFacelist(facelist);
 								cjdownfacelist.add(cjdownface);

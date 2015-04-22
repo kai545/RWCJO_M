@@ -21,7 +21,6 @@ import rwcjom.awit.com.rwcjo_m.interfaces.CJDownsectsiteInterface;
 
 public class CJDownsectsiteImpl implements CJDownsectsiteInterface {
 	private final String TAG="CJDownsectsiteImpl";
-	private List<CJDownsectsite> cjdownsectsitelist;
 	private CJDownsectsite downsectsite;
 	private List<SiteNews> sitelist;
 	private SecNews sectObj;
@@ -30,10 +29,9 @@ public class CJDownsectsiteImpl implements CJDownsectsiteInterface {
 	private String[] resultStr;
 	/**Flag=0:返回值正常；Flag=-1：返回值异常；Flag=-2：接口异常*/
 	@Override
-	public List<CJDownsectsite> getCJDownsectsite(String sectid, String sitetype,
+	public CJDownsectsite getCJDownsectsite(String sectid, String sitetype,
 			String randomcode) {
 				try {
-					cjdownsectsitelist=new ArrayList<CJDownsectsite>();
 					Log.i(TAG,randomcode);
 					String methodNameString="CJDownsectsite";
 					Map<String,String> paramsvalue=new LinkedHashMap<String,String>();
@@ -45,7 +43,6 @@ public class CJDownsectsiteImpl implements CJDownsectsiteInterface {
 					if(object ==null){
 						Log.i(TAG, "Object is null");
 					}
-					Log.i(TAG,cjdownsectsitelist.size()+"");
 					// 获取返回的结果
 					Log.i(TAG,object.getPropertyCount()+"");
 					for(int i =0;i<object.getPropertyCount();i++){
@@ -71,7 +68,6 @@ public class CJDownsectsiteImpl implements CJDownsectsiteInterface {
 							sectObj.setSectcode(resultStr[1]);
 							sectObj.setSectname(resultStr[2]);
 							downsectsite.setSecObj(sectObj);
-							cjdownsectsitelist.add(downsectsite);
 						}else if(resultStr.length==5){
 							downsectsite.setFlag(0);
 							sitelist=new ArrayList<SiteNews>();
@@ -83,7 +79,6 @@ public class CJDownsectsiteImpl implements CJDownsectsiteInterface {
 							siteobj.setEndsite(resultStr[4]);
 							sitelist.add(siteobj);
 							downsectsite.setSitelist(sitelist);
-							cjdownsectsitelist.add(downsectsite);
 						}
 					}
 				}catch(ClassCastException e){
@@ -106,7 +101,7 @@ public class CJDownsectsiteImpl implements CJDownsectsiteInterface {
 					downsectsite.setFlag(-2);
 					downsectsite.setMsg("网络异常");
 				}
-		return cjdownsectsitelist;
+		return downsectsite;
 	}
 	
 }

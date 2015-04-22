@@ -12,5 +12,5 @@ import java.util.List;
  *
  */
 public interface CJDownsectsiteInterface {
-	public List<CJDownsectsite> getCJDownsectsite(String sectid,String sitetype,String randomcode);
+	public CJDownsectsite getCJDownsectsite(String sectid,String sitetype,String randomcode);
 }
