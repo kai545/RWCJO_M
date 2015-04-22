@@ -46,11 +46,12 @@ public class CJDownsectsiteImpl implements CJDownsectsiteInterface {
 					// 获取返回的结果
 					Log.i(TAG,object.getPropertyCount()+"");
 					downsectsite=new CJDownsectsite();
+					sitelist=new ArrayList<SiteNews>();
 					for(int i =0;i<object.getPropertyCount();i++){
 						result = object.getProperty(i).toString();
 						Log.i("result", result);
 						resultStr=result.split(ValueConfig.SPLIT_CHAR);
-						sitelist=new ArrayList<SiteNews>();
+
 
 						if(resultStr.length==4){
 							downsectsite.setFlag(-1);
