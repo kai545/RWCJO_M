@@ -85,7 +85,7 @@ public class DataSyncFragment extends Fragment {
                             mCJDownsectsite = new ArrayList<CJDownsectsite>();
                             CJDownsectsiteImpl mCJDownsectsiteImpl = new CJDownsectsiteImpl();
                             for (int i = 0; i < 3; i++) {
-                                List<CJDownsectsite> thismCJDownsectsite = mCJDownsectsiteImpl.getCJDownsectsite("0", i + "", randomCode);//调用接口
+                                /*List<CJDownsectsite> thismCJDownsectsite = mCJDownsectsiteImpl.getCJDownsectsite("0", i + "", randomCode);//调用接口
                                 Log.i(TAG, "本次（" + i + "）数据条目：" + thismCJDownsectsite.size());
                                 if (thismCJDownsectsite.size() >= 2) {
                                     //有工点信息
@@ -99,7 +99,7 @@ public class DataSyncFragment extends Fragment {
                                     //有错误信息
                                 } else {
                                     //其他信息
-                                }
+                                }*/
 
                             }
                         }

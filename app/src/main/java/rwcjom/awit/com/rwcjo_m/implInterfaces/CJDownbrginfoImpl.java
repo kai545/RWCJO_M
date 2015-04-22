@@ -7,11 +7,14 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import rwcjom.awit.com.rwcjo_m.bean.CJDownbrginfo;
+import rwcjom.awit.com.rwcjo_m.dao.BrgInfo;
 import rwcjom.awit.com.rwcjo_m.util.CommonTools;
 import rwcjom.awit.com.rwcjo_m.util.ValueConfig;
 import rwcjom.awit.com.rwcjo_m.bean.pubUtil;
@@ -19,10 +22,13 @@ import rwcjom.awit.com.rwcjo_m.interfaces.CJDownbrginfoInterface;
 
 public class CJDownbrginfoImpl implements CJDownbrginfoInterface {
 	private String TAG="CJDownbrginfoImpl";
-	private String result;
+	private List<CJDownbrginfo> downbrginfoList;
+	private CJDownbrginfo downbrginfoObj;
+	private BrgInfo brginfoObj;
 	@Override
-	public void getCJDownbrginfo(String siteid, String faceid, String randomcode) {
+	public List<CJDownbrginfo> getCJDownbrginfo(String siteid, String faceid, String randomcode) {
 				try {
+					downbrginfoList=new ArrayList<CJDownbrginfo>();
 					Log.i(TAG,randomcode);
 					String methodNameString="CJDownbrginfo";
 					Map<String,String> paramsvalue=new LinkedHashMap<>();
@@ -39,37 +45,46 @@ public class CJDownbrginfoImpl implements CJDownbrginfoInterface {
 					}
 					Log.i("CJDownbrginfoLength", object.getPropertyCount() + "");
 					if(object.getPropertyCount()==3){
+						downbrginfoObj=new CJDownbrginfo();
+						downbrginfoObj.setFlag(-1);
 						if(object.getProperty(0).toString().equals("-1")){
-							pubUtil.exception.setExceptionMsg("siteid有误");
+							downbrginfoObj.setMsg("siteid有误");
 						}else if(object.getProperty(1).toString().equals("-1")){
-							pubUtil.exception.setExceptionMsg("faceid有误");
+							downbrginfoObj.setMsg("faceid有误");
 						}else{
-							pubUtil.exception.setExceptionMsg("randomcode有误");
+							downbrginfoObj.setMsg("randomcode有误");
 						}
-						Log.i("exception", pubUtil.exception.getExceptionMsg());
+						Log.i("exception", downbrginfoObj.getMsg());
 					}else if(object.getPropertyCount()==6){
-						CJDownbrginfo downbrginfo=new CJDownbrginfo();
-						downbrginfo.setFaceid(object.getProperty(object.getPropertyCount()-6).toString());
-						downbrginfo.setStructname(object.getProperty(object.getPropertyCount()-5).toString());
-						downbrginfo.setPiernum(object.getProperty(object.getPropertyCount()-4).toString());
-						downbrginfo.setBeamspan(object.getProperty(object.getPropertyCount()-3).toString());
-						downbrginfo.setBeamtype(object.getProperty(object.getPropertyCount()-2).toString());
-						downbrginfo.setRemark(object.getProperty(object.getPropertyCount()-1).toString());
-						pubUtil.downbrginfos.add(downbrginfo);
+						downbrginfoObj=new CJDownbrginfo();
+						downbrginfoObj.setFlag(0);
+						brginfoObj=new BrgInfo();
+						brginfoObj.setFaceid(object.getProperty(object.getPropertyCount() - 6).toString());
+						brginfoObj.setStructname(object.getProperty(object.getPropertyCount() - 5).toString());
+						brginfoObj.setPiernum(object.getProperty(object.getPropertyCount() - 4).toString());
+						brginfoObj.setBeamspan(object.getProperty(object.getPropertyCount() - 3).toString());
+						brginfoObj.setBeamtype(object.getProperty(object.getPropertyCount() - 2).toString());
+						brginfoObj.setRemark(object.getProperty(object.getPropertyCount() - 1).toString());
+						downbrginfoObj.setBrginfoObj(brginfoObj);
+						downbrginfoList.add(downbrginfoObj);
 					}
 				}catch(ClassCastException e){
 					e.printStackTrace();
 					Log.i(TAG, "造型异常");
-					pubUtil.exception.setExceptionMsg("造型异常");
+					downbrginfoObj.setFlag(-2);
+					downbrginfoObj.setMsg("造型异常");
 				}catch(NullPointerException e){
 					e.printStackTrace();
 					Log.i(TAG, "空指针异常");
-					pubUtil.exception.setExceptionMsg("空指针异常");
+					downbrginfoObj.setFlag(-2);
+					downbrginfoObj.setMsg("空指针异常");
 				} catch (Exception e) {
 					e.printStackTrace();
 					Log.i(TAG, "网络异常");
-					pubUtil.exception.setExceptionMsg("网络异常");
+					downbrginfoObj.setFlag(-2);
+					downbrginfoObj.setMsg("网络异常");
 				}
+		return downbrginfoList;
 	}
 
 }

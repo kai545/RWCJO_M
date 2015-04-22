@@ -7,11 +7,14 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import rwcjom.awit.com.rwcjo_m.bean.CJDownbasepnt;
+import rwcjom.awit.com.rwcjo_m.dao.BasePntInfo;
 import rwcjom.awit.com.rwcjo_m.util.CommonTools;
 import rwcjom.awit.com.rwcjo_m.util.ValueConfig;
 import rwcjom.awit.com.rwcjo_m.bean.pubUtil;
@@ -20,10 +23,15 @@ import rwcjom.awit.com.rwcjo_m.interfaces.CJDownbasepntInterface;
 
 public class CJDownbasepntImpl implements CJDownbasepntInterface {
 	private String TAG="CJDownbasepntImpl";
+	private List<CJDownbasepnt> downbasepntList;
+	private CJDownbasepnt downbasepntObj;
+	private List<BasePntInfo> basePntInfoList;
+	private BasePntInfo basePntInfoObj;
 	private String result;
 	@Override
-	public void getCJDownbasepnt(String sectid, String randomcode) {
+	public List<CJDownbasepnt> getCJDownbasepnt(String sectid, String randomcode) {
 				try {
+					downbasepntList=new ArrayList<CJDownbasepnt>();
 					Log.i(TAG,randomcode);
 					String methodNameString="CJDownbasepnt";
 					Map<String,String> paramsvalue=new LinkedHashMap<>();
@@ -45,42 +53,54 @@ public class CJDownbasepntImpl implements CJDownbasepntInterface {
 						Log.i("result", result);
 						resStr=result.split(ValueConfig.SPLIT_CHAR);
 						if(resStr.length==3){
+							downbasepntObj=new CJDownbasepnt();
+							downbasepntObj.setFlag(-1);
 							if(resStr[0].equals("-1")){
-								pubUtil.exception.setExceptionMsg("sectid有误");
+								downbasepntObj.setMsg("sectid有误");
 							}else if(resStr[1].equals("-1")){
-									pubUtil.exception.setExceptionMsg("randomcode有误");
+								downbasepntObj.setMsg("randomcode有误");
 							}else{
-									pubUtil.exception.setExceptionMsg("该标段无工作基点");
+								downbasepntObj.setMsg("该标段无工作基点");
 							}
-							Log.i("exception", pubUtil.exception.getExceptionMsg());
+							Log.i("exception", downbasepntObj.getMsg());
 							}else if(resStr.length==6){
-								 CJDownbasepnt downbasepnt=new CJDownbasepnt();
-								 downbasepnt.setSiteid(resStr[0]);
-								 downbasepnt.setSitename(resStr[1]);
-								 downbasepnt.setSitecode(resStr[2]);
-								 downbasepnt.setSitehigh(resStr[3]);
-								 downbasepnt.setSitenum(resStr[4]);
-								 downbasepnt.setSitevar(resStr[5]);
-								 pubUtil.downbasepnts.add(downbasepnt);
+								downbasepntObj=new CJDownbasepnt();
+								downbasepntObj.setFlag(0);
+								basePntInfoList=new ArrayList<BasePntInfo>();
+							    basePntInfoObj=new BasePntInfo();
+								basePntInfoObj.setSiteid(resStr[0]);
+								basePntInfoObj.setSitename(resStr[1]);
+								basePntInfoObj.setSitecode(resStr[2]);
+								basePntInfoObj.setSitehigh(resStr[3]);
+								basePntInfoObj.setSitenum(resStr[4]);
+								basePntInfoObj.setSitevar(resStr[5]);
+								basePntInfoList.add(basePntInfoObj);
+								downbasepntObj.setBasePntInfoList(basePntInfoList);
+								downbasepntList.add(downbasepntObj);
 							}
 					}
 				}catch(ClassCastException e){
 					e.printStackTrace();
 					Log.i(TAG, "造型异常");
-					pubUtil.exception.setExceptionMsg("造型异常");
+					downbasepntObj.setFlag(-2);
+					downbasepntObj.setMsg("造型异常");
 				}catch(ArrayIndexOutOfBoundsException e){
 					Log.i(TAG,"数组下标越界");
 					e.printStackTrace();
-					pubUtil.exception.setExceptionMsg("下标越界");
+					downbasepntObj.setFlag(-2);
+					downbasepntObj.setMsg("下标越界");
 				} catch(NullPointerException e){
 					e.printStackTrace();
 					Log.i(TAG, "空指针异常");
-					pubUtil.exception.setExceptionMsg("空指针异常");
+					downbasepntObj.setFlag(-2);
+					pubUtil.exception.setExceptionMsg("");
 				}catch (Exception e) {
 					e.printStackTrace();
 					Log.i(TAG, "网络异常");
-					pubUtil.exception.setExceptionMsg("网络异常");
+					downbasepntObj.setFlag(-2);
+					downbasepntObj.setMsg("网络异常");
 				}
+		return downbasepntList;
 	}
 
 }

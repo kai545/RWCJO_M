@@ -1,51 +1,40 @@
 package rwcjom.awit.com.rwcjo_m.bean;
+
+import java.util.List;
+
+import rwcjom.awit.com.rwcjo_m.dao.BasePntInfo;
+
 /**
  * 下载工作基点信息接口
  * @author Administrator
  *
  */
 public class CJDownbasepnt {
-	public String siteid;
-	public String sitename;
-	public String sitecode;
-	public String sitehigh;
-	public String sitenum;
-	public String sitevar;
-	public String getSiteid() {
-		return siteid;
+	private List<BasePntInfo> basePntInfoList;
+	private Integer Flag;
+	private String msg;
+
+	public List<BasePntInfo> getBasePntInfoList() {
+		return basePntInfoList;
 	}
-	public void setSiteid(String siteid) {
-		this.siteid = siteid;
+
+	public void setBasePntInfoList(List<BasePntInfo> basePntInfoList) {
+		this.basePntInfoList = basePntInfoList;
 	}
-	public String getSitename() {
-		return sitename;
+
+	public Integer getFlag() {
+		return Flag;
 	}
-	public void setSitename(String sitename) {
-		this.sitename = sitename;
+
+	public void setFlag(Integer flag) {
+		Flag = flag;
 	}
-	public String getSitecode() {
-		return sitecode;
+
+	public String getMsg() {
+		return msg;
 	}
-	public void setSitecode(String sitecode) {
-		this.sitecode = sitecode;
+
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
-	public String getSitehigh() {
-		return sitehigh;
-	}
-	public void setSitehigh(String sitehigh) {
-		this.sitehigh = sitehigh;
-	}
-	public String getSitenum() {
-		return sitenum;
-	}
-	public void setSitenum(String sitenum) {
-		this.sitenum = sitenum;
-	}
-	public String getSitevar() {
-		return sitevar;
-	}
-	public void setSitevar(String sitevar) {
-		this.sitevar = sitevar;
-	}
-	
 }
