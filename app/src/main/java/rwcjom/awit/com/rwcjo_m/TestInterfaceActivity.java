@@ -154,17 +154,18 @@ public class TestInterfaceActivity extends Activity{
                 Log.i("remark",brginfoObj.getRemark());*/
 
                 //下载沉降(徐变)观测点信息接口
-                /*CJDownpntinfoImpl downpntinfoImpl=new CJDownpntinfoImpl();
+                CJDownpntinfoImpl downpntinfoImpl=new CJDownpntinfoImpl();
                 downpntinfoList=new ArrayList<CJDownpntinfo>();
                 downpntinfoList=downpntinfoImpl.getCJDownputinfo("54","1",randomcode);
+                Log.i("CJDownpntinfoLength",downpntinfoList.size()+"");
                 downpntinfoObj=new CJDownpntinfo();
-                for(int i=0;i<downfaceinfoList.size();i++){
-                    downpntinfoObj=downpntinfoList.get(i);
+                for(int y=0;y<downpntinfoList.size();y++){
+                    downpntinfoObj=downpntinfoList.get(y);
                     pntInfoList=new ArrayList<PntInfo>();
                     pntInfoList=downpntinfoObj.getPntInfoList();
                     pntInfoObj=new PntInfo();
-                    for(int j=0;j<pntInfoList.size();j++){
-                        pntInfoObj=pntInfoList.get(j);
+                    for(int z=0;z<pntInfoList.size();z++){
+                        pntInfoObj=pntInfoList.get(z);
                         Log.i("pointid",pntInfoObj.getPointid());
                         Log.i("Pointnum",pntInfoObj.getPointnum());
                         Log.i("Designvalue",pntInfoObj.getDesignvalue());
@@ -175,7 +176,7 @@ public class TestInterfaceActivity extends Activity{
                         Log.i("Pointcode",pntInfoObj.getPointcode());
                         Log.i("Name",pntInfoObj.getName());
                     }
-                }*/
+                }
 
                 }
         }).start();
