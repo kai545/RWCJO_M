@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 import rwcjom.awit.com.rwcjo_m.bean.CJDownsectsite;
-import rwcjom.awit.com.rwcjo_m.bean.SectNews;
-import rwcjom.awit.com.rwcjo_m.bean.SiteNews;
+import rwcjom.awit.com.rwcjo_m.dao.SecNews;
+import rwcjom.awit.com.rwcjo_m.dao.SiteNews;
 import rwcjom.awit.com.rwcjo_m.util.CommonTools;
 import rwcjom.awit.com.rwcjo_m.util.ValueConfig;
 import rwcjom.awit.com.rwcjo_m.interfaces.CJDownsectsiteInterface;
@@ -22,10 +22,10 @@ import rwcjom.awit.com.rwcjo_m.interfaces.CJDownsectsiteInterface;
 public class CJDownsectsiteImpl implements CJDownsectsiteInterface {
 	private final String TAG="CJDownsectsiteImpl";
 	private List<CJDownsectsite> cjdownsectsitelist;
-	private List<SiteNews> sitelist;
-	private SectNews sectObj;
-	private SiteNews siteobj;
 	private CJDownsectsite downsectsite;
+	private List<SiteNews> sitelist;
+	private SecNews sectObj;
+	private SiteNews siteobj;
 	private String result="";
 	private String[] resultStr;
 	/**Flag=0:返回值正常；Flag=-1：返回值异常；Flag=-2：接口异常*/
@@ -66,11 +66,11 @@ public class CJDownsectsiteImpl implements CJDownsectsiteInterface {
 							}
 						}else if(resultStr.length==3){
 							downsectsite.setFlag(0);
-							sectObj=new SectNews();
+							sectObj=new SecNews();
 							sectObj.setSectid(resultStr[0]);
 							sectObj.setSectcode(resultStr[1]);
 							sectObj.setSectname(resultStr[2]);
-							downsectsite.setSectObj(sectObj);
+							downsectsite.setSecObj(sectObj);
 							cjdownsectsitelist.add(downsectsite);
 						}else if(resultStr.length==5){
 							downsectsite.setFlag(0);

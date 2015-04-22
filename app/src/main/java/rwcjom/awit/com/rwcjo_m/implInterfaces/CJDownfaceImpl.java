@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import rwcjom.awit.com.rwcjo_m.bean.CJDownface;
-import rwcjom.awit.com.rwcjo_m.bean.FaceNews;
+import rwcjom.awit.com.rwcjo_m.dao.FaceNews;
 import rwcjom.awit.com.rwcjo_m.util.CommonTools;
 import rwcjom.awit.com.rwcjo_m.util.ValueConfig;
 import rwcjom.awit.com.rwcjo_m.interfaces.CJDownfaceInterface;
@@ -21,6 +21,7 @@ public class CJDownfaceImpl implements CJDownfaceInterface {
 	private String TAG="CJDownfaceImpl";
 	private List<CJDownface> cjdownfacelist;
 	private CJDownface cjdownface;
+	private List<FaceNews> facelist;
 	private FaceNews faceObj;
 	private String result;
 	private String[] faceStr;
@@ -63,12 +64,14 @@ public class CJDownfaceImpl implements CJDownfaceInterface {
 							Log.i("exception",cjdownface.getMsg());
 						}else if (faceStr.length==3){
 								cjdownface=new CJDownface();
+								facelist=new ArrayList<FaceNews>();
 								faceObj=new FaceNews();
 								cjdownface.setFlag(0);
-								faceObj.setFaceId(faceStr[0]);
-								faceObj.setFaceCode(faceStr[1]);
-								faceObj.setFaceName(faceStr[2]);
-								cjdownface.setFaceObj(faceObj);
+								faceObj.setFaceid(faceStr[0]);
+								faceObj.setFacecode(faceStr[1]);
+								faceObj.setFacename(faceStr[2]);
+								facelist.add(faceObj);
+								cjdownface.setFacelist(facelist);
 								cjdownfacelist.add(cjdownface);
 						}
 					}

@@ -1,11 +1,16 @@
 package rwcjom.awit.com.rwcjo_m.bean;
+
+
+import java.util.List;
+import rwcjom.awit.com.rwcjo_m.dao.FaceNews;
+
 /**
  * 下载断面(梁体)基础信息接口
  * @author Administrator
  *
  */
 public class CJDownface {
-	private FaceNews faceObj;
+	private List<FaceNews> facelist;
 	private String msg;
 	private Integer Flag;
 
@@ -25,11 +30,11 @@ public class CJDownface {
 		this.msg = msg;
 	}
 
-	public FaceNews getFaceObj() {
-		return faceObj;
+	public List<FaceNews> getFacelist() {
+		return facelist;
 	}
 
-	public void setFaceObj(FaceNews faceObj) {
-		this.faceObj = faceObj;
+	public void setFacelist(List<FaceNews> facelist) {
+		this.facelist = facelist;
 	}
 }

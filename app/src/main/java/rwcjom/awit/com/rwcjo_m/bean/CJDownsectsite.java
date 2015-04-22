@@ -2,22 +2,27 @@ package rwcjom.awit.com.rwcjo_m.bean;
 
 import java.util.List;
 
+import rwcjom.awit.com.rwcjo_m.dao.SecNews;
+import rwcjom.awit.com.rwcjo_m.dao.SiteNews;
+
+
 /**
  * 下载标段和工点信息接口
  * @author Administrator
  *
  */
 public class CJDownsectsite {
-	private SectNews sectObj;
+	private SecNews secObj;
 	private List<SiteNews> sitelist;
 	private Integer Flag;
 	private String msg;
-	public SectNews getSectObj() {
-		return sectObj;
+
+	public SecNews getSecObj() {
+		return secObj;
 	}
 
-	public void setSectObj(SectNews sectObj) {
-		this.sectObj = sectObj;
+	public void setSecObj(SecNews secObj) {
+		this.secObj = secObj;
 	}
 
 	public List<SiteNews> getSitelist() {
