@@ -7,21 +7,27 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import rwcjom.awit.com.rwcjo_m.bean.CJDownbasepnt;
 import rwcjom.awit.com.rwcjo_m.bean.CJDownbrginfo;
 import rwcjom.awit.com.rwcjo_m.bean.CJDownface;
 import rwcjom.awit.com.rwcjo_m.bean.CJDownfaceinfo;
 
+import rwcjom.awit.com.rwcjo_m.bean.CJDownperson;
 import rwcjom.awit.com.rwcjo_m.bean.CJDownsectsite;
+import rwcjom.awit.com.rwcjo_m.dao.BasePntInfo;
 import rwcjom.awit.com.rwcjo_m.dao.BrgInfo;
 import rwcjom.awit.com.rwcjo_m.dao.FaceInfo;
 import rwcjom.awit.com.rwcjo_m.dao.FaceNews;
 import rwcjom.awit.com.rwcjo_m.bean.pubUtil;
+import rwcjom.awit.com.rwcjo_m.dao.PersonInfo;
 import rwcjom.awit.com.rwcjo_m.dao.PntInfo;
 import rwcjom.awit.com.rwcjo_m.dao.SecNews;
 import rwcjom.awit.com.rwcjo_m.dao.SiteNews;
+import rwcjom.awit.com.rwcjo_m.implInterfaces.CJDownbasepntImpl;
 import rwcjom.awit.com.rwcjo_m.implInterfaces.CJDownbrginfoImpl;
 import rwcjom.awit.com.rwcjo_m.implInterfaces.CJDownfaceImpl;
 import rwcjom.awit.com.rwcjo_m.implInterfaces.CJDownfaceinfoImpl;
+import rwcjom.awit.com.rwcjo_m.implInterfaces.CJDownpersonImpl;
 import rwcjom.awit.com.rwcjo_m.implInterfaces.CJDownpntinfoImpl;
 import rwcjom.awit.com.rwcjo_m.implInterfaces.CJDownsectsiteImpl;
 import rwcjom.awit.com.rwcjo_m.implInterfaces.getPublicKeyImpl;
@@ -51,7 +57,14 @@ public class TestInterfaceActivity extends Activity{
     private CJDownpntinfo downpntinfoObj;
     private List<PntInfo> pntInfoList;
     private PntInfo pntInfoObj;
-
+    private List<CJDownperson> downpersonList;
+    private CJDownperson downpersonObj;
+    private List<PersonInfo> personInfoList;
+    private PersonInfo personInfoObj;
+    private List<CJDownbasepnt> downbasepntList;
+    private CJDownbasepnt downbasepntObj;
+    private List<BasePntInfo> basePntInfoList;
+    private BasePntInfo basePntInfoObj;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -154,7 +167,7 @@ public class TestInterfaceActivity extends Activity{
                 Log.i("remark",brginfoObj.getRemark());*/
 
                 //下载沉降(徐变)观测点信息接口
-                CJDownpntinfoImpl downpntinfoImpl=new CJDownpntinfoImpl();
+                /*CJDownpntinfoImpl downpntinfoImpl=new CJDownpntinfoImpl();
                 downpntinfoList=new ArrayList<CJDownpntinfo>();
                 downpntinfoList=downpntinfoImpl.getCJDownputinfo("54","1",randomcode);
                 Log.i("CJDownpntinfoLength",downpntinfoList.size()+"");
@@ -176,9 +189,52 @@ public class TestInterfaceActivity extends Activity{
                         Log.i("Pointcode",pntInfoObj.getPointcode());
                         Log.i("Name",pntInfoObj.getName());
                     }
-                }
+                }*/
 
-                }
+
+                //下载司镜(内业)人员接口
+                /*CJDownpersonImpl downpersonImpl=new CJDownpersonImpl();
+                downpersonList=new ArrayList<CJDownperson>();
+                downpersonList=downpersonImpl.getCJDownperson("0","1",randomcode);
+                for(int i=0;i<downpersonList.size();i++){
+                    downpersonObj=new CJDownperson();
+                    downpersonObj=downpersonList.get(i);
+                    personInfoList=new ArrayList<PersonInfo>();
+                    personInfoList=downpersonObj.getPersonInfoList();
+                    personInfoObj=new PersonInfo();
+                    for(int j=0;j<personInfoList.size();j++){
+                        personInfoObj=personInfoList.get(j);
+                        Log.i("Userid",personInfoObj.getUserid());
+                        Log.i("Username",personInfoObj.getUsername());
+                        Log.i("Usertel",personInfoObj.getUsertel());
+                    }
+                }*/
+
+
+                //下载工作基点信息接口
+                /*CJDownbasepntImpl downbasepntImpl=new CJDownbasepntImpl();
+                downbasepntList=new ArrayList<CJDownbasepnt>();
+                downbasepntList=downbasepntImpl.getCJDownbasepnt("5921",randomcode);
+                for(int i=0;i<downbasepntList.size();i++){
+                    downbasepntObj=new CJDownbasepnt();
+                    downbasepntObj=downbasepntList.get(i);
+                    basePntInfoList=new ArrayList<BasePntInfo>();
+                    basePntInfoList=downbasepntObj.getBasePntInfoList();
+                    for(int j=0;j<basePntInfoList.size();j++){
+                        basePntInfoObj=new BasePntInfo();
+                        basePntInfoObj=basePntInfoList.get(j);
+                        Log.i("Siteid",basePntInfoObj.getSiteid());
+                        Log.i("Sitename",basePntInfoObj.getSitename());
+                        Log.i("Sitecode",basePntInfoObj.getSitecode());
+                        Log.i("Sitehigh",basePntInfoObj.getSitehigh());
+                        Log.i("Sitevar",basePntInfoObj.getSitevar());
+                        Log.i("Sitenum",basePntInfoObj.getSitenum());
+                    }
+                }*/
+
+
+                //下载水准线路信息接口
+            }
         }).start();
     }
 }
