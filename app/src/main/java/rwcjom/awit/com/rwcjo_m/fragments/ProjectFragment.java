@@ -1,5 +1,7 @@
 package rwcjom.awit.com.rwcjo_m.fragments;
 
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,11 +16,25 @@ import android.view.ViewGroup;
 import com.astuetz.PagerSlidingTabStrip;
 
 import rwcjom.awit.com.rwcjo_m.R;
+import rwcjom.awit.com.rwcjo_m.service.SecNewsService;
+import rwcjom.awit.com.rwcjo_m.service.SiteNewsService;
 
 
 public class ProjectFragment extends Fragment {
     private PagerSlidingTabStrip mPagerSlidingTabStrip;
     private ViewPager mViewPager;
+    private Context context;
+    private SecNewsService secNewsService;
+    private SiteNewsService siteNewsService;
+
+    @Override
+    public void onAttach(Activity activity) {
+        // TODO Auto-generated method stub
+        super.onAttach(activity);
+        context=activity;
+        secNewsService=SecNewsService.getInstance(context);
+        siteNewsService=SiteNewsService.getInstance(context);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -104,7 +120,19 @@ public class ProjectFragment extends Fragment {
 
         @Override
         public android.support.v4.app.Fragment getItem(int position) {
-            return ShuiZhunXianLuFragment.newInstance(position);
+            Fragment f=new IndexFragment();
+            switch (position){
+                case 0:
+                    f= SiteFragment.newInstance();
+                    break;
+                case 1:
+                    f= SiteFragment.newInstance();
+                    break;
+                case 2:
+                    f= SiteFragment.newInstance();
+                    break;
+            }
+            return f;
         }
 
     }

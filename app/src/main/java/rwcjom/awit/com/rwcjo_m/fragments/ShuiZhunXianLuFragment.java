@@ -18,6 +18,7 @@ package rwcjom.awit.com.rwcjo_m.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,7 @@ import android.widget.ListView;
 import rwcjom.awit.com.rwcjo_m.R;
 
 public class ShuiZhunXianLuFragment extends Fragment {
-
+	private static final String TAG = "ShuiZhunXianLuFragment";
 	private static final String ARG_POSITION = "position";
 	private ListView listView;
 
@@ -42,7 +43,7 @@ public class ShuiZhunXianLuFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		Log.i(TAG,"shuizhunfragment create!");
 		position = getArguments().getInt(ARG_POSITION);
 	}
 

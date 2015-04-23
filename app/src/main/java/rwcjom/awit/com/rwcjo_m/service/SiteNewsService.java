@@ -57,6 +57,13 @@ public class SiteNewsService {
         return siteNewsDao.queryRaw(where, params);
     }
 
+    public List<SiteNews> querySiteNewsBySection(String sectid){
+        return siteNewsDao.queryBuilder()
+                .where(SiteNewsDao.Properties.F_sectionid.eq(sectid))
+                .orderDesc(SiteNewsDao.Properties.Siteid)
+                .list();
+    }
+
 
     /**
      * insert or update note
