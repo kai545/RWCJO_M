@@ -4,30 +4,29 @@ import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import rwcjom.awit.com.rwcjo_m.bean.CJDownline;
+import rwcjom.awit.com.rwcjo_m.dao.BwInfo;
+import rwcjom.awit.com.rwcjo_m.dao.Line;
 import rwcjom.awit.com.rwcjo_m.util.CommonTools;
-import rwcjom.awit.com.rwcjo_m.util.ValueConfig;
-import rwcjom.awit.com.rwcjo_m.bean.pubUtil;
 import rwcjom.awit.com.rwcjo_m.interfaces.CJDownlineInterface;
-import rwcjom.awit.com.rwcjo_m.bean.Bw;
-
 
 public class CJDownlineImpl implements CJDownlineInterface {
 	private String TAG="CJDownlineImpl";
+	private CJDownline downlineObj;
+	private List<BwInfo> bwInfoList;
+	private BwInfo bwInfoObj;
+	private Line lineObj;
 	private String result;
 		@Override
-		public void getCJDownline(String sectid, String startdate, String enddate,
+		public CJDownline getCJDownline(String sectid, String startdate, String enddate,
 				String randomcode) {
 			SoapObject object = null;
 			JSONArray jsonLine;
@@ -47,58 +46,58 @@ public class CJDownlineImpl implements CJDownlineInterface {
 				if(object ==null){
 					Log.i(TAG, "Object is null");
 				}
-				if(pubUtil.downlines.size()>0){
-					pubUtil.downlines.clear();
-				}
 				for(int i =0;i<object.getPropertyCount();i++){
+					downlineObj=new CJDownline();
 					result = object.getProperty(i).toString();
 					jsonLine=new JSONArray(result);
 					Log.i("res", jsonLine.get(0).toString());
 					if(jsonLine.length()>1){
 						Log.i("len", jsonLine.length()+"");
 						for(int j=0;j<jsonLine.length();j++){
-							CJDownline downline=new CJDownline();
+							lineObj=new Line();
 							String data=jsonLine.get(j).toString();
 							Log.i("data", data);
 							jsonObj=new JSONObject(data);
-							downline.setLc(jsonObj.getString("lc"));
-							downline.setLn(jsonObj.getString("ln"));
-							Log.i("LC",downline.getLc());
-							Log.i("LN",downline.getLn());
-							List<Bw> bwlist=new ArrayList<Bw>();
+							lineObj.setLc(jsonObj.getString("lc"));
+							lineObj.setLn(jsonObj.getString("ln"));
+							Log.i("LC", lineObj.getLc());
+							Log.i("LN", lineObj.getLn());
+							bwInfoList=new ArrayList<BwInfo>();
 							String bws=jsonObj.getString("bw");
 							Log.i("BW",bws);
 							JSONArray bwArray=new JSONArray(bws);
 							JSONObject bwobj=null;
 							for(int k=0;k<bwArray.length();k++){
 								Log.i("测试BW", "come  on");
-								Bw bw=new Bw();
+								bwInfoObj=new BwInfo();
 								String datastr=bwArray.getString(k).toString();
 								bwobj=new JSONObject(datastr);
-								bw.setId(bwobj.getString("id"));
-								bw.setOd(bwobj.getString("od"));
-								bw.setTy(bwobj.getString("ty"));
-								Log.i("bw_id",bw.getId());
-								Log.i("bw_od",bw.getOd());
-								Log.i("bw_ty",bw.getTy());
-								bwlist.add(bw);
+								bwInfoObj.setId(bwobj.getString("id"));
+								bwInfoObj.setOd(bwobj.getString("od"));
+								bwInfoObj.setTy(bwobj.getString("ty"));
+								Log.i("bw_id", bwInfoObj.getId());
+								Log.i("bw_od", bwInfoObj.getOd());
+								Log.i("bw_ty", bwInfoObj.getTy());
+								bwInfoList.add(bwInfoObj);
 							}
-							downline.setBw(bwlist);
-							pubUtil.downlines.add(downline);
+							downlineObj.setBw(bwInfoList);
+							downlineObj.setLineObj(lineObj);
 						}
 					}
 				}
 			}catch(ClassCastException e){
 				e.printStackTrace();
 				Log.i(TAG, "造型异常");
-				pubUtil.exception.setExceptionMsg("造型异常");
+				downlineObj.setFlag(-2);
+				downlineObj.setMsg("造型异常");
 			} catch(NullPointerException e){
 				e.printStackTrace();
 				Log.i(TAG, "空指针异常");
-				pubUtil.exception.setExceptionMsg("空指针异常");
+				downlineObj.setFlag(-2);
+				downlineObj.setMsg("空指针异常");
 			} catch (Exception e) {
-				pubUtil.exception.setFlag(-5);
-				Log.i("exception", pubUtil.exception.getFlag()+"");
+				/*pubUtil.exception.setFlag(-5);
+				Log.i("exception", pubUtil.exception.getFlag() + "");
 				if(pubUtil.exception.getFlag()==-1){
 					pubUtil.exception.setExceptionMsg("sectid有误");
 					Log.i("exception","1");
@@ -117,8 +116,9 @@ public class CJDownlineImpl implements CJDownlineInterface {
 				}else{
 					pubUtil.exception.setExceptionMsg("其他错误");
 					Log.i("exception","6");
-				}
+				}*/
 			}
+			return downlineObj;
 		}
 	}
 
