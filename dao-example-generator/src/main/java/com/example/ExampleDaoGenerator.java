@@ -15,7 +15,7 @@ public class ExampleDaoGenerator {
         addSection(schema);
         addSite(schema);
         addFaceNews(schema);
-
+        //addLineBw(schema);
         new DaoGenerator().generateAll(schema, "./app/src/main/java");
     }
 
@@ -57,6 +57,23 @@ public class ExampleDaoGenerator {
         ToMany customerToOrders = customer.addToMany(order, customerId);
         customerToOrders.setName("orders");
         customerToOrders.orderAsc(orderDate);
+    }
+
+    private static void addLineBw(Schema schema) {
+        Entity line = schema.addEntity("Line");
+        line.addIdProperty().primaryKey().autoincrement();
+        line.addStringProperty("lc");
+        line.addStringProperty("ln");
+
+        Entity bw = schema.addEntity("Bw");
+        bw.addLongProperty("Bwid").autoincrement();
+        bw.addStringProperty("id");
+        bw.addStringProperty("od");
+        bw.addStringProperty("ty");
+        Property lineid=bw.addIntProperty("lineid").notNull().getProperty();
+        bw.addToOne(line, lineid);
+
+        ToMany lineToBws = line.addToMany(bw, lineid);
     }
 }
 
