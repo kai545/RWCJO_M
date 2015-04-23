@@ -11,29 +11,73 @@ import de.greenrobot.daogenerator.ToMany;
 public class ExampleDaoGenerator {
     public static void main(String[] args) throws Exception {
         Schema schema = new Schema(1, "rwcjom.awit.com.rwcjo_m.dao");
-
-//        addSection(schema);
-//        addSite(schema);
-//        addFaceNews(schema);
+        addFaceNews(schema);
+        addFaceInfo(schema);
+        addBrgInfo(schema);
+        addPntInfo(schema);
+        addPersonInfo(schema);
+        addBasePntInfo(schema);
         addLineBw(schema);
         addSectionSite(schema);
         new DaoGenerator().generateAll(schema, "./app/src/main/java");
     }
 
-    private static void addSection(Schema schema) {
-        Entity section = schema.addEntity("SecNews");
-        section.addStringProperty("sectid").primaryKey();
-        section.addStringProperty("sectcode");
-        section.addStringProperty("sectname");
+    private static void addFaceInfo(Schema schema){
+        Entity section = schema.addEntity("FaceInfo");
+        section.addStringProperty("faceid").primaryKey();
+        section.addStringProperty("jointflag");
+        section.addStringProperty("structtype");
+        section.addStringProperty("structname");
+        section.addStringProperty("structbase");
+        section.addStringProperty("designatt");
+        section.addStringProperty("piernum");
+        section.addStringProperty("dkname");
+        section.addStringProperty("dkilo");
+        section.addStringProperty("dchain");
+        section.addStringProperty("rkname");
+        section.addStringProperty("rkilo");
+        section.addStringProperty("rchain");
+        section.addStringProperty("remark");
     }
 
-    private static void addSite(Schema schema) {
-        Entity section = schema.addEntity("SiteNews");
+    private static void addBrgInfo(Schema schema) {
+        Entity section = schema.addEntity("BrgInfo");
+        section.addStringProperty("faceid").primaryKey();
+        section.addStringProperty("structname");
+        section.addStringProperty("piernum");
+        section.addStringProperty("beamspan");
+        section.addStringProperty("beamtype");
+        section.addStringProperty("remark");
+    }
+
+    private static void addPntInfo(Schema schema) {
+        Entity section = schema.addEntity("PntInfo");
+        section.addStringProperty("pointid").primaryKey();
+        section.addStringProperty("pointnum");
+        section.addStringProperty("designvalue");
+        section.addStringProperty("designremark");
+        section.addStringProperty("inbuiltdate");
+        section.addStringProperty("seatcode");
+        section.addStringProperty("remark");
+        section.addStringProperty("pointcode");
+        section.addStringProperty("name");
+    }
+
+    private static void addPersonInfo(Schema schema) {
+        Entity section = schema.addEntity("PersonInfo");
+        section.addStringProperty("userid").primaryKey();
+        section.addStringProperty("username");
+        section.addStringProperty("usertel");
+    }
+
+    private static void addBasePntInfo(Schema schema) {
+        Entity section = schema.addEntity("BasePntInfo");
         section.addStringProperty("siteid").primaryKey();
-        section.addStringProperty("sitecode");
         section.addStringProperty("sitename");
-        section.addStringProperty("startsite");
-        section.addStringProperty("endsite");
+        section.addStringProperty("sitecode");
+        section.addStringProperty("sitehigh");
+        section.addStringProperty("sitenum");
+        section.addStringProperty("sitevar");
     }
 
     private static void addFaceNews(Schema schema) {

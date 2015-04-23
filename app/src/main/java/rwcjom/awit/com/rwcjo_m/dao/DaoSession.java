@@ -9,11 +9,23 @@ import de.greenrobot.dao.AbstractDaoSession;
 import de.greenrobot.dao.identityscope.IdentityScopeType;
 import de.greenrobot.dao.internal.DaoConfig;
 
+import rwcjom.awit.com.rwcjo_m.dao.FaceNews;
+import rwcjom.awit.com.rwcjo_m.dao.FaceInfo;
+import rwcjom.awit.com.rwcjo_m.dao.BrgInfo;
+import rwcjom.awit.com.rwcjo_m.dao.PntInfo;
+import rwcjom.awit.com.rwcjo_m.dao.PersonInfo;
+import rwcjom.awit.com.rwcjo_m.dao.BasePntInfo;
 import rwcjom.awit.com.rwcjo_m.dao.Line;
 import rwcjom.awit.com.rwcjo_m.dao.BwInfo;
 import rwcjom.awit.com.rwcjo_m.dao.SecNews;
 import rwcjom.awit.com.rwcjo_m.dao.SiteNews;
 
+import rwcjom.awit.com.rwcjo_m.dao.FaceNewsDao;
+import rwcjom.awit.com.rwcjo_m.dao.FaceInfoDao;
+import rwcjom.awit.com.rwcjo_m.dao.BrgInfoDao;
+import rwcjom.awit.com.rwcjo_m.dao.PntInfoDao;
+import rwcjom.awit.com.rwcjo_m.dao.PersonInfoDao;
+import rwcjom.awit.com.rwcjo_m.dao.BasePntInfoDao;
 import rwcjom.awit.com.rwcjo_m.dao.LineDao;
 import rwcjom.awit.com.rwcjo_m.dao.BwInfoDao;
 import rwcjom.awit.com.rwcjo_m.dao.SecNewsDao;
@@ -28,11 +40,23 @@ import rwcjom.awit.com.rwcjo_m.dao.SiteNewsDao;
  */
 public class DaoSession extends AbstractDaoSession {
 
+    private final DaoConfig faceNewsDaoConfig;
+    private final DaoConfig faceInfoDaoConfig;
+    private final DaoConfig brgInfoDaoConfig;
+    private final DaoConfig pntInfoDaoConfig;
+    private final DaoConfig personInfoDaoConfig;
+    private final DaoConfig basePntInfoDaoConfig;
     private final DaoConfig lineDaoConfig;
     private final DaoConfig bwInfoDaoConfig;
     private final DaoConfig secNewsDaoConfig;
     private final DaoConfig siteNewsDaoConfig;
 
+    private final FaceNewsDao faceNewsDao;
+    private final FaceInfoDao faceInfoDao;
+    private final BrgInfoDao brgInfoDao;
+    private final PntInfoDao pntInfoDao;
+    private final PersonInfoDao personInfoDao;
+    private final BasePntInfoDao basePntInfoDao;
     private final LineDao lineDao;
     private final BwInfoDao bwInfoDao;
     private final SecNewsDao secNewsDao;
@@ -41,6 +65,24 @@ public class DaoSession extends AbstractDaoSession {
     public DaoSession(SQLiteDatabase db, IdentityScopeType type, Map<Class<? extends AbstractDao<?, ?>>, DaoConfig>
             daoConfigMap) {
         super(db);
+
+        faceNewsDaoConfig = daoConfigMap.get(FaceNewsDao.class).clone();
+        faceNewsDaoConfig.initIdentityScope(type);
+
+        faceInfoDaoConfig = daoConfigMap.get(FaceInfoDao.class).clone();
+        faceInfoDaoConfig.initIdentityScope(type);
+
+        brgInfoDaoConfig = daoConfigMap.get(BrgInfoDao.class).clone();
+        brgInfoDaoConfig.initIdentityScope(type);
+
+        pntInfoDaoConfig = daoConfigMap.get(PntInfoDao.class).clone();
+        pntInfoDaoConfig.initIdentityScope(type);
+
+        personInfoDaoConfig = daoConfigMap.get(PersonInfoDao.class).clone();
+        personInfoDaoConfig.initIdentityScope(type);
+
+        basePntInfoDaoConfig = daoConfigMap.get(BasePntInfoDao.class).clone();
+        basePntInfoDaoConfig.initIdentityScope(type);
 
         lineDaoConfig = daoConfigMap.get(LineDao.class).clone();
         lineDaoConfig.initIdentityScope(type);
@@ -54,11 +96,23 @@ public class DaoSession extends AbstractDaoSession {
         siteNewsDaoConfig = daoConfigMap.get(SiteNewsDao.class).clone();
         siteNewsDaoConfig.initIdentityScope(type);
 
+        faceNewsDao = new FaceNewsDao(faceNewsDaoConfig, this);
+        faceInfoDao = new FaceInfoDao(faceInfoDaoConfig, this);
+        brgInfoDao = new BrgInfoDao(brgInfoDaoConfig, this);
+        pntInfoDao = new PntInfoDao(pntInfoDaoConfig, this);
+        personInfoDao = new PersonInfoDao(personInfoDaoConfig, this);
+        basePntInfoDao = new BasePntInfoDao(basePntInfoDaoConfig, this);
         lineDao = new LineDao(lineDaoConfig, this);
         bwInfoDao = new BwInfoDao(bwInfoDaoConfig, this);
         secNewsDao = new SecNewsDao(secNewsDaoConfig, this);
         siteNewsDao = new SiteNewsDao(siteNewsDaoConfig, this);
 
+        registerDao(FaceNews.class, faceNewsDao);
+        registerDao(FaceInfo.class, faceInfoDao);
+        registerDao(BrgInfo.class, brgInfoDao);
+        registerDao(PntInfo.class, pntInfoDao);
+        registerDao(PersonInfo.class, personInfoDao);
+        registerDao(BasePntInfo.class, basePntInfoDao);
         registerDao(Line.class, lineDao);
         registerDao(BwInfo.class, bwInfoDao);
         registerDao(SecNews.class, secNewsDao);
@@ -66,10 +120,40 @@ public class DaoSession extends AbstractDaoSession {
     }
     
     public void clear() {
+        faceNewsDaoConfig.getIdentityScope().clear();
+        faceInfoDaoConfig.getIdentityScope().clear();
+        brgInfoDaoConfig.getIdentityScope().clear();
+        pntInfoDaoConfig.getIdentityScope().clear();
+        personInfoDaoConfig.getIdentityScope().clear();
+        basePntInfoDaoConfig.getIdentityScope().clear();
         lineDaoConfig.getIdentityScope().clear();
         bwInfoDaoConfig.getIdentityScope().clear();
         secNewsDaoConfig.getIdentityScope().clear();
         siteNewsDaoConfig.getIdentityScope().clear();
+    }
+
+    public FaceNewsDao getFaceNewsDao() {
+        return faceNewsDao;
+    }
+
+    public FaceInfoDao getFaceInfoDao() {
+        return faceInfoDao;
+    }
+
+    public BrgInfoDao getBrgInfoDao() {
+        return brgInfoDao;
+    }
+
+    public PntInfoDao getPntInfoDao() {
+        return pntInfoDao;
+    }
+
+    public PersonInfoDao getPersonInfoDao() {
+        return personInfoDao;
+    }
+
+    public BasePntInfoDao getBasePntInfoDao() {
+        return basePntInfoDao;
     }
 
     public LineDao getLineDao() {
