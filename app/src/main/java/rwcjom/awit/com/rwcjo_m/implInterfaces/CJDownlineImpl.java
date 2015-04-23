@@ -51,6 +51,7 @@ public class CJDownlineImpl implements CJDownlineInterface {
 					jsonLine=new JSONArray(result);
 					Log.i("res", jsonLine.get(0).toString());
 					if(jsonLine.length()>1){
+						downlineObj.setFlag(0);
 						Log.i("len", jsonLine.length()+"");
 						for(int j=0;j<jsonLine.length();j++){
 							lineObj=new Line();
