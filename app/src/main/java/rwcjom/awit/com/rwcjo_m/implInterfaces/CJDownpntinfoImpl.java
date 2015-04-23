@@ -51,7 +51,7 @@ public class CJDownpntinfoImpl implements CJDownpntinfoInterface {
 							 for(int j=0;j<jsonpnt.length();j++){
 								 String data=jsonpnt.get(j).toString();
 								 jsonObj=new JSONObject(data);
-								 if(!(jsonObj.getString("pointid").equals("0"))){
+								 if((!(jsonObj.getString("pointid").equals("0")))||(jsonObj.getString("faceid").equals(-1))||(jsonObj.getString("faceid").equals("0"))){
 									 downpntinfoObj=new CJDownpntinfo();
 									 downpntinfoObj.setFlag(0);
 									 pntInfoList=new ArrayList<PntInfo>();
