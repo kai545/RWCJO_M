@@ -31,7 +31,6 @@ public class CJDownlineImpl implements CJDownlineInterface {
 			SoapObject object = null;
 			JSONArray jsonLine;
 			JSONObject jsonObj;
-			Log.i(TAG,"ha ha ha");
 			try {
 				Log.i(TAG, randomcode);
 				String methodNameString="CJDownline";
@@ -56,7 +55,6 @@ public class CJDownlineImpl implements CJDownlineInterface {
 						for(int j=0;j<jsonLine.length();j++){
 							lineObj=new Line();
 							String data=jsonLine.get(j).toString();
-							Log.i("data", data);
 							jsonObj=new JSONObject(data);
 							lineObj.setLc(jsonObj.getString("lc"));
 							lineObj.setLn(jsonObj.getString("ln"));
@@ -64,24 +62,47 @@ public class CJDownlineImpl implements CJDownlineInterface {
 							Log.i("LN", lineObj.getLn());
 							bwInfoList=new ArrayList<BwInfo>();
 							String bws=jsonObj.getString("bw");
-							Log.i("BW",bws);
 							JSONArray bwArray=new JSONArray(bws);
 							JSONObject bwobj=null;
 							for(int k=0;k<bwArray.length();k++){
-								Log.i("测试BW", "come  on");
 								bwInfoObj=new BwInfo();
 								String datastr=bwArray.getString(k).toString();
 								bwobj=new JSONObject(datastr);
 								bwInfoObj.setId(bwobj.getString("id"));
 								bwInfoObj.setOd(bwobj.getString("od"));
 								bwInfoObj.setTy(bwobj.getString("ty"));
-								Log.i("bw_id", bwInfoObj.getId());
-								Log.i("bw_od", bwInfoObj.getOd());
-								Log.i("bw_ty", bwInfoObj.getTy());
 								bwInfoList.add(bwInfoObj);
 							}
 							downlineObj.setBw(bwInfoList);
 							downlineObj.setLineObj(lineObj);
+						}
+					}else{
+						String data=jsonLine.get(0).toString();
+						jsonObj=new JSONObject(data);
+						if(jsonObj.getString("flag").equals("-1")){
+							downlineObj.setFlag(-1);
+							downlineObj.setMsg("sectid有误");
+							Log.i("exception","1");
+						}else if(jsonObj.getString("flag").equals("-2")){
+							downlineObj.setFlag(-1);
+							downlineObj.setMsg("startdate有误");
+							Log.i("exception", "2");
+						}else if(jsonObj.getString("flag").equals("-3")){
+							downlineObj.setFlag(-1);
+							downlineObj.setMsg("enddate有误");
+							Log.i("exception", "3");
+						}else if(jsonObj.getString("flag").equals("-4")){
+							downlineObj.setFlag(-1);
+							downlineObj.setMsg("randomcode有误");
+							Log.i("exception", "4");
+						}else if(jsonObj.getString("flag").equals("-5")){
+							downlineObj.setFlag(-1);
+							downlineObj.setMsg("无测量水准路线");
+							Log.i("exception","5");
+						}else{
+							downlineObj.setFlag(-1);
+							downlineObj.setMsg("其他错误");
+							Log.i("exception","6");
 						}
 					}
 				}
@@ -96,27 +117,10 @@ public class CJDownlineImpl implements CJDownlineInterface {
 				downlineObj.setFlag(-2);
 				downlineObj.setMsg("空指针异常");
 			} catch (Exception e) {
-				/*pubUtil.exception.setFlag(-5);
-				Log.i("exception", pubUtil.exception.getFlag() + "");
-				if(pubUtil.exception.getFlag()==-1){
-					pubUtil.exception.setExceptionMsg("sectid有误");
-					Log.i("exception","1");
-				}else if(pubUtil.exception.getFlag()==-2){
-					pubUtil.exception.setExceptionMsg("startdate有误");
-					Log.i("exception", "2");
-				}else if(pubUtil.exception.getFlag()==-3){
-					pubUtil.exception.setExceptionMsg("enddate有误");
-					Log.i("exception", "3");
-				}else if(pubUtil.exception.getFlag()==-4){
-					pubUtil.exception.setExceptionMsg("randomcode有误");
-					Log.i("exception", "4");
-				}else if(pubUtil.exception.getFlag()==-5){
-					pubUtil.exception.setExceptionMsg("无测量水准路线");
-					Log.i("exception","5");
-				}else{
-					pubUtil.exception.setExceptionMsg("其他错误");
-					Log.i("exception","6");
-				}*/
+				e.printStackTrace();
+				Log.i(TAG,"网络异常");
+				downlineObj.setFlag(-2);
+				downlineObj.setMsg("网络异常");
 			}
 			return downlineObj;
 		}
