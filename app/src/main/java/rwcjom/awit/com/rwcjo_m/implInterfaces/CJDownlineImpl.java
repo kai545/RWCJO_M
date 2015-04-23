@@ -32,7 +32,7 @@ public class CJDownlineImpl implements CJDownlineInterface {
 			SoapObject object = null;
 			JSONArray jsonLine;
 			JSONObject jsonObj;
-
+			Log.i(TAG,"ha ha ha");
 			try {
 				Log.i(TAG, randomcode);
 				String methodNameString="CJDownline";
