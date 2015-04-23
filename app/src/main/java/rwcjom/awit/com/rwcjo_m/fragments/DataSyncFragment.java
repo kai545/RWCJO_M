@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,11 +21,12 @@ import java.util.List;
 import de.greenrobot.event.EventBus;
 import rwcjom.awit.com.rwcjo_m.R;
 import rwcjom.awit.com.rwcjo_m.bean.CJDownsectsite;
-import rwcjom.awit.com.rwcjo_m.bean.pubUtil;
+import rwcjom.awit.com.rwcjo_m.dao.SiteNews;
 import rwcjom.awit.com.rwcjo_m.event.DataSyncFragmentEvent;
 import rwcjom.awit.com.rwcjo_m.event.MainActivityEvent;
 import rwcjom.awit.com.rwcjo_m.implInterfaces.CJDownsectsiteImpl;
-import rwcjom.awit.com.rwcjo_m.util.CommonTools;
+import rwcjom.awit.com.rwcjo_m.service.SecNewsService;
+import rwcjom.awit.com.rwcjo_m.service.SiteNewsService;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,6 +40,8 @@ public class DataSyncFragment extends Fragment {
     private TextView loginedUsername;
     private CircularProgressButton dl_section_btn;
 
+    private SecNewsService secNewsService;
+    private SiteNewsService siteNewsService;
     public DataSyncFragment() {
         // Required empty public constructor
     }
@@ -49,6 +51,8 @@ public class DataSyncFragment extends Fragment {
         // TODO Auto-generated method stub
         super.onAttach(activity);
         context=activity;
+        secNewsService=SecNewsService.getInstance(context);
+        siteNewsService=SiteNewsService.getInstance(context);
     }
 
     @Override
@@ -78,28 +82,32 @@ public class DataSyncFragment extends Fragment {
                 Tasks.executeInBackground(context, new BackgroundWork<List<CJDownsectsite>>() {
                     @Override
                     public List<CJDownsectsite> doInBackground() throws Exception {
-                        EventBus.getDefault().post(new DataSyncFragmentEvent(50));
+                        EventBus.getDefault().post(new DataSyncFragmentEvent(50));//进度条
                         List<CJDownsectsite> mCJDownsectsite = null;
                         //CommonTools.showProgressDialog(MainActivity.this, "正在登录……");
                         if (randomCode.length() != 0) {
                             mCJDownsectsite = new ArrayList<CJDownsectsite>();
                             CJDownsectsiteImpl mCJDownsectsiteImpl = new CJDownsectsiteImpl();
                             for (int i = 0; i < 3; i++) {
-                                /*List<CJDownsectsite> thismCJDownsectsite = mCJDownsectsiteImpl.getCJDownsectsite("0", i + "", randomCode);//调用接口
-                                Log.i(TAG, "本次（" + i + "）数据条目：" + thismCJDownsectsite.size());
-                                if (thismCJDownsectsite.size() >= 2) {
-                                    //有工点信息
-                                    mCJDownsectsite.addAll(thismCJDownsectsite);
-                                    Log.i(TAG, "总数据条目：" + mCJDownsectsite.size());
-                                    Log.i(TAG, mCJDownsectsite + "");
+                                CJDownsectsite thismCJDownsectsite = mCJDownsectsiteImpl.getCJDownsectsite("0", i + "", randomCode);//调用接口
 
+                                if (thismCJDownsectsite.getFlag() == 0) {
+                                    //有工点信息
+
+                                    secNewsService.saveSecNews(thismCJDownsectsite.getSecObj());
+                                    List<SiteNews> sitelist=thismCJDownsectsite.getSitelist();
+                                    for (int j = 0; j <sitelist.size(); j++) {
+                                        SiteNews siteNews=sitelist.get(j);
+                                        siteNews.setF_sectionid(thismCJDownsectsite.getSecObj().getSectid());
+                                        siteNewsService.saveSiteNews(siteNews);
+                                    }
                                     //开始保存数据
 
-                                } else if (mCJDownsectsite.size() == 1) {
+                                } else if (mCJDownsectsite.size() == -1) {
                                     //有错误信息
                                 } else {
                                     //其他信息
-                                }*/
+                                }
 
                             }
                         }
@@ -109,11 +117,7 @@ public class DataSyncFragment extends Fragment {
                 }, new Completion<List<CJDownsectsite>>() {
                     @Override
                     public void onSuccess(Context context, List<CJDownsectsite> result) {
-                        if (result != null && result.size() != 0) {
-                            EventBus.getDefault().post(new DataSyncFragmentEvent(100));
-                        } else {
-                            CommonTools.showToast(context, "Exception：" + pubUtil.exception.getExceptionMsg());
-                        }
+                        EventBus.getDefault().post(new DataSyncFragmentEvent(100));
                     }
 
                     @Override
