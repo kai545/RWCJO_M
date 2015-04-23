@@ -28,6 +28,8 @@ public class SecNewsDao extends AbstractDao<SecNews, String> {
         public final static Property Sectname = new Property(2, String.class, "sectname", false, "SECTNAME");
     };
 
+    private DaoSession daoSession;
+
 
     public SecNewsDao(DaoConfig config) {
         super(config);
@@ -35,6 +37,7 @@ public class SecNewsDao extends AbstractDao<SecNews, String> {
     
     public SecNewsDao(DaoConfig config, DaoSession daoSession) {
         super(config, daoSession);
+        this.daoSession = daoSession;
     }
 
     /** Creates the underlying database table. */
@@ -71,6 +74,12 @@ public class SecNewsDao extends AbstractDao<SecNews, String> {
         if (sectname != null) {
             stmt.bindString(3, sectname);
         }
+    }
+
+    @Override
+    protected void attachEntity(SecNews entity) {
+        super.attachEntity(entity);
+        entity.__setDaoSession(daoSession);
     }
 
     /** @inheritdoc */
