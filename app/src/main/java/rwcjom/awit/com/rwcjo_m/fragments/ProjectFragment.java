@@ -15,7 +15,9 @@ import android.view.ViewGroup;
 
 import com.astuetz.PagerSlidingTabStrip;
 
+import de.greenrobot.event.EventBus;
 import rwcjom.awit.com.rwcjo_m.R;
+import rwcjom.awit.com.rwcjo_m.event.MainActivityEvent;
 import rwcjom.awit.com.rwcjo_m.service.SecNewsService;
 import rwcjom.awit.com.rwcjo_m.service.SiteNewsService;
 
@@ -41,7 +43,7 @@ public class ProjectFragment extends Fragment {
     {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        System.out.println("ExampleFragment--onCreate");
+        EventBus.getDefault().post(new MainActivityEvent("项目查看"));
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

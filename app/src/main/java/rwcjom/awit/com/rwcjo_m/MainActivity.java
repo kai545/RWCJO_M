@@ -149,8 +149,6 @@ public class MainActivity extends ActionBarActivity implements Toolbar.OnMenuIte
                 ft.commit();
                 break;
             case R.mipmap.ic_drawer_search_normal:
-                toolbar.setTitle("项目查看");
-
                 fragment=new ProjectFragment();
                 ft.replace(R.id.drawer_fragment_layout, fragment);
                 ft.commit();

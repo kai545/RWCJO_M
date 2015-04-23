@@ -23,7 +23,7 @@ import rwcjom.awit.com.rwcjo_m.service.SiteNewsService;
  * Created by Fantasy on 15/4/23.
  */
 public class SiteFragment extends Fragment {
-    private static final String TAG = "ShuiZhunXianLuFragment";
+    private static final String TAG = "SiteFragment";
     private ListView listView;
     private Context context;
     private SecNewsService secNewsService;
