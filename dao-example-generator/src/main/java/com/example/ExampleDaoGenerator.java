@@ -12,10 +12,11 @@ public class ExampleDaoGenerator {
     public static void main(String[] args) throws Exception {
         Schema schema = new Schema(1, "rwcjom.awit.com.rwcjo_m.dao");
 
-        addSection(schema);
-        addSite(schema);
-        addFaceNews(schema);
-
+//        addSection(schema);
+//        addSite(schema);
+//        addFaceNews(schema);
+        addLineBw(schema);
+        addSectionSite(schema);
         new DaoGenerator().generateAll(schema, "./app/src/main/java");
     }
 
@@ -57,6 +58,41 @@ public class ExampleDaoGenerator {
         ToMany customerToOrders = customer.addToMany(order, customerId);
         customerToOrders.setName("orders");
         customerToOrders.orderAsc(orderDate);
+    }
+
+    private static void addSectionSite(Schema schema) {
+        Entity section = schema.addEntity("SecNews");
+        section.addStringProperty("sectid").primaryKey();
+        section.addStringProperty("sectcode");
+        section.addStringProperty("sectname");
+
+        Entity site = schema.addEntity("SiteNews");
+        site.addStringProperty("siteid").primaryKey();
+        site.addStringProperty("sitecode");
+        site.addStringProperty("sitename");
+        site.addStringProperty("startsite");
+        site.addStringProperty("endsite");
+        Property f_sectionid = site.addStringProperty("f_sectionid").notNull().getProperty();
+        site.addToOne(section, f_sectionid);
+
+        ToMany customerToOrders = section.addToMany(site, f_sectionid);
+    }
+
+
+        private static void addLineBw(Schema schema){
+            Entity line = schema.addEntity("Line");
+            line.addStringProperty("lc").primaryKey();
+            line.addStringProperty("ln");
+
+            Entity bw = schema.addEntity("BwInfo");
+            bw.addLongProperty("bwid").primaryKey().autoincrement();
+            bw.addStringProperty("id");
+            bw.addStringProperty("od");
+            bw.addStringProperty("ty");
+            Property f_lineid=bw.addStringProperty("f_lineid").notNull().getProperty();
+            bw.addToOne(line, f_lineid);
+
+            ToMany lineToBws = line.addToMany(bw, f_lineid);
     }
 }
 

@@ -1,12 +1,17 @@
 package rwcjom.awit.com.rwcjo_m.dao;
 
+import java.util.List;
+import java.util.ArrayList;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 
 import de.greenrobot.dao.AbstractDao;
 import de.greenrobot.dao.Property;
+import de.greenrobot.dao.internal.SqlUtils;
 import de.greenrobot.dao.internal.DaoConfig;
+import de.greenrobot.dao.query.Query;
+import de.greenrobot.dao.query.QueryBuilder;
 
 import rwcjom.awit.com.rwcjo_m.dao.SiteNews;
 
@@ -28,8 +33,12 @@ public class SiteNewsDao extends AbstractDao<SiteNews, String> {
         public final static Property Sitename = new Property(2, String.class, "sitename", false, "SITENAME");
         public final static Property Startsite = new Property(3, String.class, "startsite", false, "STARTSITE");
         public final static Property Endsite = new Property(4, String.class, "endsite", false, "ENDSITE");
+        public final static Property F_sectionid = new Property(5, String.class, "f_sectionid", false, "F_SECTIONID");
     };
 
+    private DaoSession daoSession;
+
+    private Query<SiteNews> secNews_SiteNewsListQuery;
 
     public SiteNewsDao(DaoConfig config) {
         super(config);
@@ -37,6 +46,7 @@ public class SiteNewsDao extends AbstractDao<SiteNews, String> {
     
     public SiteNewsDao(DaoConfig config, DaoSession daoSession) {
         super(config, daoSession);
+        this.daoSession = daoSession;
     }
 
     /** Creates the underlying database table. */
@@ -47,7 +57,8 @@ public class SiteNewsDao extends AbstractDao<SiteNews, String> {
                 "'SITECODE' TEXT," + // 1: sitecode
                 "'SITENAME' TEXT," + // 2: sitename
                 "'STARTSITE' TEXT," + // 3: startsite
-                "'ENDSITE' TEXT);"); // 4: endsite
+                "'ENDSITE' TEXT," + // 4: endsite
+                "'F_SECTIONID' TEXT NOT NULL );"); // 5: f_sectionid
     }
 
     /** Drops the underlying database table. */
@@ -85,6 +96,13 @@ public class SiteNewsDao extends AbstractDao<SiteNews, String> {
         if (endsite != null) {
             stmt.bindString(5, endsite);
         }
+        stmt.bindString(6, entity.getF_sectionid());
+    }
+
+    @Override
+    protected void attachEntity(SiteNews entity) {
+        super.attachEntity(entity);
+        entity.__setDaoSession(daoSession);
     }
 
     /** @inheritdoc */
@@ -101,7 +119,8 @@ public class SiteNewsDao extends AbstractDao<SiteNews, String> {
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // sitecode
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // sitename
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // startsite
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4) // endsite
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // endsite
+            cursor.getString(offset + 5) // f_sectionid
         );
         return entity;
     }
@@ -114,6 +133,7 @@ public class SiteNewsDao extends AbstractDao<SiteNews, String> {
         entity.setSitename(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setStartsite(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setEndsite(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setF_sectionid(cursor.getString(offset + 5));
      }
     
     /** @inheritdoc */
@@ -138,4 +158,111 @@ public class SiteNewsDao extends AbstractDao<SiteNews, String> {
         return true;
     }
     
+    /** Internal query to resolve the "siteNewsList" to-many relationship of SecNews. */
+    public List<SiteNews> _querySecNews_SiteNewsList(String f_sectionid) {
+        synchronized (this) {
+            if (secNews_SiteNewsListQuery == null) {
+                QueryBuilder<SiteNews> queryBuilder = queryBuilder();
+                queryBuilder.where(Properties.F_sectionid.eq(null));
+                secNews_SiteNewsListQuery = queryBuilder.build();
+            }
+        }
+        Query<SiteNews> query = secNews_SiteNewsListQuery.forCurrentThread();
+        query.setParameter(0, f_sectionid);
+        return query.list();
+    }
+
+    private String selectDeep;
+
+    protected String getSelectDeep() {
+        if (selectDeep == null) {
+            StringBuilder builder = new StringBuilder("SELECT ");
+            SqlUtils.appendColumns(builder, "T", getAllColumns());
+            builder.append(',');
+            SqlUtils.appendColumns(builder, "T0", daoSession.getSecNewsDao().getAllColumns());
+            builder.append(" FROM SITE_NEWS T");
+            builder.append(" LEFT JOIN SEC_NEWS T0 ON T.'F_SECTIONID'=T0.'SECTID'");
+            builder.append(' ');
+            selectDeep = builder.toString();
+        }
+        return selectDeep;
+    }
+    
+    protected SiteNews loadCurrentDeep(Cursor cursor, boolean lock) {
+        SiteNews entity = loadCurrent(cursor, 0, lock);
+        int offset = getAllColumns().length;
+
+        SecNews secNews = loadCurrentOther(daoSession.getSecNewsDao(), cursor, offset);
+         if(secNews != null) {
+            entity.setSecNews(secNews);
+        }
+
+        return entity;    
+    }
+
+    public SiteNews loadDeep(Long key) {
+        assertSinglePk();
+        if (key == null) {
+            return null;
+        }
+
+        StringBuilder builder = new StringBuilder(getSelectDeep());
+        builder.append("WHERE ");
+        SqlUtils.appendColumnsEqValue(builder, "T", getPkColumns());
+        String sql = builder.toString();
+        
+        String[] keyArray = new String[] { key.toString() };
+        Cursor cursor = db.rawQuery(sql, keyArray);
+        
+        try {
+            boolean available = cursor.moveToFirst();
+            if (!available) {
+                return null;
+            } else if (!cursor.isLast()) {
+                throw new IllegalStateException("Expected unique result, but count was " + cursor.getCount());
+            }
+            return loadCurrentDeep(cursor, true);
+        } finally {
+            cursor.close();
+        }
+    }
+    
+    /** Reads all available rows from the given cursor and returns a list of new ImageTO objects. */
+    public List<SiteNews> loadAllDeepFromCursor(Cursor cursor) {
+        int count = cursor.getCount();
+        List<SiteNews> list = new ArrayList<SiteNews>(count);
+        
+        if (cursor.moveToFirst()) {
+            if (identityScope != null) {
+                identityScope.lock();
+                identityScope.reserveRoom(count);
+            }
+            try {
+                do {
+                    list.add(loadCurrentDeep(cursor, false));
+                } while (cursor.moveToNext());
+            } finally {
+                if (identityScope != null) {
+                    identityScope.unlock();
+                }
+            }
+        }
+        return list;
+    }
+    
+    protected List<SiteNews> loadDeepAllAndCloseCursor(Cursor cursor) {
+        try {
+            return loadAllDeepFromCursor(cursor);
+        } finally {
+            cursor.close();
+        }
+    }
+    
+
+    /** A raw-style query where you can pass any WHERE clause and arguments. */
+    public List<SiteNews> queryDeep(String where, String... selectionArg) {
+        Cursor cursor = db.rawQuery(getSelectDeep() + where, selectionArg);
+        return loadDeepAllAndCloseCursor(cursor);
+    }
+ 
 }
