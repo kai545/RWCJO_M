@@ -20,16 +20,15 @@ import rwcjom.awit.com.rwcjo_m.interfaces.CJDownpntinfoInterface;
 
 public class CJDownpntinfoImpl implements CJDownpntinfoInterface {
 	private String TAG="CJDownpntinfoImpl";
-	private List<CJDownpntinfo> downpntinfoList;
 	private CJDownpntinfo downpntinfoObj;
 	private List<PntInfo> pntInfoList;
 	private PntInfo pntInfoObj;
 	private String result;
 	@Override
-	public List<CJDownpntinfo> getCJDownputinfo(String faceid, String objstate,
+	public CJDownpntinfo getCJDownputinfo(String faceid, String objstate,
 			String randomcode) {
 				try {
-					downpntinfoList=new ArrayList<CJDownpntinfo>();
+					downpntinfoObj=new CJDownpntinfo();
 					Log.i(TAG,randomcode);
 					String methodNameString="CJDownpntinfo";
 					Map<String,String> paramsvalue=new LinkedHashMap<>();
@@ -66,8 +65,6 @@ public class CJDownpntinfoImpl implements CJDownpntinfoInterface {
 									 pntInfoObj.setPointcode(jsonObj.getString("pointcode"));
 									 pntInfoObj.setName(jsonObj.getString("name"));
 									 pntInfoList.add(pntInfoObj);
-									 downpntinfoObj.setPntInfoList(pntInfoList);
-									 downpntinfoList.add(downpntinfoObj);
 								 }else {
 									 String exStr=jsonpnt.get(0).toString();
 									 jsonObj=new JSONObject(exStr);
@@ -84,8 +81,8 @@ public class CJDownpntinfoImpl implements CJDownpntinfoInterface {
 										 downpntinfoObj.setMsg("无相应的测点信息");
 									 }
 									 Log.i("exception", downpntinfoObj.getMsg());
-									 downpntinfoList.add(downpntinfoObj);
 								 }
+								 downpntinfoObj.setPntInfoList(pntInfoList);
 							 }
 					}
 				} catch(ClassCastException e){
@@ -104,7 +101,7 @@ public class CJDownpntinfoImpl implements CJDownpntinfoInterface {
 					downpntinfoObj.setFlag(-2);
 					downpntinfoObj.setMsg("网络异常");
 				}
-		return downpntinfoList;
+		return downpntinfoObj;
 	}
 
 }

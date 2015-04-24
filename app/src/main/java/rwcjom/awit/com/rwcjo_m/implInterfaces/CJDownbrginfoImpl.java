@@ -22,13 +22,13 @@ import rwcjom.awit.com.rwcjo_m.interfaces.CJDownbrginfoInterface;
 
 public class CJDownbrginfoImpl implements CJDownbrginfoInterface {
 	private String TAG="CJDownbrginfoImpl";
-	private List<CJDownbrginfo> downbrginfoList;
 	private CJDownbrginfo downbrginfoObj;
+	private List<BrgInfo> brgInfoList;
 	private BrgInfo brginfoObj;
 	@Override
-	public List<CJDownbrginfo> getCJDownbrginfo(String siteid, String faceid, String randomcode) {
+	public CJDownbrginfo getCJDownbrginfo(String siteid, String faceid, String randomcode) {
 				try {
-					downbrginfoList=new ArrayList<CJDownbrginfo>();
+					downbrginfoObj=new CJDownbrginfo();
 					Log.i(TAG,randomcode);
 					String methodNameString="CJDownbrginfo";
 					Map<String,String> paramsvalue=new LinkedHashMap<>();
@@ -52,7 +52,6 @@ public class CJDownbrginfoImpl implements CJDownbrginfoInterface {
 							downbrginfoObj.setMsg("randomcode有误");
 						}
 						Log.i("exception", downbrginfoObj.getMsg());
-						downbrginfoList.add(downbrginfoObj);
 					}else if(object.getPropertyCount()==6){
 						downbrginfoObj=new CJDownbrginfo();
 						downbrginfoObj.setFlag(0);
@@ -63,9 +62,9 @@ public class CJDownbrginfoImpl implements CJDownbrginfoInterface {
 						brginfoObj.setBeamspan(object.getProperty(object.getPropertyCount() - 3).toString());
 						brginfoObj.setBeamtype(object.getProperty(object.getPropertyCount() - 2).toString());
 						brginfoObj.setRemark(object.getProperty(object.getPropertyCount() - 1).toString());
-						downbrginfoObj.setBrginfoObj(brginfoObj);
-						downbrginfoList.add(downbrginfoObj);
+						brgInfoList.add(brginfoObj);
 					}
+					downbrginfoObj.setBrgInfoList(brgInfoList);
 				}catch(ClassCastException e){
 					e.printStackTrace();
 					Log.i(TAG, "造型异常");
@@ -82,7 +81,7 @@ public class CJDownbrginfoImpl implements CJDownbrginfoInterface {
 					downbrginfoObj.setFlag(-2);
 					downbrginfoObj.setMsg("网络异常");
 				}
-		return downbrginfoList;
+		return downbrginfoObj;
 	}
 
 }

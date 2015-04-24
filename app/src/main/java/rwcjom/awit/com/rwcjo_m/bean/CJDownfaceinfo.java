@@ -1,5 +1,8 @@
 package rwcjom.awit.com.rwcjo_m.bean;
 
+
+import java.util.List;
+
 import rwcjom.awit.com.rwcjo_m.dao.FaceInfo;
 
 /**
@@ -9,16 +12,16 @@ import rwcjom.awit.com.rwcjo_m.dao.FaceInfo;
  * 
  */
 public class CJDownfaceinfo {
-	private FaceInfo faceinfoObj;
+	private List<FaceInfo> faceinfolist;
 	private String msg;
 	private Integer Flag;
 
-	public FaceInfo getFaceinfoObj() {
-		return faceinfoObj;
+	public List<FaceInfo> getFaceinfolist() {
+		return faceinfolist;
 	}
 
-	public void setFaceinfoObj(FaceInfo faceinfoObj) {
-		this.faceinfoObj = faceinfoObj;
+	public void setFaceinfolist(List<FaceInfo> faceinfolist) {
+		this.faceinfolist = faceinfolist;
 	}
 
 	public Integer getFlag() {

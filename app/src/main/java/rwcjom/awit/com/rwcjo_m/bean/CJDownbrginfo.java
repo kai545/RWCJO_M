@@ -1,5 +1,7 @@
 package rwcjom.awit.com.rwcjo_m.bean;
 
+import java.util.List;
+
 import rwcjom.awit.com.rwcjo_m.dao.BrgInfo;
 
 /**
@@ -8,16 +10,16 @@ import rwcjom.awit.com.rwcjo_m.dao.BrgInfo;
  *
  */
 public class CJDownbrginfo {
-	private BrgInfo brginfoObj;
+	private List<BrgInfo> brgInfoList;
 	private String msg;
 	private Integer Flag;
 
-	public BrgInfo getBrginfoObj() {
-		return brginfoObj;
+	public List<BrgInfo> getBrgInfoList() {
+		return brgInfoList;
 	}
 
-	public void setBrginfoObj(BrgInfo brginfoObj) {
-		this.brginfoObj = brginfoObj;
+	public void setBrgInfoList(List<BrgInfo> brgInfoList) {
+		this.brgInfoList = brgInfoList;
 	}
 
 	public Integer getFlag() {

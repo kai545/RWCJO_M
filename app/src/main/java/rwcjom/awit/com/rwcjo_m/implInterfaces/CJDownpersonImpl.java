@@ -23,16 +23,15 @@ import rwcjom.awit.com.rwcjo_m.interfaces.CJDownpersonInterface;
 
 public class CJDownpersonImpl implements CJDownpersonInterface {
 	private String TAG="CJDownpersonImpl";
-	private List<CJDownperson> downpersonList;
 	private CJDownperson downpersonObj;
 	private List<PersonInfo> personInfoList;
 	private PersonInfo personInfoObj;
 	private String result;
 	@Override
-	public List<CJDownperson> getCJDownperson(String sectid, String ptype, String randomcode) {
+	public CJDownperson getCJDownperson(String sectid, String ptype, String randomcode) {
 				String[] resStr;
 				try {
-					downpersonList=new ArrayList<CJDownperson>();
+					downpersonObj=new CJDownperson();
 					Log.i(TAG,randomcode);
 					String methodNameString="CJDownperson";
 					Map<String,String> paramsvalue=new LinkedHashMap<>();
@@ -63,7 +62,6 @@ public class CJDownpersonImpl implements CJDownpersonInterface {
 								downpersonObj.setMsg("该工点下无相应的类别人员");
 							}
 							Log.i("exception", downpersonObj.getMsg());
-							downpersonList.add(downpersonObj);
 						}else {
 							personInfoList=new ArrayList<PersonInfo>();
 							downpersonObj=new CJDownperson();
@@ -73,22 +71,21 @@ public class CJDownpersonImpl implements CJDownpersonInterface {
 							personInfoObj.setUsername(resStr[1]);
 							personInfoObj.setUsertel(resStr[2]);
 							personInfoList.add(personInfoObj);
-							downpersonObj.setPersonInfoList(personInfoList);
-							downpersonList.add(downpersonObj);
 						}
+						downpersonObj.setPersonInfoList(personInfoList);
 					}
 					 
-				} catch(ClassCastException e){
+				} catch(ClassCastException e) {
 					e.printStackTrace();
 					Log.i(TAG, "造型异常");
 					downpersonObj.setFlag(-2);
 					downpersonObj.setMsg("造型异常");
-				}catch(ArrayIndexOutOfBoundsException e){
+				}catch(ArrayIndexOutOfBoundsException e) {
 					e.printStackTrace();
 					Log.i(TAG, "数组下标越界");
 					downpersonObj.setFlag(-2);
 					downpersonObj.setMsg("下标越界");
-				}catch(NullPointerException e){
+				}catch (NullPointerException e) {
 					e.printStackTrace();
 					Log.i(TAG, "空指针异常");
 					downpersonObj.setFlag(-2);
@@ -99,7 +96,7 @@ public class CJDownpersonImpl implements CJDownpersonInterface {
 					downpersonObj.setFlag(-2);
 					downpersonObj.setMsg("网络异常");
 				}
-		return downpersonList;
+		return downpersonObj;
 	}
 
 }

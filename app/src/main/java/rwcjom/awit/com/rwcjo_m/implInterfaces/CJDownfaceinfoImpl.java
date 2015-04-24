@@ -5,28 +5,27 @@ import android.util.Log;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import rwcjom.awit.com.rwcjo_m.bean.CJDownfaceinfo;
 import rwcjom.awit.com.rwcjo_m.dao.FaceInfo;
+import rwcjom.awit.com.rwcjo_m.dao.Line;
 import rwcjom.awit.com.rwcjo_m.util.CommonTools;
-import rwcjom.awit.com.rwcjo_m.bean.pubUtil;
 import rwcjom.awit.com.rwcjo_m.interfaces.CJDownfaceinfoInterface;
 
 
 public class CJDownfaceinfoImpl implements CJDownfaceinfoInterface {
 	private String TAG="CJDownfaceinfoImpl";
-	private List<CJDownfaceinfo> downfaceinfoList;
 	private CJDownfaceinfo downfaceinfoObj;
+	private List<FaceInfo> faceInfoList;
 	private FaceInfo faceinfoObj;
 	@Override
-	public List<CJDownfaceinfo> getCJDownfaceinfo(String siteid, String faceid,
+	public CJDownfaceinfo getCJDownfaceinfo(String siteid, String faceid,
 			String randomcode) {
 				try {
-					downfaceinfoList=new ArrayList<CJDownfaceinfo>();
+					downfaceinfoObj=new CJDownfaceinfo();
 					Log.i(TAG,randomcode);
 					String methodNameString="CJDownfaceinfo";
 					Map<String,String> paramsvalue=new LinkedHashMap<>();
@@ -39,7 +38,7 @@ public class CJDownfaceinfoImpl implements CJDownfaceinfoInterface {
 						Log.i(TAG, "Object is null");
 					}
 					// 获取返回的结果
-					Log.i("CJDownfaceinfoLength", object.getPropertyCount()+"");
+					Log.i("CJDownfaceinfoLength", object.getPropertyCount() + "");
 					if(object.getPropertyCount()==3){
 						downfaceinfoObj=new CJDownfaceinfo();
 						downfaceinfoObj.setFlag(-1);
@@ -51,7 +50,6 @@ public class CJDownfaceinfoImpl implements CJDownfaceinfoInterface {
 							downfaceinfoObj.setMsg("randomcode有误");
 						}
 						Log.i("exception", downfaceinfoObj.getMsg());
-						downfaceinfoList.add(downfaceinfoObj);
 					}else if(object.getPropertyCount()==14){
 						downfaceinfoObj=new CJDownfaceinfo();
 						downfaceinfoObj.setFlag(0);
@@ -70,30 +68,30 @@ public class CJDownfaceinfoImpl implements CJDownfaceinfoInterface {
 						faceinfoObj.setRkilo(object.getProperty(object.getPropertyCount() - 3).toString());
 						faceinfoObj.setRchain(object.getProperty(object.getPropertyCount() - 2).toString());
 						faceinfoObj.setRemark(object.getProperty(object.getPropertyCount() - 1).toString());
-						downfaceinfoObj.setFaceinfoObj(faceinfoObj);
-						downfaceinfoList.add(downfaceinfoObj);
+						faceInfoList.add(faceinfoObj);
 					}
-				}catch(ClassCastException e){
+					downfaceinfoObj.setFaceinfolist(faceInfoList);
+				}catch(ClassCastException e) {
 					e.printStackTrace();
 					Log.i(TAG, "造型异常");
 					downfaceinfoObj.setFlag(-2);
 					downfaceinfoObj.setMsg("造型异常");
-				}catch(IndexOutOfBoundsException e){
+				}catch (IndexOutOfBoundsException e){
 					Log.i(TAG,"数组下标越界");
 					e.printStackTrace();
 					downfaceinfoObj.setFlag(-2);
 					downfaceinfoObj.setMsg("下标越界");
-				} catch(NullPointerException e){
+				} catch(NullPointerException e) {
 					e.printStackTrace();
 					Log.i(TAG, "空指针异常");
 					downfaceinfoObj.setFlag(-2);
 					downfaceinfoObj.setMsg("空指针异常");
-				}catch (Exception e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 					downfaceinfoObj.setFlag(-2);
 					downfaceinfoObj.setMsg("网络异常");
 			}
-		return downfaceinfoList;
+		return downfaceinfoObj;
 	}
 
 }

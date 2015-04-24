@@ -10,5 +10,5 @@ import rwcjom.awit.com.rwcjo_m.bean.CJDownbasepnt;
  *
  */
 public interface CJDownbasepntInterface {
-	public List<CJDownbasepnt> getCJDownbasepnt(String sectid,String randomcode);
+	public CJDownbasepnt getCJDownbasepnt(String sectid,String randomcode);
 }

@@ -23,15 +23,14 @@ import rwcjom.awit.com.rwcjo_m.interfaces.CJDownbasepntInterface;
 
 public class CJDownbasepntImpl implements CJDownbasepntInterface {
 	private String TAG="CJDownbasepntImpl";
-	private List<CJDownbasepnt> downbasepntList;
 	private CJDownbasepnt downbasepntObj;
 	private List<BasePntInfo> basePntInfoList;
 	private BasePntInfo basePntInfoObj;
 	private String result;
 	@Override
-	public List<CJDownbasepnt> getCJDownbasepnt(String sectid, String randomcode) {
+	public CJDownbasepnt getCJDownbasepnt(String sectid, String randomcode) {
 				try {
-					downbasepntList=new ArrayList<CJDownbasepnt>();
+					downbasepntObj=new CJDownbasepnt();
 					Log.i(TAG,randomcode);
 					String methodNameString="CJDownbasepnt";
 					Map<String,String> paramsvalue=new LinkedHashMap<>();
@@ -59,7 +58,6 @@ public class CJDownbasepntImpl implements CJDownbasepntInterface {
 								downbasepntObj.setMsg("该标段无工作基点");
 							}
 							Log.i("exception", downbasepntObj.getMsg());
-							downbasepntList.add(downbasepntObj);
 							}else if(resStr.length==6){
 								downbasepntObj=new CJDownbasepnt();
 								downbasepntObj.setFlag(0);
@@ -72,32 +70,31 @@ public class CJDownbasepntImpl implements CJDownbasepntInterface {
 								basePntInfoObj.setSitenum(resStr[4]);
 								basePntInfoObj.setSitevar(resStr[5]);
 								basePntInfoList.add(basePntInfoObj);
-								downbasepntObj.setBasePntInfoList(basePntInfoList);
-								downbasepntList.add(downbasepntObj);
 							}
+						downbasepntObj.setBasePntInfoList(basePntInfoList);
 					}
-				}catch(ClassCastException e){
+				} catch(ClassCastException e){
 					e.printStackTrace();
 					Log.i(TAG, "造型异常");
 					downbasepntObj.setFlag(-2);
 					downbasepntObj.setMsg("造型异常");
-				}catch(ArrayIndexOutOfBoundsException e){
+				} catch (ArrayIndexOutOfBoundsException e) {
 					Log.i(TAG,"数组下标越界");
 					e.printStackTrace();
 					downbasepntObj.setFlag(-2);
 					downbasepntObj.setMsg("下标越界");
-				} catch(NullPointerException e){
+				} catch(NullPointerException e) {
 					e.printStackTrace();
 					Log.i(TAG, "空指针异常");
 					downbasepntObj.setFlag(-2);
-					pubUtil.exception.setExceptionMsg("");
+					downbasepntObj.setMsg("空指针异常");
 				}catch (Exception e) {
 					e.printStackTrace();
 					Log.i(TAG, "网络异常");
 					downbasepntObj.setFlag(-2);
 					downbasepntObj.setMsg("网络异常");
 				}
-		return downbasepntList;
+		return downbasepntObj;
 	}
 
 }
