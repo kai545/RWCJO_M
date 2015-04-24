@@ -20,7 +20,7 @@ public class SiteListAdapter extends BaseAdapter {
     private List<SiteNews> data;
 
     public final class ViewHolder{
-        public TextView siteCode,siteName,startSite,endSite;
+        public TextView siteName,startEndSite;
     }
 
     public SiteListAdapter(Context context,List<SiteNews> data){
@@ -51,10 +51,8 @@ public class SiteListAdapter extends BaseAdapter {
             holder=new ViewHolder();
 
             convertView = mInflater.inflate(R.layout.fragment_site_list_item, null);
-            holder.siteCode = (TextView)convertView.findViewById(R.id.siteCode_tv);
             holder.siteName = (TextView)convertView.findViewById(R.id.siteName_tv);
-            holder.startSite = (TextView)convertView.findViewById(R.id.startSite_tv);
-            holder.endSite = (TextView)convertView.findViewById(R.id.endSite_tv);
+            holder.startEndSite = (TextView)convertView.findViewById(R.id.startSite_endSite_tv);
             convertView.setTag(holder);
 
         }else {
@@ -62,10 +60,8 @@ public class SiteListAdapter extends BaseAdapter {
             holder = (ViewHolder)convertView.getTag();
         }
 
-        holder.siteCode.setText(data.get(position).getSitecode());
         holder.siteName.setText(data.get(position).getSitename());
-        holder.startSite.setText(data.get(position).getStartsite());
-        holder.endSite.setText(data.get(position).getEndsite());
+        holder.startEndSite.setText(data.get(position).getStartsite()+"~"+data.get(position).getEndsite());
         return convertView;
     }
 }
