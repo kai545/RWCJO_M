@@ -16,6 +16,8 @@ public class ValueConfig {
 	public static final boolean DEBUG_MODE=true;
 	public static final String TEST_ACCOUNT="liuyang2";
 	public static final String TEST_PASSWORD="password";
+	public static final String FACE_START_DATE="2015-01-01";
+	public static final String FACE_END_DATE="2015-12-31";
 
 	//左侧抽屉菜单
 	public static ArrayList<Map<String, Object>> getDrawerMenuData() {

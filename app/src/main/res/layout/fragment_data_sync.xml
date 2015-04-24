@@ -25,6 +25,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <com.dd.CircularProgressButton
+            android:id="@+id/data_sync_dl_all"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/cpb_white"
+            android:textSize="18sp"
+            app:cpb_cornerRadius="36dp"
+            app:cpb_textComplete="@string/data_sync_dl_complete_btn_text"
+            app:cpb_textError="@string/data_sync_dl_error_btn_text"
+            app:cpb_textIdle="@string/data_sync_dl_all_btn_text"
+            app:cpb_selectorIdle="@drawable/idle_state_selector"
+            app:cpb_selectorComplete="@drawable/complete_state_selector"
+            app:cpb_selectorError="@drawable/error_state_selector"/>
 
     <com.dd.CircularProgressButton
         android:id="@+id/data_sync_dl_section"
@@ -128,22 +144,6 @@
         app:cpb_textIdle="@string/data_sync_dl_line_btn_text"
         app:cpb_selectorIdle="@drawable/idle_state_selector"
         app:cpb_selectorComplete="@drawable/complete_state_selector"
-        app:cpb_selectorError="@drawable/error_state_selector"/>
-    <com.dd.CircularProgressButton
-        android:id="@+id/data_sync_dl_all"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:textColor="@color/cpb_white"
-        android:textSize="18sp"
-        app:cpb_cornerRadius="36dp"
-        app:cpb_textComplete="@string/data_sync_dl_complete_btn_text"
-        app:cpb_textError="@string/data_sync_dl_error_btn_text"
-        app:cpb_textIdle="@string/data_sync_dl_all_btn_text"
-        app:cpb_selectorIdle="@drawable/idle_state_selector"
-        app:cpb_selectorComplete="@drawable/complete_state_selector"
-        app:cpb_selectorError="@drawable/error_state_selector"/>
+        app:cpb_selectorError="@drawable/error_state_selector" />
         </LinearLayout>
 </LinearLayout>
