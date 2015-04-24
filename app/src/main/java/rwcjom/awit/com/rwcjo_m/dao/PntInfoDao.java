@@ -32,6 +32,7 @@ public class PntInfoDao extends AbstractDao<PntInfo, String> {
         public final static Property Remark = new Property(6, String.class, "remark", false, "REMARK");
         public final static Property Pointcode = new Property(7, String.class, "pointcode", false, "POINTCODE");
         public final static Property Name = new Property(8, String.class, "name", false, "NAME");
+        public final static Property F_faceid = new Property(9, String.class, "f_faceid", false, "F_FACEID");
     };
 
 
@@ -55,7 +56,8 @@ public class PntInfoDao extends AbstractDao<PntInfo, String> {
                 "'SEATCODE' TEXT," + // 5: seatcode
                 "'REMARK' TEXT," + // 6: remark
                 "'POINTCODE' TEXT," + // 7: pointcode
-                "'NAME' TEXT);"); // 8: name
+                "'NAME' TEXT," + // 8: name
+                "'F_FACEID' TEXT);"); // 9: f_faceid
     }
 
     /** Drops the underlying database table. */
@@ -113,6 +115,11 @@ public class PntInfoDao extends AbstractDao<PntInfo, String> {
         if (name != null) {
             stmt.bindString(9, name);
         }
+ 
+        String f_faceid = entity.getF_faceid();
+        if (f_faceid != null) {
+            stmt.bindString(10, f_faceid);
+        }
     }
 
     /** @inheritdoc */
@@ -133,7 +140,8 @@ public class PntInfoDao extends AbstractDao<PntInfo, String> {
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // seatcode
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // remark
             cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // pointcode
-            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8) // name
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // name
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9) // f_faceid
         );
         return entity;
     }
@@ -150,6 +158,7 @@ public class PntInfoDao extends AbstractDao<PntInfo, String> {
         entity.setRemark(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
         entity.setPointcode(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
         entity.setName(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setF_faceid(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
      }
     
     /** @inheritdoc */

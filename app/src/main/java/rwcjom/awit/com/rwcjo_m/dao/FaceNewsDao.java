@@ -26,6 +26,7 @@ public class FaceNewsDao extends AbstractDao<FaceNews, String> {
         public final static Property FaceId = new Property(0, String.class, "faceId", true, "FACE_ID");
         public final static Property FaceCode = new Property(1, String.class, "faceCode", false, "FACE_CODE");
         public final static Property FaceName = new Property(2, String.class, "faceName", false, "FACE_NAME");
+        public final static Property F_siteid = new Property(3, String.class, "f_siteid", false, "F_SITEID");
     };
 
 
@@ -43,7 +44,8 @@ public class FaceNewsDao extends AbstractDao<FaceNews, String> {
         db.execSQL("CREATE TABLE " + constraint + "'FACE_NEWS' (" + //
                 "'FACE_ID' TEXT PRIMARY KEY NOT NULL ," + // 0: faceId
                 "'FACE_CODE' TEXT," + // 1: faceCode
-                "'FACE_NAME' TEXT);"); // 2: faceName
+                "'FACE_NAME' TEXT," + // 2: faceName
+                "'F_SITEID' TEXT);"); // 3: f_siteid
     }
 
     /** Drops the underlying database table. */
@@ -71,6 +73,11 @@ public class FaceNewsDao extends AbstractDao<FaceNews, String> {
         if (faceName != null) {
             stmt.bindString(3, faceName);
         }
+ 
+        String f_siteid = entity.getF_siteid();
+        if (f_siteid != null) {
+            stmt.bindString(4, f_siteid);
+        }
     }
 
     /** @inheritdoc */
@@ -85,7 +92,8 @@ public class FaceNewsDao extends AbstractDao<FaceNews, String> {
         FaceNews entity = new FaceNews( //
             cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0), // faceId
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // faceCode
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2) // faceName
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // faceName
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // f_siteid
         );
         return entity;
     }
@@ -96,6 +104,7 @@ public class FaceNewsDao extends AbstractDao<FaceNews, String> {
         entity.setFaceId(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
         entity.setFaceCode(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setFaceName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setF_siteid(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
      }
     
     /** @inheritdoc */

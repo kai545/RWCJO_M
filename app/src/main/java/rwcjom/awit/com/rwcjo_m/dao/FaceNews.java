@@ -9,6 +9,7 @@ public class FaceNews {
     private String faceId;
     private String faceCode;
     private String faceName;
+    private String f_siteid;
 
     public FaceNews() {
     }
@@ -17,10 +18,11 @@ public class FaceNews {
         this.faceId = faceId;
     }
 
-    public FaceNews(String faceId, String faceCode, String faceName) {
+    public FaceNews(String faceId, String faceCode, String faceName, String f_siteid) {
         this.faceId = faceId;
         this.faceCode = faceCode;
         this.faceName = faceName;
+        this.f_siteid = f_siteid;
     }
 
     public String getFaceId() {
@@ -45,6 +47,14 @@ public class FaceNews {
 
     public void setFaceName(String faceName) {
         this.faceName = faceName;
+    }
+
+    public String getF_siteid() {
+        return f_siteid;
+    }
+
+    public void setF_siteid(String f_siteid) {
+        this.f_siteid = f_siteid;
     }
 
 }

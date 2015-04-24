@@ -37,6 +37,8 @@ public class FaceInfoDao extends AbstractDao<FaceInfo, String> {
         public final static Property Rkilo = new Property(11, String.class, "rkilo", false, "RKILO");
         public final static Property Rchain = new Property(12, String.class, "rchain", false, "RCHAIN");
         public final static Property Remark = new Property(13, String.class, "remark", false, "REMARK");
+        public final static Property F_siteid = new Property(14, String.class, "f_siteid", false, "F_SITEID");
+        public final static Property F_faceid = new Property(15, String.class, "f_faceid", false, "F_FACEID");
     };
 
 
@@ -65,7 +67,9 @@ public class FaceInfoDao extends AbstractDao<FaceInfo, String> {
                 "'RKNAME' TEXT," + // 10: rkname
                 "'RKILO' TEXT," + // 11: rkilo
                 "'RCHAIN' TEXT," + // 12: rchain
-                "'REMARK' TEXT);"); // 13: remark
+                "'REMARK' TEXT," + // 13: remark
+                "'F_SITEID' TEXT," + // 14: f_siteid
+                "'F_FACEID' TEXT);"); // 15: f_faceid
     }
 
     /** Drops the underlying database table. */
@@ -148,6 +152,16 @@ public class FaceInfoDao extends AbstractDao<FaceInfo, String> {
         if (remark != null) {
             stmt.bindString(14, remark);
         }
+ 
+        String f_siteid = entity.getF_siteid();
+        if (f_siteid != null) {
+            stmt.bindString(15, f_siteid);
+        }
+ 
+        String f_faceid = entity.getF_faceid();
+        if (f_faceid != null) {
+            stmt.bindString(16, f_faceid);
+        }
     }
 
     /** @inheritdoc */
@@ -173,7 +187,9 @@ public class FaceInfoDao extends AbstractDao<FaceInfo, String> {
             cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // rkname
             cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // rkilo
             cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // rchain
-            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13) // remark
+            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // remark
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // f_siteid
+            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15) // f_faceid
         );
         return entity;
     }
@@ -195,6 +211,8 @@ public class FaceInfoDao extends AbstractDao<FaceInfo, String> {
         entity.setRkilo(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
         entity.setRchain(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
         entity.setRemark(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
+        entity.setF_siteid(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
+        entity.setF_faceid(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
      }
     
     /** @inheritdoc */

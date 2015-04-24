@@ -29,6 +29,7 @@ public class BasePntInfoDao extends AbstractDao<BasePntInfo, String> {
         public final static Property Sitehigh = new Property(3, String.class, "sitehigh", false, "SITEHIGH");
         public final static Property Sitenum = new Property(4, String.class, "sitenum", false, "SITENUM");
         public final static Property Sitevar = new Property(5, String.class, "sitevar", false, "SITEVAR");
+        public final static Property F_sectid = new Property(6, String.class, "f_sectid", false, "F_SECTID");
     };
 
 
@@ -49,7 +50,8 @@ public class BasePntInfoDao extends AbstractDao<BasePntInfo, String> {
                 "'SITECODE' TEXT," + // 2: sitecode
                 "'SITEHIGH' TEXT," + // 3: sitehigh
                 "'SITENUM' TEXT," + // 4: sitenum
-                "'SITEVAR' TEXT);"); // 5: sitevar
+                "'SITEVAR' TEXT," + // 5: sitevar
+                "'F_SECTID' TEXT);"); // 6: f_sectid
     }
 
     /** Drops the underlying database table. */
@@ -92,6 +94,11 @@ public class BasePntInfoDao extends AbstractDao<BasePntInfo, String> {
         if (sitevar != null) {
             stmt.bindString(6, sitevar);
         }
+ 
+        String f_sectid = entity.getF_sectid();
+        if (f_sectid != null) {
+            stmt.bindString(7, f_sectid);
+        }
     }
 
     /** @inheritdoc */
@@ -109,7 +116,8 @@ public class BasePntInfoDao extends AbstractDao<BasePntInfo, String> {
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // sitecode
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // sitehigh
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // sitenum
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5) // sitevar
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // sitevar
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6) // f_sectid
         );
         return entity;
     }
@@ -123,6 +131,7 @@ public class BasePntInfoDao extends AbstractDao<BasePntInfo, String> {
         entity.setSitehigh(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setSitenum(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setSitevar(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setF_sectid(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
      }
     
     /** @inheritdoc */
