@@ -3,31 +3,43 @@ package rwcjom.awit.com.rwcjo_m.fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.nanotasks.BackgroundWork;
+import com.nanotasks.Completion;
+import com.nanotasks.Tasks;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
 import rwcjom.awit.com.rwcjo_m.R;
 import rwcjom.awit.com.rwcjo_m.adapter.SiteListAdapter;
 import rwcjom.awit.com.rwcjo_m.dao.SecNews;
 import rwcjom.awit.com.rwcjo_m.dao.SiteNews;
+import rwcjom.awit.com.rwcjo_m.event.MainActivityEvent;
 import rwcjom.awit.com.rwcjo_m.service.SecNewsService;
 import rwcjom.awit.com.rwcjo_m.service.SiteNewsService;
+import rwcjom.awit.com.rwcjo_m.util.CommonTools;
 
 /**
  * Created by Fantasy on 15/4/23.
  */
-public class SiteFragment extends Fragment {
+public class SiteFragment extends ListFragment {
     private static final String TAG = "SiteFragment";
     private ListView listView;
+    private SiteListAdapter siteListAdapter;
     private Context context;
     private SecNewsService secNewsService;
     private SiteNewsService siteNewsService;
+    private FragmentManager manager;
+    private FragmentTransaction transaction;
 
     private int position;
     public static SiteFragment newInstance() {
@@ -47,15 +59,37 @@ public class SiteFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        manager = getFragmentManager();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_site,null);
-        listView=(ListView)view.findViewById(R.id.site_list);
-        SiteListAdapter siteListAdapter = new SiteListAdapter(context,getData());
-        listView.setAdapter(siteListAdapter);
+        //listView=(ListView)view.findViewById(R.id.site_list);
+        //listView.setOnItemClickListener(this);
+
+        Tasks.executeInBackground(context, new BackgroundWork<SiteListAdapter>() {
+            @Override
+            public SiteListAdapter doInBackground() throws Exception {
+                EventBus.getDefault().post(new MainActivityEvent(true));
+                siteListAdapter = new SiteListAdapter(context, getData());
+                return siteListAdapter;
+            }
+        }, new Completion<SiteListAdapter>() {
+            @Override
+            public void onSuccess(Context context, SiteListAdapter result) {
+                EventBus.getDefault().post(new MainActivityEvent(false));
+                //listView.setAdapter(result);
+                setListAdapter(result);
+            }
+
+            @Override
+            public void onError(Context context, Exception e) {
+                //showError(e);
+            }
+        });
+
+
         return view;
     }
 
@@ -67,5 +101,21 @@ public class SiteFragment extends Fragment {
             data.addAll(siteNewsList);
         }
         return data;
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        CommonTools.showToast(context,"click");
+        transaction = manager.beginTransaction();
+        //String str = adapter.getItem(position);
+        FaceBaseFragment faceBaseFragment = new FaceBaseFragment();
+        /**
+         * 使用Bundle类存储传递数据
+         */
+        Bundle bundle = new Bundle();
+        bundle.putString("id", "test");
+        faceBaseFragment.setArguments(bundle);
+        transaction.replace(R.id.face_baseinfo_list, faceBaseFragment, "detail");
+        transaction.commit();
     }
 }
