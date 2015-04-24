@@ -9,6 +9,7 @@ public class PersonInfo {
     private String userid;
     private String username;
     private String usertel;
+    private String f_sectid;
 
     public PersonInfo() {
     }
@@ -17,10 +18,11 @@ public class PersonInfo {
         this.userid = userid;
     }
 
-    public PersonInfo(String userid, String username, String usertel) {
+    public PersonInfo(String userid, String username, String usertel, String f_sectid) {
         this.userid = userid;
         this.username = username;
         this.usertel = usertel;
+        this.f_sectid = f_sectid;
     }
 
     public String getUserid() {
@@ -45,6 +47,14 @@ public class PersonInfo {
 
     public void setUsertel(String usertel) {
         this.usertel = usertel;
+    }
+
+    public String getF_sectid() {
+        return f_sectid;
+    }
+
+    public void setF_sectid(String f_sectid) {
+        this.f_sectid = f_sectid;
     }
 
 }

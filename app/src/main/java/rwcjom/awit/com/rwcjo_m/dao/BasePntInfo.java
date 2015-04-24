@@ -12,6 +12,7 @@ public class BasePntInfo {
     private String sitehigh;
     private String sitenum;
     private String sitevar;
+    private String f_sectid;
 
     public BasePntInfo() {
     }
@@ -20,13 +21,14 @@ public class BasePntInfo {
         this.siteid = siteid;
     }
 
-    public BasePntInfo(String siteid, String sitename, String sitecode, String sitehigh, String sitenum, String sitevar) {
+    public BasePntInfo(String siteid, String sitename, String sitecode, String sitehigh, String sitenum, String sitevar, String f_sectid) {
         this.siteid = siteid;
         this.sitename = sitename;
         this.sitecode = sitecode;
         this.sitehigh = sitehigh;
         this.sitenum = sitenum;
         this.sitevar = sitevar;
+        this.f_sectid = f_sectid;
     }
 
     public String getSiteid() {
@@ -75,6 +77,14 @@ public class BasePntInfo {
 
     public void setSitevar(String sitevar) {
         this.sitevar = sitevar;
+    }
+
+    public String getF_sectid() {
+        return f_sectid;
+    }
+
+    public void setF_sectid(String f_sectid) {
+        this.f_sectid = f_sectid;
     }
 
 }

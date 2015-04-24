@@ -40,6 +40,8 @@ public class ExampleDaoGenerator {
         section.addStringProperty("rkilo");
         section.addStringProperty("rchain");
         section.addStringProperty("remark");
+        section.addStringProperty("f_siteid");
+        section.addStringProperty("f_faceid");
     }
 
     private static void addBrgInfo(Schema schema) {
@@ -50,6 +52,8 @@ public class ExampleDaoGenerator {
         section.addStringProperty("beamspan");
         section.addStringProperty("beamtype");
         section.addStringProperty("remark");
+        section.addStringProperty("f_siteid");
+        section.addStringProperty("f_faceid");
     }
 
     private static void addPntInfo(Schema schema) {
@@ -63,6 +67,7 @@ public class ExampleDaoGenerator {
         section.addStringProperty("remark");
         section.addStringProperty("pointcode");
         section.addStringProperty("name");
+        section.addStringProperty("f_faceid");
     }
 
     private static void addPersonInfo(Schema schema) {
@@ -70,6 +75,7 @@ public class ExampleDaoGenerator {
         section.addStringProperty("userid").primaryKey();
         section.addStringProperty("username");
         section.addStringProperty("usertel");
+        section.addStringProperty("f_sectid");
     }
 
     private static void addBasePntInfo(Schema schema) {
@@ -80,6 +86,7 @@ public class ExampleDaoGenerator {
         section.addStringProperty("sitehigh");
         section.addStringProperty("sitenum");
         section.addStringProperty("sitevar");
+        section.addStringProperty("f_sectid");
     }
 
     private static void addFaceNews(Schema schema) {
@@ -87,6 +94,7 @@ public class ExampleDaoGenerator {
         section.addStringProperty("faceId").primaryKey();
         section.addStringProperty("faceCode");
         section.addStringProperty("faceName");
+        section.addStringProperty("f_siteid");
     }
 
     private static void addCustomerOrder(Schema schema) {

@@ -26,6 +26,7 @@ public class PersonInfoDao extends AbstractDao<PersonInfo, String> {
         public final static Property Userid = new Property(0, String.class, "userid", true, "USERID");
         public final static Property Username = new Property(1, String.class, "username", false, "USERNAME");
         public final static Property Usertel = new Property(2, String.class, "usertel", false, "USERTEL");
+        public final static Property F_sectid = new Property(3, String.class, "f_sectid", false, "F_SECTID");
     };
 
 
@@ -43,7 +44,8 @@ public class PersonInfoDao extends AbstractDao<PersonInfo, String> {
         db.execSQL("CREATE TABLE " + constraint + "'PERSON_INFO' (" + //
                 "'USERID' TEXT PRIMARY KEY NOT NULL ," + // 0: userid
                 "'USERNAME' TEXT," + // 1: username
-                "'USERTEL' TEXT);"); // 2: usertel
+                "'USERTEL' TEXT," + // 2: usertel
+                "'F_SECTID' TEXT);"); // 3: f_sectid
     }
 
     /** Drops the underlying database table. */
@@ -71,6 +73,11 @@ public class PersonInfoDao extends AbstractDao<PersonInfo, String> {
         if (usertel != null) {
             stmt.bindString(3, usertel);
         }
+ 
+        String f_sectid = entity.getF_sectid();
+        if (f_sectid != null) {
+            stmt.bindString(4, f_sectid);
+        }
     }
 
     /** @inheritdoc */
@@ -85,7 +92,8 @@ public class PersonInfoDao extends AbstractDao<PersonInfo, String> {
         PersonInfo entity = new PersonInfo( //
             cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0), // userid
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // username
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2) // usertel
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // usertel
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // f_sectid
         );
         return entity;
     }
@@ -96,6 +104,7 @@ public class PersonInfoDao extends AbstractDao<PersonInfo, String> {
         entity.setUserid(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
         entity.setUsername(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setUsertel(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setF_sectid(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
      }
     
     /** @inheritdoc */

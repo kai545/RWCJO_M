@@ -15,6 +15,7 @@ public class PntInfo {
     private String remark;
     private String pointcode;
     private String name;
+    private String f_faceid;
 
     public PntInfo() {
     }
@@ -23,7 +24,7 @@ public class PntInfo {
         this.pointid = pointid;
     }
 
-    public PntInfo(String pointid, String pointnum, String designvalue, String designremark, String inbuiltdate, String seatcode, String remark, String pointcode, String name) {
+    public PntInfo(String pointid, String pointnum, String designvalue, String designremark, String inbuiltdate, String seatcode, String remark, String pointcode, String name, String f_faceid) {
         this.pointid = pointid;
         this.pointnum = pointnum;
         this.designvalue = designvalue;
@@ -33,6 +34,7 @@ public class PntInfo {
         this.remark = remark;
         this.pointcode = pointcode;
         this.name = name;
+        this.f_faceid = f_faceid;
     }
 
     public String getPointid() {
@@ -105,6 +107,14 @@ public class PntInfo {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getF_faceid() {
+        return f_faceid;
+    }
+
+    public void setF_faceid(String f_faceid) {
+        this.f_faceid = f_faceid;
     }
 
 }
