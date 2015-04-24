@@ -51,6 +51,7 @@ public class CJDownfaceinfoImpl implements CJDownfaceinfoInterface {
 							downfaceinfoObj.setMsg("randomcode有误");
 						}
 						Log.i("exception", downfaceinfoObj.getMsg());
+						downfaceinfoList.add(downfaceinfoObj);
 					}else if(object.getPropertyCount()==14){
 						downfaceinfoObj=new CJDownfaceinfo();
 						downfaceinfoObj.setFlag(0);
