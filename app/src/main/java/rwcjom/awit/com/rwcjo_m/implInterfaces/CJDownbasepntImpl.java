@@ -37,14 +37,10 @@ public class CJDownbasepntImpl implements CJDownbasepntInterface {
 					Map<String,String> paramsvalue=new LinkedHashMap<>();
 					paramsvalue.put("sectid",sectid);
 					paramsvalue.put("randomcode",randomcode);
-					//SoapObject object=CommonTools.getObject(methodNameString,paramsvalue);
 					SoapSerializationEnvelope envelope=CommonTools.getEnvelope(methodNameString,paramsvalue);
 					SoapObject object=(SoapObject)envelope.getResponse();
 					if(object ==null){
 						Log.i(TAG, "Object is null");
-					}
-					if(pubUtil.downbasepnts.size()>0){
-						pubUtil.downbasepnts.clear();
 					}
 					String[] resStr;
 					// 获取返回的结果

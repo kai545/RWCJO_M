@@ -45,9 +45,6 @@ public class CJDownpersonImpl implements CJDownpersonInterface {
 					if(object ==null){
 						Log.i(TAG, "Object is null");
 					}
-					if(pubUtil.downpersons.size()>0){
-						pubUtil.downpersons.clear();
-					}
 					// 获取返回的结果
 					for(int i=0;i<object.getPropertyCount();i++){
 						result = object.getProperty(i).toString();

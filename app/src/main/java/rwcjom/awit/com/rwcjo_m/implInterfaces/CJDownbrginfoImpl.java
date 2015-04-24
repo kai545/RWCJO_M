@@ -40,9 +40,6 @@ public class CJDownbrginfoImpl implements CJDownbrginfoInterface {
 					if(object ==null){
 						Log.i(TAG, "Object is null");
 					}
-					if(pubUtil.downbrginfos.size()>0){
-						pubUtil.downbrginfos.clear();
-					}
 					Log.i("CJDownbrginfoLength", object.getPropertyCount() + "");
 					if(object.getPropertyCount()==3){
 						downbrginfoObj=new CJDownbrginfo();

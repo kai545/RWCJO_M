@@ -53,6 +53,7 @@ public class CJDownfaceinfoImpl implements CJDownfaceinfoInterface {
 						Log.i("exception", downfaceinfoObj.getMsg());
 					}else if(object.getPropertyCount()==14){
 						downfaceinfoObj=new CJDownfaceinfo();
+						downfaceinfoObj.setFlag(0);
 						faceinfoObj=new FaceInfo();
 						faceinfoObj.setFaceid(object.getProperty(object.getPropertyCount() - 14).toString());
 						faceinfoObj.setJointflag(object.getProperty(object.getPropertyCount() - 13).toString());
