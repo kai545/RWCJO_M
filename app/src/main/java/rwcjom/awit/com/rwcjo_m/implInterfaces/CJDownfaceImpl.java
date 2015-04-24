@@ -77,25 +77,33 @@ public class CJDownfaceImpl implements CJDownfaceInterface {
 						}
 					}
 				} catch(ClassCastException e){
+					cjdownface=new CJDownface();
 					e.printStackTrace();
 					Log.i(TAG, "造型异常");
 					cjdownface.setFlag(-2);
 					cjdownface.setMsg("造型异常");
+					cjdownfacelist.add(cjdownface);
 				}catch(ArrayIndexOutOfBoundsException e){
+					cjdownface=new CJDownface();
 					Log.i(TAG, "数组下标越界");
 					e.printStackTrace();
 					cjdownface.setFlag(-2);
 					cjdownface.setMsg("下标越界");
+					cjdownfacelist.add(cjdownface);
 				}catch(NullPointerException e){
+					cjdownface=new CJDownface();
 					e.printStackTrace();
 					Log.i(TAG, "空指针异常");
 					cjdownface.setFlag(-2);
 					cjdownface.setMsg("空指针异常");
+					cjdownfacelist.add(cjdownface);
 				}catch (Exception e) {
+					cjdownface=new CJDownface();
 					e.printStackTrace();
 					Log.i(TAG, "网络异常");
 					cjdownface.setFlag(-2);
 					cjdownface.setMsg("网络异常");
+					cjdownfacelist.add(cjdownface);
 				}
 		return cjdownfacelist;
 	}
