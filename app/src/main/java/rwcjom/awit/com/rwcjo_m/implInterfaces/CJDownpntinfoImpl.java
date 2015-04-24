@@ -84,6 +84,7 @@ public class CJDownpntinfoImpl implements CJDownpntinfoInterface {
 										 downpntinfoObj.setMsg("无相应的测点信息");
 									 }
 									 Log.i("exception", downpntinfoObj.getMsg());
+									 downpntinfoList.add(downpntinfoObj);
 								 }
 							 }
 					}

@@ -63,6 +63,7 @@ public class CJDownpersonImpl implements CJDownpersonInterface {
 								downpersonObj.setMsg("该工点下无相应的类别人员");
 							}
 							Log.i("exception", downpersonObj.getMsg());
+							downpersonList.add(downpersonObj);
 						}else {
 							personInfoList=new ArrayList<PersonInfo>();
 							downpersonObj=new CJDownperson();

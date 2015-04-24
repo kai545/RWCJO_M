@@ -62,6 +62,7 @@ public class CJDownfaceImpl implements CJDownfaceInterface {
 								cjdownface.setMsg("该标段下无相应的工点");
 							}
 							Log.i("exception",cjdownface.getMsg());
+							cjdownfacelist.add(cjdownface);
 						}else if (faceStr.length==3){
 								cjdownface=new CJDownface();
 								facelist=new ArrayList<FaceNews>();

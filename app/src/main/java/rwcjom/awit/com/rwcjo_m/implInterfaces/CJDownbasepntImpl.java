@@ -59,6 +59,7 @@ public class CJDownbasepntImpl implements CJDownbasepntInterface {
 								downbasepntObj.setMsg("该标段无工作基点");
 							}
 							Log.i("exception", downbasepntObj.getMsg());
+							downbasepntList.add(downbasepntObj);
 							}else if(resStr.length==6){
 								downbasepntObj=new CJDownbasepnt();
 								downbasepntObj.setFlag(0);

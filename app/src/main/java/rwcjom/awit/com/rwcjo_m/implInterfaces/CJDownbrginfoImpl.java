@@ -52,6 +52,7 @@ public class CJDownbrginfoImpl implements CJDownbrginfoInterface {
 							downbrginfoObj.setMsg("randomcode有误");
 						}
 						Log.i("exception", downbrginfoObj.getMsg());
+						downbrginfoList.add(downbrginfoObj);
 					}else if(object.getPropertyCount()==6){
 						downbrginfoObj=new CJDownbrginfo();
 						downbrginfoObj.setFlag(0);

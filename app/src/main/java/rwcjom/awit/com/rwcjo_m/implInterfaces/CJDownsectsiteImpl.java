@@ -51,8 +51,6 @@ public class CJDownsectsiteImpl implements CJDownsectsiteInterface {
 						result = object.getProperty(i).toString();
 						Log.i("result", result);
 						resultStr=result.split(ValueConfig.SPLIT_CHAR);
-
-
 						if(resultStr.length==4){
 							downsectsite.setFlag(-1);
 							if(resultStr[0].equals("-1")){
