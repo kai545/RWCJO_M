@@ -71,13 +71,13 @@ public class CJDownfaceinfoImpl implements CJDownfaceinfoInterface {
 						faceinfoObj.setRemark(object.getProperty(object.getPropertyCount() - 1).toString());
 						downfaceinfoObj.setFaceinfoObj(faceinfoObj);
 						downfaceinfoList.add(downfaceinfoObj);
-					}	
+					}
 				}catch(ClassCastException e){
 					e.printStackTrace();
 					Log.i(TAG, "造型异常");
 					downfaceinfoObj.setFlag(-2);
 					downfaceinfoObj.setMsg("造型异常");
-				}catch(ArrayIndexOutOfBoundsException e){
+				}catch(IndexOutOfBoundsException e){
 					Log.i(TAG,"数组下标越界");
 					e.printStackTrace();
 					downfaceinfoObj.setFlag(-2);
