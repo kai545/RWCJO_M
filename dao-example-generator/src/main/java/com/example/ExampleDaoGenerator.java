@@ -1,5 +1,7 @@
 package com.example;
 
+import java.util.TooManyListenersException;
+
 import de.greenrobot.daogenerator.DaoGenerator;
 import de.greenrobot.daogenerator.Entity;
 import de.greenrobot.daogenerator.Property;
@@ -22,7 +24,7 @@ public class ExampleDaoGenerator {
         new DaoGenerator().generateAll(schema, "./app/src/main/java");
     }
 
-    private static void addFaceInfo(Schema schema){
+    private static void addFaceInfo(Schema schema) {
         Entity section = schema.addEntity("FaceInfo");
         section.addStringProperty("faceid").primaryKey();
         section.addStringProperty("jointflag");
@@ -123,20 +125,19 @@ public class ExampleDaoGenerator {
     }
 
 
-        private static void addLineBw(Schema schema){
-            Entity line = schema.addEntity("Line");
-            line.addStringProperty("lc").primaryKey();
-            line.addStringProperty("ln");
+    private static void addLineBw(Schema schema) {
+        Entity line = schema.addEntity("Line");
+        line.addStringProperty("lc").primaryKey();
+        line.addStringProperty("ln");
 
-            Entity bw = schema.addEntity("BwInfo");
-            bw.addLongProperty("bwid").primaryKey().autoincrement();
-            bw.addStringProperty("id");
-            bw.addStringProperty("od");
-            bw.addStringProperty("ty");
-            Property f_lineid=bw.addStringProperty("f_lineid").notNull().getProperty();
-            bw.addToOne(line, f_lineid);
-
-            ToMany lineToBws = line.addToMany(bw, f_lineid);
+        Entity bw = schema.addEntity("BwInfo");
+        bw.addLongProperty("bwid").primaryKey().autoincrement();
+        bw.addStringProperty("id");
+        bw.addStringProperty("od");
+        bw.addStringProperty("ty");
+        Property f_lineid = bw.addStringProperty("f_lineid").notNull().getProperty();
+        bw.addToOne(line, f_lineid);
+        
+        ToMany lineToBws = line.addToMany(bw, f_lineid);
     }
 }
-
