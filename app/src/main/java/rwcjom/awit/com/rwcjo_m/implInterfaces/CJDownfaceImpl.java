@@ -97,6 +97,8 @@ public class CJDownfaceImpl implements CJDownfaceInterface {
 					cjdownface.setFlag(-2);
 					cjdownface.setMsg("空指针异常");
 					cjdownfacelist.add(cjdownface);
+					Log.i(TAG, cjdownfacelist.get(0).getFlag() + "");
+					Log.i(TAG,cjdownfacelist.get(0).getMsg());
 				}catch (Exception e) {
 					cjdownface=new CJDownface();
 					e.printStackTrace();
