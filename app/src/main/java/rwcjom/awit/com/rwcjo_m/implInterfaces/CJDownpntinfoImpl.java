@@ -46,7 +46,6 @@ public class CJDownpntinfoImpl implements CJDownpntinfoInterface {
 					// 获取返回的结果
 					for(int i=0;i<object.getPropertyCount();i++){
 						 result = object.getProperty(i).toString();
-						 Log.i(TAG,result);
 						 jsonpnt=new JSONArray(result);
 							 for(int j=0;j<jsonpnt.length();j++){
 								 String data=jsonpnt.get(j).toString();
@@ -68,7 +67,6 @@ public class CJDownpntinfoImpl implements CJDownpntinfoInterface {
 									 String exStr=jsonpnt.get(0).toString();
 									 jsonObj=new JSONObject(exStr);
 									 downpntinfoObj.setFlag(-1);
-									 Log.i("res", result);
 									 if(jsonObj.getString("faceid").equals("-1")){
 										 downpntinfoObj.setMsg("faceid有误");
 									 }else if(jsonObj.getString("objstate").equals("-1")){
@@ -78,24 +76,20 @@ public class CJDownpntinfoImpl implements CJDownpntinfoInterface {
 									 }else{
 										 downpntinfoObj.setMsg("无相应的测点信息");
 									 }
-									 Log.i("exception", downpntinfoObj.getMsg());
 								 }
 								 downpntinfoObj.setPntInfoList(pntInfoList);
 							 }
 					}
 				} catch(ClassCastException e){
 					e.printStackTrace();
-					Log.i(TAG, "造型异常");
 					downpntinfoObj.setFlag(-2);
 					downpntinfoObj.setMsg("造型异常");
 				} catch(NullPointerException e){
 					e.printStackTrace();
-					Log.i(TAG, "空指针异常");
 					downpntinfoObj.setFlag(-2);
 					downpntinfoObj.setMsg("空指针异常");
 				}catch (Exception e) {
 					e.printStackTrace();
-					Log.i(TAG, "网络异常");
 					downpntinfoObj.setFlag(-2);
 					downpntinfoObj.setMsg("网络异常");
 				}

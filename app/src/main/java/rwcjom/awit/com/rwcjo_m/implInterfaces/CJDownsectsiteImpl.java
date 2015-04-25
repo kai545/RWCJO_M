@@ -49,7 +49,6 @@ public class CJDownsectsiteImpl implements CJDownsectsiteInterface {
 					sitelist=new ArrayList<SiteNews>();
 					for(int i =0;i<object.getPropertyCount();i++){
 						result = object.getProperty(i).toString();
-						Log.i("result", result);
 						resultStr=result.split(ValueConfig.SPLIT_CHAR);
 						if(resultStr.length==4){
 							downsectsite.setFlag(-1);
@@ -70,7 +69,6 @@ public class CJDownsectsiteImpl implements CJDownsectsiteInterface {
 							sectObj.setSectname(resultStr[2]);
 							downsectsite.setSecObj(sectObj);
 						}else if(resultStr.length==5){
-							Log.i(TAG,"进来了"+i);
 							downsectsite.setFlag(0);
 							siteobj=new SiteNews();
 							siteobj.setSiteid(resultStr[0]);
@@ -79,24 +77,20 @@ public class CJDownsectsiteImpl implements CJDownsectsiteInterface {
 							siteobj.setStartsite(resultStr[3]);
 							siteobj.setEndsite(resultStr[4]);
 							sitelist.add(siteobj);
-							Log.i(TAG,sitelist.size()+"");
 							downsectsite.setSitelist(sitelist);
 						}
 					}
 				}catch(ClassCastException e){
 					e.printStackTrace();
-					Log.i(TAG, "造型异常");
 					downsectsite.setFlag(-2);
 					downsectsite.setMsg("造型异常");
 				}catch(ArrayIndexOutOfBoundsException e){
-					Log.i(TAG,"数组下标越界");
 					e.printStackTrace();
 					downsectsite.setFlag(-2);
 					downsectsite.setMsg("下标越界");
 				}catch(NullPointerException e){
 					e.printStackTrace();
 					downsectsite.setFlag(-2);
-					Log.i(TAG, "空指针异常");
 					downsectsite.setMsg("空指针异常");
 				} catch (Exception e) {
 					e.printStackTrace();

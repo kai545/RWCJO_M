@@ -50,9 +50,7 @@ public class CJDownlineImpl implements CJDownlineInterface {
 				for(int i =0;i<object.getPropertyCount();i++){
 					result = object.getProperty(i).toString();
 					jsonLine=new JSONArray(result);
-					Log.i("res", jsonLine.get(0).toString());
 					if(jsonLine.length()>1){
-						Log.i("len", jsonLine.length() + "");
 						for(int j=0;j<jsonLine.length();j++) {
 							downlineObj=new CJDownline();
 							downlineObj.setFlag(0);
@@ -80,37 +78,26 @@ public class CJDownlineImpl implements CJDownlineInterface {
 						}
 					}else{
 						downlineObj=new CJDownline();
+						downlineObj.setFlag(-1);
 						String data=jsonLine.get(0).toString();
 						jsonObj=new JSONObject(data);
 						if(jsonObj.getString("flag").equals("-1")){
-							downlineObj.setFlag(-1);
 							downlineObj.setMsg("sectid有误");
-							Log.i("exception", "1");
 							downlineList.add(downlineObj);
 						}else if(jsonObj.getString("flag").equals("-2")){
-							downlineObj.setFlag(-1);
 							downlineObj.setMsg("startdate有误");
-							Log.i("exception", "2");
 							downlineList.add(downlineObj);
 						}else if(jsonObj.getString("flag").equals("-3")){
-							downlineObj.setFlag(-1);
 							downlineObj.setMsg("enddate有误");
-							Log.i("exception", "3");
 							downlineList.add(downlineObj);
 						}else if(jsonObj.getString("flag").equals("-4")){
-							downlineObj.setFlag(-1);
 							downlineObj.setMsg("randomcode有误");
-							Log.i("exception", "4");
 							downlineList.add(downlineObj);
 						}else if(jsonObj.getString("flag").equals("-5")){
-							downlineObj.setFlag(-1);
 							downlineObj.setMsg("无测量水准路线");
-							Log.i("exception", "5");
 							downlineList.add(downlineObj);
 						}else{
-							downlineObj.setFlag(-1);
 							downlineObj.setMsg("其他错误");
-							Log.i("exception", "6");
 							downlineList.add(downlineObj);
 						}
 					}
@@ -118,21 +105,18 @@ public class CJDownlineImpl implements CJDownlineInterface {
 			}catch(ClassCastException e){
 				downlineObj=new CJDownline();
 				e.printStackTrace();
-				Log.i(TAG, "造型异常");
 				downlineObj.setFlag(-2);
 				downlineObj.setMsg("造型异常");
 				downlineList.add(downlineObj);
 			} catch(NullPointerException e){
 				downlineObj=new CJDownline();
 				e.printStackTrace();
-				Log.i(TAG, "空指针异常");
 				downlineObj.setFlag(-2);
 				downlineObj.setMsg("空指针异常");
 				downlineList.add(downlineObj);
 			} catch (Exception e) {
 				downlineObj=new CJDownline();
 				e.printStackTrace();
-				Log.i(TAG,"网络异常");
 				downlineObj.setFlag(-2);
 				downlineObj.setMsg("网络异常");
 				downlineList.add(downlineObj);

@@ -45,7 +45,6 @@ public class CJDownfaceImpl implements CJDownfaceInterface {
 					// 获取返回的结果
 					for(int i =0;i<object.getPropertyCount();i++){
 						result = object.getProperty(i).toString();
-						Log.i("result", result);
 						faceStr=result.split(ValueConfig.SPLIT_CHAR);
 						if(faceStr.length==5){
 							cjdownface=new CJDownface();
@@ -64,7 +63,6 @@ public class CJDownfaceImpl implements CJDownfaceInterface {
 							Log.i("exception", cjdownface.getMsg());
 						}else if (faceStr.length==3){
 								cjdownface=new CJDownface();
-
 								faceObj=new FaceNews();
 								cjdownface.setFlag(0);
 								faceObj.setFaceId(faceStr[0]);
@@ -76,22 +74,18 @@ public class CJDownfaceImpl implements CJDownfaceInterface {
 					}
 				} catch(ClassCastException e){
 					e.printStackTrace();
-					Log.i(TAG, "造型异常");
 					cjdownface.setFlag(-2);
 					cjdownface.setMsg("造型异常");
 				}catch(ArrayIndexOutOfBoundsException e){
-					Log.i(TAG, "数组下标越界");
 					e.printStackTrace();
 					cjdownface.setFlag(-2);
 					cjdownface.setMsg("下标越界");
 				}catch(NullPointerException e){
 					e.printStackTrace();
-					Log.i(TAG, "空指针异常");
 					cjdownface.setFlag(-2);
 					cjdownface.setMsg("空指针异常");
 				}catch (Exception e) {
 					e.printStackTrace();
-					Log.i(TAG, "网络异常");
 					cjdownface.setFlag(-2);
 					cjdownface.setMsg("网络异常");
 				}

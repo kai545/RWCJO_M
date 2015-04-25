@@ -48,7 +48,6 @@ public class CJDownpersonImpl implements CJDownpersonInterface {
 					// 获取返回的结果
 					for(int i=0;i<object.getPropertyCount();i++){
 						result = object.getProperty(i).toString();
-						Log.i("result", result);
 						resStr=result.split(ValueConfig.SPLIT_CHAR);
 						if(resStr.length==4){
 							downpersonObj.setFlag(-1);
@@ -61,7 +60,6 @@ public class CJDownpersonImpl implements CJDownpersonInterface {
 							}else{
 								downpersonObj.setMsg("该工点下无相应的类别人员");
 							}
-							Log.i("exception", downpersonObj.getMsg());
 						}else {
 							downpersonObj.setFlag(0);
 							personInfoObj=new PersonInfo();
@@ -75,22 +73,18 @@ public class CJDownpersonImpl implements CJDownpersonInterface {
 					 
 				} catch(ClassCastException e) {
 					e.printStackTrace();
-					Log.i(TAG, "造型异常");
 					downpersonObj.setFlag(-2);
 					downpersonObj.setMsg("造型异常");
 				}catch(ArrayIndexOutOfBoundsException e) {
 					e.printStackTrace();
-					Log.i(TAG, "数组下标越界");
 					downpersonObj.setFlag(-2);
 					downpersonObj.setMsg("下标越界");
 				}catch (NullPointerException e) {
 					e.printStackTrace();
-					Log.i(TAG, "空指针异常");
 					downpersonObj.setFlag(-2);
 					downpersonObj.setMsg("空指针异常");
 				}catch (Exception e) {
 					e.printStackTrace();
-					Log.i(TAG, "网络异常");
 					downpersonObj.setFlag(-2);
 					downpersonObj.setMsg("网络异常");
 				}

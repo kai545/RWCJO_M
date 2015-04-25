@@ -46,7 +46,6 @@ public class CJDownbasepntImpl implements CJDownbasepntInterface {
 					// 获取返回的结果
 					for(int i=0;i<object.getPropertyCount();i++){
 						result = object.getProperty(i).toString();
-						Log.i("result", result);
 						resStr=result.split(ValueConfig.SPLIT_CHAR);
 						if(resStr.length==3){
 							downbasepntObj.setFlag(-1);
@@ -57,8 +56,7 @@ public class CJDownbasepntImpl implements CJDownbasepntInterface {
 							}else{
 								downbasepntObj.setMsg("该标段无工作基点");
 							}
-							Log.i("exception", downbasepntObj.getMsg());
-							}else if(resStr.length==6){
+						}else if(resStr.length==6){
 								downbasepntObj.setFlag(0);
 							    basePntInfoObj=new BasePntInfo();
 								basePntInfoObj.setSiteid(resStr[0]);
@@ -73,22 +71,18 @@ public class CJDownbasepntImpl implements CJDownbasepntInterface {
 					}
 				} catch(ClassCastException e){
 					e.printStackTrace();
-					Log.i(TAG, "造型异常");
 					downbasepntObj.setFlag(-2);
 					downbasepntObj.setMsg("造型异常");
 				} catch (ArrayIndexOutOfBoundsException e) {
-					Log.i(TAG,"数组下标越界");
 					e.printStackTrace();
 					downbasepntObj.setFlag(-2);
 					downbasepntObj.setMsg("下标越界");
 				} catch(NullPointerException e) {
 					e.printStackTrace();
-					Log.i(TAG, "空指针异常");
 					downbasepntObj.setFlag(-2);
 					downbasepntObj.setMsg("空指针异常");
 				}catch (Exception e) {
 					e.printStackTrace();
-					Log.i(TAG, "网络异常");
 					downbasepntObj.setFlag(-2);
 					downbasepntObj.setMsg("网络异常");
 				}

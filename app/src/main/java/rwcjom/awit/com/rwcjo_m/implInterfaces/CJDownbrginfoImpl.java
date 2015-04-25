@@ -41,7 +41,6 @@ public class CJDownbrginfoImpl implements CJDownbrginfoInterface {
 					if(object ==null){
 						Log.i(TAG, "Object is null");
 					}
-					Log.i("CJDownbrginfoLength", object.getPropertyCount() + "");
 					if(object.getPropertyCount()==3){
 						downbrginfoObj.setFlag(-1);
 						if(object.getProperty(0).toString().equals("-1")){
@@ -51,7 +50,6 @@ public class CJDownbrginfoImpl implements CJDownbrginfoInterface {
 						}else{
 							downbrginfoObj.setMsg("randomcode有误");
 						}
-						Log.i("exception", downbrginfoObj.getMsg());
 					}else if(object.getPropertyCount()==6){
 						downbrginfoObj.setFlag(0);
 						brginfoObj=new BrgInfo();
@@ -66,17 +64,14 @@ public class CJDownbrginfoImpl implements CJDownbrginfoInterface {
 					downbrginfoObj.setBrgInfoList(brgInfoList);
 				}catch(ClassCastException e){
 					e.printStackTrace();
-					Log.i(TAG, "造型异常");
 					downbrginfoObj.setFlag(-2);
 					downbrginfoObj.setMsg("造型异常");
 				}catch(NullPointerException e){
 					e.printStackTrace();
-					Log.i(TAG, "空指针异常");
 					downbrginfoObj.setFlag(-2);
 					downbrginfoObj.setMsg("空指针异常");
 				} catch (Exception e) {
 					e.printStackTrace();
-					Log.i(TAG, "网络异常");
 					downbrginfoObj.setFlag(-2);
 					downbrginfoObj.setMsg("网络异常");
 				}
