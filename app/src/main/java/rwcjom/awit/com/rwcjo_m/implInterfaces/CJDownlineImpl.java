@@ -59,8 +59,6 @@ public class CJDownlineImpl implements CJDownlineInterface {
 							jsonObj=new JSONObject(data);
 							lineObj.setLc(jsonObj.getString("lc"));
 							lineObj.setLn(jsonObj.getString("ln"));
-							Log.i("LC", lineObj.getLc());
-							Log.i("LN", lineObj.getLn());
 							bwInfoList=new ArrayList<BwInfo>();
 							String bws=jsonObj.getString("bw");
 							JSONArray bwArray=new JSONArray(bws);
@@ -75,8 +73,8 @@ public class CJDownlineImpl implements CJDownlineInterface {
 								bwInfoList.add(bwInfoObj);
 							}
 							downlineObj.setBw(bwInfoList);
-							downlineObj.setLineObj(lineObj);
 						}
+						downlineObj.setLineObj(lineObj);
 					}else{
 						String data=jsonLine.get(0).toString();
 						jsonObj=new JSONObject(data);
