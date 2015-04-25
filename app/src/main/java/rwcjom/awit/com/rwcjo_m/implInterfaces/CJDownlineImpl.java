@@ -34,7 +34,6 @@ public class CJDownlineImpl implements CJDownlineInterface {
 			JSONObject jsonObj;
 			try {
 				downlineList=new ArrayList<CJDownline>();
-				downlineObj=new CJDownline();
 				Log.i(TAG, randomcode);
 				String methodNameString="CJDownline";
 				Map<String,String> paramsvalue=new LinkedHashMap<>();
@@ -49,19 +48,20 @@ public class CJDownlineImpl implements CJDownlineInterface {
 					Log.i(TAG, "Object is null");
 				}
 				for(int i =0;i<object.getPropertyCount();i++){
-					downlineObj=new CJDownline();
 					result = object.getProperty(i).toString();
 					jsonLine=new JSONArray(result);
 					Log.i("res", jsonLine.get(0).toString());
 					if(jsonLine.length()>1){
-						downlineObj.setFlag(0);
 						Log.i("len", jsonLine.length() + "");
 						for(int j=0;j<jsonLine.length();j++) {
+							downlineObj=new CJDownline();
+							downlineObj.setFlag(0);
 							lineObj = new Line();
 							String data = jsonLine.get(j).toString();
 							jsonObj = new JSONObject(data);
 							lineObj.setLc(jsonObj.getString("lc"));
 							lineObj.setLn(jsonObj.getString("ln"));
+							downlineObj.setLineObj(lineObj);
 							bwInfoList = new ArrayList<BwInfo>();
 							String bws = jsonObj.getString("bw");
 							JSONArray bwArray = new JSONArray(bws);
@@ -76,7 +76,6 @@ public class CJDownlineImpl implements CJDownlineInterface {
 								bwInfoList.add(bwInfoObj);
 							}
 							downlineObj.setBw(bwInfoList);
-							downlineObj.setLineObj(lineObj);
 							downlineList.add(downlineObj);
 						}
 					}else{
@@ -117,18 +116,21 @@ public class CJDownlineImpl implements CJDownlineInterface {
 					}
 				}
 			}catch(ClassCastException e){
+				downlineObj=new CJDownline();
 				e.printStackTrace();
 				Log.i(TAG, "造型异常");
 				downlineObj.setFlag(-2);
 				downlineObj.setMsg("造型异常");
 				downlineList.add(downlineObj);
 			} catch(NullPointerException e){
+				downlineObj=new CJDownline();
 				e.printStackTrace();
 				Log.i(TAG, "空指针异常");
 				downlineObj.setFlag(-2);
 				downlineObj.setMsg("空指针异常");
 				downlineList.add(downlineObj);
 			} catch (Exception e) {
+				downlineObj=new CJDownline();
 				e.printStackTrace();
 				Log.i(TAG,"网络异常");
 				downlineObj.setFlag(-2);
