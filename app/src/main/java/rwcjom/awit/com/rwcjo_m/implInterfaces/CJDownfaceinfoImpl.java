@@ -5,6 +5,7 @@ import android.util.Log;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,8 @@ public class CJDownfaceinfoImpl implements CJDownfaceinfoInterface {
 			String randomcode) {
 				try {
 					downfaceinfoObj=new CJDownfaceinfo();
+					faceInfoList=new ArrayList<FaceInfo>();
+					downfaceinfoObj=new CJDownfaceinfo();
 					Log.i(TAG,randomcode);
 					String methodNameString="CJDownfaceinfo";
 					Map<String,String> paramsvalue=new LinkedHashMap<>();
@@ -40,7 +43,7 @@ public class CJDownfaceinfoImpl implements CJDownfaceinfoInterface {
 					// 获取返回的结果
 					Log.i("CJDownfaceinfoLength", object.getPropertyCount() + "");
 					if(object.getPropertyCount()==3){
-						downfaceinfoObj=new CJDownfaceinfo();
+						//sdownfaceinfoObj=new CJDownfaceinfo();
 						downfaceinfoObj.setFlag(-1);
 						if(object.getProperty(0).toString().equals("-1")){
 							downfaceinfoObj.setMsg("siteid有误");
@@ -51,7 +54,6 @@ public class CJDownfaceinfoImpl implements CJDownfaceinfoInterface {
 						}
 						Log.i("exception", downfaceinfoObj.getMsg());
 					}else if(object.getPropertyCount()==14){
-						downfaceinfoObj=new CJDownfaceinfo();
 						downfaceinfoObj.setFlag(0);
 						faceinfoObj=new FaceInfo();
 						faceinfoObj.setFaceid(object.getProperty(object.getPropertyCount() - 14).toString());

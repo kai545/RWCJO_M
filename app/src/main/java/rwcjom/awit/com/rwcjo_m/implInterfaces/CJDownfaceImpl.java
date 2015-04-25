@@ -41,12 +41,12 @@ public class CJDownfaceImpl implements CJDownfaceInterface {
 					if(object ==null){
 						Log.i(TAG, "Object is null");
 					}
+					facelist=new ArrayList<FaceNews>();
 					// 获取返回的结果
 					for(int i =0;i<object.getPropertyCount();i++){
 						result = object.getProperty(i).toString();
 						Log.i("result", result);
 						faceStr=result.split(ValueConfig.SPLIT_CHAR);
-						facelist=new ArrayList<FaceNews>();
 						if(faceStr.length==5){
 							cjdownface=new CJDownface();
 							cjdownface.setFlag(-1);
