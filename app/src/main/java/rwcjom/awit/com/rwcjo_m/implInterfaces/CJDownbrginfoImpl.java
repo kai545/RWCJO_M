@@ -29,6 +29,7 @@ public class CJDownbrginfoImpl implements CJDownbrginfoInterface {
 	public CJDownbrginfo getCJDownbrginfo(String siteid, String faceid, String randomcode) {
 				try {
 					downbrginfoObj=new CJDownbrginfo();
+					brgInfoList=new ArrayList<BrgInfo>();
 					Log.i(TAG,randomcode);
 					String methodNameString="CJDownbrginfo";
 					Map<String,String> paramsvalue=new LinkedHashMap<>();
@@ -42,7 +43,6 @@ public class CJDownbrginfoImpl implements CJDownbrginfoInterface {
 					}
 					Log.i("CJDownbrginfoLength", object.getPropertyCount() + "");
 					if(object.getPropertyCount()==3){
-						downbrginfoObj=new CJDownbrginfo();
 						downbrginfoObj.setFlag(-1);
 						if(object.getProperty(0).toString().equals("-1")){
 							downbrginfoObj.setMsg("siteid有误");
@@ -53,7 +53,6 @@ public class CJDownbrginfoImpl implements CJDownbrginfoInterface {
 						}
 						Log.i("exception", downbrginfoObj.getMsg());
 					}else if(object.getPropertyCount()==6){
-						downbrginfoObj=new CJDownbrginfo();
 						downbrginfoObj.setFlag(0);
 						brginfoObj=new BrgInfo();
 						brginfoObj.setFaceid(object.getProperty(object.getPropertyCount() - 6).toString());

@@ -31,6 +31,7 @@ public class CJDownbasepntImpl implements CJDownbasepntInterface {
 	public CJDownbasepnt getCJDownbasepnt(String sectid, String randomcode) {
 				try {
 					downbasepntObj=new CJDownbasepnt();
+					basePntInfoList=new ArrayList<BasePntInfo>();
 					Log.i(TAG,randomcode);
 					String methodNameString="CJDownbasepnt";
 					Map<String,String> paramsvalue=new LinkedHashMap<>();
@@ -48,7 +49,6 @@ public class CJDownbasepntImpl implements CJDownbasepntInterface {
 						Log.i("result", result);
 						resStr=result.split(ValueConfig.SPLIT_CHAR);
 						if(resStr.length==3){
-							downbasepntObj=new CJDownbasepnt();
 							downbasepntObj.setFlag(-1);
 							if(resStr[0].equals("-1")){
 								downbasepntObj.setMsg("sectid有误");
@@ -59,9 +59,7 @@ public class CJDownbasepntImpl implements CJDownbasepntInterface {
 							}
 							Log.i("exception", downbasepntObj.getMsg());
 							}else if(resStr.length==6){
-								downbasepntObj=new CJDownbasepnt();
 								downbasepntObj.setFlag(0);
-								basePntInfoList=new ArrayList<BasePntInfo>();
 							    basePntInfoObj=new BasePntInfo();
 								basePntInfoObj.setSiteid(resStr[0]);
 								basePntInfoObj.setSitename(resStr[1]);

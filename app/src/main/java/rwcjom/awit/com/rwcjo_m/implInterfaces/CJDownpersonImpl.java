@@ -32,6 +32,7 @@ public class CJDownpersonImpl implements CJDownpersonInterface {
 				String[] resStr;
 				try {
 					downpersonObj=new CJDownperson();
+					personInfoList=new ArrayList<PersonInfo>();
 					Log.i(TAG,randomcode);
 					String methodNameString="CJDownperson";
 					Map<String,String> paramsvalue=new LinkedHashMap<>();
@@ -50,7 +51,6 @@ public class CJDownpersonImpl implements CJDownpersonInterface {
 						Log.i("result", result);
 						resStr=result.split(ValueConfig.SPLIT_CHAR);
 						if(resStr.length==4){
-							downpersonObj=new CJDownperson();
 							downpersonObj.setFlag(-1);
 							if(resStr[0].equals("-1")){
 								downpersonObj.setMsg("sectid有误");
@@ -63,8 +63,6 @@ public class CJDownpersonImpl implements CJDownpersonInterface {
 							}
 							Log.i("exception", downpersonObj.getMsg());
 						}else {
-							personInfoList=new ArrayList<PersonInfo>();
-							downpersonObj=new CJDownperson();
 							downpersonObj.setFlag(0);
 							personInfoObj=new PersonInfo();
 							personInfoObj.setUserid(resStr[0]);

@@ -29,6 +29,9 @@ public class CJDownpntinfoImpl implements CJDownpntinfoInterface {
 			String randomcode) {
 				try {
 					downpntinfoObj=new CJDownpntinfo();
+					pntInfoList=new ArrayList<PntInfo>();
+					JSONArray jsonpnt;
+					JSONObject jsonObj;
 					Log.i(TAG,randomcode);
 					String methodNameString="CJDownpntinfo";
 					Map<String,String> paramsvalue=new LinkedHashMap<>();
@@ -40,8 +43,6 @@ public class CJDownpntinfoImpl implements CJDownpntinfoInterface {
 					if(object ==null){
 						Log.i(TAG, "Object is null");
 					}
-					JSONArray jsonpnt;
-					JSONObject jsonObj;
 					// 获取返回的结果
 					for(int i=0;i<object.getPropertyCount();i++){
 						 result = object.getProperty(i).toString();
@@ -51,9 +52,7 @@ public class CJDownpntinfoImpl implements CJDownpntinfoInterface {
 								 String data=jsonpnt.get(j).toString();
 								 jsonObj=new JSONObject(data);
 								 if(jsonObj.length()>4){
-									 downpntinfoObj=new CJDownpntinfo();
 									 downpntinfoObj.setFlag(0);
-									 pntInfoList=new ArrayList<PntInfo>();
 									 pntInfoObj=new PntInfo();
 									 pntInfoObj.setPointid(jsonObj.getString("pointid"));
 									 pntInfoObj.setPointnum(jsonObj.getString("pointnum"));
@@ -68,7 +67,6 @@ public class CJDownpntinfoImpl implements CJDownpntinfoInterface {
 								 }else {
 									 String exStr=jsonpnt.get(0).toString();
 									 jsonObj=new JSONObject(exStr);
-									 downpntinfoObj=new CJDownpntinfo();
 									 downpntinfoObj.setFlag(-1);
 									 Log.i("res", result);
 									 if(jsonObj.getString("faceid").equals("-1")){
