@@ -46,6 +46,7 @@ public class CJDownfaceImpl implements CJDownfaceInterface {
 						result = object.getProperty(i).toString();
 						Log.i("result", result);
 						faceStr=result.split(ValueConfig.SPLIT_CHAR);
+						facelist=new ArrayList<FaceNews>();
 						if(faceStr.length==5){
 							cjdownface=new CJDownface();
 							cjdownface.setFlag(-1);
@@ -63,7 +64,7 @@ public class CJDownfaceImpl implements CJDownfaceInterface {
 							Log.i("exception", cjdownface.getMsg());
 						}else if (faceStr.length==3){
 								cjdownface=new CJDownface();
-								facelist=new ArrayList<FaceNews>();
+
 								faceObj=new FaceNews();
 								cjdownface.setFlag(0);
 								faceObj.setFaceId(faceStr[0]);
