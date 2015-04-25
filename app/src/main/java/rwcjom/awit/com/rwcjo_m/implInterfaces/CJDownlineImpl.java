@@ -20,18 +20,21 @@ import rwcjom.awit.com.rwcjo_m.interfaces.CJDownlineInterface;
 
 public class CJDownlineImpl implements CJDownlineInterface {
 	private String TAG="CJDownlineImpl";
+	private List<CJDownline> downlineList;
 	private CJDownline downlineObj;
 	private List<BwInfo> bwInfoList;
 	private BwInfo bwInfoObj;
 	private Line lineObj;
 	private String result;
 		@Override
-		public CJDownline getCJDownline(String sectid, String startdate, String enddate,
+		public List<CJDownline> getCJDownline(String sectid, String startdate, String enddate,
 				String randomcode) {
 			SoapObject object = null;
 			JSONArray jsonLine;
 			JSONObject jsonObj;
 			try {
+				downlineList=new ArrayList<CJDownline>();
+				downlineObj=new CJDownline();
 				Log.i(TAG, randomcode);
 				String methodNameString="CJDownline";
 				Map<String,String> paramsvalue=new LinkedHashMap<>();
@@ -52,56 +55,64 @@ public class CJDownlineImpl implements CJDownlineInterface {
 					Log.i("res", jsonLine.get(0).toString());
 					if(jsonLine.length()>1){
 						downlineObj.setFlag(0);
-						Log.i("len", jsonLine.length()+"");
-						for(int j=0;j<jsonLine.length();j++){
-							lineObj=new Line();
-							String data=jsonLine.get(j).toString();
-							jsonObj=new JSONObject(data);
+						Log.i("len", jsonLine.length() + "");
+						for(int j=0;j<jsonLine.length();j++) {
+							lineObj = new Line();
+							String data = jsonLine.get(j).toString();
+							jsonObj = new JSONObject(data);
 							lineObj.setLc(jsonObj.getString("lc"));
 							lineObj.setLn(jsonObj.getString("ln"));
-							bwInfoList=new ArrayList<BwInfo>();
-							String bws=jsonObj.getString("bw");
-							JSONArray bwArray=new JSONArray(bws);
-							JSONObject bwobj=null;
-							for(int k=0;k<bwArray.length();k++){
-								bwInfoObj=new BwInfo();
-								String datastr=bwArray.getString(k).toString();
-								bwobj=new JSONObject(datastr);
+							bwInfoList = new ArrayList<BwInfo>();
+							String bws = jsonObj.getString("bw");
+							JSONArray bwArray = new JSONArray(bws);
+							JSONObject bwobj = null;
+							for (int k = 0; k < bwArray.length(); k++) {
+								bwInfoObj = new BwInfo();
+								String datastr = bwArray.getString(k).toString();
+								bwobj = new JSONObject(datastr);
 								bwInfoObj.setId(bwobj.getString("id"));
 								bwInfoObj.setOd(bwobj.getString("od"));
 								bwInfoObj.setTy(bwobj.getString("ty"));
 								bwInfoList.add(bwInfoObj);
 							}
 							downlineObj.setBw(bwInfoList);
+							downlineObj.setLineObj(lineObj);
+							downlineList.add(downlineObj);
 						}
-						downlineObj.setLineObj(lineObj);
 					}else{
+						downlineObj=new CJDownline();
 						String data=jsonLine.get(0).toString();
 						jsonObj=new JSONObject(data);
 						if(jsonObj.getString("flag").equals("-1")){
 							downlineObj.setFlag(-1);
 							downlineObj.setMsg("sectid有误");
-							Log.i("exception","1");
+							Log.i("exception", "1");
+							downlineList.add(downlineObj);
 						}else if(jsonObj.getString("flag").equals("-2")){
 							downlineObj.setFlag(-1);
 							downlineObj.setMsg("startdate有误");
 							Log.i("exception", "2");
+							downlineList.add(downlineObj);
 						}else if(jsonObj.getString("flag").equals("-3")){
 							downlineObj.setFlag(-1);
 							downlineObj.setMsg("enddate有误");
 							Log.i("exception", "3");
+							downlineList.add(downlineObj);
 						}else if(jsonObj.getString("flag").equals("-4")){
 							downlineObj.setFlag(-1);
 							downlineObj.setMsg("randomcode有误");
 							Log.i("exception", "4");
+							downlineList.add(downlineObj);
 						}else if(jsonObj.getString("flag").equals("-5")){
 							downlineObj.setFlag(-1);
 							downlineObj.setMsg("无测量水准路线");
-							Log.i("exception","5");
+							Log.i("exception", "5");
+							downlineList.add(downlineObj);
 						}else{
 							downlineObj.setFlag(-1);
 							downlineObj.setMsg("其他错误");
-							Log.i("exception","6");
+							Log.i("exception", "6");
+							downlineList.add(downlineObj);
 						}
 					}
 				}
@@ -110,18 +121,21 @@ public class CJDownlineImpl implements CJDownlineInterface {
 				Log.i(TAG, "造型异常");
 				downlineObj.setFlag(-2);
 				downlineObj.setMsg("造型异常");
+				downlineList.add(downlineObj);
 			} catch(NullPointerException e){
 				e.printStackTrace();
 				Log.i(TAG, "空指针异常");
 				downlineObj.setFlag(-2);
 				downlineObj.setMsg("空指针异常");
+				downlineList.add(downlineObj);
 			} catch (Exception e) {
 				e.printStackTrace();
 				Log.i(TAG,"网络异常");
 				downlineObj.setFlag(-2);
 				downlineObj.setMsg("网络异常");
+				downlineList.add(downlineObj);
 			}
-			return downlineObj;
+			return downlineList;
 		}
 	}
 
