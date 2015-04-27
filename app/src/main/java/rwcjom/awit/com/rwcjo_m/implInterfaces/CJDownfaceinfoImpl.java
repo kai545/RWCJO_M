@@ -52,105 +52,52 @@ public class CJDownfaceinfoImpl implements CJDownfaceinfoInterface {
 						downfaceinfoObj.setFlag(0);
 						faceinfoObj=new FaceInfo();
 						for(int i=0;i<object.getPropertyCount();i++){
+							String var=object.getProperty(i).toString();
+							if(object.getProperty(i).toString().equals("anyType{}")){
+								var="";
+							}
 							switch(i){
 								case 0:
-									if(object.getProperty(i).toString().equals("anyType{}")){
-										faceinfoObj.setFaceid("");
-									}else{
-										faceinfoObj.setFaceid(object.getProperty(i).toString());
-									}
+									faceinfoObj.setFaceid(var);
 									break;
 								case 1:
-									if(object.getProperty(i).toString().equals("anyType{}")){
-										faceinfoObj.setJointflag("");
-									}else{
-										faceinfoObj.setJointflag(object.getProperty(i).toString());
-									}
+									faceinfoObj.setJointflag(var);
 									break;
 								case 2:
-									if(object.getProperty(i).toString().equals("anyType{}")){
-										faceinfoObj.setStructtype("");
-									}else{
-										faceinfoObj.setStructtype(object.getProperty(i).toString());
-									}
+									faceinfoObj.setStructtype(var);
 									break;
 								case 3:
-									if(object.getProperty(i).toString().equals("anyType{}")){
-										faceinfoObj.setStructname("");
-									}else{
-										faceinfoObj.setStructname(object.getProperty(i).toString());
-									}
+									faceinfoObj.setStructname(var);
 									break;
 								case 4:
-									if(object.getProperty(i).toString().equals("anyType{}")){
-										faceinfoObj.setStructbase("");
-									}else{
-										faceinfoObj.setStructbase(object.getProperty(i).toString());
-									}
+									faceinfoObj.setStructbase(var);
 									break;
 								case 5:
-									if(object.getProperty(i).toString().equals("anyType{}")){
-										faceinfoObj.setDesignatt("");
-									}else{
-										faceinfoObj.setDesignatt(object.getProperty(i).toString());
-									}
+									faceinfoObj.setDesignatt(var);
 									break;
 								case 6:
-									if(object.getProperty(i).toString().equals("anyType{}")){
-										faceinfoObj.setPiernum("");
-									}else{
-										faceinfoObj.setPiernum(object.getProperty(i).toString());
-									}
+									faceinfoObj.setPiernum(var);
 									break;
 								case 7:
-									if(object.getProperty(i).toString().equals("anyType{}")){
-										faceinfoObj.setDkname("");
-									}else{
-										faceinfoObj.setDkname(object.getProperty(i).toString());
-									}
+									faceinfoObj.setDkname(var);
 									break;
 								case 8:
-									if(object.getProperty(i).toString().equals("anyType{}")){
-										faceinfoObj.setDkilo("");
-									}else{
-										faceinfoObj.setDkilo(object.getProperty(i).toString());
-									}
+									faceinfoObj.setDkilo(var);
 									break;
 								case 9:
-									if(object.getProperty(i).toString().equals("anyType{}")){
-										faceinfoObj.setDchain("");
-									}else{
-										faceinfoObj.setDchain(object.getProperty(i).toString());
-									}
+									faceinfoObj.setDchain(var);
 									break;
 								case 10:
-									if(object.getProperty(i).toString().equals("anyType{}")){
-										faceinfoObj.setRkname("");
-									}else{
-										faceinfoObj.setRkname(object.getProperty(i).toString());
-									}
+									faceinfoObj.setRkname(var);
 									break;
 								case 11:
-									if(object.getProperty(i).toString().equals("anyType{}")){
-										faceinfoObj.setRkilo("");
-									}else{
-										faceinfoObj.setRkilo(object.getProperty(i).toString());
-									}
+									faceinfoObj.setRkilo(var);
 									break;
 								case 12:
-									if(object.getProperty(i).toString().equals("anyType{}")){
-										faceinfoObj.setRchain("");
-									}else{
-										faceinfoObj.setRchain(object.getProperty(i).toString());
-									}
+									faceinfoObj.setRchain(var);
 									break;
 								case 13:
-									if(object.getProperty(i).toString().equals("anyType{}")){
-										faceinfoObj.setRemark("");
-										Log.i(TAG,faceinfoObj.getRemark()+"kkkk");
-									}else{
-										faceinfoObj.setRemark(object.getProperty(i).toString());
-									}
+									faceinfoObj.setRemark(var);
 									break;
 							}
 							downfaceinfoObj.setFaceinfoObj(faceinfoObj);
