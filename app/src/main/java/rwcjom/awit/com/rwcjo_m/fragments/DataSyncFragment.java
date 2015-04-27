@@ -105,24 +105,24 @@ public class DataSyncFragment extends Fragment {
     }
     //下载标段和工点信息
     private void downloadSectionSite(){
-        Tasks.executeInBackground(context, new BackgroundWork<Map<String,Object>>() {
+        Tasks.executeInBackground(context, new BackgroundWork<Map<String, Object>>() {
             @Override
-            public Map<String,Object> doInBackground() throws Exception {
+            public Map<String, Object> doInBackground() throws Exception {
                 EventBus.getDefault().post(new DataSyncFragmentEvent(R.id.data_sync_dl_section, 50));//进度条
-                Map<String,Object>  result = new HashMap<String, Object>();//存放ID;
+                Map<String, Object> result = new HashMap<String, Object>();//存放ID;
                 //CommonTools.showProgressDialog(MainActivity.this, "正在登录……");
                 if (randomCode.length() != 0) {
-                    result.put("randomCode",randomCode);
+                    result.put("randomCode", randomCode);
                     CJDownsectsiteImpl mCJDownsectsiteImpl = new CJDownsectsiteImpl();
                     for (int i = 0; i < 3; i++) {
                         CJDownsectsite thismCJDownsectsite = mCJDownsectsiteImpl.getCJDownsectsite("0", i + "", randomCode);//调用接口
 
                         if (thismCJDownsectsite.getFlag() == 0) {
                             //有工点信息
-                            result.put("section",thismCJDownsectsite.getSecObj());
+                            result.put("section", thismCJDownsectsite.getSecObj());
                             secNewsService.saveSecNews(thismCJDownsectsite.getSecObj());
                             List<SiteNews> sitelist = thismCJDownsectsite.getSitelist();
-                            result.put("sites",sitelist);
+                            result.put("sites", sitelist);
                             for (int j = 0; j < sitelist.size(); j++) {
                                 SiteNews siteNews = sitelist.get(j);
                                 siteNews.setF_sectionid(thismCJDownsectsite.getSecObj().getSectid());
@@ -131,7 +131,7 @@ public class DataSyncFragment extends Fragment {
                             //开始保存数据
 
                         } else {
-                            Log.i(TAG,"下载工点信息："+thismCJDownsectsite.getMsg());
+                            Log.i(TAG, "下载工点信息：" + thismCJDownsectsite.getMsg());
                         }
 
                     }
@@ -139,11 +139,11 @@ public class DataSyncFragment extends Fragment {
                 return result;
             }
 
-        }, new Completion<Map<String,Object>>() {
+        }, new Completion<Map<String, Object>>() {
             @Override
-            public void onSuccess(Context context, Map<String,Object> result) {
+            public void onSuccess(Context context, Map<String, Object> result) {
                 EventBus.getDefault().post(new DataSyncFragmentEvent(R.id.data_sync_dl_section, 100));
-                downloadFace(result);
+                downloadFace(result);//开始下载断面信息
             }
 
             @Override
@@ -157,32 +157,32 @@ public class DataSyncFragment extends Fragment {
     //下载断面信息
     private void downloadFace(Map<String,Object> lastResult){
         final Map<String,Object> readyResult=lastResult;
-        Tasks.executeInBackground(context, new BackgroundWork<Map<String,Object>>() {
+        Tasks.executeInBackground(context, new BackgroundWork<Map<String, Object>>() {
             @Override
-            public Map<String,Object> doInBackground() throws Exception {
-                EventBus.getDefault().post(new DataSyncFragmentEvent(R.id.data_sync_dl_face,50));//进度条
-                Map<String,Object>  face_retult = readyResult;//存放ID;
-                List<SiteNews> siteList=(List<SiteNews>)face_retult.get("sites");//获取标段和断面
+            public Map<String, Object> doInBackground() throws Exception {
+                EventBus.getDefault().post(new DataSyncFragmentEvent(R.id.data_sync_dl_face, 50));//进度条
+                Map<String, Object> face_retult = readyResult;//存放ID;
+                List<SiteNews> siteList = (List<SiteNews>) face_retult.get("sites");//获取标段和断面
 
                 for (int i = 0; i < siteList.size(); i++) {
-                    CJDownfaceImpl mCJDownfaceImpl=new CJDownfaceImpl();
-                    List<CJDownface> CJDownface=mCJDownfaceImpl.getCJDownface(siteList.get(i).getSiteid(), ValueConfig.FACE_START_DATE, ValueConfig.FACE_END_DATE, "" + readyResult.get("randomcode"));
+                    CJDownfaceImpl mCJDownfaceImpl = new CJDownfaceImpl();
+                    CJDownface mCJDownface = mCJDownfaceImpl.getCJDownface(siteList.get(i).getSiteid(), ValueConfig.FACE_START_DATE, ValueConfig.FACE_END_DATE, "" + readyResult.get("randomCode"));
 
                 }
 
                 return face_retult;
             }
 
-        }, new Completion<Map<String,Object>>() {
+        }, new Completion<Map<String, Object>>() {
             @Override
-            public void onSuccess(Context context, Map<String,Object> result) {
-                EventBus.getDefault().post(new DataSyncFragmentEvent(R.id.data_sync_dl_face,100));
+            public void onSuccess(Context context, Map<String, Object> result) {
+                EventBus.getDefault().post(new DataSyncFragmentEvent(R.id.data_sync_dl_face, 100));
             }
 
             @Override
             public void onError(Context context, Exception e) {
                 //showError(e);
-                EventBus.getDefault().post(new DataSyncFragmentEvent(R.id.data_sync_dl_face,-1));
+                EventBus.getDefault().post(new DataSyncFragmentEvent(R.id.data_sync_dl_face, -1));
             }
         });
     }
