@@ -10,16 +10,16 @@ import rwcjom.awit.com.rwcjo_m.dao.BrgInfo;
  *
  */
 public class CJDownbrginfo {
-	private List<BrgInfo> brgInfoList;
+	private BrgInfo brgInfoObj;
 	private String msg;
 	private Integer Flag;
 
-	public List<BrgInfo> getBrgInfoList() {
-		return brgInfoList;
+	public BrgInfo getBrgInfoObj() {
+		return brgInfoObj;
 	}
 
-	public void setBrgInfoList(List<BrgInfo> brgInfoList) {
-		this.brgInfoList = brgInfoList;
+	public void setBrgInfoObj(BrgInfo brgInfoObj) {
+		this.brgInfoObj = brgInfoObj;
 	}
 
 	public Integer getFlag() {
