@@ -154,7 +154,7 @@ public class CJDownfaceinfoImpl implements CJDownfaceinfoInterface {
 							}
 						}
 
-						faceinfoObj.setFaceid(object.getProperty(object.getPropertyCount() - 14).toString());
+						/*faceinfoObj.setFaceid(object.getProperty(object.getPropertyCount() - 14).toString());
 						faceinfoObj.setJointflag(object.getProperty(object.getPropertyCount() - 13).toString());
 						faceinfoObj.setStructtype(object.getProperty(object.getPropertyCount() - 12).toString());
 						faceinfoObj.setStructname(object.getProperty(object.getPropertyCount() - 11).toString());
@@ -168,7 +168,7 @@ public class CJDownfaceinfoImpl implements CJDownfaceinfoInterface {
 						faceinfoObj.setRkilo(object.getProperty(object.getPropertyCount() - 3).toString());
 						faceinfoObj.setRchain(object.getProperty(object.getPropertyCount() - 2).toString());
 						faceinfoObj.setRemark(object.getProperty(object.getPropertyCount() - 1).toString());
-						downfaceinfoObj.setFaceinfoObj(faceinfoObj);
+						downfaceinfoObj.setFaceinfoObj(faceinfoObj);*/
 					}
 
 				}catch(ClassCastException e) {
