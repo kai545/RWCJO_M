@@ -13,7 +13,6 @@ public class BrgInfo {
     private String beamtype;
     private String remark;
     private String f_siteid;
-    private String f_faceid;
 
     public BrgInfo() {
     }
@@ -22,7 +21,7 @@ public class BrgInfo {
         this.faceid = faceid;
     }
 
-    public BrgInfo(String faceid, String structname, String piernum, String beamspan, String beamtype, String remark, String f_siteid, String f_faceid) {
+    public BrgInfo(String faceid, String structname, String piernum, String beamspan, String beamtype, String remark, String f_siteid) {
         this.faceid = faceid;
         this.structname = structname;
         this.piernum = piernum;
@@ -30,7 +29,6 @@ public class BrgInfo {
         this.beamtype = beamtype;
         this.remark = remark;
         this.f_siteid = f_siteid;
-        this.f_faceid = f_faceid;
     }
 
     public String getFaceid() {
@@ -87,14 +85,6 @@ public class BrgInfo {
 
     public void setF_siteid(String f_siteid) {
         this.f_siteid = f_siteid;
-    }
-
-    public String getF_faceid() {
-        return f_faceid;
-    }
-
-    public void setF_faceid(String f_faceid) {
-        this.f_faceid = f_faceid;
     }
 
 }

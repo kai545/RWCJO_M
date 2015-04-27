@@ -23,14 +23,21 @@ import java.util.Map;
 
 import de.greenrobot.event.EventBus;
 import rwcjom.awit.com.rwcjo_m.R;
+import rwcjom.awit.com.rwcjo_m.bean.CJDownbrginfo;
 import rwcjom.awit.com.rwcjo_m.bean.CJDownface;
+import rwcjom.awit.com.rwcjo_m.bean.CJDownfaceinfo;
 import rwcjom.awit.com.rwcjo_m.bean.CJDownsectsite;
+import rwcjom.awit.com.rwcjo_m.dao.BrgInfo;
+import rwcjom.awit.com.rwcjo_m.dao.FaceInfo;
 import rwcjom.awit.com.rwcjo_m.dao.FaceNews;
 import rwcjom.awit.com.rwcjo_m.dao.SiteNews;
 import rwcjom.awit.com.rwcjo_m.event.DataSyncFragmentEvent;
 import rwcjom.awit.com.rwcjo_m.event.MainActivityEvent;
+import rwcjom.awit.com.rwcjo_m.implInterfaces.CJDownbrginfoImpl;
 import rwcjom.awit.com.rwcjo_m.implInterfaces.CJDownfaceImpl;
+import rwcjom.awit.com.rwcjo_m.implInterfaces.CJDownfaceinfoImpl;
 import rwcjom.awit.com.rwcjo_m.implInterfaces.CJDownsectsiteImpl;
+import rwcjom.awit.com.rwcjo_m.service.BrgInfoService;
 import rwcjom.awit.com.rwcjo_m.service.FaceInfoService;
 import rwcjom.awit.com.rwcjo_m.service.FaceNewsService;
 import rwcjom.awit.com.rwcjo_m.service.SecNewsService;
@@ -54,6 +61,7 @@ public class DataSyncFragment extends Fragment {
     private SiteNewsService siteNewsService;
     private FaceNewsService faceNewsService;
     private FaceInfoService faceInfoService;
+    private BrgInfoService brgInfoService;
 
     public DataSyncFragment() {
         // Required empty public constructor
@@ -68,6 +76,7 @@ public class DataSyncFragment extends Fragment {
         siteNewsService=SiteNewsService.getInstance(context);
         faceNewsService=FaceNewsService.getInstance(context);
         faceInfoService=FaceInfoService.getInstance(context);
+        brgInfoService=BrgInfoService.getInstance(context);
     }
 
     @Override
@@ -113,7 +122,7 @@ public class DataSyncFragment extends Fragment {
                 EventBus.getDefault().post(new DataSyncFragmentEvent(R.id.data_sync_dl_section, 50));//进度条
                 Map<String, Object> result = new HashMap<String, Object>();//存放ID;
                 //CommonTools.showProgressDialog(MainActivity.this, "正在登录……");
-                List<SiteNews> sitelist_all=new ArrayList<SiteNews>();
+                List<SiteNews> sitelist_all = new ArrayList<SiteNews>();
                 if (randomCode.length() != 0) {
                     result.put("randomCode", randomCode);
                     CJDownsectsiteImpl mCJDownsectsiteImpl = new CJDownsectsiteImpl();
@@ -124,11 +133,11 @@ public class DataSyncFragment extends Fragment {
                             //有工点信息
                             result.put("section", thismCJDownsectsite.getSecObj());
                             secNewsService.saveSecNews(thismCJDownsectsite.getSecObj());
-                            List<SiteNews> sitelist = thismCJDownsectsite.getSitelist();
-                            sitelist_all.addAll(sitelist);
+                            List<SiteNews> sitelist = thismCJDownsectsite.getSitelist();//单个工点类型下的工点列表
+                            sitelist_all.addAll(sitelist);//将所有类型的工点放入总list
                             for (int j = 0; j < sitelist.size(); j++) {
                                 SiteNews siteNews = sitelist.get(j);
-                                siteNews.setSitetype(""+i);
+                                siteNews.setSitetype("" + i);
                                 siteNews.setF_sectionid(thismCJDownsectsite.getSecObj().getSectid());
                                 siteNewsService.saveSiteNews(siteNews);
                             }
@@ -159,7 +168,7 @@ public class DataSyncFragment extends Fragment {
         });
     }
 
-    //下载断面信息
+    //下载断面信息（包括断面详情） lastResult包含标段、工点列表
     private void downloadFace(Map<String,Object> lastResult){
         final Map<String,Object> readyResult=lastResult;
         Tasks.executeInBackground(context, new BackgroundWork<Map<String, Object>>() {
@@ -168,19 +177,81 @@ public class DataSyncFragment extends Fragment {
                 EventBus.getDefault().post(new DataSyncFragmentEvent(R.id.data_sync_dl_face, 50));//进度条
                 Map<String, Object> face_retult = readyResult;//存放ID;
                 List<SiteNews> siteList = (List<SiteNews>) face_retult.get("sites");//获取标段和断面
-
+                List<FaceNews> faceNews_all=new ArrayList<FaceNews>();
                 for (int i = 0; i < siteList.size(); i++) {
                     CJDownfaceImpl mCJDownfaceImpl = new CJDownfaceImpl();
                     String siteid=siteList.get(i).getSiteid();
                     CJDownface mCJDownface = mCJDownfaceImpl.getCJDownface(siteid, ValueConfig.FACE_START_DATE, ValueConfig.FACE_END_DATE, "" + readyResult.get("randomCode"));
-                    List<FaceNews> faceNewsList=mCJDownface.getFacelist();
+                    List<FaceNews> faceNewsList=mCJDownface.getFacelist();//单个工点下的断面列表
+                    faceNews_all.addAll(faceNewsList);//将所有断面基础信息放入总list
                     for (int j = 0; j <faceNewsList.size(); j++) {
                         FaceNews faceNews=faceNewsList.get(j);
                         faceNews.setF_siteid(siteid);
-                        faceNewsService.saveFaceNews(faceNews);
+                        faceNewsService.saveFaceNews(faceNews);//保存当前断面的基础信息
+                        //以下开始查询并保存断面的详细信息
+                        CJDownfaceinfoImpl cjDownfaceinfoImpl=new CJDownfaceinfoImpl();
+                        CJDownfaceinfo cjDownfaceinfo= cjDownfaceinfoImpl.getCJDownfaceinfo(siteid, faceNews.getFaceId(), "" + readyResult.get("randomCode"));
+                        FaceInfo faceInfo=cjDownfaceinfo.getFaceinfoObj();
+                        faceInfo.setF_siteid(siteid);
+                        faceInfoService.saveFaceInfo(faceInfo);
+
+                        ////以下开始查询并保存梁体的详细信息
+                        CJDownbrginfoImpl mCJDownbrginfoImpl=new CJDownbrginfoImpl();
+                        CJDownbrginfo cjDownbrginfo=mCJDownbrginfoImpl.getCJDownbrginfo(siteid, faceNews.getFaceId(), "" + readyResult.get("randomCode"));
+                        BrgInfo brgInfo=cjDownbrginfo.getBrgInfoObj();
+                        brgInfo.setF_siteid(siteid);
+                        brgInfoService.saveBrgInfo(brgInfo);
                     }
                 }
+                readyResult.put("faceNewses",faceNews_all);
+                face_retult.putAll(readyResult);
+                return face_retult;
+            }
 
+        }, new Completion<Map<String, Object>>() {
+            @Override
+            public void onSuccess(Context context, Map<String, Object> result) {
+                EventBus.getDefault().post(new DataSyncFragmentEvent(R.id.data_sync_dl_face, 100));
+            }
+
+            @Override
+            public void onError(Context context, Exception e) {
+                //showError(e);
+                EventBus.getDefault().post(new DataSyncFragmentEvent(R.id.data_sync_dl_face, -1));
+            }
+        });
+    }
+
+
+    //下载测点信息 lastResult包含标段、工点列表、断面基础信息列表
+    private void downloadPntInfo(Map<String,Object> lastResult){
+        final Map<String,Object> readyResult=lastResult;
+        Tasks.executeInBackground(context, new BackgroundWork<Map<String, Object>>() {
+            @Override
+            public Map<String, Object> doInBackground() throws Exception {
+                EventBus.getDefault().post(new DataSyncFragmentEvent(R.id.data_sync_dl_face, 50));//进度条
+                Map<String, Object> face_retult = readyResult;//存放ID;
+                List<SiteNews> siteList = (List<SiteNews>) face_retult.get("sites");//获取标段和断面
+                List<FaceNews> faceNews_all=new ArrayList<FaceNews>();
+                for (int i = 0; i < siteList.size(); i++) {
+                    CJDownfaceImpl mCJDownfaceImpl = new CJDownfaceImpl();
+                    String siteid=siteList.get(i).getSiteid();
+                    CJDownface mCJDownface = mCJDownfaceImpl.getCJDownface(siteid, ValueConfig.FACE_START_DATE, ValueConfig.FACE_END_DATE, "" + readyResult.get("randomCode"));
+                    List<FaceNews> faceNewsList=mCJDownface.getFacelist();//单个工点下的断面列表
+                    faceNews_all.addAll(faceNewsList);//将所有断面基础信息放入总list
+                    for (int j = 0; j <faceNewsList.size(); j++) {
+                        FaceNews faceNews=faceNewsList.get(j);
+                        faceNews.setF_siteid(siteid);
+                        faceNewsService.saveFaceNews(faceNews);//保存当前断面的基础信息
+
+                        //以下开始查询并保存断面的详细信息
+                        CJDownfaceinfoImpl cjDownfaceinfoImpl=new CJDownfaceinfoImpl();
+                        CJDownfaceinfo cjDownfaceinfo= cjDownfaceinfoImpl.getCJDownfaceinfo(siteid, faceNews.getFaceId(), "" + readyResult.get("randomCode"));
+
+                    }
+                }
+                readyResult.put("faceNewses",faceNews_all);
+                face_retult.putAll(readyResult);
                 return face_retult;
             }
 

@@ -30,7 +30,6 @@ public class BrgInfoDao extends AbstractDao<BrgInfo, String> {
         public final static Property Beamtype = new Property(4, String.class, "beamtype", false, "BEAMTYPE");
         public final static Property Remark = new Property(5, String.class, "remark", false, "REMARK");
         public final static Property F_siteid = new Property(6, String.class, "f_siteid", false, "F_SITEID");
-        public final static Property F_faceid = new Property(7, String.class, "f_faceid", false, "F_FACEID");
     };
 
 
@@ -52,8 +51,7 @@ public class BrgInfoDao extends AbstractDao<BrgInfo, String> {
                 "'BEAMSPAN' TEXT," + // 3: beamspan
                 "'BEAMTYPE' TEXT," + // 4: beamtype
                 "'REMARK' TEXT," + // 5: remark
-                "'F_SITEID' TEXT," + // 6: f_siteid
-                "'F_FACEID' TEXT);"); // 7: f_faceid
+                "'F_SITEID' TEXT);"); // 6: f_siteid
     }
 
     /** Drops the underlying database table. */
@@ -101,11 +99,6 @@ public class BrgInfoDao extends AbstractDao<BrgInfo, String> {
         if (f_siteid != null) {
             stmt.bindString(7, f_siteid);
         }
- 
-        String f_faceid = entity.getF_faceid();
-        if (f_faceid != null) {
-            stmt.bindString(8, f_faceid);
-        }
     }
 
     /** @inheritdoc */
@@ -124,8 +117,7 @@ public class BrgInfoDao extends AbstractDao<BrgInfo, String> {
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // beamspan
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // beamtype
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // remark
-            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // f_siteid
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7) // f_faceid
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6) // f_siteid
         );
         return entity;
     }
@@ -140,7 +132,6 @@ public class BrgInfoDao extends AbstractDao<BrgInfo, String> {
         entity.setBeamtype(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setRemark(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setF_siteid(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
-        entity.setF_faceid(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
      }
     
     /** @inheritdoc */

@@ -92,10 +92,10 @@ public class FaceNewsService {
 
     /**
      * delete note by id
-     * @param sectid
+     * @param faceid
      */
-    public void deleteFaceNews(String sectid){
-        faceNewsDao.deleteByKey(sectid);
+    public void deleteFaceNews(String faceid){
+        faceNewsDao.deleteByKey(faceid);
         Log.i(TAG, "delete");
     }
 

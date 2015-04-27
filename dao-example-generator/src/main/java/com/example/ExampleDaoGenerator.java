@@ -39,7 +39,6 @@ public class ExampleDaoGenerator {
         section.addStringProperty("rchain");
         section.addStringProperty("remark");
         section.addStringProperty("f_siteid");
-        section.addStringProperty("f_faceid");
     }
 
     private static void addBrgInfo(Schema schema) {
@@ -51,7 +50,6 @@ public class ExampleDaoGenerator {
         section.addStringProperty("beamtype");
         section.addStringProperty("remark");
         section.addStringProperty("f_siteid");
-        section.addStringProperty("f_faceid");
     }
 
     private static void addPntInfo(Schema schema) {

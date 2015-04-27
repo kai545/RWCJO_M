@@ -21,7 +21,6 @@ public class FaceInfo {
     private String rchain;
     private String remark;
     private String f_siteid;
-    private String f_faceid;
 
     public FaceInfo() {
     }
@@ -30,7 +29,7 @@ public class FaceInfo {
         this.faceid = faceid;
     }
 
-    public FaceInfo(String faceid, String jointflag, String structtype, String structname, String structbase, String designatt, String piernum, String dkname, String dkilo, String dchain, String rkname, String rkilo, String rchain, String remark, String f_siteid, String f_faceid) {
+    public FaceInfo(String faceid, String jointflag, String structtype, String structname, String structbase, String designatt, String piernum, String dkname, String dkilo, String dchain, String rkname, String rkilo, String rchain, String remark, String f_siteid) {
         this.faceid = faceid;
         this.jointflag = jointflag;
         this.structtype = structtype;
@@ -46,7 +45,6 @@ public class FaceInfo {
         this.rchain = rchain;
         this.remark = remark;
         this.f_siteid = f_siteid;
-        this.f_faceid = f_faceid;
     }
 
     public String getFaceid() {
@@ -167,14 +165,6 @@ public class FaceInfo {
 
     public void setF_siteid(String f_siteid) {
         this.f_siteid = f_siteid;
-    }
-
-    public String getF_faceid() {
-        return f_faceid;
-    }
-
-    public void setF_faceid(String f_faceid) {
-        this.f_faceid = f_faceid;
     }
 
 }
