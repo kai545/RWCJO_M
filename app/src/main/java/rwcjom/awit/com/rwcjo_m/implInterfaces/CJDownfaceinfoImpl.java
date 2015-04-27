@@ -53,7 +53,7 @@ public class CJDownfaceinfoImpl implements CJDownfaceinfoInterface {
 						faceinfoObj=new FaceInfo();
 						for(int i=0;i<object.getPropertyCount();i++){
 							String var=object.getProperty(i).toString();
-							if(object.getProperty(i).toString().equals("anyType{}")){
+							if(var.equals("anyType{}")){
 								var="";
 							}
 							switch(i){
