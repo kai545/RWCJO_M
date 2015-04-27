@@ -51,23 +51,58 @@ public class CJDownfaceinfoImpl implements CJDownfaceinfoInterface {
 					}else if(object.getPropertyCount()==14){
 						downfaceinfoObj.setFlag(0);
 						faceinfoObj=new FaceInfo();
-						faceinfoObj.setFaceid(object.getProperty(object.getPropertyCount() - 14).toString());
-						faceinfoObj.setJointflag(object.getProperty(object.getPropertyCount() - 13).toString());
-						faceinfoObj.setStructtype(object.getProperty(object.getPropertyCount() - 12).toString());
-						faceinfoObj.setStructname(object.getProperty(object.getPropertyCount() - 11).toString());
-						faceinfoObj.setStructbase(object.getProperty(object.getPropertyCount() - 10).toString());
-						faceinfoObj.setDesignatt(object.getProperty(object.getPropertyCount() - 9).toString());
-						faceinfoObj.setPiernum(object.getProperty(object.getPropertyCount() - 8).toString());
-						faceinfoObj.setDkname(object.getProperty(object.getPropertyCount() - 7).toString());
-						faceinfoObj.setDkilo(object.getProperty(object.getPropertyCount() - 6).toString());
-						faceinfoObj.setDchain(object.getProperty(object.getPropertyCount() - 5).toString());
-						faceinfoObj.setRkname(object.getProperty(object.getPropertyCount() - 4).toString());
-						faceinfoObj.setRkilo(object.getProperty(object.getPropertyCount() - 3).toString());
-						faceinfoObj.setRchain(object.getProperty(object.getPropertyCount() - 2).toString());
-						faceinfoObj.setRemark(object.getProperty(object.getPropertyCount() - 1).toString());
-						downfaceinfoObj.setFaceinfoObj(faceinfoObj);
+						for(int i=0;i<object.getPropertyCount();i++){
+							String var=object.getProperty(i).toString();
+							if(var.equals("anyType{}")){
+								var="";
+							}
+							switch(i){
+								case 0:
+									faceinfoObj.setFaceid(var);
+									break;
+								case 1:
+									faceinfoObj.setJointflag(var);
+									break;
+								case 2:
+									faceinfoObj.setStructtype(var);
+									break;
+								case 3:
+									faceinfoObj.setStructname(var);
+									break;
+								case 4:
+									faceinfoObj.setStructbase(var);
+									break;
+								case 5:
+									faceinfoObj.setDesignatt(var);
+									break;
+								case 6:
+									faceinfoObj.setPiernum(var);
+									break;
+								case 7:
+									faceinfoObj.setDkname(var);
+									break;
+								case 8:
+									faceinfoObj.setDkilo(var);
+									break;
+								case 9:
+									faceinfoObj.setDchain(var);
+									break;
+								case 10:
+									faceinfoObj.setRkname(var);
+									break;
+								case 11:
+									faceinfoObj.setRkilo(var);
+									break;
+								case 12:
+									faceinfoObj.setRchain(var);
+									break;
+								case 13:
+									faceinfoObj.setRemark(var);
+									break;
+							}
+							downfaceinfoObj.setFaceinfoObj(faceinfoObj);
+						}
 					}
-
 				}catch(ClassCastException e) {
 					e.printStackTrace();
 					downfaceinfoObj.setFlag(-2);
