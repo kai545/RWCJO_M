@@ -10,5 +10,5 @@ import rwcjom.awit.com.rwcjo_m.bean.CJDownface;
  *
  */
 public interface CJDownfaceInterface {
-	public List<CJDownface> getCJDownface(String siteid,String startdate,String enddate,String randomcode);
+	public CJDownface getCJDownface(String siteid,String startdate,String enddate,String randomcode);
 }

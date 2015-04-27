@@ -19,17 +19,16 @@ import rwcjom.awit.com.rwcjo_m.interfaces.CJDownfaceInterface;
 
 public class CJDownfaceImpl implements CJDownfaceInterface {
 	private String TAG="CJDownfaceImpl";
-	private List<CJDownface> cjdownfacelist;
 	private CJDownface cjdownface;
 	private List<FaceNews> facelist;
 	private FaceNews faceObj;
 	private String result;
 	private String[] faceStr;
 	@Override
-	public List<CJDownface> getCJDownface(String siteid, String startdate, String enddate,
+	public CJDownface getCJDownface(String siteid, String startdate, String enddate,
 			String randomcode) {
 				try {
-					cjdownfacelist=new ArrayList<CJDownface>();
+					cjdownface=new CJDownface();
 					Log.i(TAG,randomcode);
 					String methodNameString="CJDownface";
 					Map<String,String> paramsvalue=new LinkedHashMap<>();
@@ -42,10 +41,10 @@ public class CJDownfaceImpl implements CJDownfaceInterface {
 					if(object ==null){
 						Log.i(TAG, "Object is null");
 					}
+					facelist=new ArrayList<FaceNews>();
 					// 获取返回的结果
 					for(int i =0;i<object.getPropertyCount();i++){
 						result = object.getProperty(i).toString();
-						Log.i("result", result);
 						faceStr=result.split(ValueConfig.SPLIT_CHAR);
 						if(faceStr.length==5){
 							cjdownface=new CJDownface();
@@ -61,42 +60,36 @@ public class CJDownfaceImpl implements CJDownfaceInterface {
 							}else {
 								cjdownface.setMsg("该标段下无相应的工点");
 							}
-							Log.i("exception",cjdownface.getMsg());
+							Log.i("exception", cjdownface.getMsg());
 						}else if (faceStr.length==3){
 								cjdownface=new CJDownface();
-								facelist=new ArrayList<FaceNews>();
 								faceObj=new FaceNews();
 								cjdownface.setFlag(0);
 								faceObj.setFaceId(faceStr[0]);
 								faceObj.setFaceCode(faceStr[1]);
 								faceObj.setFaceName(faceStr[2]);
 								facelist.add(faceObj);
-								cjdownface.setFacelist(facelist);
-								cjdownfacelist.add(cjdownface);
 						}
+						cjdownface.setFacelist(facelist);
 					}
 				} catch(ClassCastException e){
 					e.printStackTrace();
-					Log.i(TAG, "造型异常");
 					cjdownface.setFlag(-2);
 					cjdownface.setMsg("造型异常");
 				}catch(ArrayIndexOutOfBoundsException e){
-					Log.i(TAG, "数组下标越界");
 					e.printStackTrace();
 					cjdownface.setFlag(-2);
 					cjdownface.setMsg("下标越界");
 				}catch(NullPointerException e){
 					e.printStackTrace();
-					Log.i(TAG, "空指针异常");
 					cjdownface.setFlag(-2);
 					cjdownface.setMsg("空指针异常");
 				}catch (Exception e) {
 					e.printStackTrace();
-					Log.i(TAG, "网络异常");
 					cjdownface.setFlag(-2);
 					cjdownface.setMsg("网络异常");
 				}
-		return cjdownfacelist;
+		return cjdownface;
 	}
 	
 }

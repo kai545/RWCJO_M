@@ -22,13 +22,14 @@ import rwcjom.awit.com.rwcjo_m.interfaces.CJDownbrginfoInterface;
 
 public class CJDownbrginfoImpl implements CJDownbrginfoInterface {
 	private String TAG="CJDownbrginfoImpl";
-	private List<CJDownbrginfo> downbrginfoList;
 	private CJDownbrginfo downbrginfoObj;
+	private List<BrgInfo> brgInfoList;
 	private BrgInfo brginfoObj;
 	@Override
-	public List<CJDownbrginfo> getCJDownbrginfo(String siteid, String faceid, String randomcode) {
+	public CJDownbrginfo getCJDownbrginfo(String siteid, String faceid, String randomcode) {
 				try {
-					downbrginfoList=new ArrayList<CJDownbrginfo>();
+					downbrginfoObj=new CJDownbrginfo();
+					brgInfoList=new ArrayList<BrgInfo>();
 					Log.i(TAG,randomcode);
 					String methodNameString="CJDownbrginfo";
 					Map<String,String> paramsvalue=new LinkedHashMap<>();
@@ -40,12 +41,7 @@ public class CJDownbrginfoImpl implements CJDownbrginfoInterface {
 					if(object ==null){
 						Log.i(TAG, "Object is null");
 					}
-					if(pubUtil.downbrginfos.size()>0){
-						pubUtil.downbrginfos.clear();
-					}
-					Log.i("CJDownbrginfoLength", object.getPropertyCount() + "");
 					if(object.getPropertyCount()==3){
-						downbrginfoObj=new CJDownbrginfo();
 						downbrginfoObj.setFlag(-1);
 						if(object.getProperty(0).toString().equals("-1")){
 							downbrginfoObj.setMsg("siteid有误");
@@ -54,9 +50,7 @@ public class CJDownbrginfoImpl implements CJDownbrginfoInterface {
 						}else{
 							downbrginfoObj.setMsg("randomcode有误");
 						}
-						Log.i("exception", downbrginfoObj.getMsg());
 					}else if(object.getPropertyCount()==6){
-						downbrginfoObj=new CJDownbrginfo();
 						downbrginfoObj.setFlag(0);
 						brginfoObj=new BrgInfo();
 						brginfoObj.setFaceid(object.getProperty(object.getPropertyCount() - 6).toString());
@@ -65,26 +59,23 @@ public class CJDownbrginfoImpl implements CJDownbrginfoInterface {
 						brginfoObj.setBeamspan(object.getProperty(object.getPropertyCount() - 3).toString());
 						brginfoObj.setBeamtype(object.getProperty(object.getPropertyCount() - 2).toString());
 						brginfoObj.setRemark(object.getProperty(object.getPropertyCount() - 1).toString());
-						downbrginfoObj.setBrginfoObj(brginfoObj);
-						downbrginfoList.add(downbrginfoObj);
+						brgInfoList.add(brginfoObj);
 					}
+					downbrginfoObj.setBrgInfoList(brgInfoList);
 				}catch(ClassCastException e){
 					e.printStackTrace();
-					Log.i(TAG, "造型异常");
 					downbrginfoObj.setFlag(-2);
 					downbrginfoObj.setMsg("造型异常");
 				}catch(NullPointerException e){
 					e.printStackTrace();
-					Log.i(TAG, "空指针异常");
 					downbrginfoObj.setFlag(-2);
 					downbrginfoObj.setMsg("空指针异常");
 				} catch (Exception e) {
 					e.printStackTrace();
-					Log.i(TAG, "网络异常");
 					downbrginfoObj.setFlag(-2);
 					downbrginfoObj.setMsg("网络异常");
 				}
-		return downbrginfoList;
+		return downbrginfoObj;
 	}
 
 }

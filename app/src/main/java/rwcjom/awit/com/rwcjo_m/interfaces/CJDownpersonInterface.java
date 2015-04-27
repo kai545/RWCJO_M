@@ -10,5 +10,5 @@ import rwcjom.awit.com.rwcjo_m.bean.CJDownperson;
  *
  */
 public interface CJDownpersonInterface {
-	public List<CJDownperson> getCJDownperson(String sectid,String ptype,String randomcode);
+	public CJDownperson getCJDownperson(String sectid,String ptype,String randomcode);
 }
