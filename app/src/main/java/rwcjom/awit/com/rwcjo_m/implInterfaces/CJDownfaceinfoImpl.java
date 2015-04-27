@@ -50,7 +50,110 @@ public class CJDownfaceinfoImpl implements CJDownfaceinfoInterface {
 						}
 					}else if(object.getPropertyCount()==14){
 						downfaceinfoObj.setFlag(0);
-						faceinfoObj=new FaceInfo();
+						for(int i=0;i<object.getPropertyCount();i++){
+							faceinfoObj=new FaceInfo();
+							switch(i){
+								case 0:
+									if(object.getProperty(i).toString()==null){
+										faceinfoObj.setFaceid("");
+									}else{
+										faceinfoObj.setFaceid(object.getProperty(i).toString());
+									}
+									break;
+								case 1:
+									if(object.getProperty(i).toString()==null){
+										faceinfoObj.setJointflag("");
+									}else{
+										faceinfoObj.setJointflag(object.getProperty(i).toString());
+									}
+									break;
+								case 2:
+									if(object.getProperty(i).toString()==null){
+										faceinfoObj.setStructtype("");
+									}else{
+										faceinfoObj.setStructtype(object.getProperty(i).toString());
+									}
+									break;
+								case 3:
+									if(object.getProperty(i).toString()==null){
+										faceinfoObj.setStructname("");
+									}else{
+										faceinfoObj.setStructname(object.getProperty(i).toString());
+									}
+									break;
+								case 4:
+									if(object.getProperty(i).toString()==null){
+										faceinfoObj.setStructbase("");
+									}else{
+										faceinfoObj.setStructbase(object.getProperty(i).toString());
+									}
+									break;
+								case 5:
+									if(object.getProperty(i).toString()==null){
+										faceinfoObj.setDesignatt("");
+									}else{
+										faceinfoObj.setDesignatt(object.getProperty(i).toString());
+									}
+									break;
+								case 6:
+									if(object.getProperty(i).toString()==null){
+										faceinfoObj.setPiernum("");
+									}else{
+										faceinfoObj.setPiernum(object.getProperty(i).toString());
+									}
+									break;
+								case 7:
+									if(object.getProperty(i).toString()==null){
+										faceinfoObj.setDkname("");
+									}else{
+										faceinfoObj.setDkname(object.getProperty(i).toString());
+									}
+									break;
+								case 8:
+									if(object.getProperty(i).toString()==null){
+										faceinfoObj.setDkilo("");
+									}else{
+										faceinfoObj.setDkilo(object.getProperty(i).toString());
+									}
+									break;
+								case 9:
+									if(object.getProperty(i).toString()==null){
+										faceinfoObj.setDchain("");
+									}else{
+										faceinfoObj.setDchain(object.getProperty(i).toString());
+									}
+									break;
+								case 10:
+									if(object.getProperty(i).toString()==null){
+										faceinfoObj.setRkname("");
+									}else{
+										faceinfoObj.setRkname(object.getProperty(i).toString());
+									}
+									break;
+								case 11:
+									if(object.getProperty(i).toString()==null){
+										faceinfoObj.setRkilo("");
+									}else{
+										faceinfoObj.setRkilo(object.getProperty(i).toString());
+									}
+									break;
+								case 12:
+									if(object.getProperty(i).toString()==null){
+										faceinfoObj.setRchain("");
+									}else{
+										faceinfoObj.setRchain(object.getProperty(i).toString());
+									}
+									break;
+								case 13:
+									if(object.getProperty(i).toString()==null){
+										faceinfoObj.setRemark("");
+									}else{
+										faceinfoObj.setRemark(object.getProperty(i).toString());
+									}
+									break;
+							}
+						}
+
 						faceinfoObj.setFaceid(object.getProperty(object.getPropertyCount() - 14).toString());
 						faceinfoObj.setJointflag(object.getProperty(object.getPropertyCount() - 13).toString());
 						faceinfoObj.setStructtype(object.getProperty(object.getPropertyCount() - 12).toString());
