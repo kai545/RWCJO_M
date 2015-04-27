@@ -72,7 +72,7 @@ public class CJDownpntinfoImpl implements CJDownpntinfoInterface {
 									 }else if(jsonObj.getString("objstate").equals("-1")){
 										 downpntinfoObj.setMsg("objstate有误");
 									 }else if(jsonObj.getString("randomcode").equals("-1")){
-										 downpntinfoObj.setMsg("enddate有误");
+										 downpntinfoObj.setMsg("randomcode有误");
 									 }else{
 										 downpntinfoObj.setMsg("无相应的测点信息");
 									 }

@@ -58,7 +58,7 @@ public class CJDownfaceImpl implements CJDownfaceInterface {
 							}else if(faceStr[3].equals("-1")){
 								cjdownface.setMsg("randomcode有误");
 							}else {
-								cjdownface.setMsg("该标段下无相应的工点");
+								cjdownface.setMsg("该工点下无断面(梁体)");
 							}
 							Log.i("exception", cjdownface.getMsg());
 						}else if (faceStr.length==3){
