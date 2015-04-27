@@ -26,7 +26,6 @@ public class CJDownfaceinfoImpl implements CJDownfaceinfoInterface {
 			String randomcode) {
 				try {
 					downfaceinfoObj=new CJDownfaceinfo();
-					downfaceinfoObj=new CJDownfaceinfo();
 					Log.i(TAG,randomcode);
 					String methodNameString="CJDownfaceinfo";
 					Map<String,String> paramsvalue=new LinkedHashMap<>();
