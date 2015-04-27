@@ -12,16 +12,16 @@ import rwcjom.awit.com.rwcjo_m.dao.FaceInfo;
  * 
  */
 public class CJDownfaceinfo {
-	private List<FaceInfo> faceinfolist;
+	private FaceInfo faceinfoObj;
 	private String msg;
 	private Integer Flag;
 
-	public List<FaceInfo> getFaceinfolist() {
-		return faceinfolist;
+	public FaceInfo getFaceinfoObj() {
+		return faceinfoObj;
 	}
 
-	public void setFaceinfolist(List<FaceInfo> faceinfolist) {
-		this.faceinfolist = faceinfolist;
+	public void setFaceinfoObj(FaceInfo faceinfoObj) {
+		this.faceinfoObj = faceinfoObj;
 	}
 
 	public Integer getFlag() {

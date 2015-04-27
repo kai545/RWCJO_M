@@ -20,14 +20,12 @@ import rwcjom.awit.com.rwcjo_m.interfaces.CJDownfaceinfoInterface;
 public class CJDownfaceinfoImpl implements CJDownfaceinfoInterface {
 	private String TAG="CJDownfaceinfoImpl";
 	private CJDownfaceinfo downfaceinfoObj;
-	private List<FaceInfo> faceInfoList;
 	private FaceInfo faceinfoObj;
 	@Override
 	public CJDownfaceinfo getCJDownfaceinfo(String siteid, String faceid,
 			String randomcode) {
 				try {
 					downfaceinfoObj=new CJDownfaceinfo();
-					faceInfoList=new ArrayList<FaceInfo>();
 					downfaceinfoObj=new CJDownfaceinfo();
 					Log.i(TAG,randomcode);
 					String methodNameString="CJDownfaceinfo";
@@ -68,9 +66,9 @@ public class CJDownfaceinfoImpl implements CJDownfaceinfoInterface {
 						faceinfoObj.setRkilo(object.getProperty(object.getPropertyCount() - 3).toString());
 						faceinfoObj.setRchain(object.getProperty(object.getPropertyCount() - 2).toString());
 						faceinfoObj.setRemark(object.getProperty(object.getPropertyCount() - 1).toString());
-						faceInfoList.add(faceinfoObj);
+						downfaceinfoObj.setFaceinfoObj(faceinfoObj);
 					}
-					downfaceinfoObj.setFaceinfolist(faceInfoList);
+
 				}catch(ClassCastException e) {
 					e.printStackTrace();
 					downfaceinfoObj.setFlag(-2);
