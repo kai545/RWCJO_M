@@ -16,6 +16,7 @@ import com.nanotasks.BackgroundWork;
 import com.nanotasks.Completion;
 import com.nanotasks.Tasks;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,7 @@ import de.greenrobot.event.EventBus;
 import rwcjom.awit.com.rwcjo_m.R;
 import rwcjom.awit.com.rwcjo_m.bean.CJDownface;
 import rwcjom.awit.com.rwcjo_m.bean.CJDownsectsite;
+import rwcjom.awit.com.rwcjo_m.dao.FaceNews;
 import rwcjom.awit.com.rwcjo_m.dao.SiteNews;
 import rwcjom.awit.com.rwcjo_m.event.DataSyncFragmentEvent;
 import rwcjom.awit.com.rwcjo_m.event.MainActivityEvent;
@@ -111,6 +113,7 @@ public class DataSyncFragment extends Fragment {
                 EventBus.getDefault().post(new DataSyncFragmentEvent(R.id.data_sync_dl_section, 50));//进度条
                 Map<String, Object> result = new HashMap<String, Object>();//存放ID;
                 //CommonTools.showProgressDialog(MainActivity.this, "正在登录……");
+                List<SiteNews> sitelist_all=new ArrayList<SiteNews>();
                 if (randomCode.length() != 0) {
                     result.put("randomCode", randomCode);
                     CJDownsectsiteImpl mCJDownsectsiteImpl = new CJDownsectsiteImpl();
@@ -122,9 +125,10 @@ public class DataSyncFragment extends Fragment {
                             result.put("section", thismCJDownsectsite.getSecObj());
                             secNewsService.saveSecNews(thismCJDownsectsite.getSecObj());
                             List<SiteNews> sitelist = thismCJDownsectsite.getSitelist();
-                            result.put("sites", sitelist);
+                            sitelist_all.addAll(sitelist);
                             for (int j = 0; j < sitelist.size(); j++) {
                                 SiteNews siteNews = sitelist.get(j);
+                                siteNews.setSitetype(""+i);
                                 siteNews.setF_sectionid(thismCJDownsectsite.getSecObj().getSectid());
                                 siteNewsService.saveSiteNews(siteNews);
                             }
@@ -135,6 +139,7 @@ public class DataSyncFragment extends Fragment {
                         }
 
                     }
+                    result.put("sites", sitelist_all);
                 }
                 return result;
             }
@@ -166,8 +171,14 @@ public class DataSyncFragment extends Fragment {
 
                 for (int i = 0; i < siteList.size(); i++) {
                     CJDownfaceImpl mCJDownfaceImpl = new CJDownfaceImpl();
-                    CJDownface mCJDownface = mCJDownfaceImpl.getCJDownface(siteList.get(i).getSiteid(), ValueConfig.FACE_START_DATE, ValueConfig.FACE_END_DATE, "" + readyResult.get("randomCode"));
-
+                    String siteid=siteList.get(i).getSiteid();
+                    CJDownface mCJDownface = mCJDownfaceImpl.getCJDownface(siteid, ValueConfig.FACE_START_DATE, ValueConfig.FACE_END_DATE, "" + readyResult.get("randomCode"));
+                    List<FaceNews> faceNewsList=mCJDownface.getFacelist();
+                    for (int j = 0; j <faceNewsList.size(); j++) {
+                        FaceNews faceNews=faceNewsList.get(j);
+                        faceNews.setF_siteid(siteid);
+                        faceNewsService.saveFaceNews(faceNews);
+                    }
                 }
 
                 return face_retult;

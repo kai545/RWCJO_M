@@ -1,7 +1,5 @@
 package com.example;
 
-import java.util.TooManyListenersException;
-
 import de.greenrobot.daogenerator.DaoGenerator;
 import de.greenrobot.daogenerator.Entity;
 import de.greenrobot.daogenerator.Property;
@@ -126,6 +124,7 @@ public class ExampleDaoGenerator {
         site.addStringProperty("sitename");
         site.addStringProperty("startsite");
         site.addStringProperty("endsite");
+        site.addStringProperty("sitetype");
         Property f_sectionid = site.addStringProperty("f_sectionid").notNull().getProperty();
         site.addToOne(section, f_sectionid);
 

@@ -14,6 +14,7 @@ public class SiteNews {
     private String sitename;
     private String startsite;
     private String endsite;
+    private String sitetype;
     /** Not-null value. */
     private String f_sectionid;
 
@@ -34,12 +35,13 @@ public class SiteNews {
         this.siteid = siteid;
     }
 
-    public SiteNews(String siteid, String sitecode, String sitename, String startsite, String endsite, String f_sectionid) {
+    public SiteNews(String siteid, String sitecode, String sitename, String startsite, String endsite, String sitetype, String f_sectionid) {
         this.siteid = siteid;
         this.sitecode = sitecode;
         this.sitename = sitename;
         this.startsite = startsite;
         this.endsite = endsite;
+        this.sitetype = sitetype;
         this.f_sectionid = f_sectionid;
     }
 
@@ -87,6 +89,14 @@ public class SiteNews {
 
     public void setEndsite(String endsite) {
         this.endsite = endsite;
+    }
+
+    public String getSitetype() {
+        return sitetype;
+    }
+
+    public void setSitetype(String sitetype) {
+        this.sitetype = sitetype;
     }
 
     /** Not-null value. */

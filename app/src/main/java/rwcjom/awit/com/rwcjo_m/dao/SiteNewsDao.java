@@ -33,7 +33,8 @@ public class SiteNewsDao extends AbstractDao<SiteNews, String> {
         public final static Property Sitename = new Property(2, String.class, "sitename", false, "SITENAME");
         public final static Property Startsite = new Property(3, String.class, "startsite", false, "STARTSITE");
         public final static Property Endsite = new Property(4, String.class, "endsite", false, "ENDSITE");
-        public final static Property F_sectionid = new Property(5, String.class, "f_sectionid", false, "F_SECTIONID");
+        public final static Property Sitetype = new Property(5, String.class, "sitetype", false, "SITETYPE");
+        public final static Property F_sectionid = new Property(6, String.class, "f_sectionid", false, "F_SECTIONID");
     };
 
     private DaoSession daoSession;
@@ -58,7 +59,8 @@ public class SiteNewsDao extends AbstractDao<SiteNews, String> {
                 "'SITENAME' TEXT," + // 2: sitename
                 "'STARTSITE' TEXT," + // 3: startsite
                 "'ENDSITE' TEXT," + // 4: endsite
-                "'F_SECTIONID' TEXT NOT NULL );"); // 5: f_sectionid
+                "'SITETYPE' TEXT," + // 5: sitetype
+                "'F_SECTIONID' TEXT NOT NULL );"); // 6: f_sectionid
     }
 
     /** Drops the underlying database table. */
@@ -96,7 +98,12 @@ public class SiteNewsDao extends AbstractDao<SiteNews, String> {
         if (endsite != null) {
             stmt.bindString(5, endsite);
         }
-        stmt.bindString(6, entity.getF_sectionid());
+ 
+        String sitetype = entity.getSitetype();
+        if (sitetype != null) {
+            stmt.bindString(6, sitetype);
+        }
+        stmt.bindString(7, entity.getF_sectionid());
     }
 
     @Override
@@ -120,7 +127,8 @@ public class SiteNewsDao extends AbstractDao<SiteNews, String> {
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // sitename
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // startsite
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // endsite
-            cursor.getString(offset + 5) // f_sectionid
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // sitetype
+            cursor.getString(offset + 6) // f_sectionid
         );
         return entity;
     }
@@ -133,7 +141,8 @@ public class SiteNewsDao extends AbstractDao<SiteNews, String> {
         entity.setSitename(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setStartsite(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setEndsite(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setF_sectionid(cursor.getString(offset + 5));
+        entity.setSitetype(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setF_sectionid(cursor.getString(offset + 6));
      }
     
     /** @inheritdoc */

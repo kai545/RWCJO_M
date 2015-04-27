@@ -1,5 +1,8 @@
 package rwcjom.awit.com.rwcjo_m.util;
 
+import android.os.Environment;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -61,5 +64,6 @@ public class ValueConfig {
 		return left_menu_list;
 	}
 
-	public static final String DB_NAME="RWCJO_DB";
+	public static final String DB_NAME= Environment.getExternalStorageDirectory().getPath()
+			+ File.separator+"SHTOONE"+File.separator+"RWCJO_DB";//数据库路径
 }

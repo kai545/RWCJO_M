@@ -45,6 +45,7 @@ public class CJDownfaceImpl implements CJDownfaceInterface {
 					// 获取返回的结果
 					for(int i =0;i<object.getPropertyCount();i++){
 						result = object.getProperty(i).toString();
+						Log.i(TAG,result);
 						faceStr=result.split(ValueConfig.SPLIT_CHAR);
 						if(faceStr.length==5){
 							cjdownface=new CJDownface();
