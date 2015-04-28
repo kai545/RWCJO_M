@@ -54,7 +54,7 @@ public class CJDownbrginfoImpl implements CJDownbrginfoInterface {
 						for(int i=0;i<object.getPropertyCount();i++){
 							String var=object.getProperty(i).toString();
 							if(var.equals("anyType{}")){
-								var="";
+								var=" ";
 							}
 							switch (i){
 								case 0:brginfoObj.setFaceid(var);break;
