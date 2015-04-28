@@ -57,48 +57,20 @@ public class CJDownfaceinfoImpl implements CJDownfaceinfoInterface {
 								var="";
 							}
 							switch(i){
-								case 0:
-									faceinfoObj.setFaceid(var);
-									break;
-								case 1:
-									faceinfoObj.setJointflag(var);
-									break;
-								case 2:
-									faceinfoObj.setStructtype(var);
-									break;
-								case 3:
-									faceinfoObj.setStructname(var);
-									break;
-								case 4:
-									faceinfoObj.setStructbase(var);
-									break;
-								case 5:
-									faceinfoObj.setDesignatt(var);
-									break;
-								case 6:
-									faceinfoObj.setPiernum(var);
-									break;
-								case 7:
-									faceinfoObj.setDkname(var);
-									break;
-								case 8:
-									faceinfoObj.setDkilo(var);
-									break;
-								case 9:
-									faceinfoObj.setDchain(var);
-									break;
-								case 10:
-									faceinfoObj.setRkname(var);
-									break;
-								case 11:
-									faceinfoObj.setRkilo(var);
-									break;
-								case 12:
-									faceinfoObj.setRchain(var);
-									break;
-								case 13:
-									faceinfoObj.setRemark(var);
-									break;
+								case 0:faceinfoObj.setFaceid(var);break;
+								case 1:faceinfoObj.setJointflag(var);break;
+								case 2:faceinfoObj.setStructtype(var);break;
+								case 3:faceinfoObj.setStructname(var);break;
+								case 4:faceinfoObj.setStructbase(var);break;
+								case 5:faceinfoObj.setDesignatt(var);break;
+								case 6:faceinfoObj.setPiernum(var);break;
+								case 7:faceinfoObj.setDkname(var);break;
+								case 8:faceinfoObj.setDkilo(var);break;
+								case 9:faceinfoObj.setDchain(var);break;
+								case 10:faceinfoObj.setRkname(var);break;
+								case 11:faceinfoObj.setRkilo(var);break;
+								case 12:faceinfoObj.setRchain(var);break;
+								case 13:faceinfoObj.setRemark(var);break;
 							}
 							downfaceinfoObj.setFaceinfoObj(faceinfoObj);
 						}

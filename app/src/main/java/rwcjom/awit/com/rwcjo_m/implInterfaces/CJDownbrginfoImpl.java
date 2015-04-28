@@ -51,13 +51,21 @@ public class CJDownbrginfoImpl implements CJDownbrginfoInterface {
 					}else if(object.getPropertyCount()==6) {
 						downbrginfoObj.setFlag(0);
 						brginfoObj = new BrgInfo();
-						brginfoObj.setFaceid(object.getProperty(object.getPropertyCount() - 6).toString());
-						brginfoObj.setStructname(object.getProperty(object.getPropertyCount() - 5).toString());
-						brginfoObj.setPiernum(object.getProperty(object.getPropertyCount() - 4).toString());
-						brginfoObj.setBeamspan(object.getProperty(object.getPropertyCount() - 3).toString());
-						brginfoObj.setBeamtype(object.getProperty(object.getPropertyCount() - 2).toString());
-						brginfoObj.setRemark(object.getProperty(object.getPropertyCount() - 1).toString());
-						downbrginfoObj.setBrgInfoObj(brginfoObj);
+						for(int i=0;i<object.getPropertyCount();i++){
+							String var=object.getProperty(i).toString();
+							if(var.equals("anyType{}")){
+								var="";
+							}
+							switch (i){
+								case 0:brginfoObj.setFaceid(var);break;
+								case 1:brginfoObj.setStructname(var);break;
+								case 2:brginfoObj.setPiernum(var);break;
+								case 3:brginfoObj.setBeamspan(var);break;
+								case 4:brginfoObj.setBeamtype(var);break;
+								case 5:brginfoObj.setRemark(var);break;
+							}
+							downbrginfoObj.setBrgInfoObj(brginfoObj);
+						}
 					}
 				}catch(ClassCastException e){
 					e.printStackTrace();
