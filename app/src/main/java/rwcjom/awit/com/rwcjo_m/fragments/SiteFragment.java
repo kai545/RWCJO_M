@@ -26,7 +26,6 @@ import rwcjom.awit.com.rwcjo_m.dao.SiteNews;
 import rwcjom.awit.com.rwcjo_m.event.MainActivityEvent;
 import rwcjom.awit.com.rwcjo_m.service.SecNewsService;
 import rwcjom.awit.com.rwcjo_m.service.SiteNewsService;
-import rwcjom.awit.com.rwcjo_m.util.CommonTools;
 
 /**
  * Created by Fantasy on 15/4/23.
@@ -40,6 +39,7 @@ public class SiteFragment extends ListFragment {
     private SiteNewsService siteNewsService;
     private FragmentManager manager;
     private FragmentTransaction transaction;
+    private List<SiteNews> siteData;
 
     private int position;
     public static SiteFragment newInstance() {
@@ -79,13 +79,12 @@ public class SiteFragment extends ListFragment {
             @Override
             public void onSuccess(Context context, SiteListAdapter result) {
                 EventBus.getDefault().post(new MainActivityEvent(false));
-                //listView.setAdapter(result);
                 setListAdapter(result);
             }
 
             @Override
             public void onError(Context context, Exception e) {
-                //showError(e);
+                EventBus.getDefault().post(new MainActivityEvent(false));
             }
         });
 
@@ -95,17 +94,18 @@ public class SiteFragment extends ListFragment {
 
     private List<SiteNews> getData(){
         List<SiteNews> data=new ArrayList<SiteNews>();
-        List<SecNews> secNewsList=secNewsService.loadAllSecNews();
+        List<SecNews> secNewsList=secNewsService.loadAllSecNews();//考虑有多个标段的情况（实际只有一个标段）
         for (int i = 0; i < secNewsList.size(); i++) {
+            EventBus.getDefault().post(new MainActivityEvent(secNewsList.get(i).getSectname()));//设置标段作为标题
             List<SiteNews> siteNewsList=siteNewsService.querySiteNewsBySection(secNewsList.get(i).getSectid());
             data.addAll(siteNewsList);
         }
+        siteData=data;
         return data;
     }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        CommonTools.showToast(context,"click");
         transaction = manager.beginTransaction();
         //String str = adapter.getItem(position);
         FaceBaseFragment faceBaseFragment = new FaceBaseFragment();
@@ -113,7 +113,7 @@ public class SiteFragment extends ListFragment {
          * 使用Bundle类存储传递数据
          */
         Bundle bundle = new Bundle();
-        bundle.putString("id", "test");
+        bundle.putString("siteid", siteData.get(position).getSiteid());
         faceBaseFragment.setArguments(bundle);
         transaction.replace(R.id.face_baseinfo_list, faceBaseFragment, "detail");
         transaction.commit();

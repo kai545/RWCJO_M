@@ -68,7 +68,10 @@ public class MainActivity extends ActionBarActivity implements Toolbar.OnMenuIte
 
     //处理事件
     public void onEventMainThread(MainActivityEvent event) {
-        toolbar.setTitle(event.getTitle());
+        String title=event.getTitle();
+        if (title!=null && title.length()!=0){
+            toolbar.setTitle(event.getTitle());
+        }
         isShowProgressbar(event.isProgressBarState());
     }
 

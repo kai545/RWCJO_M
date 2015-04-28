@@ -41,6 +41,10 @@ public class FaceInfoService {
         return faceInfoDao.loadAll();
     }
 
+    public FaceInfo loadByPK(String faceid){
+        return faceInfoDao.load(faceid);
+    }
+
     /**
      * query list with where clause
      * ex: begin_date_time >= ? AND end_date_time <= ?

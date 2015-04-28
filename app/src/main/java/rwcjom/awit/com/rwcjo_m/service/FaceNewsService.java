@@ -52,6 +52,12 @@ public class FaceNewsService {
         return faceNewsDao.queryRaw(where, params);
     }
 
+    public List<FaceNews> queryFaceNewsBySite(String siteid){
+        return faceNewsDao.queryBuilder()
+                .where(FaceNewsDao.Properties.F_siteid.eq(siteid))
+                .orderDesc(FaceNewsDao.Properties.FaceId)
+                .list();
+    }
 
     /**
      * insert or update note

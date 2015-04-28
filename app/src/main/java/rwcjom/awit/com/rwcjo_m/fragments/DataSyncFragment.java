@@ -24,7 +24,6 @@ import java.util.Map;
 import de.greenrobot.event.EventBus;
 import rwcjom.awit.com.rwcjo_m.R;
 import rwcjom.awit.com.rwcjo_m.bean.CJDownbasepnt;
-import rwcjom.awit.com.rwcjo_m.bean.CJDownbrginfo;
 import rwcjom.awit.com.rwcjo_m.bean.CJDownface;
 import rwcjom.awit.com.rwcjo_m.bean.CJDownfaceinfo;
 import rwcjom.awit.com.rwcjo_m.bean.CJDownline;
@@ -32,7 +31,6 @@ import rwcjom.awit.com.rwcjo_m.bean.CJDownperson;
 import rwcjom.awit.com.rwcjo_m.bean.CJDownpntinfo;
 import rwcjom.awit.com.rwcjo_m.bean.CJDownsectsite;
 import rwcjom.awit.com.rwcjo_m.dao.BasePntInfo;
-import rwcjom.awit.com.rwcjo_m.dao.BrgInfo;
 import rwcjom.awit.com.rwcjo_m.dao.BwInfo;
 import rwcjom.awit.com.rwcjo_m.dao.FaceInfo;
 import rwcjom.awit.com.rwcjo_m.dao.FaceNews;
@@ -44,7 +42,6 @@ import rwcjom.awit.com.rwcjo_m.dao.SiteNews;
 import rwcjom.awit.com.rwcjo_m.event.DataSyncFragmentEvent;
 import rwcjom.awit.com.rwcjo_m.event.MainActivityEvent;
 import rwcjom.awit.com.rwcjo_m.implInterfaces.CJDownbasepntImpl;
-import rwcjom.awit.com.rwcjo_m.implInterfaces.CJDownbrginfoImpl;
 import rwcjom.awit.com.rwcjo_m.implInterfaces.CJDownfaceImpl;
 import rwcjom.awit.com.rwcjo_m.implInterfaces.CJDownfaceinfoImpl;
 import rwcjom.awit.com.rwcjo_m.implInterfaces.CJDownlineImpl;
@@ -229,14 +226,14 @@ public class DataSyncFragment extends Fragment {
                             faceInfoService.saveFaceInfo(faceInfo);
                         }
 
-                        ////以下开始查询并保存梁体的详细信息
-                        CJDownbrginfoImpl mCJDownbrginfoImpl = new CJDownbrginfoImpl();
+                        ////以下开始查询并保存梁体的详细信息（暂停使用）
+                        /*CJDownbrginfoImpl mCJDownbrginfoImpl = new CJDownbrginfoImpl();
                         CJDownbrginfo cjDownbrginfo = mCJDownbrginfoImpl.getCJDownbrginfo(siteid, faceNews.getFaceId(), "" + readyResult.get("randomCode"));
                         BrgInfo brgInfo = cjDownbrginfo.getBrgInfoObj();
                         if (brgInfo != null) {
                             brgInfo.setF_siteid(siteid);
                             brgInfoService.saveBrgInfo(brgInfo);
-                        }
+                        }*/
 
 
                     }
