@@ -23,12 +23,12 @@ public class BasePntInfoDao extends AbstractDao<BasePntInfo, String> {
      * Can be used for QueryBuilder and for referencing column names.
     */
     public static class Properties {
-        public final static Property Siteid = new Property(0, String.class, "siteid", true, "SITEID");
-        public final static Property Sitename = new Property(1, String.class, "sitename", false, "SITENAME");
-        public final static Property Sitecode = new Property(2, String.class, "sitecode", false, "SITECODE");
-        public final static Property Sitehigh = new Property(3, String.class, "sitehigh", false, "SITEHIGH");
-        public final static Property Sitenum = new Property(4, String.class, "sitenum", false, "SITENUM");
-        public final static Property Sitevar = new Property(5, String.class, "sitevar", false, "SITEVAR");
+        public final static Property Basepntid = new Property(0, String.class, "basepntid", true, "BASEPNTID");
+        public final static Property Basepntname = new Property(1, String.class, "basepntname", false, "BASEPNTNAME");
+        public final static Property Basepntcode = new Property(2, String.class, "basepntcode", false, "BASEPNTCODE");
+        public final static Property Basepnthigh = new Property(3, String.class, "basepnthigh", false, "BASEPNTHIGH");
+        public final static Property Basepntnum = new Property(4, String.class, "basepntnum", false, "BASEPNTNUM");
+        public final static Property Basepntvar = new Property(5, String.class, "basepntvar", false, "BASEPNTVAR");
         public final static Property F_sectid = new Property(6, String.class, "f_sectid", false, "F_SECTID");
     };
 
@@ -45,12 +45,12 @@ public class BasePntInfoDao extends AbstractDao<BasePntInfo, String> {
     public static void createTable(SQLiteDatabase db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "'BASE_PNT_INFO' (" + //
-                "'SITEID' TEXT PRIMARY KEY NOT NULL ," + // 0: siteid
-                "'SITENAME' TEXT," + // 1: sitename
-                "'SITECODE' TEXT," + // 2: sitecode
-                "'SITEHIGH' TEXT," + // 3: sitehigh
-                "'SITENUM' TEXT," + // 4: sitenum
-                "'SITEVAR' TEXT," + // 5: sitevar
+                "'BASEPNTID' TEXT PRIMARY KEY NOT NULL ," + // 0: basepntid
+                "'BASEPNTNAME' TEXT," + // 1: basepntname
+                "'BASEPNTCODE' TEXT," + // 2: basepntcode
+                "'BASEPNTHIGH' TEXT," + // 3: basepnthigh
+                "'BASEPNTNUM' TEXT," + // 4: basepntnum
+                "'BASEPNTVAR' TEXT," + // 5: basepntvar
                 "'F_SECTID' TEXT);"); // 6: f_sectid
     }
 
@@ -65,34 +65,34 @@ public class BasePntInfoDao extends AbstractDao<BasePntInfo, String> {
     protected void bindValues(SQLiteStatement stmt, BasePntInfo entity) {
         stmt.clearBindings();
  
-        String siteid = entity.getSiteid();
-        if (siteid != null) {
-            stmt.bindString(1, siteid);
+        String basepntid = entity.getBasepntid();
+        if (basepntid != null) {
+            stmt.bindString(1, basepntid);
         }
  
-        String sitename = entity.getSitename();
-        if (sitename != null) {
-            stmt.bindString(2, sitename);
+        String basepntname = entity.getBasepntname();
+        if (basepntname != null) {
+            stmt.bindString(2, basepntname);
         }
  
-        String sitecode = entity.getSitecode();
-        if (sitecode != null) {
-            stmt.bindString(3, sitecode);
+        String basepntcode = entity.getBasepntcode();
+        if (basepntcode != null) {
+            stmt.bindString(3, basepntcode);
         }
  
-        String sitehigh = entity.getSitehigh();
-        if (sitehigh != null) {
-            stmt.bindString(4, sitehigh);
+        String basepnthigh = entity.getBasepnthigh();
+        if (basepnthigh != null) {
+            stmt.bindString(4, basepnthigh);
         }
  
-        String sitenum = entity.getSitenum();
-        if (sitenum != null) {
-            stmt.bindString(5, sitenum);
+        String basepntnum = entity.getBasepntnum();
+        if (basepntnum != null) {
+            stmt.bindString(5, basepntnum);
         }
  
-        String sitevar = entity.getSitevar();
-        if (sitevar != null) {
-            stmt.bindString(6, sitevar);
+        String basepntvar = entity.getBasepntvar();
+        if (basepntvar != null) {
+            stmt.bindString(6, basepntvar);
         }
  
         String f_sectid = entity.getF_sectid();
@@ -111,12 +111,12 @@ public class BasePntInfoDao extends AbstractDao<BasePntInfo, String> {
     @Override
     public BasePntInfo readEntity(Cursor cursor, int offset) {
         BasePntInfo entity = new BasePntInfo( //
-            cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0), // siteid
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // sitename
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // sitecode
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // sitehigh
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // sitenum
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // sitevar
+            cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0), // basepntid
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // basepntname
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // basepntcode
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // basepnthigh
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // basepntnum
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // basepntvar
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6) // f_sectid
         );
         return entity;
@@ -125,26 +125,26 @@ public class BasePntInfoDao extends AbstractDao<BasePntInfo, String> {
     /** @inheritdoc */
     @Override
     public void readEntity(Cursor cursor, BasePntInfo entity, int offset) {
-        entity.setSiteid(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
-        entity.setSitename(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setSitecode(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setSitehigh(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setSitenum(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setSitevar(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setBasepntid(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
+        entity.setBasepntname(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setBasepntcode(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setBasepnthigh(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setBasepntnum(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setBasepntvar(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setF_sectid(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
      }
     
     /** @inheritdoc */
     @Override
     protected String updateKeyAfterInsert(BasePntInfo entity, long rowId) {
-        return entity.getSiteid();
+        return entity.getBasepntid();
     }
     
     /** @inheritdoc */
     @Override
     public String getKey(BasePntInfo entity) {
         if(entity != null) {
-            return entity.getSiteid();
+            return entity.getBasepntid();
         } else {
             return null;
         }

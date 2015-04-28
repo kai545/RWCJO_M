@@ -12,6 +12,7 @@ public class Line {
 
     private String lc;
     private String ln;
+    private String f_sectid;
 
     /** Used to resolve relations */
     private transient DaoSession daoSession;
@@ -28,9 +29,10 @@ public class Line {
         this.lc = lc;
     }
 
-    public Line(String lc, String ln) {
+    public Line(String lc, String ln, String f_sectid) {
         this.lc = lc;
         this.ln = ln;
+        this.f_sectid = f_sectid;
     }
 
     /** called by internal mechanisms, do not call yourself. */
@@ -53,6 +55,14 @@ public class Line {
 
     public void setLn(String ln) {
         this.ln = ln;
+    }
+
+    public String getF_sectid() {
+        return f_sectid;
+    }
+
+    public void setF_sectid(String f_sectid) {
+        this.f_sectid = f_sectid;
     }
 
     /** To-many relationship, resolved on first access (and after reset). Changes to to-many relations are not persisted, make changes to the target entity. */

@@ -25,6 +25,7 @@ public class LineDao extends AbstractDao<Line, String> {
     public static class Properties {
         public final static Property Lc = new Property(0, String.class, "lc", true, "LC");
         public final static Property Ln = new Property(1, String.class, "ln", false, "LN");
+        public final static Property F_sectid = new Property(2, String.class, "f_sectid", false, "F_SECTID");
     };
 
     private DaoSession daoSession;
@@ -44,7 +45,8 @@ public class LineDao extends AbstractDao<Line, String> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "'LINE' (" + //
                 "'LC' TEXT PRIMARY KEY NOT NULL ," + // 0: lc
-                "'LN' TEXT);"); // 1: ln
+                "'LN' TEXT," + // 1: ln
+                "'F_SECTID' TEXT);"); // 2: f_sectid
     }
 
     /** Drops the underlying database table. */
@@ -67,6 +69,11 @@ public class LineDao extends AbstractDao<Line, String> {
         if (ln != null) {
             stmt.bindString(2, ln);
         }
+ 
+        String f_sectid = entity.getF_sectid();
+        if (f_sectid != null) {
+            stmt.bindString(3, f_sectid);
+        }
     }
 
     @Override
@@ -86,7 +93,8 @@ public class LineDao extends AbstractDao<Line, String> {
     public Line readEntity(Cursor cursor, int offset) {
         Line entity = new Line( //
             cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0), // lc
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1) // ln
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // ln
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2) // f_sectid
         );
         return entity;
     }
@@ -96,6 +104,7 @@ public class LineDao extends AbstractDao<Line, String> {
     public void readEntity(Cursor cursor, Line entity, int offset) {
         entity.setLc(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
         entity.setLn(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setF_sectid(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
      }
     
     /** @inheritdoc */

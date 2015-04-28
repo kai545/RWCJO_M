@@ -14,7 +14,7 @@ public class BwInfo {
     private String od;
     private String ty;
     /** Not-null value. */
-    private String f_lineid;
+    private String f_lc;
 
     /** Used to resolve relations */
     private transient DaoSession daoSession;
@@ -33,12 +33,12 @@ public class BwInfo {
         this.bwid = bwid;
     }
 
-    public BwInfo(Long bwid, String id, String od, String ty, String f_lineid) {
+    public BwInfo(Long bwid, String id, String od, String ty, String f_lc) {
         this.bwid = bwid;
         this.id = id;
         this.od = od;
         this.ty = ty;
-        this.f_lineid = f_lineid;
+        this.f_lc = f_lc;
     }
 
     /** called by internal mechanisms, do not call yourself. */
@@ -80,18 +80,18 @@ public class BwInfo {
     }
 
     /** Not-null value. */
-    public String getF_lineid() {
-        return f_lineid;
+    public String getF_lc() {
+        return f_lc;
     }
 
     /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setF_lineid(String f_lineid) {
-        this.f_lineid = f_lineid;
+    public void setF_lc(String f_lc) {
+        this.f_lc = f_lc;
     }
 
     /** To-one relationship, resolved on first access. */
     public Line getLine() {
-        String __key = this.f_lineid;
+        String __key = this.f_lc;
         if (line__resolvedKey == null || line__resolvedKey != __key) {
             if (daoSession == null) {
                 throw new DaoException("Entity is detached from DAO context");
@@ -108,12 +108,12 @@ public class BwInfo {
 
     public void setLine(Line line) {
         if (line == null) {
-            throw new DaoException("To-one property 'f_lineid' has not-null constraint; cannot set to-one to null");
+            throw new DaoException("To-one property 'f_lc' has not-null constraint; cannot set to-one to null");
         }
         synchronized (this) {
             this.line = line;
-            f_lineid = line.getLc();
-            line__resolvedKey = f_lineid;
+            f_lc = line.getLc();
+            line__resolvedKey = f_lc;
         }
     }
 

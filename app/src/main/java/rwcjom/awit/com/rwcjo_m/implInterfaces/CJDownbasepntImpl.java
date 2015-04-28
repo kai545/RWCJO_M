@@ -2,23 +2,19 @@ package rwcjom.awit.com.rwcjo_m.implInterfaces;
 
 import android.util.Log;
 
-import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import rwcjom.awit.com.rwcjo_m.bean.CJDownbasepnt;
 import rwcjom.awit.com.rwcjo_m.dao.BasePntInfo;
+import rwcjom.awit.com.rwcjo_m.interfaces.CJDownbasepntInterface;
 import rwcjom.awit.com.rwcjo_m.util.CommonTools;
 import rwcjom.awit.com.rwcjo_m.util.ValueConfig;
-import rwcjom.awit.com.rwcjo_m.bean.pubUtil;
-import rwcjom.awit.com.rwcjo_m.interfaces.CJDownbasepntInterface;
 
 
 public class CJDownbasepntImpl implements CJDownbasepntInterface {
@@ -59,12 +55,12 @@ public class CJDownbasepntImpl implements CJDownbasepntInterface {
 						}else if(resStr.length==6){
 								downbasepntObj.setFlag(0);
 							    basePntInfoObj=new BasePntInfo();
-								basePntInfoObj.setSiteid(resStr[0]);
-								basePntInfoObj.setSitename(resStr[1]);
-								basePntInfoObj.setSitecode(resStr[2]);
-								basePntInfoObj.setSitehigh(resStr[3]);
-								basePntInfoObj.setSitenum(resStr[4]);
-								basePntInfoObj.setSitevar(resStr[5]);
+								basePntInfoObj.setBasepntid(resStr[0]);
+								basePntInfoObj.setBasepntname(resStr[1]);
+								basePntInfoObj.setBasepntcode(resStr[2]);
+								basePntInfoObj.setBasepnthigh(resStr[3]);
+								basePntInfoObj.setBasepntnum(resStr[4]);
+								basePntInfoObj.setBasepntvar(resStr[5]);
 								basePntInfoList.add(basePntInfoObj);
 							}
 						downbasepntObj.setBasePntInfoList(basePntInfoList);

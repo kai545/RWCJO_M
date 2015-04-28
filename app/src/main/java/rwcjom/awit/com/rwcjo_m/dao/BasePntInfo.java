@@ -6,77 +6,77 @@ package rwcjom.awit.com.rwcjo_m.dao;
  */
 public class BasePntInfo {
 
-    private String siteid;
-    private String sitename;
-    private String sitecode;
-    private String sitehigh;
-    private String sitenum;
-    private String sitevar;
+    private String basepntid;
+    private String basepntname;
+    private String basepntcode;
+    private String basepnthigh;
+    private String basepntnum;
+    private String basepntvar;
     private String f_sectid;
 
     public BasePntInfo() {
     }
 
-    public BasePntInfo(String siteid) {
-        this.siteid = siteid;
+    public BasePntInfo(String basepntid) {
+        this.basepntid = basepntid;
     }
 
-    public BasePntInfo(String siteid, String sitename, String sitecode, String sitehigh, String sitenum, String sitevar, String f_sectid) {
-        this.siteid = siteid;
-        this.sitename = sitename;
-        this.sitecode = sitecode;
-        this.sitehigh = sitehigh;
-        this.sitenum = sitenum;
-        this.sitevar = sitevar;
+    public BasePntInfo(String basepntid, String basepntname, String basepntcode, String basepnthigh, String basepntnum, String basepntvar, String f_sectid) {
+        this.basepntid = basepntid;
+        this.basepntname = basepntname;
+        this.basepntcode = basepntcode;
+        this.basepnthigh = basepnthigh;
+        this.basepntnum = basepntnum;
+        this.basepntvar = basepntvar;
         this.f_sectid = f_sectid;
     }
 
-    public String getSiteid() {
-        return siteid;
+    public String getBasepntid() {
+        return basepntid;
     }
 
-    public void setSiteid(String siteid) {
-        this.siteid = siteid;
+    public void setBasepntid(String basepntid) {
+        this.basepntid = basepntid;
     }
 
-    public String getSitename() {
-        return sitename;
+    public String getBasepntname() {
+        return basepntname;
     }
 
-    public void setSitename(String sitename) {
-        this.sitename = sitename;
+    public void setBasepntname(String basepntname) {
+        this.basepntname = basepntname;
     }
 
-    public String getSitecode() {
-        return sitecode;
+    public String getBasepntcode() {
+        return basepntcode;
     }
 
-    public void setSitecode(String sitecode) {
-        this.sitecode = sitecode;
+    public void setBasepntcode(String basepntcode) {
+        this.basepntcode = basepntcode;
     }
 
-    public String getSitehigh() {
-        return sitehigh;
+    public String getBasepnthigh() {
+        return basepnthigh;
     }
 
-    public void setSitehigh(String sitehigh) {
-        this.sitehigh = sitehigh;
+    public void setBasepnthigh(String basepnthigh) {
+        this.basepnthigh = basepnthigh;
     }
 
-    public String getSitenum() {
-        return sitenum;
+    public String getBasepntnum() {
+        return basepntnum;
     }
 
-    public void setSitenum(String sitenum) {
-        this.sitenum = sitenum;
+    public void setBasepntnum(String basepntnum) {
+        this.basepntnum = basepntnum;
     }
 
-    public String getSitevar() {
-        return sitevar;
+    public String getBasepntvar() {
+        return basepntvar;
     }
 
-    public void setSitevar(String sitevar) {
-        this.sitevar = sitevar;
+    public void setBasepntvar(String basepntvar) {
+        this.basepntvar = basepntvar;
     }
 
     public String getF_sectid() {

@@ -9,6 +9,7 @@ public class PersonInfo {
     private String userid;
     private String username;
     private String usertel;
+    private String ptype;
     private String f_sectid;
 
     public PersonInfo() {
@@ -18,10 +19,11 @@ public class PersonInfo {
         this.userid = userid;
     }
 
-    public PersonInfo(String userid, String username, String usertel, String f_sectid) {
+    public PersonInfo(String userid, String username, String usertel, String ptype, String f_sectid) {
         this.userid = userid;
         this.username = username;
         this.usertel = usertel;
+        this.ptype = ptype;
         this.f_sectid = f_sectid;
     }
 
@@ -47,6 +49,14 @@ public class PersonInfo {
 
     public void setUsertel(String usertel) {
         this.usertel = usertel;
+    }
+
+    public String getPtype() {
+        return ptype;
+    }
+
+    public void setPtype(String ptype) {
+        this.ptype = ptype;
     }
 
     public String getF_sectid() {

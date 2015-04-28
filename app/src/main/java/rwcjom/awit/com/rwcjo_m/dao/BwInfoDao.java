@@ -32,7 +32,7 @@ public class BwInfoDao extends AbstractDao<BwInfo, Long> {
         public final static Property Id = new Property(1, String.class, "id", false, "ID");
         public final static Property Od = new Property(2, String.class, "od", false, "OD");
         public final static Property Ty = new Property(3, String.class, "ty", false, "TY");
-        public final static Property F_lineid = new Property(4, String.class, "f_lineid", false, "F_LINEID");
+        public final static Property F_lc = new Property(4, String.class, "f_lc", false, "F_LC");
     };
 
     private DaoSession daoSession;
@@ -56,7 +56,7 @@ public class BwInfoDao extends AbstractDao<BwInfo, Long> {
                 "'ID' TEXT," + // 1: id
                 "'OD' TEXT," + // 2: od
                 "'TY' TEXT," + // 3: ty
-                "'F_LINEID' TEXT NOT NULL );"); // 4: f_lineid
+                "'F_LC' TEXT NOT NULL );"); // 4: f_lc
     }
 
     /** Drops the underlying database table. */
@@ -89,7 +89,7 @@ public class BwInfoDao extends AbstractDao<BwInfo, Long> {
         if (ty != null) {
             stmt.bindString(4, ty);
         }
-        stmt.bindString(5, entity.getF_lineid());
+        stmt.bindString(5, entity.getF_lc());
     }
 
     @Override
@@ -112,7 +112,7 @@ public class BwInfoDao extends AbstractDao<BwInfo, Long> {
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // id
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // od
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // ty
-            cursor.getString(offset + 4) // f_lineid
+            cursor.getString(offset + 4) // f_lc
         );
         return entity;
     }
@@ -124,7 +124,7 @@ public class BwInfoDao extends AbstractDao<BwInfo, Long> {
         entity.setId(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setOd(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setTy(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setF_lineid(cursor.getString(offset + 4));
+        entity.setF_lc(cursor.getString(offset + 4));
      }
     
     /** @inheritdoc */
@@ -151,16 +151,16 @@ public class BwInfoDao extends AbstractDao<BwInfo, Long> {
     }
     
     /** Internal query to resolve the "bwInfoList" to-many relationship of Line. */
-    public List<BwInfo> _queryLine_BwInfoList(String f_lineid) {
+    public List<BwInfo> _queryLine_BwInfoList(String f_lc) {
         synchronized (this) {
             if (line_BwInfoListQuery == null) {
                 QueryBuilder<BwInfo> queryBuilder = queryBuilder();
-                queryBuilder.where(Properties.F_lineid.eq(null));
+                queryBuilder.where(Properties.F_lc.eq(null));
                 line_BwInfoListQuery = queryBuilder.build();
             }
         }
         Query<BwInfo> query = line_BwInfoListQuery.forCurrentThread();
-        query.setParameter(0, f_lineid);
+        query.setParameter(0, f_lc);
         return query.list();
     }
 
@@ -173,7 +173,7 @@ public class BwInfoDao extends AbstractDao<BwInfo, Long> {
             builder.append(',');
             SqlUtils.appendColumns(builder, "T0", daoSession.getLineDao().getAllColumns());
             builder.append(" FROM BW_INFO T");
-            builder.append(" LEFT JOIN LINE T0 ON T.'F_LINEID'=T0.'LC'");
+            builder.append(" LEFT JOIN LINE T0 ON T.'F_LC'=T0.'LC'");
             builder.append(' ');
             selectDeep = builder.toString();
         }

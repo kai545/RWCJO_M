@@ -15,6 +15,7 @@ public class PntInfo {
     private String remark;
     private String pointcode;
     private String name;
+    private String objstate;
     private String f_faceid;
 
     public PntInfo() {
@@ -24,7 +25,7 @@ public class PntInfo {
         this.pointid = pointid;
     }
 
-    public PntInfo(String pointid, String pointnum, String designvalue, String designremark, String inbuiltdate, String seatcode, String remark, String pointcode, String name, String f_faceid) {
+    public PntInfo(String pointid, String pointnum, String designvalue, String designremark, String inbuiltdate, String seatcode, String remark, String pointcode, String name, String objstate, String f_faceid) {
         this.pointid = pointid;
         this.pointnum = pointnum;
         this.designvalue = designvalue;
@@ -34,6 +35,7 @@ public class PntInfo {
         this.remark = remark;
         this.pointcode = pointcode;
         this.name = name;
+        this.objstate = objstate;
         this.f_faceid = f_faceid;
     }
 
@@ -107,6 +109,14 @@ public class PntInfo {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getObjstate() {
+        return objstate;
+    }
+
+    public void setObjstate(String objstate) {
+        this.objstate = objstate;
     }
 
     public String getF_faceid() {

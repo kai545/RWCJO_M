@@ -26,7 +26,8 @@ public class PersonInfoDao extends AbstractDao<PersonInfo, String> {
         public final static Property Userid = new Property(0, String.class, "userid", true, "USERID");
         public final static Property Username = new Property(1, String.class, "username", false, "USERNAME");
         public final static Property Usertel = new Property(2, String.class, "usertel", false, "USERTEL");
-        public final static Property F_sectid = new Property(3, String.class, "f_sectid", false, "F_SECTID");
+        public final static Property Ptype = new Property(3, String.class, "ptype", false, "PTYPE");
+        public final static Property F_sectid = new Property(4, String.class, "f_sectid", false, "F_SECTID");
     };
 
 
@@ -45,7 +46,8 @@ public class PersonInfoDao extends AbstractDao<PersonInfo, String> {
                 "'USERID' TEXT PRIMARY KEY NOT NULL ," + // 0: userid
                 "'USERNAME' TEXT," + // 1: username
                 "'USERTEL' TEXT," + // 2: usertel
-                "'F_SECTID' TEXT);"); // 3: f_sectid
+                "'PTYPE' TEXT," + // 3: ptype
+                "'F_SECTID' TEXT);"); // 4: f_sectid
     }
 
     /** Drops the underlying database table. */
@@ -74,9 +76,14 @@ public class PersonInfoDao extends AbstractDao<PersonInfo, String> {
             stmt.bindString(3, usertel);
         }
  
+        String ptype = entity.getPtype();
+        if (ptype != null) {
+            stmt.bindString(4, ptype);
+        }
+ 
         String f_sectid = entity.getF_sectid();
         if (f_sectid != null) {
-            stmt.bindString(4, f_sectid);
+            stmt.bindString(5, f_sectid);
         }
     }
 
@@ -93,7 +100,8 @@ public class PersonInfoDao extends AbstractDao<PersonInfo, String> {
             cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0), // userid
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // username
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // usertel
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // f_sectid
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // ptype
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4) // f_sectid
         );
         return entity;
     }
@@ -104,7 +112,8 @@ public class PersonInfoDao extends AbstractDao<PersonInfo, String> {
         entity.setUserid(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
         entity.setUsername(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setUsertel(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setF_sectid(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setPtype(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setF_sectid(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
      }
     
     /** @inheritdoc */

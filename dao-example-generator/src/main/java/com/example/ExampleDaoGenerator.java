@@ -63,6 +63,7 @@ public class ExampleDaoGenerator {
         section.addStringProperty("remark");
         section.addStringProperty("pointcode");
         section.addStringProperty("name");
+        section.addStringProperty("objstate");
         section.addStringProperty("f_faceid");
     }
 
@@ -71,17 +72,18 @@ public class ExampleDaoGenerator {
         section.addStringProperty("userid").primaryKey();
         section.addStringProperty("username");
         section.addStringProperty("usertel");
+        section.addStringProperty("ptype");
         section.addStringProperty("f_sectid");
     }
 
     private static void addBasePntInfo(Schema schema) {
         Entity section = schema.addEntity("BasePntInfo");
-        section.addStringProperty("siteid").primaryKey();
-        section.addStringProperty("sitename");
-        section.addStringProperty("sitecode");
-        section.addStringProperty("sitehigh");
-        section.addStringProperty("sitenum");
-        section.addStringProperty("sitevar");
+        section.addStringProperty("basepntid").primaryKey();
+        section.addStringProperty("basepntname");
+        section.addStringProperty("basepntcode");
+        section.addStringProperty("basepnthigh");
+        section.addStringProperty("basepntnum");
+        section.addStringProperty("basepntvar");
         section.addStringProperty("f_sectid");
     }
 
@@ -134,13 +136,14 @@ public class ExampleDaoGenerator {
         Entity line = schema.addEntity("Line");
         line.addStringProperty("lc").primaryKey();
         line.addStringProperty("ln");
+        line.addStringProperty("f_sectid");
 
         Entity bw = schema.addEntity("BwInfo");
         bw.addLongProperty("bwid").primaryKey().autoincrement();
         bw.addStringProperty("id");
         bw.addStringProperty("od");
         bw.addStringProperty("ty");
-        Property f_lineid = bw.addStringProperty("f_lineid").notNull().getProperty();
+        Property f_lineid = bw.addStringProperty("f_lc").notNull().getProperty();
         bw.addToOne(line, f_lineid);
         
         ToMany lineToBws = line.addToMany(bw, f_lineid);
