@@ -22,7 +22,7 @@ public class CJUpOriginalImpl implements CJUpOriginalInterface {
 										String instrumodel, String serialnum, String sjid,
 										String temperature, String barometric, String weather, String benchmarkids,
 										String mtype, String mdate, String linecode, String account,
-										String pwd, Context context) {
+										String pwd, Context context,CJUpOriginalDataCallBack callBack) {
 //		cjupOriginalObj = new CJUpOriginal();
 
 		DataAcquisition.getInstance().CJUpOriginal(blist, equipbrand,
