@@ -23,7 +23,7 @@ public class CJUpRecordInitImpl implements CJUpRecordInitInterface {
             @Override
             public void processData(CJResutResult data) {
                 Log.i("result:", initresult + "121");
-                super.processData(data);
+               // super.processData(data);
                 initresult = data.returnCode;
                 Log.i("result:", initresult + "");
                 if (initresult == 0) {
