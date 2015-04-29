@@ -16,12 +16,9 @@ import rwcjom.awit.com.rwcjo_m.interfaces.CJUpRecordInitInterface;
  */
 public class CJUpRecordInitImpl implements CJUpRecordInitInterface {
     private String TAG="CJUpRecordInitImpl";
-//    private CJUpRecordInit cjupRecordInitObj;
     private Integer initresult=-5;
     @Override
     public Integer getCJUpRecordInit(final String account,final Context context,final CJUpRecordInitDataCallBack callBack) {
-        //cjupRecordInitObj=new CJUpRecordInit();
-        Log.i("come on", "jajajaaj");
         DataAcquisition.getInstance().CjUpRecordInit(account, context, new CJUpRecordInitDataCallBack() {
             @Override
             public void processData(CJResutResult data) {
@@ -44,8 +41,7 @@ public class CJUpRecordInitImpl implements CJUpRecordInitInterface {
             }
         });
         pubUtil.upRecordInit.setResult(initresult);
-        Log.i("end test",pubUtil.upRecordInit.getResult()+"end");
- //       return  cjupRecordInitObj;
+        Log.i("end test",initresult+"end");
         return initresult;
     }
 }

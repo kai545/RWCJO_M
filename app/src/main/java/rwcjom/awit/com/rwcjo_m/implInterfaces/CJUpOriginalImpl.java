@@ -14,8 +14,7 @@ import rwcjom.awit.com.rwcjo_m.interfaces.CJUpOriginalInterface;
 
 
 public class CJUpOriginalImpl implements CJUpOriginalInterface {
-//	private CJUpOriginal cjupOriginalObj;
-	private int result;
+	private int result=-6;
 
 	@Override
 	public Integer getCJUpOriginal(BClass[] blist, String equipbrand,
@@ -23,7 +22,6 @@ public class CJUpOriginalImpl implements CJUpOriginalInterface {
 										String temperature, String barometric, String weather, String benchmarkids,
 										String mtype, String mdate, String linecode, String account,
 										String pwd, Context context,CJUpOriginalDataCallBack callBack) {
-//		cjupOriginalObj = new CJUpOriginal();
 
 		DataAcquisition.getInstance().CJUpOriginal(blist, equipbrand,
 				instrumodel, serialnum, sjid, temperature, barometric, weather, benchmarkids, mtype,
@@ -31,13 +29,12 @@ public class CJUpOriginalImpl implements CJUpOriginalInterface {
 				context, new CJUpOriginalDataCallBack() {
 					@Override
 					public void processData(CJResutResult data) {
+						Log.i("进入org方法", result + "121");
 						super.processData(data);
 						result = data.returnCode;
 						Log.i("进入org方法", result + "");
-//						cjupOriginalObj.setFlag(0);
-//						cjupOriginalObj.setResult(result);
 						if (result != 0) {
-							//cjupOriginalObj.setFlag(-1);
+							Log.i("进来没？？？", "进来了 哈哈");
 							switch (result) {
 								case -1:
 									pubUtil.exception.setExceptionMsg("其他错误");
