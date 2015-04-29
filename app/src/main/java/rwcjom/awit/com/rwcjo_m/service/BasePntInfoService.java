@@ -52,7 +52,12 @@ public class BasePntInfoService {
         return basePntInfoDao.queryRaw(where, params);
     }
 
-
+    public List<BasePntInfo> queryBasePntInfoBySite(String sectid){
+        return basePntInfoDao.queryBuilder()
+                .where(BasePntInfoDao.Properties.F_sectid.eq(sectid))
+                .orderDesc(BasePntInfoDao.Properties.Basepntid)
+                .list();
+    }
     /**
      * insert or update note
      * @param basePntInfo

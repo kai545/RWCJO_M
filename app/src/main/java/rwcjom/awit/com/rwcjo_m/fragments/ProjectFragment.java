@@ -14,12 +14,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.nanotasks.BackgroundWork;
+import com.nanotasks.Completion;
+import com.nanotasks.Tasks;
+
+import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import rwcjom.awit.com.rwcjo_m.R;
+import rwcjom.awit.com.rwcjo_m.dao.SecNews;
 import rwcjom.awit.com.rwcjo_m.event.MainActivityEvent;
 import rwcjom.awit.com.rwcjo_m.service.SecNewsService;
-import rwcjom.awit.com.rwcjo_m.service.SiteNewsService;
 
 
 public class ProjectFragment extends Fragment {
@@ -27,7 +32,7 @@ public class ProjectFragment extends Fragment {
     private ViewPager mViewPager;
     private Context context;
     private SecNewsService secNewsService;
-    private SiteNewsService siteNewsService;
+    private SecNews secNews;
 
     @Override
     public void onAttach(Activity activity) {
@@ -35,7 +40,6 @@ public class ProjectFragment extends Fragment {
         super.onAttach(activity);
         context=activity;
         secNewsService=SecNewsService.getInstance(context);
-        siteNewsService=SiteNewsService.getInstance(context);
     }
 
     @Override
@@ -44,15 +48,38 @@ public class ProjectFragment extends Fragment {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         EventBus.getDefault().post(new MainActivityEvent("项目查看"));
+
+        //开始获取标段数据
+        Tasks.executeInBackground(context, new BackgroundWork<List<SecNews>>() {
+            @Override
+            public List<SecNews> doInBackground() throws Exception {
+                //考虑有多个标段的情况（实际只有一个标段）
+                return secNewsService.loadAllSecNews();
+            }
+        }, new Completion<List<SecNews>>() {
+            @Override
+            public void onSuccess(Context context, List<SecNews> result) {
+                for (int i = 0; i < result.size(); i++) {
+                    secNews = result.get(i);
+                }
+                EventBus.getDefault().post(new MainActivityEvent(secNews.getSectname()));//设置标段作为标题
+                initPager();
+                initTabsValue();
+            }
+
+            @Override
+            public void onError(Context context, Exception e) {
+                EventBus.getDefault().post(new MainActivityEvent(false));
+            }
+        });
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_tab,null);
     }
 
-    public void onActivityCreated(Bundle savedInstanceState)
-    {
-        super.onActivityCreated(savedInstanceState);
+
+    private void initPager(){
         mPagerSlidingTabStrip = (PagerSlidingTabStrip) getView().findViewById(R.id.tabs);
         mViewPager = (ViewPager) getView().findViewById(R.id.pager);
         String[] titles={ "工点", "人员", "基点" };
@@ -73,7 +100,6 @@ public class ProjectFragment extends Fragment {
             public void onPageScrollStateChanged(int arg0) {
             }
         });
-        initTabsValue();
     }
 
     /**
@@ -128,12 +154,16 @@ public class ProjectFragment extends Fragment {
                     f= SiteFragment.newInstance();
                     break;
                 case 1:
-                    f= SiteFragment.newInstance();
+                    f= PersonFragment.newInstance();
                     break;
                 case 2:
-                    f= SiteFragment.newInstance();
+                    f= BasePntFragment.newInstance();
                     break;
             }
+            //增加标段ID参数
+            Bundle bundle = new Bundle();
+            bundle.putString("sectid", secNews.getSectid());
+            f.setArguments(bundle);
             return f;
         }
 

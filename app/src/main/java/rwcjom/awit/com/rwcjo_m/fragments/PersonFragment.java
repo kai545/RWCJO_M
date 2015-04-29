@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
-import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import com.nanotasks.BackgroundWork;
 import com.nanotasks.Completion;
@@ -18,50 +16,51 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
-import rwcjom.awit.com.rwcjo_m.R;
-import rwcjom.awit.com.rwcjo_m.dao.FaceNews;
+import rwcjom.awit.com.rwcjo_m.dao.PersonInfo;
 import rwcjom.awit.com.rwcjo_m.event.MainActivityEvent;
-import rwcjom.awit.com.rwcjo_m.service.FaceNewsService;
+import rwcjom.awit.com.rwcjo_m.service.PersonInfoService;
 
 /**
- * 断面基础信息列表
- * Created by Fantasy on 15/4/24.
+ * 人员列表
+ * Created by Fantasy on 15/4/29.
  */
-public class FaceBaseFragment extends ListFragment {
+public class PersonFragment extends ListFragment {
     private ArrayAdapter<String> adapter;
-    private List<String> faceNameData;
-    private List<String> faceIdData;
+    private List<String> userData;
     private Context context;
     private FragmentManager manager;
     private FragmentTransaction transaction;
-    private FaceNewsService faceNewsService;
+    private PersonInfoService personInfoService;
 
+    public static PersonFragment newInstance() {
+        PersonFragment f = new PersonFragment();
+        return f;
+    }
 
     @Override
     public void onAttach(Activity activity) {
         // TODO Auto-generated method stub
         super.onAttach(activity);
         context=activity;
-        faceNewsService=FaceNewsService.getInstance(context);
-        faceNameData=new ArrayList<String>();
-        faceIdData=new ArrayList<String>();
+        personInfoService=PersonInfoService.getInstance(context);
+        userData=new ArrayList<String>();
 
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final String siteid=getArguments().getString("siteid");
+        final String sectid=getArguments().getString("sectid");
+        manager =getFragmentManager();
         Tasks.executeInBackground(context, new BackgroundWork<List<String>>() {
             @Override
             public List<String> doInBackground() throws Exception {
-                List<FaceNews> faceNewsList= faceNewsService.queryFaceNewsBySite(siteid);
-                for (int i = 0; i <faceNewsList.size() ; i++) {
-                    faceIdData.add(faceNewsList.get(i).getFaceId());
-                    faceNameData.add(faceNewsList.get(i).getFaceName());
+                List<PersonInfo> personInfoList = personInfoService.queryPersonBySite(sectid);
+                for (int i = 0; i < personInfoList.size(); i++) {
+                    PersonInfo mPersonInfo=personInfoList.get(i);
+                    userData.add(mPersonInfo.getUsername());
                 }
-
-                return faceNameData;
+                return userData;
             }
         }, new Completion<List<String>>() {
             @Override
@@ -76,22 +75,5 @@ public class FaceBaseFragment extends ListFragment {
                 EventBus.getDefault().post(new MainActivityEvent(false));
             }
         });
-        manager =getFragmentManager();
-
-    }
-
-    @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        transaction = manager.beginTransaction();
-        //String str = adapter.getItem(position);
-        FaceBaseFragment faceBaseFragment = new FaceBaseFragment();
-        /**
-         * 使用Bundle类存储传递数据
-         */
-        Bundle bundle = new Bundle();
-        bundle.putString("faceid", faceIdData.get(position));
-        faceBaseFragment.setArguments(bundle);
-        transaction.replace(R.id.face_baseinfo_list, faceBaseFragment, "detail");
-        transaction.commit();
     }
 }

@@ -15,19 +15,17 @@ import com.nanotasks.BackgroundWork;
 import com.nanotasks.Completion;
 import com.nanotasks.Tasks;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import rwcjom.awit.com.rwcjo_m.R;
 import rwcjom.awit.com.rwcjo_m.adapter.SiteListAdapter;
-import rwcjom.awit.com.rwcjo_m.dao.SecNews;
 import rwcjom.awit.com.rwcjo_m.dao.SiteNews;
 import rwcjom.awit.com.rwcjo_m.event.MainActivityEvent;
-import rwcjom.awit.com.rwcjo_m.service.SecNewsService;
 import rwcjom.awit.com.rwcjo_m.service.SiteNewsService;
 
 /**
+ * 工点信息列表
  * Created by Fantasy on 15/4/23.
  */
 public class SiteFragment extends ListFragment {
@@ -35,13 +33,12 @@ public class SiteFragment extends ListFragment {
     private ListView listView;
     private SiteListAdapter siteListAdapter;
     private Context context;
-    private SecNewsService secNewsService;
     private SiteNewsService siteNewsService;
     private FragmentManager manager;
     private FragmentTransaction transaction;
     private List<SiteNews> siteData;
+    private String sectid;
 
-    private int position;
     public static SiteFragment newInstance() {
         SiteFragment f = new SiteFragment();
         return f;
@@ -52,34 +49,26 @@ public class SiteFragment extends ListFragment {
         // TODO Auto-generated method stub
         super.onAttach(activity);
         context=activity;
-        secNewsService=SecNewsService.getInstance(context);
         siteNewsService=SiteNewsService.getInstance(context);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sectid=getArguments().getString("sectid");
         manager = getFragmentManager();
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_site,null);
-        //listView=(ListView)view.findViewById(R.id.site_list);
-        //listView.setOnItemClickListener(this);
-
-        Tasks.executeInBackground(context, new BackgroundWork<SiteListAdapter>() {
+        Tasks.executeInBackground(context, new BackgroundWork<List<SiteNews>>() {
             @Override
-            public SiteListAdapter doInBackground() throws Exception {
-                EventBus.getDefault().post(new MainActivityEvent(true));
-                siteListAdapter = new SiteListAdapter(context, getData());
-                return siteListAdapter;
+            public List<SiteNews> doInBackground() throws Exception {
+                siteData = siteNewsService.querySiteNewsBySection(sectid);
+
+                return siteData;
             }
-        }, new Completion<SiteListAdapter>() {
+        }, new Completion<List<SiteNews>>() {
             @Override
-            public void onSuccess(Context context, SiteListAdapter result) {
-                EventBus.getDefault().post(new MainActivityEvent(false));
-                setListAdapter(result);
+            public void onSuccess(Context context, List<SiteNews> result) {
+                siteListAdapter = new SiteListAdapter(context, result);
+                setListAdapter(siteListAdapter);
             }
 
             @Override
@@ -87,21 +76,12 @@ public class SiteFragment extends ListFragment {
                 EventBus.getDefault().post(new MainActivityEvent(false));
             }
         });
-
-
-        return view;
     }
 
-    private List<SiteNews> getData(){
-        List<SiteNews> data=new ArrayList<SiteNews>();
-        List<SecNews> secNewsList=secNewsService.loadAllSecNews();//考虑有多个标段的情况（实际只有一个标段）
-        for (int i = 0; i < secNewsList.size(); i++) {
-            EventBus.getDefault().post(new MainActivityEvent(secNewsList.get(i).getSectname()));//设置标段作为标题
-            List<SiteNews> siteNewsList=siteNewsService.querySiteNewsBySection(secNewsList.get(i).getSectid());
-            data.addAll(siteNewsList);
-        }
-        siteData=data;
-        return data;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view=inflater.inflate(R.layout.fragment_site,null);
+        return view;
     }
 
     @Override

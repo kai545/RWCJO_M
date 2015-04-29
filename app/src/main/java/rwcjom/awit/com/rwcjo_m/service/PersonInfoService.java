@@ -52,7 +52,12 @@ public class PersonInfoService {
         return personInfoDao.queryRaw(where, params);
     }
 
-
+    public List<PersonInfo> queryPersonBySite(String sectid){
+        return personInfoDao.queryBuilder()
+                .where(PersonInfoDao.Properties.F_sectid.eq(sectid))
+                .orderDesc(PersonInfoDao.Properties.Userid)
+                .list();
+    }
     /**
      * insert or update note
      * @param personInfo
