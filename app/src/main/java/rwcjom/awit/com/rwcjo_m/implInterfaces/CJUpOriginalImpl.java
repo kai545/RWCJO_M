@@ -22,16 +22,16 @@ public class CJUpOriginalImpl implements CJUpOriginalInterface {
 										String temperature, String barometric, String weather, String benchmarkids,
 										String mtype, String mdate, String linecode, String account,
 										String pwd, Context context,CJUpOriginalDataCallBack callBack) {
-		Log.i("come on","baby");
+		Log.i("come on", "baby");
 		DataAcquisition.getInstance().CJUpOriginal(blist, equipbrand,
 				instrumodel, serialnum, sjid, temperature, barometric, weather, benchmarkids, mtype,
 				mdate, linecode, account, pwd,
 				context, new CJUpOriginalDataCallBack() {
 					@Override
 					public void processData(CJResutResult data) {
-						upOriginalObj=new CJUpOriginal();
+						super.processData(data);
+						upOriginalObj = new CJUpOriginal();
 						Log.i("进入org方法", result + "121");
-						//super.processData(data);
 						result = data.returnCode;
 						upOriginalObj.setFlag(0);
 						upOriginalObj.setResult(result);
@@ -40,24 +40,54 @@ public class CJUpOriginalImpl implements CJUpOriginalInterface {
 							upOriginalObj.setFlag(-1);
 							Log.i("进来没？？？", "进来了 哈哈");
 							switch (result) {
-								case -1:upOriginalObj.setMsg("其他错误");break;
-								case -2:upOriginalObj.setMsg("equipbrand有误");break;
-								case -3:upOriginalObj.setMsg("instrumodel有误");break;
-								case -4:upOriginalObj.setMsg("serialnum有误");break;
-								case -5:upOriginalObj.setMsg("sjid有误");break;
-								case -6:upOriginalObj.setMsg("temperature有误");break;
-								case -7:upOriginalObj.setMsg("barometric有误");break;
-								case -8:upOriginalObj.setMsg("weather有误");break;
-								case -9:upOriginalObj.setMsg("benchmarkids有误");break;
-								case -10:upOriginalObj.setMsg("mtype有误");break;
-								case -11:upOriginalObj.setMsg("mdate有误");break;
-								case -12:upOriginalObj.setMsg("linecode有误");break;
-								case -13:upOriginalObj.setMsg("account有误");break;
-								case -14:upOriginalObj.setMsg("pwd有误");break;
-								case -15:upOriginalObj.setMsg("网络异常");break;
+								case -1:
+									upOriginalObj.setMsg("其他错误");
+									break;
+								case -2:
+									upOriginalObj.setMsg("equipbrand有误");
+									break;
+								case -3:
+									upOriginalObj.setMsg("instrumodel有误");
+									break;
+								case -4:
+									upOriginalObj.setMsg("serialnum有误");
+									break;
+								case -5:
+									upOriginalObj.setMsg("sjid有误");
+									break;
+								case -6:
+									upOriginalObj.setMsg("temperature有误");
+									break;
+								case -7:
+									upOriginalObj.setMsg("barometric有误");
+									break;
+								case -8:
+									upOriginalObj.setMsg("weather有误");
+									break;
+								case -9:
+									upOriginalObj.setMsg("benchmarkids有误");
+									break;
+								case -10:
+									upOriginalObj.setMsg("mtype有误");
+									break;
+								case -11:
+									upOriginalObj.setMsg("mdate有误");
+									break;
+								case -12:
+									upOriginalObj.setMsg("linecode有误");
+									break;
+								case -13:
+									upOriginalObj.setMsg("account有误");
+									break;
+								case -14:
+									upOriginalObj.setMsg("pwd有误");
+									break;
+								case -15:
+									upOriginalObj.setMsg("网络异常");
+									break;
 							}
 							Log.i("原始数据上传：", upOriginalObj.getMsg());
-							Log.i("orgResult",result+"org");
+							Log.i("orgResult", result + "org");
 						}
 					}
 				});
