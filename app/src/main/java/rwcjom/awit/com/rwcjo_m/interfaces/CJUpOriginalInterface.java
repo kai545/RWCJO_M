@@ -12,7 +12,7 @@ import rwcjom.awit.com.rwcjo_m.bean.CJUpOriginal;
  *
  */
 public interface CJUpOriginalInterface {
-	public CJUpOriginal getCJUpOriginal(BClass[] blist,
+	public Integer getCJUpOriginal(BClass[] blist,
 			String equipbrand,String instrumodel,String serialnum,String sjid,String temperature,
 			String barometric,String weather,String benchmarkids,String mtype,
 			String mdate,String linecode,String account,

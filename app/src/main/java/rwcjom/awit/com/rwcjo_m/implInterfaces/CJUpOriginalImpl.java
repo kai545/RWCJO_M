@@ -14,16 +14,16 @@ import rwcjom.awit.com.rwcjo_m.interfaces.CJUpOriginalInterface;
 
 
 public class CJUpOriginalImpl implements CJUpOriginalInterface {
-	private CJUpOriginal cjupOriginalObj;
+//	private CJUpOriginal cjupOriginalObj;
 	private int result;
 
 	@Override
-	public CJUpOriginal getCJUpOriginal(BClass[] blist, String equipbrand,
+	public Integer getCJUpOriginal(BClass[] blist, String equipbrand,
 										String instrumodel, String serialnum, String sjid,
 										String temperature, String barometric, String weather, String benchmarkids,
 										String mtype, String mdate, String linecode, String account,
 										String pwd, Context context) {
-		cjupOriginalObj = new CJUpOriginal();
+//		cjupOriginalObj = new CJUpOriginal();
 
 		DataAcquisition.getInstance().CJUpOriginal(blist, equipbrand,
 				instrumodel, serialnum, sjid, temperature, barometric, weather, benchmarkids, mtype,
@@ -33,10 +33,10 @@ public class CJUpOriginalImpl implements CJUpOriginalInterface {
 					public void processData(CJResutResult data) {
 						result = data.returnCode;
 						Log.i("进入org方法", result + "");
-						cjupOriginalObj.setFlag(0);
-						cjupOriginalObj.setResult(result);
+//						cjupOriginalObj.setFlag(0);
+//						cjupOriginalObj.setResult(result);
 						if (result != 0) {
-							cjupOriginalObj.setFlag(-1);
+							//cjupOriginalObj.setFlag(-1);
 							switch (result) {
 								case -1:
 									pubUtil.exception.setExceptionMsg("其他错误");
@@ -88,8 +88,6 @@ public class CJUpOriginalImpl implements CJUpOriginalInterface {
 						}
 					}
 				});
-		//pubUtil.downReturnCode.setReturnOrgCode(result);//在方法里面赋值，值传不进去
-		Log.i("上传原始数据结果impl：", "resultCode is:" + cjupOriginalObj.getResult());
-		return cjupOriginalObj;
+		return result;
 	}
 }
