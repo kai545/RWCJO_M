@@ -31,6 +31,7 @@ public class CJUpOriginalImpl implements CJUpOriginalInterface {
 				context, new CJUpOriginalDataCallBack() {
 					@Override
 					public void processData(CJResutResult data) {
+						super.processData(data);
 						result = data.returnCode;
 						Log.i("进入org方法", result + "");
 //						cjupOriginalObj.setFlag(0);
@@ -85,6 +86,7 @@ public class CJUpOriginalImpl implements CJUpOriginalInterface {
 									break;
 							}
 							Log.i("原始数据上传：", pubUtil.exception.getExceptionMsg());
+							Log.i("orgResult",result+"org");
 						}
 					}
 				});

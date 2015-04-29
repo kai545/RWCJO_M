@@ -1,6 +1,7 @@
 package rwcjom.awit.com.rwcjo_m.implInterfaces;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.mor.dataacquisition.DataAcquisition;
 import com.mor.dataacquisition.net.dataCallBacks.CJUpRecordInitDataCallBack;
@@ -17,12 +18,15 @@ public class CJUpRecordInitImpl implements CJUpRecordInitInterface {
     private CJUpRecordInit cjupRecordInitObj;
     private Integer result;
     @Override
-    public CJUpRecordInit getCJUpRecordInit(String account, Context context) {
+    public CJUpRecordInit getCJUpRecordInit(String account, Context context,CJUpRecordInitDataCallBack callBack) {
         cjupRecordInitObj=new CJUpRecordInit();
+        Log.i("come on","jajajaaj");
         DataAcquisition.getInstance().CjUpRecordInit(account,context,new CJUpRecordInitDataCallBack(){
             @Override
             public void processData(CJResutResult data) {
+                super.processData(data);
                 result=data.returnCode;
+                Log.i("result:",result+"");
                 if(result==0){
                     cjupRecordInitObj.setResult(result);
                     cjupRecordInitObj.setFlag(0);
@@ -33,7 +37,7 @@ public class CJUpRecordInitImpl implements CJUpRecordInitInterface {
                     cjupRecordInitObj.setFlag(-1);
                     cjupRecordInitObj.setMsg("account有误");
                 }
-                super.processData(data);
+                Log.i("init:",cjupRecordInitObj.getResult()+"");
             }
         });
         return cjupRecordInitObj;
