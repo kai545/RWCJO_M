@@ -43,8 +43,8 @@ public class CJUpRecordInitImpl implements CJUpRecordInitInterface {
                 Log.i("init:", upRecordInitObj.getResult() + "");
             }
         });
-        upRecordInitObj.setResult(initresult);
-        Log.i("end test",initresult+"end");
+//        upRecordInitObj.setResult(initresult);
+//        Log.i("end test",initresult+"end");
         return upRecordInitObj;
     }
 }
