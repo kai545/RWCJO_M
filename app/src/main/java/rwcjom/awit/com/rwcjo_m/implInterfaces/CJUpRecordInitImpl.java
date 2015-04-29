@@ -16,7 +16,7 @@ import rwcjom.awit.com.rwcjo_m.interfaces.CJUpRecordInitInterface;
 public class CJUpRecordInitImpl implements CJUpRecordInitInterface {
     private String TAG="CJUpRecordInitImpl";
     private CJUpRecordInit cjupRecordInitObj;
-    private Integer result;
+    private Integer result=-5;
     @Override
     public void getCJUpRecordInit(final String account,final Context context,final CJUpRecordInitDataCallBack callBack) {
         cjupRecordInitObj=new CJUpRecordInit();
