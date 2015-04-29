@@ -11,5 +11,5 @@ import rwcjom.awit.com.rwcjo_m.bean.CJUpRecordInit;
  * Created by Administrator on 15-4-28.
  */
 public interface CJUpRecordInitInterface {
-    public CJUpRecordInit getCJUpRecordInit(final String account,final Context context,final CJUpRecordInitDataCallBack callBack);
+    public Integer getCJUpRecordInit(final String account,final Context context,final CJUpRecordInitDataCallBack callBack);
 }
