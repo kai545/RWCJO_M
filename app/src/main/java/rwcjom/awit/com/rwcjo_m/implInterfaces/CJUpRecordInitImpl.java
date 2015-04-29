@@ -18,7 +18,7 @@ public class CJUpRecordInitImpl implements CJUpRecordInitInterface {
     private CJUpRecordInit cjupRecordInitObj;
     private Integer result;
     @Override
-    public CJUpRecordInit getCJUpRecordInit(String account, Context context,CJUpRecordInitDataCallBack callBack) {
+    public void getCJUpRecordInit(final String account,final Context context,final CJUpRecordInitDataCallBack callBack) {
         cjupRecordInitObj=new CJUpRecordInit();
         Log.i("come on","jajajaaj");
         DataAcquisition.getInstance().CjUpRecordInit(account,context,new CJUpRecordInitDataCallBack(){
@@ -40,6 +40,5 @@ public class CJUpRecordInitImpl implements CJUpRecordInitInterface {
                 Log.i("init:",cjupRecordInitObj.getResult()+"");
             }
         });
-        return cjupRecordInitObj;
     }
 }
