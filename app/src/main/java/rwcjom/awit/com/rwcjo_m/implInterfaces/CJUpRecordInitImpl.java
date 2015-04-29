@@ -26,7 +26,7 @@ public class CJUpRecordInitImpl implements CJUpRecordInitInterface {
             public void processData(CJResutResult data) {
                 upRecordInitObj=new CJUpRecordInit();
                 Log.i("result:", initresult + "121");
-                //super.processData(data);
+                super.processData(data);
                 initresult = data.returnCode;
                 Log.i("result:", initresult + "");
                 if (initresult == 0) {
