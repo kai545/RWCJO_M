@@ -7,6 +7,7 @@ import com.mor.dataacquisition.DataAcquisition;
 import com.mor.dataacquisition.net.dataCallBacks.CJUpRecordInitDataCallBack;
 import com.mor.dataacquisition.net.parsedData.CJResutResult;
 
+import rwcjom.awit.com.rwcjo_m.bean.CJUpOriginal;
 import rwcjom.awit.com.rwcjo_m.bean.CJUpRecordInit;
 import rwcjom.awit.com.rwcjo_m.bean.pubUtil;
 import rwcjom.awit.com.rwcjo_m.interfaces.CJUpRecordInitInterface;
@@ -16,32 +17,34 @@ import rwcjom.awit.com.rwcjo_m.interfaces.CJUpRecordInitInterface;
  */
 public class CJUpRecordInitImpl implements CJUpRecordInitInterface {
     private String TAG="CJUpRecordInitImpl";
+    private CJUpRecordInit upRecordInitObj;
     private Integer initresult=-5;
     @Override
-    public Integer getCJUpRecordInit(final String account,final Context context,final CJUpRecordInitDataCallBack callBack) {
+    public CJUpRecordInit getCJUpRecordInit(final String account,final Context context,final CJUpRecordInitDataCallBack callBack) {
         DataAcquisition.getInstance().CjUpRecordInit(account, context, new CJUpRecordInitDataCallBack() {
             @Override
             public void processData(CJResutResult data) {
+                upRecordInitObj=new CJUpRecordInit();
                 Log.i("result:", initresult + "121");
-                super.processData(data);
+                //super.processData(data);
                 initresult = data.returnCode;
                 Log.i("result:", initresult + "");
                 if (initresult == 0) {
                     Log.i("进来没？？？", "进来了 哈哈");
-                    pubUtil.upRecordInit.setResult(initresult);
-                    pubUtil.upRecordInit.setFlag(0);
+                    upRecordInitObj.setResult(initresult);
+                    upRecordInitObj.setFlag(0);
                 } else if (initresult == -1) {
-                    pubUtil.upRecordInit.setFlag(-1);
-                    pubUtil.upRecordInit.setMsg("其他错误");
+                    upRecordInitObj.setFlag(-1);
+                    upRecordInitObj.setMsg("其他错误");
                 } else if (initresult == -2) {
-                    pubUtil.upRecordInit.setFlag(-1);
-                    pubUtil.upRecordInit.setMsg("account有误");
+                    upRecordInitObj.setFlag(-1);
+                    upRecordInitObj.setMsg("account有误");
                 }
-                Log.i("init:", pubUtil.upRecordInit.getResult() + "");
+                Log.i("init:", upRecordInitObj.getResult() + "");
             }
         });
-        pubUtil.upRecordInit.setResult(initresult);
+        upRecordInitObj.setResult(initresult);
         Log.i("end test",initresult+"end");
-        return initresult;
+        return upRecordInitObj;
     }
 }
