@@ -9,5 +9,4 @@ public class pubUtil {
 	public static getPublicKey getPubKey=new getPublicKey();
 	public static exceptionHandle exception=new exceptionHandle();
 	public static CJDownReturnCode downReturnCode=new CJDownReturnCode();
-	public static CJUpRecordInit upRecordInit=new CJUpRecordInit();
 }
