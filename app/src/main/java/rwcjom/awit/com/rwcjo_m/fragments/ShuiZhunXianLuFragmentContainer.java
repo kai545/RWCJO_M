@@ -1,5 +1,7 @@
 package rwcjom.awit.com.rwcjo_m.fragments;
 
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,10 +15,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.nanotasks.BackgroundWork;
+import com.nanotasks.Completion;
+import com.nanotasks.Tasks;
+
+import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import rwcjom.awit.com.rwcjo_m.R;
+import rwcjom.awit.com.rwcjo_m.dao.SecNews;
 import rwcjom.awit.com.rwcjo_m.event.MainActivityEvent;
+import rwcjom.awit.com.rwcjo_m.service.SecNewsService;
 
 /**
  * Created by Fantasy on 15/4/8.
@@ -26,6 +35,17 @@ public class ShuiZhunXianLuFragmentContainer extends Fragment {
 
     private PagerSlidingTabStrip mPagerSlidingTabStrip;
     private ViewPager mViewPager;
+    private Context context;
+    private SecNewsService secNewsService;
+    private SecNews secNews;
+
+    @Override
+    public void onAttach(Activity activity) {
+        // TODO Auto-generated method stub
+        super.onAttach(activity);
+        context=activity;
+        secNewsService=SecNewsService.getInstance(context);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -33,15 +53,36 @@ public class ShuiZhunXianLuFragmentContainer extends Fragment {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         EventBus.getDefault().post(new MainActivityEvent("水准线路"));
+
+        //开始获取标段数据
+        Tasks.executeInBackground(context, new BackgroundWork<List<SecNews>>() {
+            @Override
+            public List<SecNews> doInBackground() throws Exception {
+                //考虑有多个标段的情况（实际只有一个标段）
+                return secNewsService.loadAllSecNews();
+            }
+        }, new Completion<List<SecNews>>() {
+            @Override
+            public void onSuccess(Context context, List<SecNews> result) {
+                for (int i = 0; i < result.size(); i++) {
+                    secNews = result.get(i);
+                }
+                initPager();
+                initTabsValue();
+            }
+
+            @Override
+            public void onError(Context context, Exception e) {
+                EventBus.getDefault().post(new MainActivityEvent(false));
+            }
+        });
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_tab,null);
     }
 
-    public void onActivityCreated(Bundle savedInstanceState)
-    {
-        super.onActivityCreated(savedInstanceState);
+    private void initPager(){
         mPagerSlidingTabStrip = (PagerSlidingTabStrip) getView().findViewById(R.id.tabs);
         mViewPager = (ViewPager) getView().findViewById(R.id.pager);
         String[] titles={ "待测量", "待上传", "全部" };
@@ -52,10 +93,10 @@ public class ShuiZhunXianLuFragmentContainer extends Fragment {
             @Override
             public void onPageSelected(int arg0) {
                 Log.i(LOGTAG, "argo:" + arg0);
-                if(arg0==1){
-                    EventBus.getDefault().post(new MainActivityEvent(true));
-                }else{
-                    EventBus.getDefault().post(new MainActivityEvent(false));
+                if (arg0 == 1) {
+                    //EventBus.getDefault().post(new MainActivityEvent(true));
+                } else {
+                    //EventBus.getDefault().post(new MainActivityEvent(false));
                 }
             }
 
@@ -67,7 +108,6 @@ public class ShuiZhunXianLuFragmentContainer extends Fragment {
             public void onPageScrollStateChanged(int arg0) {
             }
         });
-        initTabsValue();
     }
 
     /**
@@ -115,8 +155,8 @@ public class ShuiZhunXianLuFragmentContainer extends Fragment {
         }
 
         @Override
-        public Fragment getItem(int position) {
-            return ShuiZhunXianLuFragment.newInstance(position);
+        public android.support.v4.app.Fragment getItem(int position) {
+            return ShuiZhunXianLuFragment.newInstance(position,secNews.getSectid());
         }
 
     }

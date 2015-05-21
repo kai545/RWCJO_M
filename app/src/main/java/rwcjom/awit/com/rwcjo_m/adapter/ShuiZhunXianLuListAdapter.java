@@ -11,6 +11,9 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.Map;
 
+import rwcjom.awit.com.rwcjo_m.R;
+import rwcjom.awit.com.rwcjo_m.dao.Line;
+
 /**
  * Created by Fantasy on 15/4/9.
  */
@@ -19,7 +22,7 @@ public class ShuiZhunXianLuListAdapter extends BaseAdapter {
     private List<Map<String, Object>> data;
 
     public final class ViewHolder{
-        public TextView lc,ln;
+        public TextView line_name;
         public Button upload;
     }
 
@@ -30,7 +33,7 @@ public class ShuiZhunXianLuListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 0;
+        return data.size();
     }
 
     @Override
@@ -44,7 +47,22 @@ public class ShuiZhunXianLuListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        return null;
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder holder = null;
+        if (convertView == null) {
+
+            holder=new ViewHolder();
+
+            convertView = mInflater.inflate(R.layout.fragment_shuizhunxianlu_list_item, null);
+            holder.line_name = (TextView)convertView.findViewById(R.id.line_name_tv);
+            convertView.setTag(holder);
+
+        }else {
+
+            holder = (ViewHolder)convertView.getTag();
+        }
+        Line line=(Line)data.get(position).get("line");
+        holder.line_name.setText(line.getLn());
+        return convertView;
     }
 }

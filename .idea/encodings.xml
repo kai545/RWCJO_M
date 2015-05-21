@@ -22,8 +22,6 @@
     <file url="file://$PROJECT_DIR$/app/src/main/java/rwcjom/awit/com/rwcjo_m/implInterfaces/CJDownpersonImpl.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/rwcjom/awit/com/rwcjo_m/implInterfaces/CJDownpntinfoImpl.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/rwcjom/awit/com/rwcjo_m/implInterfaces/CJDownsectsiteImpl.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/rwcjom/awit/com/rwcjo_m/implInterfaces/CJUpOriginalImpl.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/rwcjom/awit/com/rwcjo_m/implInterfaces/CJUpResultImpl.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/rwcjom/awit/com/rwcjo_m/implInterfaces/getPublicKeyImpl.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/rwcjom/awit/com/rwcjo_m/implInterfaces/verifyAppUserImpl.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/rwcjom/awit/com/rwcjo_m/interfaces/CJDownbasepntInterface.java" charset="UTF-8" />

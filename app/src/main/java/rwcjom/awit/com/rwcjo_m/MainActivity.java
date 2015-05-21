@@ -1,6 +1,7 @@
 package rwcjom.awit.com.rwcjo_m;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -31,6 +32,7 @@ import java.util.Map;
 
 import de.greenrobot.event.EventBus;
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
+import rwcjom.awit.com.rwcjo_m.activity.PhoneGapActivity;
 import rwcjom.awit.com.rwcjo_m.bean.pubUtil;
 import rwcjom.awit.com.rwcjo_m.event.MainActivityEvent;
 import rwcjom.awit.com.rwcjo_m.fragments.DataSyncFragment;
@@ -167,6 +169,7 @@ public class MainActivity extends ActionBarActivity implements Toolbar.OnMenuIte
                 break;
             case R.mipmap.ic_drawer_question_normal:
                 toolbar.setTitle("用户手册");
+                startActivity(new Intent(this,PhoneGapActivity.class));
                 break;
             default:break;
         }

@@ -30,7 +30,6 @@ import rwcjom.awit.com.rwcjo_m.service.SiteNewsService;
  */
 public class SiteFragment extends ListFragment {
     private static final String TAG = "SiteFragment";
-    private ListView listView;
     private SiteListAdapter siteListAdapter;
     private Context context;
     private SiteNewsService siteNewsService;

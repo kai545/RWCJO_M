@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
-import rwcjom.awit.com.rwcjo_m.R;
 import rwcjom.awit.com.rwcjo_m.dao.FaceNews;
 import rwcjom.awit.com.rwcjo_m.event.MainActivityEvent;
 import rwcjom.awit.com.rwcjo_m.service.FaceNewsService;
@@ -82,16 +81,14 @@ public class FaceBaseFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        transaction = manager.beginTransaction();
+        /*transaction = manager.beginTransaction();
         //String str = adapter.getItem(position);
         FaceBaseFragment faceBaseFragment = new FaceBaseFragment();
-        /**
-         * 使用Bundle类存储传递数据
-         */
+
         Bundle bundle = new Bundle();
         bundle.putString("faceid", faceIdData.get(position));
         faceBaseFragment.setArguments(bundle);
         transaction.replace(R.id.face_baseinfo_list, faceBaseFragment, "detail");
-        transaction.commit();
+        transaction.commit();*/
     }
 }

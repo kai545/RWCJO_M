@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="3dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/line_name_tv"
+        android:textSize="20sp"
+        android:text="TJ-1标-工区1-分部1-测试路线"
+        android:layout_weight="1"
+        android:gravity="center_vertical|left" />
+
+
+    <!--TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/endSite_tv"
+        android:textSize="12sp"
+        android:text="DK493+415" /-->
+
+
+</LinearLayout>
