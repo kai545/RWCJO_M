@@ -18,6 +18,7 @@ package rwcjom.awit.com.rwcjo_m.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -39,6 +40,7 @@ import java.util.Map;
 
 import de.greenrobot.event.EventBus;
 import rwcjom.awit.com.rwcjo_m.R;
+import rwcjom.awit.com.rwcjo_m.activity.LineInfoActivity;
 import rwcjom.awit.com.rwcjo_m.adapter.ShuiZhunXianLuListAdapter;
 import rwcjom.awit.com.rwcjo_m.dao.BwInfo;
 import rwcjom.awit.com.rwcjo_m.dao.Line;
@@ -123,7 +125,9 @@ public class ShuiZhunXianLuFragment extends ListFragment {
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		CommonTools.showToast(context,"click:"+position);
+		CommonTools.showToast(context, "click:" + position);
+		Intent it=new Intent(context, LineInfoActivity.class);
+		startActivity(it);
 	}
 
 }
