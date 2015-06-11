@@ -33,6 +33,7 @@ import com.nanotasks.BackgroundWork;
 import com.nanotasks.Completion;
 import com.nanotasks.Tasks;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,7 +41,7 @@ import java.util.Map;
 
 import de.greenrobot.event.EventBus;
 import rwcjom.awit.com.rwcjo_m.R;
-import rwcjom.awit.com.rwcjo_m.activity.LineInfoActivity;
+import rwcjom.awit.com.rwcjo_m.activity.LineInfoActivity_;
 import rwcjom.awit.com.rwcjo_m.adapter.ShuiZhunXianLuListAdapter;
 import rwcjom.awit.com.rwcjo_m.dao.BwInfo;
 import rwcjom.awit.com.rwcjo_m.dao.Line;
@@ -126,7 +127,10 @@ public class ShuiZhunXianLuFragment extends ListFragment {
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		CommonTools.showToast(context, "click:" + position);
-		Intent it=new Intent(context, LineInfoActivity.class);
+		Intent it=new Intent(context, LineInfoActivity_.class);
+		Bundle bundle = new Bundle();
+		bundle.putSerializable("lineinfo", (Serializable) lineData.get(position));
+		it.putExtras(bundle);
 		startActivity(it);
 	}
 

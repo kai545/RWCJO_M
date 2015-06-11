@@ -3,23 +3,622 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="rwcjom.awit.com.rwcjo_m.activity.LineInfoActivity"
-    android:transitionGroup="false">
+    android:transitionGroup="false"
+    tools:context="rwcjom.awit.com.rwcjo_m.activity.LineInfoActivity">
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <include layout="@layout/toolbar" />
+
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" android:text="@string/title_activity_line_info"
+            android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:textSize="22sp"
+            android:padding="6dp"
+            android:text="@string/title_activity_line_info"
             android:textColor="#ffffffff"
-            android:padding="6dp" />
+            android:textSize="22sp" />
     </FrameLayout>
 
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#ffffffff">
+
+        <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5.0dip"
+            android:layout_marginRight="5.0dip"
+            android:layout_marginTop="7.0dip"
+            android:background="#ff999999"
+            android:scrollbars="vertical"
+            android:stretchColumns="1">
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="0.5dip"
+                android:layout_marginRight="0.5dip"
+                android:layout_marginTop="0.5dip"
+                android:background="#ff999999"
+                android:padding="0.5dip">
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/create_line_list_height"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="1.0dip"
+                    android:background="#ffd9d9d9"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10.0dip"
+                        android:gravity="center_vertical"
+                        android:text="@string/createline_code_title"
+                        android:textColor="@color/detail_label_text_color"
+                        android:textSize="18.0sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="#ffffffff"
+                    android:gravity="center_vertical">
+
+                    <EditText
+                        android:id="@+id/edit_line_code_edit"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="5.0dip"
+                        android:layout_marginRight="10.0dip"
+                        android:enabled="false"
+                        android:inputType="text"
+                        android:textSize="16.0sp"
+                        android:textColor="@color/detail_label_text_color" />
+                </RelativeLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/create_line_list_height"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="0.5dip"
+                android:layout_marginRight="0.5dip"
+                android:background="#ff999999"
+                android:padding="0.5dip">
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="1.0dip"
+                    android:background="#ffd9d9d9"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10.0dip"
+                        android:gravity="center_vertical"
+                        android:text="@string/createline_type_title"
+                        android:textSize="18.0sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="#ffffffff"
+                    android:gravity="center_vertical">
+
+                    <Spinner
+                        android:id="@+id/edit_line_type_edit"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="5.0dip"
+                        android:layout_marginRight="10.0dip"
+                        android:entries="@array/line_type"
+                        android:inputType="textMultiLine"
+                        android:textSize="16.0sp" />
+                </RelativeLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="0.5dip"
+                android:layout_marginRight="0.5dip"
+                android:background="#ff999999"
+                android:padding="0.5dip">
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="1.0dip"
+                    android:background="#ffd9d9d9"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10.0dip"
+                        android:gravity="center_vertical"
+                        android:text="@string/createline_mtype_title"
+                        android:textSize="18.0sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="#ffffffff"
+                    android:gravity="center_vertical">
+
+                    <Spinner
+                        android:id="@+id/edit_line_mtype_edit"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="5.0dip"
+                        android:layout_marginRight="10.0dip"
+                        android:entries="@array/line_mtype"
+                        android:textSize="16.0sp" />
+                </RelativeLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="0.5dip"
+                android:layout_marginRight="0.5dip"
+                android:background="#ff999999"
+                android:padding="0.5dip">
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/create_line_list_height"
+                    android:layout_marginRight="1.0dip"
+                    android:background="#ffd9d9d9"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10.0dip"
+                        android:gravity="center_vertical"
+                        android:text="@string/createline_benchmarkids_title"
+                        android:textSize="18.0sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="#ffffffff"
+                    android:gravity="center_vertical">
+
+                    <EditText
+                        android:id="@+id/edit_line_benchmarkids_edit"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="5.0dip"
+                        android:enabled="false"
+                        android:inputType="textMultiLine"
+                        android:textSize="16.0sp" />
+                </RelativeLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="0.5dip"
+                android:layout_marginRight="0.5dip"
+                android:background="#ff999999"
+                android:padding="0.5dip">
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/create_line_list_height"
+                    android:layout_marginRight="1.0dip"
+                    android:background="#ffd9d9d9"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10.0dip"
+                        android:gravity="center_vertical"
+                        android:text="@string/createline_cedian_title"
+                        android:textSize="18.0sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="#ffffffff"
+                    android:gravity="center_vertical">
+
+                    <EditText
+                        android:id="@+id/edit_line_cedian_edit"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="5.0dip"
+                        android:enabled="false"
+                        android:inputType="textMultiLine"
+                        android:textSize="16.0sp" />
+                </RelativeLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="0.5dip"
+                android:layout_marginRight="0.5dip"
+                android:background="#ff999999"
+                android:padding="0.5dip"
+                android:visibility="gone">
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="1.0dip"
+                    android:background="#ffd9d9d9"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10.0dip"
+                        android:gravity="center_vertical"
+                        android:text="@string/createline_equipbrand_title"
+                        android:textSize="16.0sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="#ffffffff"
+                    android:gravity="center_vertical">
+
+                    <EditText
+                        android:id="@+id/edit_line_equipbrand_edit"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="5.0dip"
+                        android:layout_marginRight="10.0dip"
+                        android:enabled="false"
+                        android:textSize="16.0sp" />
+                </RelativeLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="0.5dip"
+                android:layout_marginRight="0.5dip"
+                android:background="#ff999999"
+                android:padding="0.5dip"
+                android:visibility="gone">
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="1.0dip"
+                    android:background="#ffd9d9d9"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10.0dip"
+                        android:gravity="center_vertical"
+                        android:text="@string/createline_instrumodel_title"
+                        android:textSize="16.0sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="#ffffffff"
+                    android:gravity="center_vertical">
+
+                    <EditText
+                        android:id="@+id/edit_line_instrumodel_edit"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="5.0dip"
+                        android:layout_marginRight="10.0dip"
+                        android:enabled="false"
+                        android:textSize="16.0sp" />
+                </RelativeLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="0.5dip"
+                android:layout_marginRight="0.5dip"
+                android:background="#ff999999"
+                android:padding="0.5dip"
+                android:visibility="gone">
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="1.0dip"
+                    android:background="#ffd9d9d9"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="10.0dip"
+                        android:layout_marginTop="7.0dip"
+                        android:text="@string/createline_serialnum_title"
+                        android:textSize="16.0sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="#ffffffff"
+                    android:gravity="center_vertical">
+
+                    <EditText
+                        android:id="@+id/edit_line_serialnum_edit"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="5.0dip"
+                        android:layout_marginRight="10.0dip"
+                        android:enabled="false"
+                        android:inputType="text"
+                        android:textSize="16.0sp" />
+                </RelativeLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="0.5dip"
+                android:layout_marginRight="0.5dip"
+                android:background="#ff999999"
+                android:padding="0.5dip">
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/create_line_list_height"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="1.0dip"
+                    android:background="#ffd9d9d9"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10.0dip"
+                        android:gravity="center_vertical"
+                        android:text="@string/createline_sj_title"
+                        android:textSize="18.0sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:background="#ffffffff"
+                    android:gravity="center_vertical">
+
+                    <Spinner
+                        android:id="@+id/edit_line_sj_edit"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="5.0dip"
+                        android:layout_marginRight="10.0dip"
+                        android:padding="0.0sp"
+                        android:textSize="16.0sp" />
+                </RelativeLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="0.5dip"
+                android:layout_marginRight="0.5dip"
+                android:background="#ff999999"
+                android:padding="0.5dip">
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/create_line_list_height"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="1.0dip"
+                    android:background="#ffd9d9d9"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center_vertical"
+                        android:text="@string/createline_temperature_title"
+                        android:textSize="18.0sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="#ffffffff"
+                    android:gravity="center_vertical">
+
+                    <EditText
+                        android:id="@+id/edit_line_temperature_edit"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="5.0dip"
+                        android:layout_marginRight="10.0dip"
+                        android:inputType="numberDecimal"
+                        android:textSize="16.0sp" />
+                </RelativeLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/create_line_list_height"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="0.5dip"
+                android:layout_marginRight="0.5dip"
+                android:background="#ff999999"
+                android:padding="0.5dip">
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="1.0dip"
+                    android:background="#ffd9d9d9"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10.0dip"
+                        android:gravity="center_vertical"
+                        android:text="@string/createline_weather_title"
+                        android:textSize="18.0sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="#ffffffff"
+                    android:gravity="center_vertical">
+
+                    <Spinner
+                        android:id="@+id/edit_line_weather_edit"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="5.0dip"
+                        android:layout_marginRight="10.0dip"
+                        android:entries="@array/weather"
+                        android:textSize="16.0sp" />
+                </RelativeLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="0.5dip"
+                android:layout_marginRight="0.5dip"
+                android:background="#ff999999"
+                android:padding="0.5dip">
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/create_line_list_height"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="1.0dip"
+                    android:background="#ffd9d9d9"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="10.0dip"
+                        android:gravity="center_vertical"
+                        android:text="@string/createline_barometric_title"
+                        android:textSize="18.0sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="#ffffffff"
+                    android:gravity="center_vertical">
+
+                    <EditText
+                        android:id="@+id/edit_line_barometric_edit"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="5.0dip"
+                        android:layout_marginRight="10.0dip"
+                        android:inputType="numberDecimal"
+                        android:textSize="16.0sp" />
+                </RelativeLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="0.5dip"
+                android:layout_marginLeft="0.5dip"
+                android:layout_marginRight="0.5dip"
+                android:background="#ff999999"
+                android:padding="0.5dip">
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/create_line_list_height"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="1.0dip"
+                    android:background="#ffd9d9d9"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10.0dip"
+                        android:gravity="center_vertical"
+                        android:text="@string/createline_mdate_title"
+                        android:textSize="18.0sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="#ffffffff"
+                    android:gravity="center_vertical">
+
+                    <EditText
+                        android:id="@+id/edit_line_mdate_edit"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="5.0dip"
+                        android:layout_marginRight="10.0dip"
+                        android:enabled="false"
+                        android:inputType="date"
+                        android:textSize="16.0sp" />
+                </RelativeLayout>
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
 
 </LinearLayout>

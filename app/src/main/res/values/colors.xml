@@ -18,4 +18,77 @@
         <item>@color/gplus_color_3</item>
         <item>@color/gplus_color_4</item>
     </integer-array>
+
+
+    <!-- totyu colot-->
+    <color name="regist_title_bg_color">#ffebeef4</color>
+    <color name="regist_title_text_color">#ff333333</color>
+    <color name="regist_context_bg_color">#ffd5d5d5</color>
+    <color name="regist_context_text_bg_color">#ffffffff</color>
+    <color name="regist_context_text_color">#ffd5d5d5</color>
+    <color name="regist_context_text1_color">#ff666666</color>
+    <color name="regist_btn_text_color">#ff333333</color>
+    <color name="regist_btn_color">#ff167139</color>
+    <color name="regist_btn_hover_color">#ff187e3f</color>
+    <color name="regist_warning_color">#fffe5802</color>
+    <color name="copyright_text_color">#ff333333</color>
+    <color name="regist_hint_text_color">#66666666</color>
+    <color name="main_title_bg_color">#ff187e3f</color>
+    <color name="main_text_bg_color">#ff000000</color>
+    <color name="main_menu_text_color">#ffffffff</color>
+    <color name="main_waiye_bg_color">#ff3bbaa5</color>
+    <color name="main_waiye_bg_hover_color">#ffc55142</color>
+    <color name="main_xiangmu_bg_color">#ff8ccd27</color>
+    <color name="main_xiangm_bg_hover_color">#ff33a693</color>
+    <color name="main_shuizhunyi_bg_color">#ff2285ac</color>
+    <color name="main_shuizhunyi_bg_hover_color">#ff1d7596</color>
+    <color name="main_canshu_bg_color">#ffe05d4b</color>
+    <color name="main_canshu_bg_hover_color">#ff7eb923</color>
+    <color name="main_usrhandbook_bg_color">#ffe2940e</color>
+    <color name="main_usrhandbook_bg_hover_color">#ffe2940e</color>
+    <color name="main_about_bg_color">#ff109a4d</color>
+    <color name="main_about_bg_hover_color">#ff0e8443</color>
+    <color name="waiye_title_btn_bg_hover_color">#ff3b5896</color>
+    <color name="waiye_search_bg_color">#ff8e8e8e</color>
+    <color name="waiye_search_list_item_color">#fff5f5f5</color>
+    <color name="list_bg">#ffcecece</color>
+    <color name="list_bg1">#ffffffff</color>
+    <color name="list_bg_press">#ff06abe4</color>
+    <color name="list_left_color">#ffe9e9e9</color>
+    <color name="list_left_text_color">#ff3b5997</color>
+    <color name="list_title_text_color">#ff65cc33</color>
+    <color name="list_context_label_text_color">#ff8a8a8a</color>
+    <color name="list_context_text_color">#ff000000</color>
+    <color name="list_btn_hover_color">#ff167139</color>
+    <color name="list_btn_pw_bg_color">#ff9c9c9c</color>
+    <color name="detail_table_bg_color">#ffcccccc</color>
+    <color name="detail_bg1_color">#ffffffff</color>
+    <color name="detail_bg2_color">#ffe4e4e4</color>
+    <color name="detail_label_text_color">#ff333333</color>
+    <color name="detail_context_text_color">#ff000000</color>
+    <color name="measure_reset_or_zhuan_btn_bg_color">#ff167139</color>
+    <color name="measure_del_btn_bg_color">#ff167139</color>
+    <color name="measure_measure_btn_bg_color">#ff57b476</color>
+    <color name="measure_measure_station_xuhao_text_color">#ff56b676</color>
+    <color name="measure_measure_station_bg_white_color">#ffffffff</color>
+    <color name="measure_measure_station_bg_gray_color">#fff3f3f3</color>
+    <color name="measure_measure_context_text_red_color">#ffcc0000</color>
+    <color name="measure_measure_context_text_blue_color">#ff0000ff</color>
+    <color name="measure_measure_context_text_black_color">#ff000000</color>
+    <color name="measure_measure_warn_text_color">#ffca0808</color>
+    <color name="setting_btn_bg_color">#ffffffff</color>
+    <color name="setting_btn_bg_hvoer_color">#fff26f17</color>
+    <color name="default_text_color">#ff000000</color>
+    <color name="line_btn_list_bg">#ffacca87</color>
+    <color name="left_list_bg_color">#ff14264c</color>
+    <color name="left_list_selected_color">#ffff6c14</color>
+    <color name="right_check_bg_color">#ff142448</color>
+    <color name="right_check_font_color">#ff0e1d3a</color>
+    <color name="btn_bottom_center">#ff4162a7</color>
+    <color name="btn_bottom_l_r">#ff3b5796</color>
+    <color name="left_list_item_t_font_color">#fffeff34</color>
+    <color name="left_list_item_d_font_color">#ffffffff</color>
+    <color name="right_list_item_title_bg">#ff167139</color>
+    <color name="right_list_item_title_color">#ffffffff</color>
+    <color name="left_list_s_color">#ff000000</color>
 </resources>

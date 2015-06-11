@@ -33,4 +33,25 @@
     <string name="title_activity_line_info">水准线路详细信息</string>
     <string name="action_settings">Settings</string>
 
+    <!-- line info-->
+    <string name="createline_code_title">编号</string>
+    <string name="createline_equipbrand_title">仪器品牌</string>
+    <string name="createline_instrumodel_title">仪器型号</string>
+    <string name="createline_serialnum_title">设备序列号</string>
+    <string name="createline_sj_title">司镜人员</string>
+    <string name="createline_temperature_title">温度（℃）</string>
+    <string name="createline_barometric_title">气压（mPa）</string>
+    <string name="createline_weather_title">天气</string>
+    <string name="createline_benchmarkids_title">工作基点</string>
+    <string name="createline_cedian_title">测点</string>
+    <string name="createline_mtype_title">观测类型</string>
+    <string name="createline_mdate_title">观测日期</string>
+    <string name="createline_type_title">线路类型</string>
+    <string name="createline_biaoduan_title">标段</string>
+    <string name="createline_gongdian_title">工点</string>
+    <string name="createline_cancel_btn">取消</string>
+    <string name="createline_save_btn">保存</string>
+    <string name="createline_basepnt_select_title">选择工作基点</string>
+    <string name="createline_biaoduan_select_title">选择标段</string>
+
 </resources>

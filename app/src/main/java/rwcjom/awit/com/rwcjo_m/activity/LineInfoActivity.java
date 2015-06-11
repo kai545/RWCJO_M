@@ -3,17 +3,48 @@ package rwcjom.awit.com.rwcjo_m.activity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
+
+import java.util.List;
+import java.util.Map;
 
 import rwcjom.awit.com.rwcjo_m.R;
+import rwcjom.awit.com.rwcjo_m.dao.BwInfo;
+import rwcjom.awit.com.rwcjo_m.dao.Line;
 
+@EActivity
 public class LineInfoActivity extends ActionBarActivity {
+    public final String TAG="LineInfoActivity";
+
     private Toolbar toolbar;
+    private Map<String,Object> lineinfoMap;
+
+    @ViewById(R.id.edit_line_code_edit)
+    EditText line_lc;
+
+
+    @AfterViews
+    void initData() {
+        lineinfoMap=(Map<String,Object>)getIntent().getSerializableExtra("lineinfo");
+        Line line=(Line)lineinfoMap.get("line");
+        List<BwInfo> bws=(List<BwInfo>)lineinfoMap.get("bw");
+        Log.i(TAG,"Line:"+line.getLn());
+        line_lc.setText(line.getLc());
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_line_info);
+
+
     }
 
     @Override

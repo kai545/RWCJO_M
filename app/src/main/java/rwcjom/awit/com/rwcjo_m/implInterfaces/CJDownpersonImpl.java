@@ -2,23 +2,19 @@ package rwcjom.awit.com.rwcjo_m.implInterfaces;
 
 import android.util.Log;
 
-import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import rwcjom.awit.com.rwcjo_m.bean.CJDownperson;
 import rwcjom.awit.com.rwcjo_m.dao.PersonInfo;
+import rwcjom.awit.com.rwcjo_m.interfaces.CJDownpersonInterface;
 import rwcjom.awit.com.rwcjo_m.util.CommonTools;
 import rwcjom.awit.com.rwcjo_m.util.ValueConfig;
-import rwcjom.awit.com.rwcjo_m.bean.pubUtil;
-import rwcjom.awit.com.rwcjo_m.interfaces.CJDownpersonInterface;
 
 
 public class CJDownpersonImpl implements CJDownpersonInterface {
@@ -48,6 +44,7 @@ public class CJDownpersonImpl implements CJDownpersonInterface {
 					// 获取返回的结果
 					for(int i=0;i<object.getPropertyCount();i++){
 						result = object.getProperty(i).toString();
+						Log.i(TAG,"result:"+result);
 						resStr=result.split(ValueConfig.SPLIT_CHAR);
 						if(resStr.length==4){
 							downpersonObj.setFlag(-1);

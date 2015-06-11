@@ -1,5 +1,6 @@
 package rwcjom.awit.com.rwcjo_m.dao;
 
+import java.io.Serializable;
 import java.util.List;
 import rwcjom.awit.com.rwcjo_m.dao.DaoSession;
 import de.greenrobot.dao.DaoException;
@@ -8,7 +9,7 @@ import de.greenrobot.dao.DaoException;
 /**
  * Entity mapped to table LINE.
  */
-public class Line {
+public class Line implements Serializable {
 
     private String lc;
     private String ln;

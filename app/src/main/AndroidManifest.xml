@@ -23,7 +23,7 @@
         </activity>
         <activity android:name=".activity.PhoneGapActivity" />
         <activity
-            android:name=".activity.LineInfoActivity"
+            android:name=".activity.LineInfoActivity_"
             android:label="@string/title_activity_line_info" >
         </activity>
     </application>

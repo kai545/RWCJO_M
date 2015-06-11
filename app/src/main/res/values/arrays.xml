@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- totyu -->
+    <string-array name="sitetype">
+        <item>路基</item>
+        <item>桥梁</item>
+        <item>隧道</item>
+        <item>涵洞</item>
+        <item>梁场</item>
+    </string-array>
+    <string-array name="persontype">
+        <item>司镜人员</item>
+        <item>内业人员</item>
+    </string-array>
+    <string-array name="pntinfo_objstate">
+        <item>在测</item>
+        <item>停测</item>
+    </string-array>
+    <string-array name="weather">
+        <item>晴</item>
+        <item>阴</item>
+        <item>雨（雪）</item>
+    </string-array>
+    <string-array name="equipbrand">
+        <item>徕卡</item>
+        <item>天宝</item>
+        <item></item>
+    </string-array>
+    <string-array name="line_type">
+        <item>闭合</item>
+        <item>附合</item>
+    </string-array>
+    <string-array name="pstate">
+        <item>正常</item>
+        <item>重新布设</item>
+        <item>接管</item>
+        <item>测点转移</item>
+        <item>基点修正</item>
+    </string-array>
+    <string-array name="line_mtype">
+        <item>aBFFB</item>
+        <item>BFFB</item>
+        <item>aBF</item>
+        <item>BF</item>
+    </string-array>
+    <string-array name="line_upload">
+        <item>测量成果</item>
+        <item>原始观测</item>
+    </string-array>
+    <string-array name="baud_rate">
+        <item>300</item>
+        <item>600</item>
+        <item>1200</item>
+        <item>4800</item>
+        <item>9600</item>
+        <item>19200</item>
+        <item>38400</item>
+        <item>57600</item>
+        <item>115200</item>
+        <item>230400</item>
+        <item>460800</item>
+        <item>921600</item>
+    </string-array>
+    <string-array name="bluetooth_device">
+        <item>可连接设备</item>
+    </string-array>
+    <string-array name="stop_bits">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="data_bits">
+        <item>7</item>
+        <item>8</item>
+    </string-array>
+    <string-array name="parity">
+        <item>None</item>
+        <item>Odd</item>
+        <item>Even</item>
+        <item>Mark</item>
+        <item>Space</item>
+    </string-array>
+    <string-array name="flow_control">
+        <item>None</item>
+        <item>CTS/RTS</item>
+    </string-array>
+    <string-array name="port_list_1">
+        <item>1</item>
+    </string-array>
+    <string-array name="port_list_2">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="port_list_4">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+    <string-array name="buffer_size">
+        <item>32768</item>
+        <item>1M</item>
+        <item>2M</item>
+        <item>3M</item>
+        <item>4M</item>
+        <item>5M</item>
+        <item>6M</item>
+        <item>7M</item>
+        <item>8M</item>
+        <item>9M</item>
+        <item>10M</item>
+    </string-array>
+    <string-array name="max_transfer_size">
+        <item>32768</item>
+        <item>16384</item>
+        <item>8192</item>
+        <item>4096</item>
+        <item>2048</item>
+        <item>1024</item>
+        <item>512</item>
+        <item>256</item>
+        <item>128</item>
+        <item>64</item>
+    </string-array>
+    <string-array name="buffer_number">
+        <item>12</item>
+        <item>10</item>
+        <item>8</item>
+        <item>6</item>
+        <item>4</item>
+        <item>2</item>
+    </string-array>
+</resources>
