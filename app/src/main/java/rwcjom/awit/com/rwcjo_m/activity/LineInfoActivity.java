@@ -29,6 +29,12 @@ public class LineInfoActivity extends ActionBarActivity {
     @ViewById(R.id.edit_line_code_edit)
     EditText line_lc;
 
+    @ViewById(R.id.edit_line_benchmarkids_edit)
+    EditText line_bpnt;
+
+    @ViewById(R.id.edit_line_cedian_edit)
+    EditText line_pnt;
+
 
     @AfterViews
     void initData() {
@@ -37,6 +43,16 @@ public class LineInfoActivity extends ActionBarActivity {
         List<BwInfo> bws=(List<BwInfo>)lineinfoMap.get("bw");
         Log.i(TAG,"Line:"+line.getLn());
         line_lc.setText(line.getLc());
+        Log.i(TAG, "line_bw_size:" + bws.size());
+        for (int i = 0; i <bws.size() ; i++) {
+
+            BwInfo bwInfo=bws.get(i);
+            if (bwInfo.getTy().equals("1")){
+                line_bpnt.append(bwInfo.getId()+" ");
+            }else{
+                line_pnt.append(bwInfo.getId()+" ");
+            }
+        }
     }
 
     @Override

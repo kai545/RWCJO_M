@@ -110,7 +110,8 @@
                         android:layout_marginRight="10.0dip"
                         android:gravity="center_vertical"
                         android:text="@string/createline_type_title"
-                        android:textSize="18.0sp" />
+                        android:textSize="18.0sp"
+                        android:textColor="@color/detail_label_text_color"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -127,7 +128,10 @@
                         android:layout_marginRight="10.0dip"
                         android:entries="@array/line_type"
                         android:inputType="textMultiLine"
-                        android:textSize="16.0sp" />
+                        android:textSize="16.0sp"
+                        android:textColor="@color/detail_label_text_color"
+                        style="@android:style/Widget.Spinner.DropDown"
+                        android:touchscreenBlocksFocus="false" />
                 </RelativeLayout>
             </TableRow>
 
@@ -171,7 +175,8 @@
                         android:layout_marginLeft="5.0dip"
                         android:layout_marginRight="10.0dip"
                         android:entries="@array/line_mtype"
-                        android:textSize="16.0sp" />
+                        android:textSize="16.0sp"
+                        style="@android:style/Widget.Spinner.DropDown" />
                 </RelativeLayout>
             </TableRow>
 
@@ -198,7 +203,8 @@
                         android:layout_marginRight="10.0dip"
                         android:gravity="center_vertical"
                         android:text="@string/createline_benchmarkids_title"
-                        android:textSize="18.0sp" />
+                        android:textSize="18.0sp"
+                        android:textColor="@color/detail_label_text_color"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -214,7 +220,8 @@
                         android:layout_marginLeft="5.0dip"
                         android:enabled="false"
                         android:inputType="textMultiLine"
-                        android:textSize="16.0sp" />
+                        android:textSize="16.0sp"
+                        android:textColor="@color/detail_label_text_color"/>
                 </RelativeLayout>
             </TableRow>
 
@@ -241,7 +248,8 @@
                         android:layout_marginRight="10.0dip"
                         android:gravity="center_vertical"
                         android:text="@string/createline_cedian_title"
-                        android:textSize="18.0sp" />
+                        android:textSize="18.0sp"
+                        android:textColor="@color/detail_label_text_color"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -257,7 +265,8 @@
                         android:layout_marginLeft="5.0dip"
                         android:enabled="false"
                         android:inputType="textMultiLine"
-                        android:textSize="16.0sp" />
+                        android:textSize="16.0sp"
+                        android:textColor="@color/detail_label_text_color"/>
                 </RelativeLayout>
             </TableRow>
 
@@ -525,7 +534,8 @@
                         android:layout_marginLeft="5.0dip"
                         android:layout_marginRight="10.0dip"
                         android:entries="@array/weather"
-                        android:textSize="16.0sp" />
+                        android:textSize="16.0sp"
+                        style="@android:style/Widget.Spinner.DropDown" />
                 </RelativeLayout>
             </TableRow>
 
