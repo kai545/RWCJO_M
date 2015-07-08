@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.SoapFault;
@@ -12,11 +13,12 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
-import ICT.utils.RSACoder;
+import rwcjom.awit.com.rwcjo_m.R;
 import rwcjom.awit.com.rwcjo_m.bean.pubUtil;
 
 /**
@@ -102,5 +104,18 @@ public class CommonTools {
             pubUtil.exception.setExceptionMsg("网络异常");
         }
         return envelope;
+    }
+
+    public static String getDateWith(String format) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
+        return simpleDateFormat.format(new Date());
+    }
+
+    public static void showStringMsgDialog(Context context,String msg){
+        new MaterialDialog.Builder(context).theme(Theme.LIGHT)
+                .title(R.string.login_dialog_title)
+                .titleColor(R.color.syscolor)
+                .neutralText(msg)
+                .show();
     }
 }

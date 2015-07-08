@@ -179,6 +179,7 @@
                         android:layout_marginRight="10.0dip"
                         android:entries="@array/line_mtype"
                         android:textSize="16.0sp"
+                        android:textColor="@color/detail_label_text_color"
                         style="@android:style/Widget.Spinner.DropDown" />
                 </RelativeLayout>
             </TableRow>
@@ -281,11 +282,11 @@
                 android:layout_marginRight="0.5dip"
                 android:background="#ff999999"
                 android:padding="0.5dip"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <RelativeLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_height="@dimen/create_line_list_height"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="1.0dip"
                     android:background="#ffd9d9d9"
@@ -313,7 +314,9 @@
                         android:layout_height="fill_parent"
                         android:layout_marginLeft="5.0dip"
                         android:layout_marginRight="10.0dip"
-                        android:enabled="false"
+                        android:enabled="true"
+                        android:text="0"
+                        android:textColor="@color/detail_label_text_color"
                         android:textSize="16.0sp" />
                 </RelativeLayout>
             </TableRow>
@@ -326,11 +329,11 @@
                 android:layout_marginRight="0.5dip"
                 android:background="#ff999999"
                 android:padding="0.5dip"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <RelativeLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_height="@dimen/create_line_list_height"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="1.0dip"
                     android:background="#ffd9d9d9"
@@ -358,7 +361,9 @@
                         android:layout_height="fill_parent"
                         android:layout_marginLeft="5.0dip"
                         android:layout_marginRight="10.0dip"
-                        android:enabled="false"
+                        android:enabled="true"
+                        android:text="SZY007"
+                        android:textColor="@color/detail_label_text_color"
                         android:textSize="16.0sp" />
                 </RelativeLayout>
             </TableRow>
@@ -371,11 +376,11 @@
                 android:layout_marginRight="0.5dip"
                 android:background="#ff999999"
                 android:padding="0.5dip"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <RelativeLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_height="@dimen/create_line_list_height"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="1.0dip"
                     android:background="#ffd9d9d9"
@@ -404,8 +409,10 @@
                         android:layout_height="fill_parent"
                         android:layout_marginLeft="5.0dip"
                         android:layout_marginRight="10.0dip"
-                        android:enabled="false"
+                        android:enabled="true"
                         android:inputType="text"
+                        android:text="1314520"
+                        android:textColor="@color/detail_label_text_color"
                         android:textSize="16.0sp" />
                 </RelativeLayout>
             </TableRow>
@@ -450,7 +457,9 @@
                         android:layout_marginLeft="5.0dip"
                         android:layout_marginRight="10.0dip"
                         android:padding="0.0sp"
-                        android:textSize="16.0sp" />
+                        android:textSize="16.0sp"
+                        android:textColor="@color/detail_label_text_color"
+                        style="@android:style/Widget.Spinner.DropDown" />
                 </RelativeLayout>
             </TableRow>
 
@@ -477,7 +486,8 @@
                         android:layout_alignParentRight="true"
                         android:gravity="center_vertical"
                         android:text="@string/createline_temperature_title"
-                        android:textSize="18.0sp" />
+                        android:textSize="18.0sp"
+                        android:textColor="@color/detail_label_text_color" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -493,7 +503,9 @@
                         android:layout_marginLeft="5.0dip"
                         android:layout_marginRight="10.0dip"
                         android:inputType="numberDecimal"
-                        android:textSize="16.0sp" />
+                        android:textSize="16.0sp"
+                        android:text="28"
+                        android:textColor="@color/detail_label_text_color" />
                 </RelativeLayout>
             </TableRow>
 
@@ -521,7 +533,8 @@
                         android:layout_marginRight="10.0dip"
                         android:gravity="center_vertical"
                         android:text="@string/createline_weather_title"
-                        android:textSize="18.0sp" />
+                        android:textSize="18.0sp"
+                        android:textColor="@color/detail_label_text_color" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -582,7 +595,9 @@
                         android:layout_marginLeft="5.0dip"
                         android:layout_marginRight="10.0dip"
                         android:inputType="numberDecimal"
-                        android:textSize="16.0sp" />
+                        android:textSize="16.0sp"
+                        android:text="1024"
+                        android:textColor="@color/detail_label_text_color" />
                 </RelativeLayout>
             </TableRow>
 
@@ -628,7 +643,8 @@
                         android:layout_marginRight="10.0dip"
                         android:enabled="false"
                         android:inputType="date"
-                        android:textSize="16.0sp" />
+                        android:textSize="16.0sp"
+                        android:textColor="@color/detail_label_text_color" />
                 </RelativeLayout>
             </TableRow>
         </TableLayout>
@@ -637,12 +653,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <Button
+                android:id="@+id/save_line_extra"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="保存"
                 android:textColor="#259b2c" />
             <Button
+                android:id="@+id/save_line_extra_and_go"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

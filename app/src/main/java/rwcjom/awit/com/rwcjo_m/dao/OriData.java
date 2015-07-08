@@ -10,7 +10,7 @@ import de.greenrobot.dao.DaoException;
 /**
  * Entity mapped to table ORI_DATA.
  */
-public class Ori_data {
+public class OriData {
 
     private String bffb;
     private String bfpcode;
@@ -24,19 +24,19 @@ public class Ori_data {
     private transient DaoSession daoSession;
 
     /** Used for active entity operations. */
-    private transient Ori_dataDao myDao;
+    private transient OriDataDao myDao;
 
-    private Line_Extra line_Extra;
-    private String line_Extra__resolvedKey;
+    private LineExtra lineExtra;
+    private String lineExtra__resolvedKey;
 
 
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END
 
-    public Ori_data() {
+    public OriData() {
     }
 
-    public Ori_data(String bffb, String bfpcode, String bfpl, String bfpvalue, String mtime, String f_lc) {
+    public OriData(String bffb, String bfpcode, String bfpl, String bfpvalue, String mtime, String f_lc) {
         this.bffb = bffb;
         this.bfpcode = bfpcode;
         this.bfpl = bfpl;
@@ -48,7 +48,7 @@ public class Ori_data {
     /** called by internal mechanisms, do not call yourself. */
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
-        myDao = daoSession != null ? daoSession.getOri_dataDao() : null;
+        myDao = daoSession != null ? daoSession.getOriDataDao() : null;
     }
 
     public String getBffb() {
@@ -102,30 +102,30 @@ public class Ori_data {
     }
 
     /** To-one relationship, resolved on first access. */
-    public Line_Extra getLine_Extra() {
+    public LineExtra getLineExtra() {
         String __key = this.f_lc;
-        if (line_Extra__resolvedKey == null || line_Extra__resolvedKey != __key) {
+        if (lineExtra__resolvedKey == null || lineExtra__resolvedKey != __key) {
             if (daoSession == null) {
                 throw new DaoException("Entity is detached from DAO context");
             }
-            Line_ExtraDao targetDao = daoSession.getLine_ExtraDao();
-            Line_Extra line_ExtraNew = targetDao.load(__key);
+            LineExtraDao targetDao = daoSession.getLineExtraDao();
+            LineExtra lineExtraNew = targetDao.load(__key);
             synchronized (this) {
-                line_Extra = line_ExtraNew;
-            	line_Extra__resolvedKey = __key;
+                lineExtra = lineExtraNew;
+            	lineExtra__resolvedKey = __key;
             }
         }
-        return line_Extra;
+        return lineExtra;
     }
 
-    public void setLine_Extra(Line_Extra line_Extra) {
-        if (line_Extra == null) {
+    public void setLineExtra(LineExtra lineExtra) {
+        if (lineExtra == null) {
             throw new DaoException("To-one property 'f_lc' has not-null constraint; cannot set to-one to null");
         }
         synchronized (this) {
-            this.line_Extra = line_Extra;
-            f_lc = line_Extra.getLc();
-            line_Extra__resolvedKey = f_lc;
+            this.lineExtra = lineExtra;
+            f_lc = lineExtra.getLc();
+            lineExtra__resolvedKey = f_lc;
         }
     }
 

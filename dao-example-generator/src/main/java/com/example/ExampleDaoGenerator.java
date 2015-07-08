@@ -154,8 +154,13 @@ public class ExampleDaoGenerator {
     }
 
     private static void addLineMeasure(Schema schema) {
-        Entity line_extra = schema.addEntity("Line_Extra");
+        Entity line_extra = schema.addEntity("LineExtra");
         line_extra.addStringProperty("lc").primaryKey();//线路编号
+
+        line_extra.addStringProperty("ltype");//线路类型
+        line_extra.addStringProperty("mtype");//观测类型
+
+
         line_extra.addStringProperty("devBrand");//设备品牌
         line_extra.addStringProperty("devType");//设备型号
         line_extra.addStringProperty("devSN");//设备序列号
@@ -169,13 +174,12 @@ public class ExampleDaoGenerator {
         line_extra.addStringProperty("air");//气压
 
         line_extra.addStringProperty("bpntsq");//基点序列
-        line_extra.addStringProperty("bf_type");//测量类型
-        line_extra.addStringProperty("odate");//测量日期 YYMMDD
+        line_extra.addStringProperty("mdate");//测量日期 YYMMDD
 
 
 
 
-        Entity ori = schema.addEntity("Ori_data");
+        Entity ori = schema.addEntity("OriData");
         ori.addStringProperty("bffb");//前后视标记
         ori.addStringProperty("bfpcode");//点号：P.B.Z
         ori.addStringProperty("bfpl");//视距

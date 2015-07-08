@@ -9,11 +9,13 @@ import de.greenrobot.dao.DaoException;
 // KEEP INCLUDES - put your custom includes here
 // KEEP INCLUDES END
 /**
- * Entity mapped to table LINE__EXTRA.
+ * Entity mapped to table LINE_EXTRA.
  */
-public class Line_Extra {
+public class LineExtra {
 
     private String lc;
+    private String ltype;
+    private String mtype;
     private String devBrand;
     private String devType;
     private String devSN;
@@ -24,29 +26,30 @@ public class Line_Extra {
     private String weather;
     private String air;
     private String bpntsq;
-    private String bf_type;
-    private String odate;
+    private String mdate;
 
     /** Used to resolve relations */
     private transient DaoSession daoSession;
 
     /** Used for active entity operations. */
-    private transient Line_ExtraDao myDao;
+    private transient LineExtraDao myDao;
 
-    private List<Ori_data> ori_dataList;
+    private List<OriData> oriDataList;
 
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END
 
-    public Line_Extra() {
+    public LineExtra() {
     }
 
-    public Line_Extra(String lc) {
+    public LineExtra(String lc) {
         this.lc = lc;
     }
 
-    public Line_Extra(String lc, String devBrand, String devType, String devSN, String stuffid, String stuff_name, String stuff_pwd, String temp, String weather, String air, String bpntsq, String bf_type, String odate) {
+    public LineExtra(String lc, String ltype, String mtype, String devBrand, String devType, String devSN, String stuffid, String stuff_name, String stuff_pwd, String temp, String weather, String air, String bpntsq, String mdate) {
         this.lc = lc;
+        this.ltype = ltype;
+        this.mtype = mtype;
         this.devBrand = devBrand;
         this.devType = devType;
         this.devSN = devSN;
@@ -57,14 +60,13 @@ public class Line_Extra {
         this.weather = weather;
         this.air = air;
         this.bpntsq = bpntsq;
-        this.bf_type = bf_type;
-        this.odate = odate;
+        this.mdate = mdate;
     }
 
     /** called by internal mechanisms, do not call yourself. */
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
-        myDao = daoSession != null ? daoSession.getLine_ExtraDao() : null;
+        myDao = daoSession != null ? daoSession.getLineExtraDao() : null;
     }
 
     public String getLc() {
@@ -73,6 +75,22 @@ public class Line_Extra {
 
     public void setLc(String lc) {
         this.lc = lc;
+    }
+
+    public String getLtype() {
+        return ltype;
+    }
+
+    public void setLtype(String ltype) {
+        this.ltype = ltype;
+    }
+
+    public String getMtype() {
+        return mtype;
+    }
+
+    public void setMtype(String mtype) {
+        this.mtype = mtype;
     }
 
     public String getDevBrand() {
@@ -155,42 +173,34 @@ public class Line_Extra {
         this.bpntsq = bpntsq;
     }
 
-    public String getBf_type() {
-        return bf_type;
+    public String getMdate() {
+        return mdate;
     }
 
-    public void setBf_type(String bf_type) {
-        this.bf_type = bf_type;
-    }
-
-    public String getOdate() {
-        return odate;
-    }
-
-    public void setOdate(String odate) {
-        this.odate = odate;
+    public void setMdate(String mdate) {
+        this.mdate = mdate;
     }
 
     /** To-many relationship, resolved on first access (and after reset). Changes to to-many relations are not persisted, make changes to the target entity. */
-    public List<Ori_data> getOri_dataList() {
-        if (ori_dataList == null) {
+    public List<OriData> getOriDataList() {
+        if (oriDataList == null) {
             if (daoSession == null) {
                 throw new DaoException("Entity is detached from DAO context");
             }
-            Ori_dataDao targetDao = daoSession.getOri_dataDao();
-            List<Ori_data> ori_dataListNew = targetDao._queryLine_Extra_Ori_dataList(lc);
+            OriDataDao targetDao = daoSession.getOriDataDao();
+            List<OriData> oriDataListNew = targetDao._queryLineExtra_OriDataList(lc);
             synchronized (this) {
-                if(ori_dataList == null) {
-                    ori_dataList = ori_dataListNew;
+                if(oriDataList == null) {
+                    oriDataList = oriDataListNew;
                 }
             }
         }
-        return ori_dataList;
+        return oriDataList;
     }
 
     /** Resets a to-many relationship, making the next get call to query for a fresh result. */
-    public synchronized void resetOri_dataList() {
-        ori_dataList = null;
+    public synchronized void resetOriDataList() {
+        oriDataList = null;
     }
 
     /** Convenient call for {@link AbstractDao#delete(Object)}. Entity must attached to an entity context. */
