@@ -99,6 +99,10 @@ public class BwInfoService {
         Log.i(TAG, "delete");
     }
 
+    public void deleteAll(){
+        bwInfoDao.deleteAll();
+    }
+
     public void deleteBwInfo(BwInfo bwInfo){
         bwInfoDao.delete(bwInfo);
     }

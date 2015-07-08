@@ -99,6 +99,10 @@ public class LineService {
         Log.i(TAG, "delete");
     }
 
+    public void deleteAll(){
+        lineDao.deleteAll();
+    }
+
     public void deleteLine(Line line){
         lineDao.delete(line);
     }

@@ -105,6 +105,10 @@ public class FaceNewsService {
         Log.i(TAG, "delete");
     }
 
+    public void deleteAll(){
+        faceNewsDao.deleteAll();
+    }
+
     public void deleteFaceNews(FaceNews faceNews){
         faceNewsDao.delete(faceNews);
     }

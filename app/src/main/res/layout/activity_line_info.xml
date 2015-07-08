@@ -27,7 +27,10 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="#ffffffff">
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
         <TableLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -629,6 +632,24 @@
                 </RelativeLayout>
             </TableRow>
         </TableLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="保存"
+                android:textColor="#259b2c" />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="测量"
+                android:textColor="#259b2c" />
+            </LinearLayout>
+        </LinearLayout>
     </ScrollView>
 
 </LinearLayout>

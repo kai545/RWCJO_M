@@ -99,6 +99,10 @@ public class BrgInfoService {
         Log.i(TAG, "delete");
     }
 
+    public void deleteAll(){
+        brgInfoDao.deleteAll();
+    }
+
     public void deleteBrgInfo(BrgInfo brgInfo){
         brgInfoDao.delete(brgInfo);
     }

@@ -69,6 +69,7 @@ public class CJDownlineImpl implements CJDownlineInterface {
 								String datastr = bwArray.getString(k).toString();
 								bwobj = new JSONObject(datastr);
 								bwInfoObj.setId(bwobj.getString("id"));
+								Log.i(TAG,"bwid:"+bwobj.getString("id"));
 								bwInfoObj.setOd(bwobj.getString("od"));
 								bwInfoObj.setTy(bwobj.getString("ty"));
 								bwInfoList.add(bwInfoObj);

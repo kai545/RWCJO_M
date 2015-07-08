@@ -104,6 +104,10 @@ public class FaceInfoService {
         Log.i(TAG, "delete");
     }
 
+    public void deleteAll(){
+        faceInfoDao.deleteAll();
+    }
+
     public void deleteFaceInfo(FaceInfo faceInfo){
         faceInfoDao.delete(faceInfo);
     }

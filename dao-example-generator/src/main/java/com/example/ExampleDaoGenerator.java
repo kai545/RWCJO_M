@@ -11,6 +11,7 @@ import de.greenrobot.daogenerator.ToMany;
 public class ExampleDaoGenerator {
     public static void main(String[] args) throws Exception {
         Schema schema = new Schema(1, "rwcjom.awit.com.rwcjo_m.dao");
+        schema.enableKeepSectionsByDefault();
         addFaceNews(schema);
         addFaceInfo(schema);
         addBrgInfo(schema);
@@ -19,6 +20,7 @@ public class ExampleDaoGenerator {
         addBasePntInfo(schema);
         addLineBw(schema);
         addSectionSite(schema);
+        addLineMeasure(schema);
         new DaoGenerator().generateAll(schema, "./app/src/main/java");
     }
 
@@ -134,11 +136,13 @@ public class ExampleDaoGenerator {
 
     private static void addLineBw(Schema schema) {
         Entity line = schema.addEntity("Line");
+        line.implementsSerializable();
         line.addStringProperty("lc").primaryKey();
         line.addStringProperty("ln");
         line.addStringProperty("f_sectid");
 
         Entity bw = schema.addEntity("BwInfo");
+        bw.implementsSerializable();
         bw.addLongProperty("bwid").primaryKey().autoincrement();
         bw.addStringProperty("id");
         bw.addStringProperty("od");
@@ -148,4 +152,41 @@ public class ExampleDaoGenerator {
         
         ToMany lineToBws = line.addToMany(bw, f_lineid);
     }
+
+    private static void addLineMeasure(Schema schema) {
+        Entity line_extra = schema.addEntity("Line_Extra");
+        line_extra.addStringProperty("lc").primaryKey();//线路编号
+        line_extra.addStringProperty("devBrand");//设备品牌
+        line_extra.addStringProperty("devType");//设备型号
+        line_extra.addStringProperty("devSN");//设备序列号
+
+        line_extra.addStringProperty("stuffid");//司镜id
+        line_extra.addStringProperty("stuff_name");//司镜帐号
+        line_extra.addStringProperty("stuff_pwd");//司镜密码
+
+        line_extra.addStringProperty("temp");//温度
+        line_extra.addStringProperty("weather");//天气
+        line_extra.addStringProperty("air");//气压
+
+        line_extra.addStringProperty("bpntsq");//基点序列
+        line_extra.addStringProperty("bf_type");//测量类型
+        line_extra.addStringProperty("odate");//测量日期 YYMMDD
+
+
+
+
+        Entity ori = schema.addEntity("Ori_data");
+        ori.addStringProperty("bffb");//前后视标记
+        ori.addStringProperty("bfpcode");//点号：P.B.Z
+        ori.addStringProperty("bfpl");//视距
+        ori.addStringProperty("bfpvalue");//读数
+        ori.addStringProperty("mtime");//测量时间 毫秒
+
+        Property f_lineid = ori.addStringProperty("f_lc").notNull().getProperty();
+        ori.addToOne(line_extra, f_lineid);
+
+        line_extra.addToMany(ori, f_lineid);
+
+    }
+
 }

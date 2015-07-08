@@ -99,6 +99,10 @@ public class PntInfoService {
         Log.i(TAG, "delete");
     }
 
+    public void deleteAll(){
+        pntInfoDao.deleteAll();
+    }
+
     public void deletePntInfo(PntInfo pntInfo){
         pntInfoDao.delete(pntInfo);
     }

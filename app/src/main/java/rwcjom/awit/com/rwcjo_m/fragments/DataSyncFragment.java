@@ -71,7 +71,7 @@ public class DataSyncFragment extends Fragment {
     private String username;
 
     private TextView loginedUsername;
-    private CircularProgressButton dl_all_btn;
+    private CircularProgressButton dl_all_btn,delete_all_btn;
 
     private SecNewsService secNewsService;
     private SiteNewsService siteNewsService;
@@ -128,11 +128,22 @@ public class DataSyncFragment extends Fragment {
         dl_all_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dl_all_btn.setEnabled(false);
+                //dl_all_btn.setEnabled(false);
                 downloadSectionSite();
             }
 
         });
+
+        delete_all_btn = (CircularProgressButton) view.findViewById(R.id.data_sync_delete_all);
+        delete_all_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteAllLocalData();
+            }
+
+        });
+
+
         return view;
     }
     //处理事件
@@ -141,6 +152,42 @@ public class DataSyncFragment extends Fragment {
         btn.setIndeterminateProgressMode(true);
         btn.setProgress(event.getCircularProgressButtonProgress());
     }
+
+    //清除所有数据
+    private void deleteAllLocalData(){
+        Tasks.executeInBackground(context, new BackgroundWork<String>() {
+            @Override
+            public String doInBackground() throws Exception {
+                EventBus.getDefault().post(new DataSyncFragmentEvent(R.id.data_sync_delete_all, 50));//进度条
+
+                secNewsService.deleteAll();
+                siteNewsService.deleteAll();
+                faceNewsService.deleteAll();
+                faceInfoService.deleteAll();
+                brgInfoService.deleteAll();
+                pntInfoService.deleteAll();
+                personInfoService.deleteAll();
+                basePntInfoService.deleteAll();
+                lineService.deleteAll();
+                bwInfoService.deleteAll();
+                return "0";
+            }
+
+        }, new Completion<String>() {
+            @Override
+            public void onSuccess(Context context, String result) {
+                EventBus.getDefault().post(new DataSyncFragmentEvent(R.id.data_sync_delete_all, 100));
+            }
+
+            @Override
+            public void onError(Context context, Exception e) {
+                //showError(e);
+                EventBus.getDefault().post(new DataSyncFragmentEvent(R.id.data_sync_delete_all, -1));
+            }
+        });
+    }
+
+
     //下载标段和工点信息
     private void downloadSectionSite(){
         Tasks.executeInBackground(context, new BackgroundWork<Map<String, Object>>() {
@@ -397,6 +444,8 @@ public class DataSyncFragment extends Fragment {
                 Map<String, Object> line_retult = readyResult;//存放ID;
                 SecNews section = (SecNews) line_retult.get("section");//获取标段和工点
 
+                //清除BW数据
+                bwInfoService.deleteAll();
 
                 String sectid=section.getSectid();
                 CJDownlineImpl mCJDownlineImpl=new CJDownlineImpl();

@@ -104,6 +104,10 @@ public class SecNewsService {
         Log.i(TAG, "delete");
     }
 
+    public void deleteAll(){
+        secNewsDao.deleteAll();
+    }
+
     public void deleteSecNews(SecNews secNews){
         secNewsDao.delete(secNews);
     }

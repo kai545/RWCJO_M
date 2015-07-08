@@ -8,14 +8,15 @@ import de.greenrobot.dao.DaoException;
 // KEEP INCLUDES - put your custom includes here
 // KEEP INCLUDES END
 /**
- * Entity mapped to table BW_INFO.
+ * Entity mapped to table ORI_DATA.
  */
-public class BwInfo implements java.io.Serializable {
+public class Ori_data {
 
-    private Long bwid;
-    private String id;
-    private String od;
-    private String ty;
+    private String bffb;
+    private String bfpcode;
+    private String bfpl;
+    private String bfpvalue;
+    private String mtime;
     /** Not-null value. */
     private String f_lc;
 
@@ -23,66 +24,71 @@ public class BwInfo implements java.io.Serializable {
     private transient DaoSession daoSession;
 
     /** Used for active entity operations. */
-    private transient BwInfoDao myDao;
+    private transient Ori_dataDao myDao;
 
-    private Line line;
-    private String line__resolvedKey;
+    private Line_Extra line_Extra;
+    private String line_Extra__resolvedKey;
 
 
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END
 
-    public BwInfo() {
+    public Ori_data() {
     }
 
-    public BwInfo(Long bwid) {
-        this.bwid = bwid;
-    }
-
-    public BwInfo(Long bwid, String id, String od, String ty, String f_lc) {
-        this.bwid = bwid;
-        this.id = id;
-        this.od = od;
-        this.ty = ty;
+    public Ori_data(String bffb, String bfpcode, String bfpl, String bfpvalue, String mtime, String f_lc) {
+        this.bffb = bffb;
+        this.bfpcode = bfpcode;
+        this.bfpl = bfpl;
+        this.bfpvalue = bfpvalue;
+        this.mtime = mtime;
         this.f_lc = f_lc;
     }
 
     /** called by internal mechanisms, do not call yourself. */
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
-        myDao = daoSession != null ? daoSession.getBwInfoDao() : null;
+        myDao = daoSession != null ? daoSession.getOri_dataDao() : null;
     }
 
-    public Long getBwid() {
-        return bwid;
+    public String getBffb() {
+        return bffb;
     }
 
-    public void setBwid(Long bwid) {
-        this.bwid = bwid;
+    public void setBffb(String bffb) {
+        this.bffb = bffb;
     }
 
-    public String getId() {
-        return id;
+    public String getBfpcode() {
+        return bfpcode;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setBfpcode(String bfpcode) {
+        this.bfpcode = bfpcode;
     }
 
-    public String getOd() {
-        return od;
+    public String getBfpl() {
+        return bfpl;
     }
 
-    public void setOd(String od) {
-        this.od = od;
+    public void setBfpl(String bfpl) {
+        this.bfpl = bfpl;
     }
 
-    public String getTy() {
-        return ty;
+    public String getBfpvalue() {
+        return bfpvalue;
     }
 
-    public void setTy(String ty) {
-        this.ty = ty;
+    public void setBfpvalue(String bfpvalue) {
+        this.bfpvalue = bfpvalue;
+    }
+
+    public String getMtime() {
+        return mtime;
+    }
+
+    public void setMtime(String mtime) {
+        this.mtime = mtime;
     }
 
     /** Not-null value. */
@@ -96,30 +102,30 @@ public class BwInfo implements java.io.Serializable {
     }
 
     /** To-one relationship, resolved on first access. */
-    public Line getLine() {
+    public Line_Extra getLine_Extra() {
         String __key = this.f_lc;
-        if (line__resolvedKey == null || line__resolvedKey != __key) {
+        if (line_Extra__resolvedKey == null || line_Extra__resolvedKey != __key) {
             if (daoSession == null) {
                 throw new DaoException("Entity is detached from DAO context");
             }
-            LineDao targetDao = daoSession.getLineDao();
-            Line lineNew = targetDao.load(__key);
+            Line_ExtraDao targetDao = daoSession.getLine_ExtraDao();
+            Line_Extra line_ExtraNew = targetDao.load(__key);
             synchronized (this) {
-                line = lineNew;
-            	line__resolvedKey = __key;
+                line_Extra = line_ExtraNew;
+            	line_Extra__resolvedKey = __key;
             }
         }
-        return line;
+        return line_Extra;
     }
 
-    public void setLine(Line line) {
-        if (line == null) {
+    public void setLine_Extra(Line_Extra line_Extra) {
+        if (line_Extra == null) {
             throw new DaoException("To-one property 'f_lc' has not-null constraint; cannot set to-one to null");
         }
         synchronized (this) {
-            this.line = line;
-            f_lc = line.getLc();
-            line__resolvedKey = f_lc;
+            this.line_Extra = line_Extra;
+            f_lc = line_Extra.getLc();
+            line_Extra__resolvedKey = f_lc;
         }
     }
 

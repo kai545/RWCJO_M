@@ -104,6 +104,10 @@ public class PersonInfoService {
         Log.i(TAG, "delete");
     }
 
+    public void deleteAll(){
+        personInfoDao.deleteAll();
+    }
+
     public void deletePersonInfo(PersonInfo personInfo){
         personInfoDao.delete(personInfo);
     }

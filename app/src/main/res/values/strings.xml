@@ -28,8 +28,11 @@
     <string name="data_sync_dl_basePoint_btn_text">下载基点信息</string>
     <string name="data_sync_dl_testPoint_btn_text">下载测点信息</string>
     <string name="data_sync_dl_all_btn_text">一键全部下载</string>
+    <string name="data_sync_delete_all_btn_text">清空下载数据</string>
     <string name="data_sync_dl_complete_btn_text">下载完成</string>
     <string name="data_sync_dl_error_btn_text">下载出错</string>
+    <string name="data_sync_delete_complete_btn_text">清空完成</string>
+    <string name="data_sync_delete_error_btn_text">清空出错</string>
     <string name="title_activity_line_info">水准线路详细信息</string>
     <string name="action_settings">Settings</string>
 

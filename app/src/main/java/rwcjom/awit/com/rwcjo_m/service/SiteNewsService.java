@@ -111,6 +111,10 @@ public class SiteNewsService {
         Log.i(TAG, "delete");
     }
 
+    public void deleteAll(){
+        siteNewsDao.deleteAll();
+    }
+
     public void deleteSiteNews(SiteNews siteNews){
         siteNewsDao.delete(siteNews);
     }

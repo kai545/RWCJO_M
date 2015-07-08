@@ -104,6 +104,10 @@ public class BasePntInfoService {
         Log.i(TAG, "delete");
     }
 
+    public void deleteAll(){
+        basePntInfoDao.deleteAll();
+    }
+
     public void deleteBasePntInfo(BasePntInfo basePntInfo){
         basePntInfoDao.delete(basePntInfo);
     }
