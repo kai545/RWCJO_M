@@ -1,7 +1,9 @@
 package rwcjom.awit.com.rwcjo_m;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -52,6 +54,7 @@ public class MainActivity extends ActionBarActivity implements Toolbar.OnMenuIte
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private ListView mDrawerList;
+    private SharedPreferences.Editor sharePreferenceEditor;
 
     private List<Map<String, Object>> left_menu_list;
 
@@ -66,6 +69,7 @@ public class MainActivity extends ActionBarActivity implements Toolbar.OnMenuIte
         ft.commit();
         initToolbar();
         initDrawerMenu();
+        initSharePreference();
     }
 
     //处理事件
@@ -101,6 +105,11 @@ public class MainActivity extends ActionBarActivity implements Toolbar.OnMenuIte
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    private void initSharePreference(){
+        SharedPreferences mSettinsSP=getSharedPreferences(ValueConfig.SHAREPREFERENCE_XML_NAME,Activity.MODE_PRIVATE);
+        sharePreferenceEditor=mSettinsSP.edit();
     }
     private void initToolbar(){
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -250,6 +259,10 @@ public class MainActivity extends ActionBarActivity implements Toolbar.OnMenuIte
                                 if (result.length() == 13) {
                                     CommonTools.showToast(MainActivity.this, "登录成功：" + result);
                                     loginDialog.dismiss();
+                                    //保存用户名密码到XML
+                                    sharePreferenceEditor.putString("username",accountInput.getText()+"");
+                                    sharePreferenceEditor.putString("userpwd",passwordInput.getText()+"");
+                                    sharePreferenceEditor.commit();
 
                                     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                                     Fragment dataSyncFragment=new DataSyncFragment();

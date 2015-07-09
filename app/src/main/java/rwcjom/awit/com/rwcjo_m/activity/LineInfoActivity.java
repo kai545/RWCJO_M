@@ -1,6 +1,9 @@
 package rwcjom.awit.com.rwcjo_m.activity;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -34,6 +37,7 @@ import rwcjom.awit.com.rwcjo_m.event.MainActivityEvent;
 import rwcjom.awit.com.rwcjo_m.service.LineExtraService;
 import rwcjom.awit.com.rwcjo_m.service.PersonInfoService;
 import rwcjom.awit.com.rwcjo_m.util.CommonTools;
+import rwcjom.awit.com.rwcjo_m.util.ValueConfig;
 
 @EActivity
 public class LineInfoActivity extends ActionBarActivity {
@@ -45,6 +49,10 @@ public class LineInfoActivity extends ActionBarActivity {
     private ArrayAdapter<String> sj_adapter;
     private PersonInfoService personInfoService;
     private LineExtraService lineExtraService;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor sharePreferenceEditor;
+
+    private String[] ltype_array,mtype_array,weather_array;
 
 
     @ViewById(R.id.edit_line_code_edit)
@@ -134,7 +142,7 @@ public class LineInfoActivity extends ActionBarActivity {
     @Click(R.id.save_line_extra)
     void save(){
         saveLineExtra();
-        CommonTools.showStringMsgDialog(this, "保存成功");
+        CommonTools.showStringMsgDialog(this, "线路保存成功！","确定");
     }
 
     @Click(R.id.save_line_extra_and_go)
@@ -147,9 +155,14 @@ public class LineInfoActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         lineinfoMap=(Map<String,Object>)getIntent().getSerializableExtra("lineinfo");
         line=(Line)lineinfoMap.get("line");
+        Resources res =getResources();
+        ltype_array=res.getStringArray(R.array.line_type);
+        mtype_array=res.getStringArray(R.array.line_mtype);
+        weather_array=res.getStringArray(R.array.weather);
         personInfoService=PersonInfoService.getInstance(this);
         lineExtraService=LineExtraService.getInstance(this);
 
+        initSharePreference();
         setContentView(R.layout.activity_line_info);
 
 
@@ -167,11 +180,13 @@ public class LineInfoActivity extends ActionBarActivity {
             public void onSuccess(Context context, LineExtra result) {
                 if(result!=null){
                     line_lc.setText(result.getLc());
+                    line_ltype.setSelection(CommonTools.indexOfArray(ltype_array,result.getLtype()));
+                    line_mtype.setSelection(CommonTools.indexOfArray(mtype_array,result.getMtype()));
                     line_devbrand.setText(result.getDevBrand());
                     line_devtype.setText(result.getDevType());
                     line_devsn.setText(result.getDevSN());
                     line_temp.setText(result.getTemp());
-                    //line_weather.setSelection(result.getWeather());
+                    line_weather.setSelection(CommonTools.indexOfArray(weather_array,result.getWeather()));
                     line_air.setText(result.getAir());
                 }
 
@@ -214,6 +229,11 @@ public class LineInfoActivity extends ActionBarActivity {
         }
     }
 
+    private void initSharePreference(){
+        sharedPreferences=getSharedPreferences(ValueConfig.SHAREPREFERENCE_XML_NAME, Activity.MODE_PRIVATE);
+        sharePreferenceEditor=sharedPreferences.edit();
+    }
+
     private void saveLineExtra(){
         LineExtra lineExtra=new LineExtra();
         lineExtra.setLc(line_lc.getText()+"");
@@ -225,8 +245,8 @@ public class LineInfoActivity extends ActionBarActivity {
         lineExtra.setDevSN(line_devsn.getText()+"");
         lineExtra.setStuff_name(line_sj.getSelectedItem()+"");
 
-        lineExtra.setStuffid("1");
-        lineExtra.setStuff_pwd("666666");
+        lineExtra.setStuffid(sharedPreferences.getString("username",""));
+        lineExtra.setStuff_pwd(sharedPreferences.getString("userpwd",""));
 
         lineExtra.setTemp(line_temp.getText()+"");
         lineExtra.setWeather(line_weather.getSelectedItem()+"");

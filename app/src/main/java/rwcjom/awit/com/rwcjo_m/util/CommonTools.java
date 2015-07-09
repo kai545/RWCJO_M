@@ -111,11 +111,24 @@ public class CommonTools {
         return simpleDateFormat.format(new Date());
     }
 
-    public static void showStringMsgDialog(Context context,String msg){
+    public static void showStringMsgDialog(Context context,String msg,String yesString){
         new MaterialDialog.Builder(context).theme(Theme.LIGHT)
                 .title(R.string.login_dialog_title)
                 .titleColor(R.color.syscolor)
-                .neutralText(msg)
+                .content(msg)
+                .positiveText(yesString)
+                .negativeText(R.string.createline_cancel_btn)
                 .show();
+    }
+
+    public static int indexOfArray(String[] array,String value){
+        if (array!=null && value!=null){
+            for (int i = 0; i < array.length; i++) {
+                if (value.equals(array[i])){
+                    return i;
+                }
+            }
+        }
+        return -1;
     }
 }

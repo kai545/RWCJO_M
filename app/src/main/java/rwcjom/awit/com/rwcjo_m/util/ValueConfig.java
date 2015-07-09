@@ -10,6 +10,7 @@ import java.util.Map;
 import rwcjom.awit.com.rwcjo_m.R;
 
 public class ValueConfig {
+	public static final String SHAREPREFERENCE_XML_NAME="RWCJO";
 
 	public static final String SPLIT_CHAR="λ";
 	public static final String NAMESPACE_STRING="http://www.xfiretest.com/";
