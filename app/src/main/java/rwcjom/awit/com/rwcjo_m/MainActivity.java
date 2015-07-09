@@ -34,6 +34,7 @@ import java.util.Map;
 
 import de.greenrobot.event.EventBus;
 import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
+import rwcjom.awit.com.rwcjo_m.activity.BluetoothActivity;
 import rwcjom.awit.com.rwcjo_m.activity.PhoneGapActivity;
 import rwcjom.awit.com.rwcjo_m.bean.pubUtil;
 import rwcjom.awit.com.rwcjo_m.event.MainActivityEvent;
@@ -108,7 +109,7 @@ public class MainActivity extends ActionBarActivity implements Toolbar.OnMenuIte
     }
 
     private void initSharePreference(){
-        SharedPreferences mSettinsSP=getSharedPreferences(ValueConfig.SHAREPREFERENCE_XML_NAME,Activity.MODE_PRIVATE);
+        SharedPreferences mSettinsSP=getSharedPreferences(ValueConfig.SHAREPREFERENCE_XML_NAME, Activity.MODE_PRIVATE);
         sharePreferenceEditor=mSettinsSP.edit();
     }
     private void initToolbar(){
@@ -169,6 +170,10 @@ public class MainActivity extends ActionBarActivity implements Toolbar.OnMenuIte
                 break;
             case R.mipmap.ic_drawer_explore_normal:
                 toolbar.setTitle("通讯设置");
+                //fragment=new BluetoothFragment();
+                //ft.replace(R.id.drawer_fragment_layout, fragment);
+                //ft.commit();
+                startActivity(new Intent(this,BluetoothActivity.class));
                 break;
             case R.mipmap.ic_drawer_follow_normal:
                 toolbar.setTitle("参数设置");

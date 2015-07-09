@@ -15,6 +15,7 @@ import app.akexorcist.bluetotohspp.library.BluetoothState;
 import de.greenrobot.event.EventBus;
 import rwcjom.awit.com.rwcjo_m.R;
 import rwcjom.awit.com.rwcjo_m.event.MainActivityEvent;
+import rwcjom.awit.com.rwcjo_m.util.CommonTools;
 
 /**
  * Created by Fantasy on 15/4/29.
@@ -40,6 +41,16 @@ public class BluetoothFragment extends Fragment {
         bt = new BluetoothSPP(context);
         if(!bt.isBluetoothAvailable()) {
             Log.i(TAG,"蓝牙无效");
+            CommonTools.showToast(context, "蓝牙无效");
+        }else{
+            if(!bt.isBluetoothEnabled()) {
+                Log.i(TAG,"蓝牙已禁用");
+                CommonTools.showToast(context,"蓝牙无效");
+            } else {
+                Log.i(TAG,"蓝牙已启用");
+                CommonTools.showToast(context,"蓝牙无效");
+
+            }
         }
     }
 
@@ -50,12 +61,7 @@ public class BluetoothFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        if(!bt.isBluetoothEnabled()) {
-            Log.i(TAG,"蓝牙已禁用");
-        } else {
-            Log.i(TAG,"蓝牙已启用");
 
-        }
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

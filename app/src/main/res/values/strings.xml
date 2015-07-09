@@ -57,4 +57,7 @@
     <string name="createline_basepnt_select_title">选择工作基点</string>
     <string name="createline_biaoduan_select_title">选择标段</string>
 
+    <!-- bluetooth info-->
+    <string name="title_bluetooth_activity_lable">通讯设置</string>
+
 </resources>

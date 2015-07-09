@@ -11,7 +11,8 @@
         android:textSize="20sp"
         android:text="TJ-1标-工区1-分部1-测试路线"
         android:layout_weight="1"
-        android:gravity="center_vertical|left" />
+        android:gravity="center_vertical|left"
+        android:textColor="@color/listTextColor"/>
 
 
     <!--TextView

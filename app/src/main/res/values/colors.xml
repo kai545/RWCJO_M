@@ -6,6 +6,7 @@
     <color name="Accent" >#ff259b2c</color>
     <color name="WindowBackground" >#E3F2FD</color>
     <color name="navigatonBar">#ff54a31f</color>
+    <color name="listTextColor">#595a5e</color>
 
     <color name="gplus_color_1">#3e802f</color>
     <color name="gplus_color_2">#f4b400</color>

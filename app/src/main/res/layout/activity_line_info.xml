@@ -162,7 +162,8 @@
                         android:layout_marginRight="10.0dip"
                         android:gravity="center_vertical"
                         android:text="@string/createline_mtype_title"
-                        android:textSize="18.0sp" />
+                        android:textSize="18.0sp"
+                        android:textColor="@color/detail_label_text_color"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -299,6 +300,7 @@
                         android:layout_marginRight="10.0dip"
                         android:gravity="center_vertical"
                         android:text="@string/createline_equipbrand_title"
+                        android:textColor="@color/detail_label_text_color"
                         android:textSize="16.0sp" />
                 </RelativeLayout>
 
@@ -346,6 +348,7 @@
                         android:layout_marginRight="10.0dip"
                         android:gravity="center_vertical"
                         android:text="@string/createline_instrumodel_title"
+                        android:textColor="@color/detail_label_text_color"
                         android:textSize="16.0sp" />
                 </RelativeLayout>
 
@@ -394,6 +397,7 @@
                         android:layout_marginRight="10.0dip"
                         android:layout_marginTop="7.0dip"
                         android:text="@string/createline_serialnum_title"
+                        android:textColor="@color/detail_label_text_color"
                         android:textSize="16.0sp" />
                 </RelativeLayout>
 
@@ -441,6 +445,7 @@
                         android:layout_marginRight="10.0dip"
                         android:gravity="center_vertical"
                         android:text="@string/createline_sj_title"
+                        android:textColor="@color/detail_label_text_color"
                         android:textSize="18.0sp" />
                 </RelativeLayout>
 
@@ -579,6 +584,7 @@
                         android:layout_marginLeft="10.0dip"
                         android:gravity="center_vertical"
                         android:text="@string/createline_barometric_title"
+                        android:textColor="@color/detail_label_text_color"
                         android:textSize="18.0sp" />
                 </RelativeLayout>
 
@@ -626,6 +632,7 @@
                         android:layout_marginRight="10.0dip"
                         android:gravity="center_vertical"
                         android:text="@string/createline_mdate_title"
+                        android:textColor="@color/detail_label_text_color"
                         android:textSize="18.0sp" />
                 </RelativeLayout>
 

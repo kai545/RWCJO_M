@@ -19,7 +19,8 @@
         android:textSize="18sp"
         android:text="三棱山隧道进口"
         android:layout_weight="1"
-        android:gravity="center_vertical|left" />
+        android:gravity="center_vertical|left"
+        android:textColor="@color/listTextColor"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -28,7 +29,8 @@
             android:textSize="10sp"
             android:text="DK493+415~DK493+515"
             android:layout_weight="1"
-            android:gravity="center_vertical|left" />
+            android:gravity="center_vertical|left"
+            android:textColor="@color/listTextColor"/>
 
         <!--TextView
             android:layout_width="match_parent"

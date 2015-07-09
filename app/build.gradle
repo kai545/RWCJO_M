@@ -53,5 +53,6 @@ dependencies {
     compile 'com.akexorcist:bluetoothspp:1.0.0'
     apt "org.androidannotations:androidannotations:$AAVersion"
     compile "org.androidannotations:androidannotations-api:$AAVersion"
+    compile 'io.palaima:smoothbluetooth:0.1.0'
 }
 
