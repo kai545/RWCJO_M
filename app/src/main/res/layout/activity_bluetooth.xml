@@ -1,26 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:layout_above="@+id/connection_state"
-        android:orientation="vertical">
 
-        <CheckBox
-            android:id="@+id/carrage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CRLF"
-            android:layout_gravity="right|end"/>
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,14 +21,22 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:hint="message"
+                android:textColor="@color/listTextColor"
                 android:layout_weight="3"
+                />
+            <CheckBox
+                android:id="@+id/carrage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CRLF"
                 />
             <Button
                 android:id="@+id/send"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Send"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:textColor="#259b2c" />
 
         </LinearLayout>
 
@@ -49,7 +44,8 @@
             android:id="@+id/responses"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="8"/>
+            android:layout_weight="6"
+            android:background="#259b2c" />
 
 
 
@@ -64,7 +60,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:visibility="gone"
-                android:text="Disconnect" />
+                android:text="断开连接"
+                android:textColor="#259b2c" />
 
             <LinearLayout
                 android:id="@+id/connection"
@@ -76,18 +73,20 @@
                     android:id="@+id/scan"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Scan"
-                    android:layout_weight="1"/>
+                    android:text="扫描"
+                    android:layout_weight="1"
+                    android:textColor="#259b2c" />
 
                 <Button
                     android:id="@+id/paired"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="Paired else scan" />
+                    android:text="已配对"
+                    android:textColor="#259b2c" />
             </LinearLayout>
         </RelativeLayout>
-    </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/connection_state"
@@ -113,4 +112,4 @@
             android:textColor="@android:color/white"/>
 
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

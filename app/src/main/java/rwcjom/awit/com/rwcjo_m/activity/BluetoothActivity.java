@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -38,6 +37,8 @@ public class BluetoothActivity extends AppCompatActivity {
     public static final int ENABLE_BT__REQUEST = 1;
 
     private SmoothBluetooth mSmoothBluetooth;
+
+    private MaterialDialog progressDialog;
 
     private Button mScanButton;
 
@@ -206,12 +207,14 @@ public class BluetoothActivity extends AppCompatActivity {
 
         @Override
         public void onDiscoveryStarted() {
-            Toast.makeText(BluetoothActivity.this, "Searching", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(BluetoothActivity.this, "Searching", Toast.LENGTH_SHORT).show();
+            progressDialog=CommonTools.showProgressDialog(BluetoothActivity.this,"正在查找设备...");
+            progressDialog.setCanceledOnTouchOutside(false);
         }
 
         @Override
         public void onDiscoveryFinished() {
-
+            progressDialog.dismiss();
         }
 
         @Override
@@ -230,12 +233,13 @@ public class BluetoothActivity extends AppCompatActivity {
                     .adapter((ListAdapter) new BluetoothDevicesAdapter(BluetoothActivity.this, deviceList), new MaterialDialog.ListCallback() {
                         @Override
                         public void onSelection(MaterialDialog materialDialog, View view, int i, CharSequence charSequence) {
-
+                            connectionCallback.connectTo(deviceList.get(i));
+                            materialDialog.dismiss();
                         }
                     })
                     .build();
 
-            ListView listView = dialog.getListView();
+            /*ListView listView = dialog.getListView();
             if (listView != null) {
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -245,7 +249,7 @@ public class BluetoothActivity extends AppCompatActivity {
                     }
 
                 });
-            }
+            }*/
 
             dialog.show();
 

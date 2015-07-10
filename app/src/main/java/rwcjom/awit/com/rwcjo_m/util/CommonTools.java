@@ -41,8 +41,8 @@ public class CommonTools {
         mToast.show();
     }
 
-    public  static void showProgressDialog(Context cxt,String msg){
-        new MaterialDialog.Builder(cxt)
+    public  static MaterialDialog showProgressDialog(Context cxt,String msg){
+        return new MaterialDialog.Builder(cxt).theme(Theme.LIGHT)
                 .content(msg)
                 .progress(true, 0)
                 .show();

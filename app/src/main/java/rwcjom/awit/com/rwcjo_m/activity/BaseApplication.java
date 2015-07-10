@@ -19,8 +19,14 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        if(mInstance == null)
+        if(mInstance == null){
             mInstance = this;
+        }
+        /*Stetho.initialize(
+                Stetho.newInitializerBuilder(this)
+                        .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+                        .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
+                        .build());*/
     }
 
     /**
