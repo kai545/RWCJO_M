@@ -44,8 +44,7 @@
             android:id="@+id/responses"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="6"
-            android:background="#259b2c" />
+            android:layout_weight="6" />
 
 
 

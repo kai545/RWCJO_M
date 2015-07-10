@@ -257,9 +257,9 @@ public class BluetoothActivity extends AppCompatActivity {
 
         @Override
         public void onDataReceived(int data) {
-            CommonTools.showToast(BluetoothActivity.this,data+"");
+            //CommonTools.showToast(BluetoothActivity.this,data+"");
             mBuffer.add(data);
-            if (data == 62 && !mBuffer.isEmpty()) {
+            if (data == 13 && !mBuffer.isEmpty()) {
                 //if (data == 0x0D && !mBuffer.isEmpty() && mBuffer.get(mBuffer.size()-2) == 0xA0) {
                 StringBuilder sb = new StringBuilder();
                 for (int integer : mBuffer) {
