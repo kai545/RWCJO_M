@@ -60,4 +60,7 @@
     <!-- bluetooth info-->
     <string name="title_bluetooth_activity_lable">通讯设置</string>
 
+    <!-- measure activity -->
+    <string name="title_activity_measure">测量</string>
+
 </resources>

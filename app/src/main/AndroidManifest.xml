@@ -27,10 +27,13 @@
             android:name=".activity.LineInfoActivity_"
             android:label="@string/title_activity_line_info" >
         </activity>
-
         <activity
             android:name=".activity.BluetoothActivity"
             android:label="@string/title_bluetooth_activity_lable" >
+        </activity>
+        <activity
+            android:name=".activity.MeasureActivity_"
+            android:label="@string/title_activity_measure" >
         </activity>
     </application>
 

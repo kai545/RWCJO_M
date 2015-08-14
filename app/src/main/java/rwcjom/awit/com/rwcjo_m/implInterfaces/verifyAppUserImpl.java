@@ -2,20 +2,16 @@ package rwcjom.awit.com.rwcjo_m.implInterfaces;
 
 import android.util.Log;
 
-import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import ICT.utils.RSACoder;
-import rwcjom.awit.com.rwcjo_m.util.CommonTools;
-import rwcjom.awit.com.rwcjo_m.util.ValueConfig;
 import rwcjom.awit.com.rwcjo_m.bean.pubUtil;
 import rwcjom.awit.com.rwcjo_m.interfaces.verifyAppUserInterface;
+import rwcjom.awit.com.rwcjo_m.util.CommonTools;
 
 
 public class verifyAppUserImpl implements verifyAppUserInterface {
@@ -36,6 +32,7 @@ public class verifyAppUserImpl implements verifyAppUserInterface {
 					paramsvalue.put("pwd",endPwd);
 					paramsvalue.put("mac",mac);
 					paramsvalue.put("deskey",endKey);
+					Log.i(TAG,endPwd+":::"+endKey);
 					SoapSerializationEnvelope envelope=CommonTools.getEnvelope(methodNameString,paramsvalue);
 					SoapObject object=(SoapObject)envelope.bodyIn;
 					if(object ==null){

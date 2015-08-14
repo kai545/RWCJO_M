@@ -2,6 +2,7 @@ package rwcjom.awit.com.rwcjo_m.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -148,6 +149,8 @@ public class LineInfoActivity extends ActionBarActivity {
     @Click(R.id.save_line_extra_and_go)
     void saveAndGo(){
         saveLineExtra();
+        Intent it=new Intent(this,MeasureActivity_.class);
+        startActivity(it);
     }
 
     @Override
@@ -256,4 +259,5 @@ public class LineInfoActivity extends ActionBarActivity {
 
         lineExtraService.saveLineExtra(lineExtra);
     }
+
 }
