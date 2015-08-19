@@ -95,7 +95,7 @@ public class ShuiZhunXianLuFragment extends ListFragment {
 				for (int i = 0; i <lines.size() ; i++) {
 					Map<String,Object> lineMap=new HashMap<String, Object>();
 					Line line=lines.get(i);
-					List<BwInfo> bwInfos =bwInfoService.queryBwInfo(" where f_lc=? order by od", line.getLc());
+					List<BwInfo> bwInfos =bwInfoService.queryBwInfo(" where f_lc=? order by abs(od)", line.getLc());
 					lineMap.put("line",line);
 					lineMap.put("bw",bwInfos);
 					lineData.add(lineMap);

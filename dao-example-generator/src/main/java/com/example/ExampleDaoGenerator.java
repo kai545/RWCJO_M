@@ -178,7 +178,7 @@ public class ExampleDaoGenerator {
 
 
 
-
+        //bclass
         Entity ori = schema.addEntity("OriData");
         ori.addStringProperty("bffb");//前后视标记
         ori.addStringProperty("bfpcode");//点号：P.B.Z
@@ -190,6 +190,22 @@ public class ExampleDaoGenerator {
         ori.addToOne(line_extra, f_lineid);
 
         line_extra.addToMany(ori, f_lineid);
+
+        //stations
+        Entity station = schema.addEntity("LineStation");
+        station.addStringProperty("sno");//测站id
+        station.addStringProperty("sb");//后点
+        station.addStringProperty("sf");//前点
+        station.addStringProperty("shd_diff");//测站视距差，两次平均
+        station.addStringProperty("shd_diff_all");//累计视距差
+        station.addStringProperty("sr_diff");//测站高差 两次平均
+        station.addStringProperty("sr_diff_diff");//两次高差之差
+        station.addStringProperty("sr_diff_all");//累计高差
+
+        Property f_lineid_station = station.addStringProperty("f_lc").notNull().getProperty();
+        station.addToOne(line_extra, f_lineid_station);
+
+        line_extra.addToMany(station, f_lineid_station);
 
     }
 

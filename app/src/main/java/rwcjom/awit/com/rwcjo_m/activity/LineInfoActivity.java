@@ -24,6 +24,7 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -149,7 +150,10 @@ public class LineInfoActivity extends ActionBarActivity {
     @Click(R.id.save_line_extra_and_go)
     void saveAndGo(){
         saveLineExtra();
-        Intent it=new Intent(this,MeasureActivity_.class);
+        Intent it=new Intent(this,MeasureActivity_.class);//启动测量界面
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("lineinfo", (Serializable) lineinfoMap);
+        it.putExtras(bundle);
         startActivity(it);
     }
 
