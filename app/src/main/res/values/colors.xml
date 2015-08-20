@@ -22,6 +22,12 @@
 
 
     <!-- totyu colot-->
+    <color name="common_bg_color">#ffe3f2ea</color>
+    <color name="common_btn_color">#ffe3f2ea</color>
+    <color name="common_text_color">#ff333333</color>
+    <color name="common_setting_text_color">#ff167139</color>
+    <color name="common_btn2_color">#ff167139</color>
+    <color name="common_btn2_pressed_color">#ff187e3f</color>
     <color name="regist_title_bg_color">#ffebeef4</color>
     <color name="regist_title_text_color">#ff333333</color>
     <color name="regist_context_bg_color">#ffd5d5d5</color>

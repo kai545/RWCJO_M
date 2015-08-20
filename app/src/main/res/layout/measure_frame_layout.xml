@@ -1,0 +1,987 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffffff">
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
+        android:background="#ffffffff">
+
+
+        <LinearLayout
+            android:id="@id/measure_samples_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <GridLayout
+                android:id="@+id/listtitle_gridlayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0.0dip"
+                android:background="#ffcccccc"
+                android:columnCount="1"
+                android:orientation="horizontal"
+                android:rowCount="8">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@id/measure_layout_station_code"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginRight="1.0dip"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_rowSpan="2"
+                        android:layout_weight="3"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@id/measure_textview_station_code"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:textColor="@color/measure_measure_station_xuhao_text_color"
+                            android:textSize="40.0sp" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:id="@id/measure_layout_station_b"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_columnSpan="3"
+                            android:layout_gravity="fill"
+                            android:layout_marginTop="1.0dip"
+                            android:background="@color/measure_measure_station_bg_gray_color">
+
+                            <TextView
+                                android:id="@id/measure_textview_station_b"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                                android:layout_marginTop="@dimen/measure_table_topandbutton"
+                                android:textSize="@dimen/measure_table_context_text_size" />
+                        </RelativeLayout>
+
+
+                        <RelativeLayout
+                            android:id="@id/measure_layout_station_f"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_columnSpan="3"
+                            android:layout_gravity="fill"
+                            android:layout_marginTop="1.0dip"
+                            android:background="@drawable/totyu_btn_measure_upd_selector"
+                            android:layout_marginBottom="1.0dip">
+
+                            <TextView
+                                android:id="@id/measure_textview_station_f"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                                android:layout_marginTop="@dimen/measure_table_topandbutton"
+                                android:textSize="@dimen/measure_table_context_text_size" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@id/measure_layout_station_B1HD"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginRight="1.0dip"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@id/measure_textview_station_B1HD"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:text="后距1"
+                            android:textColor="@color/detail_label_text_color"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@id/measure_layout_station_B2HD"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginRight="1.0dip"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@id/measure_textview_station_B2HD"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:text="后距2"
+                            android:textColor="@color/detail_label_text_color"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@id/measure_layout_station_B1R"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginRight="1.0dip"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@id/measure_textview_station_B1R"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:text="后1"
+                            android:textColor="@color/detail_label_text_color"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@id/measure_layout_station_B2R"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@id/measure_textview_station_B2R"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:text="后2"
+                            android:textColor="@color/detail_label_text_color"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@id/measure_layout_station_houju1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginRight="1.0dip"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@id/measure_textview_station_houju1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@id/measure_layout_station_houju2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginRight="1.0dip"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@id/measure_textview_station_houju2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@id/measure_layout_station_houchi1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginRight="1.0dip"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@drawable/totyu_btn_measure_upd_selector"
+                        android:clickable="true">
+
+                        <TextView
+                            android:id="@id/measure_textview_station_houchi1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@id/measure_layout_station_houchi2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@drawable/totyu_btn_measure_upd_selector"
+                        android:clickable="true">
+
+                        <TextView
+                            android:id="@id/measure_textview_station_houchi2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@id/measure_layout_station_F1HD"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginRight="1.0dip"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@id/measure_textview_station_F1HD"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:text="前距1"
+                            android:textColor="@color/detail_label_text_color"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@id/measure_layout_station_F2HD"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginRight="1.0dip"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@id/measure_textview_station_F2HD"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:text="前距2"
+                            android:textColor="@color/detail_label_text_color"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@id/measure_layout_station_F1R"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginRight="1.0dip"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@id/measure_textview_station_F1R"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:text="前1"
+                            android:textColor="@color/detail_label_text_color"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@id/measure_layout_station_F2R"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@id/measure_textview_station_F2R"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:text="前2"
+                            android:textColor="@color/detail_label_text_color"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/measure_layout_station_qianju1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginRight="1.0dip"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@id/measure_textview_station_qianju1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@id/measure_layout_station_qianju2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginRight="1.0dip"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@id/measure_textview_station_qianju2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@id/measure_layout_station_qianchi1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginRight="1.0dip"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@drawable/totyu_btn_measure_upd_selector"
+                        android:clickable="true">
+
+                        <TextView
+                            android:id="@id/measure_textview_station_qianchi1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@id/measure_layout_station_qianchi2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@drawable/totyu_btn_measure_upd_selector"
+                        android:clickable="true">
+
+                        <TextView
+                            android:id="@id/measure_textview_station_qianchi2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/measure_layout_station_shijucha1text"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginRight="1.0dip"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@+id/measure_textview_station_shijucha1text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:text="视距差1*"
+                            android:textColor="@color/detail_label_text_color"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/measure_layout_station_shijucha2text"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginRight="1.0dip"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@+id/measure_textview_station_shijucha2text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:text="视距差2*"
+                            android:textColor="@color/detail_label_text_color"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@id/measure_layout_station_gaocha1text"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginRight="1.0dip"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@id/measure_textview_station_gaocha1text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:text="高差1"
+                            android:textColor="@color/detail_label_text_color"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/measure_layout_station_gaocha2text"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@id/measure_textview_station_gaocha2text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:text="高差2"
+                            android:textColor="@color/detail_label_text_color"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/measure_layout_station_shijucha1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginRight="1.0dip"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@+id/measure_textview_station_shijucha1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/measure_layout_station_shijucha2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginRight="1.0dip"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@+id/measure_textview_station_shijucha2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@id/measure_layout_station_gaocha1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginRight="1.0dip"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@id/measure_textview_station_gaocha1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@id/measure_layout_station_gaocha2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@id/measure_textview_station_gaocha2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <!-- 视距差与高差 -->
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/measure_layout_station_shijuchatext"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginRight="1.0dip"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@+id/measure_textview_station_shijuchatext"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:text="视距差*"
+                            android:textColor="@color/detail_label_text_color"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/measure_layout_station_all_shijuchatext"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginRight="1.0dip"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@+id/measure_textview_station_all_shijuchatext"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:text="累计视距差*"
+                            android:textColor="@color/detail_label_text_color"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/measure_layout_station_gaochatext"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_marginRight="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@+id/measure_textview_station_gaochatext"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:text="高差"
+                            android:textColor="@color/detail_label_text_color"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/measure_layout_station_gaocha_cha_text"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@+id/measure_textview_station_gaocha_cha_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:text="高差之差*"
+                            android:textColor="@color/detail_label_text_color"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/measure_layout_station_shijucha"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginRight="1.0dip"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@+id/measure_textview_station_shijucha"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/measure_layout_station_all_shijucha"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginRight="1.0dip"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@+id/measure_textview_station_all_shijucha"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:id="@id/measure_layout_station_gaocha"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginRight="1.0dip"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@id/measure_textview_station_gaocha"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/measure_layout_station_gaocha_cha"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginRight="1.0dip"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@+id/measure_textview_station_gaocha_cha"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+                <!-- 两次读数差 -->
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/measure_layout_station_breadchatext"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginRight="1.0dip"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@+id/measure_textview_station_breadchatext"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:text="后读数差（后1-后2）*"
+                            android:textColor="@color/detail_label_text_color"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+
+
+
+                    <RelativeLayout
+                        android:id="@+id/measure_layout_station_freadchatext"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_marginRight="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@+id/measure_textview_station_freadchatext"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:text="前读数差（前1-前2）*"
+                            android:textColor="@color/detail_label_text_color"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/measure_layout_station_breadcha"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginBottom="1.0dip"
+                        android:layout_marginRight="1.0dip"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@+id/measure_textview_station_breadcha"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+
+
+
+
+                    <RelativeLayout
+                        android:id="@+id/measure_layout_station_freadcha"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:layout_marginBottom="1.0dip"
+                        android:layout_marginRight="1.0dip"
+                        android:layout_marginTop="1.0dip"
+                        android:layout_weight="1"
+                        android:background="@color/measure_measure_station_bg_gray_color">
+
+                        <TextView
+                            android:id="@+id/measure_textview_station_freadcha"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="@dimen/measure_table_topandbutton"
+                            android:layout_marginTop="@dimen/measure_table_topandbutton"
+                            android:textSize="@dimen/measure_table_context_text_size" />
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+            </GridLayout>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>
