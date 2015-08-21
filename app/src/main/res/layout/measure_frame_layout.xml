@@ -13,7 +13,7 @@
 
 
         <LinearLayout
-            android:id="@id/measure_samples_layout"
+            android:id="@+id/measure_samples_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -36,7 +36,7 @@
                     android:orientation="horizontal">
 
                     <RelativeLayout
-                        android:id="@id/measure_layout_station_code"
+                        android:id="@+id/measure_layout_station_code"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:layout_columnSpan="1"
@@ -48,7 +48,7 @@
                         android:background="@color/measure_measure_station_bg_gray_color">
 
                         <TextView
-                            android:id="@id/measure_textview_station_code"
+                            android:id="@+id/measure_textview_station_code"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
@@ -64,7 +64,7 @@
                         android:orientation="vertical">
 
                         <RelativeLayout
-                            android:id="@id/measure_layout_station_b"
+                            android:id="@+id/measure_layout_station_b"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_columnSpan="3"
@@ -73,18 +73,19 @@
                             android:background="@color/measure_measure_station_bg_gray_color">
 
                             <TextView
-                                android:id="@id/measure_textview_station_b"
+                                android:id="@+id/measure_textview_station_b"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
                                 android:layout_marginBottom="@dimen/measure_table_topandbutton"
                                 android:layout_marginTop="@dimen/measure_table_topandbutton"
-                                android:textSize="@dimen/measure_table_context_text_size" />
+                                android:textSize="@dimen/measure_table_context_text_size"
+                                android:textColor="@color/detail_label_text_color" />
                         </RelativeLayout>
 
 
                         <RelativeLayout
-                            android:id="@id/measure_layout_station_f"
+                            android:id="@+id/measure_layout_station_f"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_columnSpan="3"
@@ -94,13 +95,14 @@
                             android:layout_marginBottom="1.0dip">
 
                             <TextView
-                                android:id="@id/measure_textview_station_f"
+                                android:id="@+id/measure_textview_station_f"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
                                 android:layout_marginBottom="@dimen/measure_table_topandbutton"
                                 android:layout_marginTop="@dimen/measure_table_topandbutton"
-                                android:textSize="@dimen/measure_table_context_text_size" />
+                                android:textSize="@dimen/measure_table_context_text_size"
+                                android:textColor="@color/detail_label_text_color" />
                         </RelativeLayout>
                     </LinearLayout>
 
@@ -113,7 +115,7 @@
                     android:orientation="horizontal">
 
                     <RelativeLayout
-                        android:id="@id/measure_layout_station_B1HD"
+                        android:id="@+id/measure_layout_station_B1HD"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_columnSpan="1"
@@ -124,7 +126,7 @@
                         android:background="@color/measure_measure_station_bg_gray_color">
 
                         <TextView
-                            android:id="@id/measure_textview_station_B1HD"
+                            android:id="@+id/measure_textview_station_B1HD"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
@@ -136,7 +138,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:id="@id/measure_layout_station_B2HD"
+                        android:id="@+id/measure_layout_station_B2HD"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_columnSpan="1"
@@ -147,7 +149,7 @@
                         android:background="@color/measure_measure_station_bg_gray_color">
 
                         <TextView
-                            android:id="@id/measure_textview_station_B2HD"
+                            android:id="@+id/measure_textview_station_B2HD"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
@@ -159,7 +161,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:id="@id/measure_layout_station_B1R"
+                        android:id="@+id/measure_layout_station_B1R"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_columnSpan="1"
@@ -170,19 +172,19 @@
                         android:background="@color/measure_measure_station_bg_gray_color">
 
                         <TextView
-                            android:id="@id/measure_textview_station_B1R"
+                            android:id="@+id/measure_textview_station_B1R"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:layout_marginBottom="@dimen/measure_table_topandbutton"
                             android:layout_marginTop="@dimen/measure_table_topandbutton"
-                            android:text="后1"
+                            android:text="后尺1"
                             android:textColor="@color/detail_label_text_color"
                             android:textSize="@dimen/measure_table_context_text_size" />
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:id="@id/measure_layout_station_B2R"
+                        android:id="@+id/measure_layout_station_B2R"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_columnSpan="1"
@@ -192,13 +194,13 @@
                         android:background="@color/measure_measure_station_bg_gray_color">
 
                         <TextView
-                            android:id="@id/measure_textview_station_B2R"
+                            android:id="@+id/measure_textview_station_B2R"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:layout_marginBottom="@dimen/measure_table_topandbutton"
                             android:layout_marginTop="@dimen/measure_table_topandbutton"
-                            android:text="后2"
+                            android:text="后尺2"
                             android:textColor="@color/detail_label_text_color"
                             android:textSize="@dimen/measure_table_context_text_size" />
                     </RelativeLayout>
@@ -211,7 +213,7 @@
                     android:orientation="horizontal">
 
                     <RelativeLayout
-                        android:id="@id/measure_layout_station_houju1"
+                        android:id="@+id/measure_layout_station_houju1"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_columnSpan="1"
@@ -222,17 +224,18 @@
                         android:background="@color/measure_measure_station_bg_gray_color">
 
                         <TextView
-                            android:id="@id/measure_textview_station_houju1"
+                            android:id="@+id/measure_textview_station_houju1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:layout_marginBottom="@dimen/measure_table_topandbutton"
                             android:layout_marginTop="@dimen/measure_table_topandbutton"
-                            android:textSize="@dimen/measure_table_context_text_size" />
+                            android:textSize="@dimen/measure_table_context_text_size"
+                            android:textColor="@color/measure_measure_context_text_blue_color" />
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:id="@id/measure_layout_station_houju2"
+                        android:id="@+id/measure_layout_station_houju2"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_columnSpan="1"
@@ -243,17 +246,18 @@
                         android:background="@color/measure_measure_station_bg_gray_color">
 
                         <TextView
-                            android:id="@id/measure_textview_station_houju2"
+                            android:id="@+id/measure_textview_station_houju2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:layout_marginBottom="@dimen/measure_table_topandbutton"
                             android:layout_marginTop="@dimen/measure_table_topandbutton"
-                            android:textSize="@dimen/measure_table_context_text_size" />
+                            android:textSize="@dimen/measure_table_context_text_size"
+                            android:textColor="@color/measure_measure_context_text_blue_color" />
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:id="@id/measure_layout_station_houchi1"
+                        android:id="@+id/measure_layout_station_houchi1"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_columnSpan="1"
@@ -265,17 +269,18 @@
                         android:clickable="true">
 
                         <TextView
-                            android:id="@id/measure_textview_station_houchi1"
+                            android:id="@+id/measure_textview_station_houchi1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:layout_marginBottom="@dimen/measure_table_topandbutton"
                             android:layout_marginTop="@dimen/measure_table_topandbutton"
-                            android:textSize="@dimen/measure_table_context_text_size" />
+                            android:textSize="@dimen/measure_table_context_text_size"
+                            android:textColor="@color/measure_measure_context_text_blue_color" />
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:id="@id/measure_layout_station_houchi2"
+                        android:id="@+id/measure_layout_station_houchi2"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_columnSpan="1"
@@ -286,13 +291,14 @@
                         android:clickable="true">
 
                         <TextView
-                            android:id="@id/measure_textview_station_houchi2"
+                            android:id="@+id/measure_textview_station_houchi2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:layout_marginBottom="@dimen/measure_table_topandbutton"
                             android:layout_marginTop="@dimen/measure_table_topandbutton"
-                            android:textSize="@dimen/measure_table_context_text_size" />
+                            android:textSize="@dimen/measure_table_context_text_size"
+                            android:textColor="@color/measure_measure_context_text_blue_color" />
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -303,7 +309,7 @@
                     android:orientation="horizontal">
 
                     <RelativeLayout
-                        android:id="@id/measure_layout_station_F1HD"
+                        android:id="@+id/measure_layout_station_F1HD"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_columnSpan="1"
@@ -314,7 +320,7 @@
                         android:background="@color/measure_measure_station_bg_gray_color">
 
                         <TextView
-                            android:id="@id/measure_textview_station_F1HD"
+                            android:id="@+id/measure_textview_station_F1HD"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
@@ -326,7 +332,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:id="@id/measure_layout_station_F2HD"
+                        android:id="@+id/measure_layout_station_F2HD"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_columnSpan="1"
@@ -337,7 +343,7 @@
                         android:background="@color/measure_measure_station_bg_gray_color">
 
                         <TextView
-                            android:id="@id/measure_textview_station_F2HD"
+                            android:id="@+id/measure_textview_station_F2HD"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
@@ -349,7 +355,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:id="@id/measure_layout_station_F1R"
+                        android:id="@+id/measure_layout_station_F1R"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_columnSpan="1"
@@ -360,19 +366,19 @@
                         android:background="@color/measure_measure_station_bg_gray_color">
 
                         <TextView
-                            android:id="@id/measure_textview_station_F1R"
+                            android:id="@+id/measure_textview_station_F1R"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:layout_marginBottom="@dimen/measure_table_topandbutton"
                             android:layout_marginTop="@dimen/measure_table_topandbutton"
-                            android:text="前1"
+                            android:text="前尺1"
                             android:textColor="@color/detail_label_text_color"
                             android:textSize="@dimen/measure_table_context_text_size" />
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:id="@id/measure_layout_station_F2R"
+                        android:id="@+id/measure_layout_station_F2R"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_columnSpan="1"
@@ -382,13 +388,13 @@
                         android:background="@color/measure_measure_station_bg_gray_color">
 
                         <TextView
-                            android:id="@id/measure_textview_station_F2R"
+                            android:id="@+id/measure_textview_station_F2R"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:layout_marginBottom="@dimen/measure_table_topandbutton"
                             android:layout_marginTop="@dimen/measure_table_topandbutton"
-                            android:text="前2"
+                            android:text="前尺2"
                             android:textColor="@color/detail_label_text_color"
                             android:textSize="@dimen/measure_table_context_text_size" />
                     </RelativeLayout>
@@ -412,17 +418,18 @@
                         android:background="@color/measure_measure_station_bg_gray_color">
 
                         <TextView
-                            android:id="@id/measure_textview_station_qianju1"
+                            android:id="@+id/measure_textview_station_qianju1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:layout_marginBottom="@dimen/measure_table_topandbutton"
                             android:layout_marginTop="@dimen/measure_table_topandbutton"
-                            android:textSize="@dimen/measure_table_context_text_size" />
+                            android:textSize="@dimen/measure_table_context_text_size"
+                            android:textColor="@color/measure_measure_context_text_blue_color" />
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:id="@id/measure_layout_station_qianju2"
+                        android:id="@+id/measure_layout_station_qianju2"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_columnSpan="1"
@@ -433,17 +440,18 @@
                         android:background="@color/measure_measure_station_bg_gray_color">
 
                         <TextView
-                            android:id="@id/measure_textview_station_qianju2"
+                            android:id="@+id/measure_textview_station_qianju2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:layout_marginBottom="@dimen/measure_table_topandbutton"
                             android:layout_marginTop="@dimen/measure_table_topandbutton"
-                            android:textSize="@dimen/measure_table_context_text_size" />
+                            android:textSize="@dimen/measure_table_context_text_size"
+                            android:textColor="@color/measure_measure_context_text_blue_color" />
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:id="@id/measure_layout_station_qianchi1"
+                        android:id="@+id/measure_layout_station_qianchi1"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_columnSpan="1"
@@ -455,17 +463,18 @@
                         android:clickable="true">
 
                         <TextView
-                            android:id="@id/measure_textview_station_qianchi1"
+                            android:id="@+id/measure_textview_station_qianchi1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:layout_marginBottom="@dimen/measure_table_topandbutton"
                             android:layout_marginTop="@dimen/measure_table_topandbutton"
-                            android:textSize="@dimen/measure_table_context_text_size" />
+                            android:textSize="@dimen/measure_table_context_text_size"
+                            android:textColor="@color/measure_measure_context_text_blue_color" />
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:id="@id/measure_layout_station_qianchi2"
+                        android:id="@+id/measure_layout_station_qianchi2"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_columnSpan="1"
@@ -476,13 +485,14 @@
                         android:clickable="true">
 
                         <TextView
-                            android:id="@id/measure_textview_station_qianchi2"
+                            android:id="@+id/measure_textview_station_qianchi2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:layout_marginBottom="@dimen/measure_table_topandbutton"
                             android:layout_marginTop="@dimen/measure_table_topandbutton"
-                            android:textSize="@dimen/measure_table_context_text_size" />
+                            android:textSize="@dimen/measure_table_context_text_size"
+                            android:textColor="@color/measure_measure_context_text_blue_color" />
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -539,7 +549,7 @@
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:id="@id/measure_layout_station_gaocha1text"
+                        android:id="@+id/measure_layout_station_gaocha1text"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_columnSpan="1"
@@ -550,7 +560,7 @@
                         android:background="@color/measure_measure_station_bg_gray_color">
 
                         <TextView
-                            android:id="@id/measure_textview_station_gaocha1text"
+                            android:id="@+id/measure_textview_station_gaocha1text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
@@ -572,7 +582,7 @@
                         android:background="@color/measure_measure_station_bg_gray_color">
 
                         <TextView
-                            android:id="@id/measure_textview_station_gaocha2text"
+                            android:id="@+id/measure_textview_station_gaocha2text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
@@ -608,7 +618,8 @@
                             android:layout_centerInParent="true"
                             android:layout_marginBottom="@dimen/measure_table_topandbutton"
                             android:layout_marginTop="@dimen/measure_table_topandbutton"
-                            android:textSize="@dimen/measure_table_context_text_size" />
+                            android:textSize="@dimen/measure_table_context_text_size"
+                            android:textColor="@color/measure_measure_context_text_blue_color" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -629,11 +640,12 @@
                             android:layout_centerInParent="true"
                             android:layout_marginBottom="@dimen/measure_table_topandbutton"
                             android:layout_marginTop="@dimen/measure_table_topandbutton"
-                            android:textSize="@dimen/measure_table_context_text_size" />
+                            android:textSize="@dimen/measure_table_context_text_size"
+                            android:textColor="@color/measure_measure_context_text_blue_color" />
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:id="@id/measure_layout_station_gaocha1"
+                        android:id="@+id/measure_layout_station_gaocha1"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_columnSpan="1"
@@ -644,17 +656,18 @@
                         android:background="@color/measure_measure_station_bg_gray_color">
 
                         <TextView
-                            android:id="@id/measure_textview_station_gaocha1"
+                            android:id="@+id/measure_textview_station_gaocha1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:layout_marginBottom="@dimen/measure_table_topandbutton"
                             android:layout_marginTop="@dimen/measure_table_topandbutton"
-                            android:textSize="@dimen/measure_table_context_text_size" />
+                            android:textSize="@dimen/measure_table_context_text_size"
+                            android:textColor="@color/measure_measure_context_text_blue_color" />
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:id="@id/measure_layout_station_gaocha2"
+                        android:id="@+id/measure_layout_station_gaocha2"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_columnSpan="1"
@@ -664,13 +677,14 @@
                         android:background="@color/measure_measure_station_bg_gray_color">
 
                         <TextView
-                            android:id="@id/measure_textview_station_gaocha2"
+                            android:id="@+id/measure_textview_station_gaocha2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:layout_marginBottom="@dimen/measure_table_topandbutton"
                             android:layout_marginTop="@dimen/measure_table_topandbutton"
-                            android:textSize="@dimen/measure_table_context_text_size" />
+                            android:textSize="@dimen/measure_table_context_text_size"
+                            android:textColor="@color/measure_measure_context_text_blue_color" />
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -796,7 +810,8 @@
                             android:layout_centerInParent="true"
                             android:layout_marginBottom="@dimen/measure_table_topandbutton"
                             android:layout_marginTop="@dimen/measure_table_topandbutton"
-                            android:textSize="@dimen/measure_table_context_text_size" />
+                            android:textSize="@dimen/measure_table_context_text_size"
+                            android:textColor="@color/measure_measure_context_text_blue_color" />
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -817,12 +832,13 @@
                             android:layout_centerInParent="true"
                             android:layout_marginBottom="@dimen/measure_table_topandbutton"
                             android:layout_marginTop="@dimen/measure_table_topandbutton"
-                            android:textSize="@dimen/measure_table_context_text_size" />
+                            android:textSize="@dimen/measure_table_context_text_size"
+                            android:textColor="@color/measure_measure_context_text_blue_color" />
                     </RelativeLayout>
 
 
                     <RelativeLayout
-                        android:id="@id/measure_layout_station_gaocha"
+                        android:id="@+id/measure_layout_station_gaocha"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_columnSpan="1"
@@ -833,13 +849,14 @@
                         android:background="@color/measure_measure_station_bg_gray_color">
 
                         <TextView
-                            android:id="@id/measure_textview_station_gaocha"
+                            android:id="@+id/measure_textview_station_gaocha"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:layout_marginBottom="@dimen/measure_table_topandbutton"
                             android:layout_marginTop="@dimen/measure_table_topandbutton"
-                            android:textSize="@dimen/measure_table_context_text_size" />
+                            android:textSize="@dimen/measure_table_context_text_size"
+                            android:textColor="@color/measure_measure_context_text_blue_color" />
                     </RelativeLayout>
                     <RelativeLayout
                         android:id="@+id/measure_layout_station_gaocha_cha"
@@ -859,7 +876,8 @@
                             android:layout_centerInParent="true"
                             android:layout_marginBottom="@dimen/measure_table_topandbutton"
                             android:layout_marginTop="@dimen/measure_table_topandbutton"
-                            android:textSize="@dimen/measure_table_context_text_size" />
+                            android:textSize="@dimen/measure_table_context_text_size"
+                            android:textColor="@color/measure_measure_context_text_blue_color" />
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -890,7 +908,7 @@
                             android:layout_centerInParent="true"
                             android:layout_marginBottom="@dimen/measure_table_topandbutton"
                             android:layout_marginTop="@dimen/measure_table_topandbutton"
-                            android:text="后读数差（后1-后2）*"
+                            android:text="后尺读数差（后1-后2）*"
                             android:textColor="@color/detail_label_text_color"
                             android:textSize="@dimen/measure_table_context_text_size" />
                     </RelativeLayout>
@@ -915,7 +933,7 @@
                             android:layout_centerInParent="true"
                             android:layout_marginBottom="@dimen/measure_table_topandbutton"
                             android:layout_marginTop="@dimen/measure_table_topandbutton"
-                            android:text="前读数差（前1-前2）*"
+                            android:text="前尺读数差（前1-前2）*"
                             android:textColor="@color/detail_label_text_color"
                             android:textSize="@dimen/measure_table_context_text_size" />
                     </RelativeLayout>
@@ -934,7 +952,6 @@
                         android:layout_height="wrap_content"
                         android:layout_columnSpan="1"
                         android:layout_gravity="fill"
-                        android:layout_marginBottom="1.0dip"
                         android:layout_marginRight="1.0dip"
                         android:layout_marginTop="1.0dip"
                         android:layout_weight="1"
@@ -947,7 +964,8 @@
                             android:layout_centerInParent="true"
                             android:layout_marginBottom="@dimen/measure_table_topandbutton"
                             android:layout_marginTop="@dimen/measure_table_topandbutton"
-                            android:textSize="@dimen/measure_table_context_text_size" />
+                            android:textSize="@dimen/measure_table_context_text_size"
+                            android:textColor="@color/measure_measure_context_text_blue_color" />
                     </RelativeLayout>
 
 
@@ -959,7 +977,6 @@
                         android:layout_height="wrap_content"
                         android:layout_columnSpan="1"
                         android:layout_gravity="fill"
-                        android:layout_marginBottom="1.0dip"
                         android:layout_marginRight="1.0dip"
                         android:layout_marginTop="1.0dip"
                         android:layout_weight="1"
@@ -972,7 +989,8 @@
                             android:layout_centerInParent="true"
                             android:layout_marginBottom="@dimen/measure_table_topandbutton"
                             android:layout_marginTop="@dimen/measure_table_topandbutton"
-                            android:textSize="@dimen/measure_table_context_text_size" />
+                            android:textSize="@dimen/measure_table_context_text_size"
+                            android:textColor="@color/measure_measure_context_text_blue_color" />
                     </RelativeLayout>
 
 
@@ -980,6 +998,41 @@
 
             </GridLayout>
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/linearLayout">
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="测量"
+                android:id="@+id/measure_station_btn_measure"
+                android:layout_weight="1"
+                android:textColor="@color/detail_label_text_color"
+                />
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="重测"
+                android:id="@+id/measure_station_btn_remeasure"
+                android:layout_weight="1"
+                android:textColor="@color/detail_label_text_color"
+                />
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="转点"
+                android:id="@+id/measure_station_btn_add_zpnt"
+                android:textColor="@color/detail_label_text_color"
+                android:layout_weight="1"
+                />
+
+            </LinearLayout>
+
 
 
     </RelativeLayout>

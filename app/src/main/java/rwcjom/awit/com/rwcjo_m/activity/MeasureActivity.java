@@ -1,6 +1,5 @@
 package rwcjom.awit.com.rwcjo_m.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -14,8 +13,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,9 +26,6 @@ import java.util.Map;
 import rwcjom.awit.com.rwcjo_m.R;
 import rwcjom.awit.com.rwcjo_m.dao.BwInfo;
 import rwcjom.awit.com.rwcjo_m.dao.Line;
-import rwcjom.awit.com.rwcjo_m.fragments.IndexFragment;
-import rwcjom.awit.com.rwcjo_m.fragments.ProjectFragment;
-import rwcjom.awit.com.rwcjo_m.fragments.ShuiZhunXianLuFragmentContainer;
 
 @EActivity
 public class MeasureActivity extends ActionBarActivity implements AdapterView.OnItemClickListener{
@@ -39,7 +37,72 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
-    private List<Map<String, Object>> left_measure_line_data=new ArrayList<Map<String, Object>>();;
+    private List<Map<String, Object>> left_measure_line_data=new ArrayList<Map<String, Object>>();
+
+    @ViewById(R.id.measure_textview_station_code)
+    TextView measure_textview_station_code;//测站编号
+
+    @ViewById(R.id.measure_textview_station_b)
+    TextView measure_textview_station_b;//后视点
+
+    @ViewById(R.id.measure_textview_station_f)
+    TextView measure_textview_station_f;//前视点
+
+    @ViewById(R.id.measure_textview_station_houju1)
+    TextView measure_textview_station_houju1;//后距1
+
+    @ViewById(R.id.measure_textview_station_houju2)
+    TextView measure_textview_station_houju2;//后距2
+
+    @ViewById(R.id.measure_textview_station_houchi1)
+    TextView measure_textview_station_houchi1;//后尺1
+
+    @ViewById(R.id.measure_textview_station_houchi2)
+    TextView measure_textview_station_houchi2;//后尺1
+
+    @ViewById(R.id.measure_textview_station_qianju1)
+    TextView measure_textview_station_qianju1;//前距1
+
+    @ViewById(R.id.measure_textview_station_qianju2)
+    TextView measure_textview_station_qianju2;//前距2
+
+    @ViewById(R.id.measure_textview_station_qianchi1)
+    TextView measure_textview_station_qianchi1;//前尺1
+
+    @ViewById(R.id.measure_textview_station_qianchi2)
+    TextView measure_textview_station_qianchi2;//前尺2
+
+    @ViewById(R.id.measure_textview_station_shijucha1)
+    TextView measure_textview_station_shijucha1;//视距差1
+
+    @ViewById(R.id.measure_textview_station_shijucha2)
+    TextView measure_textview_station_shijucha2;//视距差2
+
+    @ViewById(R.id.measure_textview_station_gaocha1)
+    TextView measure_textview_station_gaocha1;//高差1
+
+    @ViewById(R.id.measure_textview_station_gaocha2)
+    TextView measure_textview_station_gaocha2;//高差2
+
+    @ViewById(R.id.measure_textview_station_shijucha)
+    TextView measure_textview_station_shijucha;//视距差
+
+    @ViewById(R.id.measure_textview_station_all_shijucha)
+    TextView measure_textview_station_all_shijucha;//累计视距差
+
+    @ViewById(R.id.measure_textview_station_gaocha)
+    TextView measure_textview_station_gaocha;//高差
+
+    @ViewById(R.id.measure_textview_station_gaocha_cha)
+    TextView measure_textview_station_gaocha_cha;//高差之差
+
+    @ViewById(R.id.measure_textview_station_breadcha)
+    TextView measure_textview_station_breadcha;//后尺读数差
+
+    @ViewById(R.id.measure_textview_station_freadcha)
+    TextView measure_textview_station_freadcha;//前尺读数差
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,43 +181,10 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         Fragment fragment = null;
 
-        int img_id=Integer.parseInt(left_measure_line_data.get(position).get("b_pnt_name").toString());
-        switch (img_id){
-            case R.mipmap.ic_drawer_index_normal:
-                fragment=new IndexFragment();
-                ft.replace(R.id.drawer_fragment_layout, fragment);
-                ft.commit();
-                break;
-            case R.mipmap.ic_drawer_line_normal:
-                fragment=new ShuiZhunXianLuFragmentContainer();
-                ft.replace(R.id.drawer_fragment_layout, fragment);
-                ft.commit();
-                break;
-            case R.mipmap.ic_drawer_search_normal:
-                fragment=new ProjectFragment();
-                ft.replace(R.id.drawer_fragment_layout, fragment);
-                ft.commit();
-                break;
-            case R.mipmap.ic_drawer_explore_normal:
-                toolbar.setTitle("通讯设置");
-                //fragment=new BluetoothFragment();
-                //ft.replace(R.id.drawer_fragment_layout, fragment);
-                //ft.commit();
-                startActivity(new Intent(this,BluetoothActivity.class));
-                break;
-            case R.mipmap.ic_drawer_follow_normal:
-                toolbar.setTitle("参数设置");
-                break;
-            case R.mipmap.ic_drawer_setting_normal:
-                toolbar.setTitle("系统设置");
-                break;
-            case R.mipmap.ic_drawer_question_normal:
-                toolbar.setTitle("用户手册");
-                startActivity(new Intent(this,PhoneGapActivity.class));
-                break;
-            default:break;
-        }
-
+        Map<String, Object> measure_station=left_measure_line_data.get(position);
+        measure_textview_station_code.setText(position+1+"");
+        measure_textview_station_b.setText(measure_station.get("b_pnt_name")+"");
+        measure_textview_station_f.setText(measure_station.get("f_pnt_name")+"");
         mDrawerLayout.closeDrawers();
     }
 }
