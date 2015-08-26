@@ -155,6 +155,7 @@ public class ExampleDaoGenerator {
 
     private static void addLineMeasure(Schema schema) {
         Entity line_extra = schema.addEntity("LineExtra");
+        line_extra.implementsSerializable();
         line_extra.addStringProperty("lc").primaryKey();//线路编号
 
         line_extra.addStringProperty("ltype");//线路类型

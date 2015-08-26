@@ -11,7 +11,7 @@ import de.greenrobot.dao.DaoException;
 /**
  * Entity mapped to table LINE_EXTRA.
  */
-public class LineExtra {
+public class LineExtra implements java.io.Serializable {
 
     private String lc;
     private String ltype;
@@ -35,6 +35,7 @@ public class LineExtra {
     private transient LineExtraDao myDao;
 
     private List<OriData> oriDataList;
+    private List<LineStation> lineStationList;
 
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END
@@ -201,6 +202,28 @@ public class LineExtra {
     /** Resets a to-many relationship, making the next get call to query for a fresh result. */
     public synchronized void resetOriDataList() {
         oriDataList = null;
+    }
+
+    /** To-many relationship, resolved on first access (and after reset). Changes to to-many relations are not persisted, make changes to the target entity. */
+    public List<LineStation> getLineStationList() {
+        if (lineStationList == null) {
+            if (daoSession == null) {
+                throw new DaoException("Entity is detached from DAO context");
+            }
+            LineStationDao targetDao = daoSession.getLineStationDao();
+            List<LineStation> lineStationListNew = targetDao._queryLineExtra_LineStationList(lc);
+            synchronized (this) {
+                if(lineStationList == null) {
+                    lineStationList = lineStationListNew;
+                }
+            }
+        }
+        return lineStationList;
+    }
+
+    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
+    public synchronized void resetLineStationList() {
+        lineStationList = null;
     }
 
     /** Convenient call for {@link AbstractDao#delete(Object)}. Entity must attached to an entity context. */

@@ -267,6 +267,7 @@ public class BluetoothActivity extends AppCompatActivity {
                 }
                 mBuffer.clear();
                 mResponseBuffer.add(0, sb.toString());
+                CommonTools.showToast(BluetoothActivity.this, sb.toString());
                 mResponsesAdapter.notifyDataSetChanged();
             }
         }

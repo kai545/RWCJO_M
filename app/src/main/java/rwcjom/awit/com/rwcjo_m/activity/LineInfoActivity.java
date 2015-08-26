@@ -56,6 +56,7 @@ public class LineInfoActivity extends ActionBarActivity {
 
     private String[] ltype_array,mtype_array,weather_array;
 
+    private LineExtra lineExtra;
 
     @ViewById(R.id.edit_line_code_edit)
     EditText line_lc;
@@ -153,6 +154,7 @@ public class LineInfoActivity extends ActionBarActivity {
         Intent it=new Intent(this,MeasureActivity_.class);//启动测量界面
         Bundle bundle = new Bundle();
         bundle.putSerializable("lineinfo", (Serializable) lineinfoMap);
+        bundle.putSerializable("line_extra", (Serializable) lineExtra);
         it.putExtras(bundle);
         startActivity(it);
     }
@@ -178,7 +180,7 @@ public class LineInfoActivity extends ActionBarActivity {
         Tasks.executeInBackground(this, new BackgroundWork<LineExtra>() {
             @Override
             public LineExtra doInBackground() throws Exception {
-                LineExtra lineExtra = lineExtraService.getLineExtraByLc(line.getLc());//get all personals
+                lineExtra = lineExtraService.getLineExtraByLc(line.getLc());//get all personals
 
                 return lineExtra;
             }
