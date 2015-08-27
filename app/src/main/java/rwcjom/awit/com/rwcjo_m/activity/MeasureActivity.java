@@ -1,5 +1,6 @@
 package rwcjom.awit.com.rwcjo_m.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -12,6 +13,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+
+import com.nanotasks.BackgroundWork;
+import com.nanotasks.Completion;
+import com.nanotasks.Tasks;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -30,8 +35,11 @@ import rwcjom.awit.com.rwcjo_m.R;
 import rwcjom.awit.com.rwcjo_m.dao.BwInfo;
 import rwcjom.awit.com.rwcjo_m.dao.Line;
 import rwcjom.awit.com.rwcjo_m.dao.LineExtra;
+import rwcjom.awit.com.rwcjo_m.dao.LineStation;
 import rwcjom.awit.com.rwcjo_m.event.BluetoothDataEvent;
+import rwcjom.awit.com.rwcjo_m.event.MainActivityEvent;
 import rwcjom.awit.com.rwcjo_m.listener.MeasureBluetoothListener;
+import rwcjom.awit.com.rwcjo_m.service.LineStationService;
 import rwcjom.awit.com.rwcjo_m.util.CommonTools;
 
 @EActivity
@@ -44,7 +52,7 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
-    private List<Map<String, Object>> left_measure_line_data = new ArrayList<Map<String, Object>>();
+    private List<Map<String, Object>> left_measure_line_data;
 
     private SmoothBluetooth mSmoothBluetooth;
 
@@ -53,6 +61,8 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
     private int measureCounterForStation = -1;
 
     private double data_houju1,data_houju2,data_qianju1,data_qianju2,data_houchi1,data_houchi2,data_qianchi1,data_qianchi2;
+
+    private LineStationService lineStationService;
 
     @ViewById(R.id.measure_textview_station_code)
     TextView measure_textview_station_code;//测站编号
@@ -118,7 +128,7 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
     TextView measure_textview_station_freadcha;//前尺读数差
 
     @AfterViews
-    void initBluetooth() {
+    void initBluetooth() {//初始化蓝牙
         mSmoothBluetooth = new SmoothBluetooth(this);
         mSmoothBluetooth.setListener(new MeasureBluetoothListener(this, mSmoothBluetooth));
         mSmoothBluetooth.tryConnection();
@@ -126,8 +136,13 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
 
     @Click(R.id.measure_station_btn_remeasure)
     void reMeasure(){
-        resetAllData();
-        refreshAllTextView();
+        if(measure_textview_station_code.getText().length()!=0){
+            resetAllData();
+            refreshAllTextView();
+        }else{
+            CommonTools.showToast(this,"未选择测站");
+        }
+
     }
 
     @Override
@@ -139,6 +154,7 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
         lineinfoMap = (Map<String, Object>) getIntent().getSerializableExtra("lineinfo");
         line = (Line) lineinfoMap.get("line");
         bwInfo_list = (List<BwInfo>) lineinfoMap.get("bw");
+        lineStationService=LineStationService.getInstance(this);
         initDrawerMenu();
     }
 
@@ -178,33 +194,68 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
         }
     }
 
-    //初始化抽屉菜单中的测站列表
+    //初始化抽屉菜单中的测站列表，如果数据库没有记录则先初始化数据
     private void initDrawerMenu() {
 
-        for (int i = 0; i < bwInfo_list.size() - 1; i++) {
-            Map<String, Object> measure_station = new HashMap<String, Object>();
-            BwInfo back_pnt = bwInfo_list.get(i);
-            BwInfo front_pnt = bwInfo_list.get(i + 1);
-            measure_station.put("station_code",i+1);
-            measure_station.put("b_pnt_name", (back_pnt.getTy().equalsIgnoreCase("1") ? "B" : "P") + back_pnt.getId());
-            measure_station.put("f_pnt_name", (front_pnt.getTy().equalsIgnoreCase("1") ? "B" : "P") + front_pnt.getId());
-            left_measure_line_data.add(measure_station);
-        }
+        //从数据读取测站信息
+        Tasks.executeInBackground(this, new BackgroundWork<List<Map<String, Object>>>() {
+            @Override
+            public List<Map<String, Object>> doInBackground() throws Exception {
+                List<LineStation> lineStationList = lineStationService.queryLineStation(" where f_lc=? order by abs(sno)", line.getLc());
+                left_measure_line_data = new ArrayList<Map<String, Object>>();
+                if (lineStationList.size() != 0) {
+                    for (int i = 0; i < lineStationList.size(); i++) {
+                        Map<String, Object> measure_station = new HashMap<String, Object>();
+                        measure_station.put("station_code", i + 1);
+                        measure_station.put("b_pnt_name", lineStationList.get(i).getSb());
+                        measure_station.put("f_pnt_name", lineStationList.get(i).getSf());
+                        left_measure_line_data.add(measure_station);
+                    }
+                } else {//没有测站数据，则初始化测站，并保存
+                    for (int i = 0; i < bwInfo_list.size() - 1; i++) {
+                        Map<String, Object> measure_station = new HashMap<String, Object>();
+                        BwInfo back_pnt = bwInfo_list.get(i);
+                        BwInfo front_pnt = bwInfo_list.get(i + 1);
+                        measure_station.put("station_code", i + 1);
+                        measure_station.put("b_pnt_name", (back_pnt.getTy().equalsIgnoreCase("1") ? "B" : "P") + back_pnt.getId());
+                        measure_station.put("f_pnt_name", (front_pnt.getTy().equalsIgnoreCase("1") ? "B" : "P") + front_pnt.getId());
+                        left_measure_line_data.add(measure_station);
 
+                        LineStation lineStation=new LineStation();
+                        lineStation.setSno((i+1)+"");
+                        lineStation.setSb((back_pnt.getTy().equalsIgnoreCase("1") ? "B" : "P") + back_pnt.getId());
+                        lineStation.setSf((front_pnt.getTy().equalsIgnoreCase("1") ? "B" : "P") + front_pnt.getId());
+                        lineStation.setF_lc(line.getLc());
+                        lineStationService.saveLineStation(lineStation);
+                    }
 
-        mDrawerList = (ListView) findViewById(R.id.measure_line_drawer_list);
-        SimpleAdapter drawerAdapter = new SimpleAdapter(this, left_measure_line_data, R.layout.measure_line_left_list_item,
-                new String[]{"station_code","b_pnt_name", "f_pnt_name"},
-                new int[]{R.id.measure_list_itme_station_code,R.id.measure_list_itme_b_pnt, R.id.measure_list_itme_f_pnt});
-        mDrawerList.setAdapter(drawerAdapter);
-        mDrawerList.setOnItemClickListener(this);
+                }
+                return left_measure_line_data;
+            }
+        }, new Completion<List<Map<String, Object>>>() {
+            @Override
+            public void onSuccess(Context context, List<Map<String, Object>> result) {
+                mDrawerList = (ListView) findViewById(R.id.measure_line_drawer_list);
+                SimpleAdapter drawerAdapter = new SimpleAdapter(MeasureActivity.this, result, R.layout.measure_line_left_list_item,
+                        new String[]{"station_code", "b_pnt_name", "f_pnt_name"},
+                        new int[]{R.id.measure_list_itme_station_code, R.id.measure_list_itme_b_pnt, R.id.measure_list_itme_f_pnt});
+                mDrawerList.setAdapter(drawerAdapter);
+                mDrawerList.setOnItemClickListener(MeasureActivity.this);
 
 		/* findView */
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.measure_line_drawer);
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.drawer_open,
-                R.string.drawer_close);
-        mDrawerToggle.syncState();
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+                mDrawerLayout = (DrawerLayout) findViewById(R.id.measure_line_drawer);
+                mDrawerToggle = new ActionBarDrawerToggle(MeasureActivity.this, mDrawerLayout, toolbar, R.string.drawer_open,
+                        R.string.drawer_close);
+                mDrawerToggle.syncState();
+                mDrawerLayout.setDrawerListener(mDrawerToggle);
+            }
+
+            @Override
+            public void onError(Context context, Exception e) {
+                EventBus.getDefault().post(new MainActivityEvent(false));
+            }
+        });
+
     }
 
     /*
@@ -323,26 +374,18 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
         if (mtype.equalsIgnoreCase("BFFB")) {
             switch (order) {
                 case 1:
-                    //measure_textview_station_houju1.setText(hd + "");//后距1
-                    //measure_textview_station_houchi1.setText(r + "");//后尺1
                     data_houju1=hd;
                     data_houchi1=r;
                     break;
                 case 2:
-                    //measure_textview_station_qianju1.setText(hd + "");//前距1
-                    //measure_textview_station_qianchi1.setText(r + "");//前尺1
                     data_qianju1=hd;
                     data_qianchi1=r;
                     break;
                 case 3:
-                    //measure_textview_station_qianju2.setText(hd + "");//前距2
-                    //measure_textview_station_qianchi2.setText(r + "");//前尺2
                     data_qianju2=hd;
                     data_qianchi2=r;
                     break;
                 case 4:
-                    //measure_textview_station_houju2.setText(hd + "");//后距2
-                    //measure_textview_station_houchi2.setText(r + "");//后尺2
                     data_houju2=hd;
                     data_houchi2=r;
                     break;
@@ -351,26 +394,18 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
             switch (order) {
 
                 case 1:
-                    //measure_textview_station_qianju1.setText(hd + "");//前距1
-                    //measure_textview_station_qianchi1.setText(r + "");//前尺1
                     data_qianju1=hd;
                     data_qianchi1=r;
                     break;
                 case 2:
-                    //measure_textview_station_houju1.setText(hd + "");//后距1
-                    //measure_textview_station_houchi1.setText(r + "");//后尺1
                     data_houju1=hd;
                     data_houchi1=r;
                     break;
                 case 3:
-                    //measure_textview_station_houju2.setText(hd + "");//后距2
-                    //measure_textview_station_houchi2.setText(r + "");//后尺2
                     data_houju2=hd;
                     data_houchi2=r;
                     break;
                 case 4:
-                    //measure_textview_station_qianju2.setText(hd + "");//前距2
-                    //measure_textview_station_qianchi2.setText(r + "");//前尺2
                     data_qianju2=hd;
                     data_qianchi2=r;
                     break;
@@ -379,14 +414,10 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
         } else if (mtype.equalsIgnoreCase("BF")) {
             switch (order) {
                 case 1:
-                    //measure_textview_station_houju1.setText(hd + "");//后距1
-                    //measure_textview_station_houchi1.setText(r + "");//后尺1
                     data_houju1=hd;
                     data_houchi1=r;
                     break;
                 case 2:
-                    //measure_textview_station_qianju1.setText(hd + "");//前距1
-                    //measure_textview_station_qianchi1.setText(r + "");//前尺1
                     data_qianju1=hd;
                     data_qianchi1=r;
                     break;
@@ -394,14 +425,10 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
         } else if (mtype.equalsIgnoreCase("FB")) {
             switch (order) {
                 case 1:
-                    //measure_textview_station_qianju1.setText(hd + "");//前距1
-                    //measure_textview_station_qianchi1.setText(r + "");//前尺1
                     data_qianju1=hd;
                     data_qianchi1=r;
                     break;
                 case 2:
-                    //measure_textview_station_houju1.setText(hd + "");//后距1
-                    //measure_textview_station_houchi1.setText(r + "");//后尺1
                     data_houju1=hd;
                     data_houchi1=r;
                     break;

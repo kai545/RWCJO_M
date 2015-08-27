@@ -48,6 +48,7 @@ public class LineInfoActivity extends ActionBarActivity {
     private Toolbar toolbar;
     private Map<String,Object> lineinfoMap;
     private Line line;
+    private List<BwInfo> bws;
     private ArrayAdapter<String> sj_adapter;
     private PersonInfoService personInfoService;
     private LineExtraService lineExtraService;
@@ -99,7 +100,7 @@ public class LineInfoActivity extends ActionBarActivity {
 
     @AfterViews
     void initData() {
-        List<BwInfo> bws=(List<BwInfo>)lineinfoMap.get("bw");
+        bws=(List<BwInfo>)lineinfoMap.get("bw");
         Log.i(TAG,"Line:"+line.getLn());
         line_lc.setText(line.getLc());
         Log.i(TAG, "line_bw_size:" + bws.size());

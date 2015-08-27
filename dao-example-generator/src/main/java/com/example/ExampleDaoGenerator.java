@@ -10,7 +10,7 @@ import de.greenrobot.daogenerator.ToMany;
 
 public class ExampleDaoGenerator {
     public static void main(String[] args) throws Exception {
-        Schema schema = new Schema(1, "rwcjom.awit.com.rwcjo_m.dao");
+        Schema schema = new Schema(2, "rwcjom.awit.com.rwcjo_m.dao");
         schema.enableKeepSectionsByDefault();
         addFaceNews(schema);
         addFaceInfo(schema);
@@ -194,7 +194,7 @@ public class ExampleDaoGenerator {
 
         //stations
         Entity station = schema.addEntity("LineStation");
-        station.addStringProperty("sno");//测站id
+        station.addStringProperty("sno");//测站编号
         station.addStringProperty("sb");//后点
         station.addStringProperty("sf");//前点
         station.addStringProperty("shd_diff");//测站视距差，两次平均
