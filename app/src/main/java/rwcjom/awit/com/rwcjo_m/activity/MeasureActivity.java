@@ -14,9 +14,11 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,6 +51,8 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
     private LineExtra lineExtra;
 
     private int measureCounterForStation = -1;
+
+    private double data_houju1,data_houju2,data_qianju1,data_qianju2,data_houchi1,data_houchi2,data_qianchi1,data_qianchi2;
 
     @ViewById(R.id.measure_textview_station_code)
     TextView measure_textview_station_code;//测站编号
@@ -118,6 +122,12 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
         mSmoothBluetooth = new SmoothBluetooth(this);
         mSmoothBluetooth.setListener(new MeasureBluetoothListener(this, mSmoothBluetooth));
         mSmoothBluetooth.tryConnection();
+    }
+
+    @Click(R.id.measure_station_btn_remeasure)
+    void reMeasure(){
+        resetAllData();
+        refreshAllTextView();
     }
 
     @Override
@@ -204,7 +214,7 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
     public void onItemClick(AdapterView<?> parent, View view,
                             int position, long id) {
         // TODO Auto-generated method stub
-        resetAllTextView();
+        //此处应从数据读取
 
         Map<String, Object> measure_station = left_measure_line_data.get(position);
         measure_textview_station_code.setText(position + 1 + "");
@@ -215,43 +225,63 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
         mDrawerLayout.closeDrawers();
     }
 
-    //充值所有值
-    private void resetAllTextView(){
-        measure_textview_station_houju1.setText("");//后距1
+    //重置测量数据
+    private void resetAllData(){
+        data_houju1=0;
+        data_houju2=0;
+        data_qianju1=0;
+        data_qianju2=0;
+        data_houchi1=0;
+        data_houchi2=0;
+        data_qianchi1=0;
+        data_qianchi2=0;
+    }
 
-        measure_textview_station_houju2.setText("");//后距2
+    //刷新Tv显示
+    private void refreshAllTextView(){
+        measure_textview_station_houju1.setText(data_houju1==0?"":data_houju1+"");//后距1
 
-        measure_textview_station_houchi1.setText("");//后尺1
+        measure_textview_station_houju2.setText(data_houju2==0?"":data_houju2+"");//后距2
 
-        measure_textview_station_houchi2.setText("");//后尺2
+        measure_textview_station_houchi1.setText(data_houchi1==0?"":data_houchi1+"");//后尺1
 
-        measure_textview_station_qianju1.setText("");//前距1
+        measure_textview_station_houchi2.setText(data_houchi2==0?"":data_houchi2+"");//后尺2
 
-        measure_textview_station_qianju2.setText("");//前距2
+        measure_textview_station_qianju1.setText(data_qianju1==0?"":data_qianju1+"");//前距1
 
-        measure_textview_station_qianchi1.setText("");//前尺1
+        measure_textview_station_qianju2.setText(data_qianju2==0?"":data_qianju2+"");//前距2
 
-        measure_textview_station_qianchi2.setText("");//前尺2
+        measure_textview_station_qianchi1.setText(data_qianchi1==0?"":data_qianchi1+"");//前尺1
 
-        measure_textview_station_shijucha1.setText("0");//视距差1
+        measure_textview_station_qianchi2.setText(data_qianchi2==0?"":data_qianchi2+"");//前尺2
 
-        measure_textview_station_shijucha2.setText("0");//视距差2
+        DecimalFormat dformat = new DecimalFormat("0.00000");
+        double data_shijucha1=CommonTools.sub(data_houju1,data_qianju1);
+        measure_textview_station_shijucha1.setText(dformat.format(data_shijucha1));//视距差1
 
-        measure_textview_station_gaocha1.setText("0");//高差1
+        double data_shijucha2=CommonTools.sub(data_houju2,data_qianju2);
+        measure_textview_station_shijucha2.setText(dformat.format(data_shijucha2));//视距差2
 
-        measure_textview_station_gaocha2.setText("0");//高差2
+        double data_gaocha1=CommonTools.sub(data_houchi1,data_qianchi1);
+        measure_textview_station_gaocha1.setText(dformat.format(data_gaocha1));//高差1
 
-        measure_textview_station_shijucha.setText("0");//视距差
+        double data_gaocha2=CommonTools.sub(data_houchi2,data_qianchi2);
+        measure_textview_station_gaocha2.setText(dformat.format(data_gaocha2));//高差2
+
+        measure_textview_station_shijucha.setText(CommonTools.div(CommonTools.add(data_shijucha1,data_shijucha2),2)+"");//视距差
+
 
         measure_textview_station_all_shijucha.setText("0");//累计视距差
 
-        measure_textview_station_gaocha.setText("0");//高差
+        measure_textview_station_gaocha.setText(CommonTools.div(CommonTools.add(data_gaocha1,data_gaocha2),2)+"");//高差
 
-        measure_textview_station_gaocha_cha.setText("0");//高差之差
+        measure_textview_station_gaocha_cha.setText(dformat.format(CommonTools.sub(data_gaocha1,data_gaocha2)*1000));//高差之差
 
-        measure_textview_station_breadcha.setText("0");//后尺读数差
+        double data_breadcha=CommonTools.sub(data_houchi1,data_houchi2)*1000;
+        measure_textview_station_breadcha.setText(dformat.format(data_breadcha));//后尺读数差
 
-        measure_textview_station_freadcha.setText("0");//前尺读数差
+        double data_freadcha=CommonTools.sub(data_qianchi1,data_qianchi2)*1000;
+        measure_textview_station_freadcha.setText(dformat.format(data_freadcha));//前尺读数差
     }
 
     //处理蓝牙数据
@@ -265,9 +295,9 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
             double hd = Double.parseDouble(data.substring(data.indexOf("D") + 1, data.length() - 1));
             CommonTools.showToast(this, r+ "," +hd);//收到水准仪数据
 
-            measureDataFlow(hd, r);
+            measureDataFlow(hd, r);//根据流程分配数据
         } else {
-            CommonTools.showToast(this, "测量无效");//收到水准仪数据
+            CommonTools.showToast(this, "无效数据（无效测站或超过测量次数）");//收到水准仪数据
         }
 
 
@@ -284,6 +314,8 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
         }else if (lineExtra.getMtype().equalsIgnoreCase("BFFB")) {
             measureDataWrite("BFFB",measureCounterForStation,hd,r);
         }
+
+        refreshAllTextView();//数据就位后，刷新显示
     }
 
     //数据填充
@@ -291,63 +323,87 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
         if (mtype.equalsIgnoreCase("BFFB")) {
             switch (order) {
                 case 1:
-                    measure_textview_station_houju1.setText(hd + "");//后距1
-                    measure_textview_station_houchi1.setText(r + "");//后尺1
+                    //measure_textview_station_houju1.setText(hd + "");//后距1
+                    //measure_textview_station_houchi1.setText(r + "");//后尺1
+                    data_houju1=hd;
+                    data_houchi1=r;
                     break;
                 case 2:
-                    measure_textview_station_qianju1.setText(hd + "");//前距1
-                    measure_textview_station_qianchi1.setText(r + "");//前尺1
+                    //measure_textview_station_qianju1.setText(hd + "");//前距1
+                    //measure_textview_station_qianchi1.setText(r + "");//前尺1
+                    data_qianju1=hd;
+                    data_qianchi1=r;
                     break;
                 case 3:
-                    measure_textview_station_qianju2.setText(hd + "");//前距2
-                    measure_textview_station_qianchi2.setText(r + "");//前尺2
+                    //measure_textview_station_qianju2.setText(hd + "");//前距2
+                    //measure_textview_station_qianchi2.setText(r + "");//前尺2
+                    data_qianju2=hd;
+                    data_qianchi2=r;
                     break;
                 case 4:
-                    measure_textview_station_houju2.setText(hd + "");//后距2
-                    measure_textview_station_houchi2.setText(r + "");//后尺2
+                    //measure_textview_station_houju2.setText(hd + "");//后距2
+                    //measure_textview_station_houchi2.setText(r + "");//后尺2
+                    data_houju2=hd;
+                    data_houchi2=r;
                     break;
             }
         } else if (mtype.equalsIgnoreCase("FBBF")) {
             switch (order) {
 
                 case 1:
-                    measure_textview_station_qianju1.setText(hd + "");//前距1
-                    measure_textview_station_qianchi1.setText(r + "");//前尺1
+                    //measure_textview_station_qianju1.setText(hd + "");//前距1
+                    //measure_textview_station_qianchi1.setText(r + "");//前尺1
+                    data_qianju1=hd;
+                    data_qianchi1=r;
                     break;
                 case 2:
-                    measure_textview_station_houju1.setText(hd + "");//后距1
-                    measure_textview_station_houchi1.setText(r + "");//后尺1
+                    //measure_textview_station_houju1.setText(hd + "");//后距1
+                    //measure_textview_station_houchi1.setText(r + "");//后尺1
+                    data_houju1=hd;
+                    data_houchi1=r;
                     break;
                 case 3:
-                    measure_textview_station_houju2.setText(hd + "");//后距2
-                    measure_textview_station_houchi2.setText(r + "");//后尺2
+                    //measure_textview_station_houju2.setText(hd + "");//后距2
+                    //measure_textview_station_houchi2.setText(r + "");//后尺2
+                    data_houju2=hd;
+                    data_houchi2=r;
                     break;
                 case 4:
-                    measure_textview_station_qianju2.setText(hd + "");//前距2
-                    measure_textview_station_qianchi2.setText(r + "");//前尺2
+                    //measure_textview_station_qianju2.setText(hd + "");//前距2
+                    //measure_textview_station_qianchi2.setText(r + "");//前尺2
+                    data_qianju2=hd;
+                    data_qianchi2=r;
                     break;
             }
 
         } else if (mtype.equalsIgnoreCase("BF")) {
             switch (order) {
                 case 1:
-                    measure_textview_station_houju1.setText(hd + "");//后距1
-                    measure_textview_station_houchi1.setText(r + "");//后尺1
+                    //measure_textview_station_houju1.setText(hd + "");//后距1
+                    //measure_textview_station_houchi1.setText(r + "");//后尺1
+                    data_houju1=hd;
+                    data_houchi1=r;
                     break;
                 case 2:
-                    measure_textview_station_qianju1.setText(hd + "");//前距1
-                    measure_textview_station_qianchi1.setText(r + "");//前尺1
+                    //measure_textview_station_qianju1.setText(hd + "");//前距1
+                    //measure_textview_station_qianchi1.setText(r + "");//前尺1
+                    data_qianju1=hd;
+                    data_qianchi1=r;
                     break;
             }
         } else if (mtype.equalsIgnoreCase("FB")) {
             switch (order) {
                 case 1:
-                    measure_textview_station_qianju1.setText(hd + "");//前距1
-                    measure_textview_station_qianchi1.setText(r + "");//前尺1
+                    //measure_textview_station_qianju1.setText(hd + "");//前距1
+                    //measure_textview_station_qianchi1.setText(r + "");//前尺1
+                    data_qianju1=hd;
+                    data_qianchi1=r;
                     break;
                 case 2:
-                    measure_textview_station_houju1.setText(hd + "");//后距1
-                    measure_textview_station_houchi1.setText(r + "");//后尺1
+                    //measure_textview_station_houju1.setText(hd + "");//后距1
+                    //measure_textview_station_houchi1.setText(r + "");//后尺1
+                    data_houju1=hd;
+                    data_houchi1=r;
                     break;
             }
         }
