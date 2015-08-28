@@ -60,7 +60,7 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
 
     private LineExtra lineExtra;
 
-    private int measureCounterForStation = -1;
+    private int measureCounterForStation = -1,measureStaion_now=-1;
 
     private double data_houju1,data_houju2,data_qianju1,data_qianju2,data_houchi1,data_houchi2,data_qianchi1,data_qianchi2;
 
@@ -149,14 +149,10 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
 
     @Click(R.id.measure_station_btn_add_zpnt)
     void addZPnt(){//在当前测站后增加转点
-        int position=0;
-
-
-
-        if (measureCounterForStation >= 0 && lineStationList.size()!=0){//
-            String ZPnt="Z00001";
+        if (measureStaion_now != -1 && lineStationList.size()!=0){//
+            String ZPnt=CommonTools.getZpntCode(this,line.getLc());
             LineStation lineStation_new=new LineStation();
-            LineStation lineStation_now=lineStationList.get(position);
+            LineStation lineStation_now=lineStationList.get(measureStaion_now);
             lineStation_new.setSb(ZPnt);
             lineStation_new.setSf(lineStation_now.getSf());
             lineStation_new.setF_lc(line.getLc());
@@ -169,7 +165,6 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
             lineStationList.add(lineStation_new);
 
             lineStation2ListData(lineStationList);
-
 
             drawerAdapter.notifyDataSetChanged();
 
@@ -285,6 +280,7 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
     public void onItemClick(AdapterView<?> parent, View view,
                             int position, long id) {
         // TODO Auto-generated method stub
+        measureStaion_now=position;
         //此处应从数据读取
 
         Map<String, Object> measure_station = left_measure_line_data.get(position);
@@ -479,6 +475,7 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
                         lineStations_dst);
             }
         }
+        lineStationList=lineStations_dst;//将排序后的赋值给测站列表
 
         for (int j = 0; j < lineStations_dst.size(); j++) {
             Map<String, Object> measure_station = new HashMap<String, Object>();
