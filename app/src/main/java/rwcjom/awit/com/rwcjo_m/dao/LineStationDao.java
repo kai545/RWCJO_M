@@ -19,7 +19,7 @@ import rwcjom.awit.com.rwcjo_m.dao.LineStation;
 /** 
  * DAO for table LINE_STATION.
 */
-public class LineStationDao extends AbstractDao<LineStation, Void> {
+public class LineStationDao extends AbstractDao<LineStation, Long> {
 
     public static final String TABLENAME = "LINE_STATION";
 
@@ -28,7 +28,7 @@ public class LineStationDao extends AbstractDao<LineStation, Void> {
      * Can be used for QueryBuilder and for referencing column names.
     */
     public static class Properties {
-        public final static Property Sno = new Property(0, String.class, "sno", false, "SNO");
+        public final static Property Sno = new Property(0, Long.class, "sno", true, "SNO");
         public final static Property Sb = new Property(1, String.class, "sb", false, "SB");
         public final static Property Sf = new Property(2, String.class, "sf", false, "SF");
         public final static Property Shd_diff = new Property(3, String.class, "shd_diff", false, "SHD_DIFF");
@@ -56,7 +56,7 @@ public class LineStationDao extends AbstractDao<LineStation, Void> {
     public static void createTable(SQLiteDatabase db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "'LINE_STATION' (" + //
-                "'SNO' TEXT," + // 0: sno
+                "'SNO' INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: sno
                 "'SB' TEXT," + // 1: sb
                 "'SF' TEXT," + // 2: sf
                 "'SHD_DIFF' TEXT," + // 3: shd_diff
@@ -78,9 +78,9 @@ public class LineStationDao extends AbstractDao<LineStation, Void> {
     protected void bindValues(SQLiteStatement stmt, LineStation entity) {
         stmt.clearBindings();
  
-        String sno = entity.getSno();
+        Long sno = entity.getSno();
         if (sno != null) {
-            stmt.bindString(1, sno);
+            stmt.bindLong(1, sno);
         }
  
         String sb = entity.getSb();
@@ -128,15 +128,15 @@ public class LineStationDao extends AbstractDao<LineStation, Void> {
 
     /** @inheritdoc */
     @Override
-    public Void readKey(Cursor cursor, int offset) {
-        return null;
+    public Long readKey(Cursor cursor, int offset) {
+        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
     }    
 
     /** @inheritdoc */
     @Override
     public LineStation readEntity(Cursor cursor, int offset) {
         LineStation entity = new LineStation( //
-            cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0), // sno
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // sno
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // sb
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // sf
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // shd_diff
@@ -152,7 +152,7 @@ public class LineStationDao extends AbstractDao<LineStation, Void> {
     /** @inheritdoc */
     @Override
     public void readEntity(Cursor cursor, LineStation entity, int offset) {
-        entity.setSno(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
+        entity.setSno(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setSb(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setSf(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setShd_diff(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
@@ -165,15 +165,19 @@ public class LineStationDao extends AbstractDao<LineStation, Void> {
     
     /** @inheritdoc */
     @Override
-    protected Void updateKeyAfterInsert(LineStation entity, long rowId) {
-        // Unsupported or missing PK type
-        return null;
+    protected Long updateKeyAfterInsert(LineStation entity, long rowId) {
+        entity.setSno(rowId);
+        return rowId;
     }
     
     /** @inheritdoc */
     @Override
-    public Void getKey(LineStation entity) {
-        return null;
+    public Long getKey(LineStation entity) {
+        if(entity != null) {
+            return entity.getSno();
+        } else {
+            return null;
+        }
     }
 
     /** @inheritdoc */

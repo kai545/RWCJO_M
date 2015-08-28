@@ -12,6 +12,7 @@ import de.greenrobot.dao.DaoException;
  */
 public class OriData {
 
+    private Long id;
     private String bffb;
     private String bfpcode;
     private String bfpl;
@@ -36,7 +37,12 @@ public class OriData {
     public OriData() {
     }
 
-    public OriData(String bffb, String bfpcode, String bfpl, String bfpvalue, String mtime, String f_lc) {
+    public OriData(Long id) {
+        this.id = id;
+    }
+
+    public OriData(Long id, String bffb, String bfpcode, String bfpl, String bfpvalue, String mtime, String f_lc) {
+        this.id = id;
         this.bffb = bffb;
         this.bfpcode = bfpcode;
         this.bfpl = bfpl;
@@ -49,6 +55,14 @@ public class OriData {
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getOriDataDao() : null;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getBffb() {

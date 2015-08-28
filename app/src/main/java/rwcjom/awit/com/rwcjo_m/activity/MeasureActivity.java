@@ -47,12 +47,14 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
     public final String TAG = "MeasureActivity";
     private Toolbar toolbar;
     private Map<String, Object> lineinfoMap;
-    private Line line;
-    private List<BwInfo> bwInfo_list;
+    private Line line;//线路基础信息
+    private List<BwInfo> bwInfo_list;//线路测点信息
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
+    private SimpleAdapter drawerAdapter;//测站适配器
     private ActionBarDrawerToggle mDrawerToggle;
-    private List<Map<String, Object>> left_measure_line_data;
+    private List<Map<String, Object>> left_measure_line_data=new ArrayList<Map<String, Object>>();//左侧测站列表数据
+    private List<LineStation> lineStationList;//数据库中的测站
 
     private SmoothBluetooth mSmoothBluetooth;
 
@@ -145,6 +147,36 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
 
     }
 
+    @Click(R.id.measure_station_btn_add_zpnt)
+    void addZPnt(){//在当前测站后增加转点
+        int position=0;
+
+
+
+        if (measureCounterForStation >= 0 && lineStationList.size()!=0){//
+            String ZPnt="Z00001";
+            LineStation lineStation_new=new LineStation();
+            LineStation lineStation_now=lineStationList.get(position);
+            lineStation_new.setSb(ZPnt);
+            lineStation_new.setSf(lineStation_now.getSf());
+            lineStation_new.setF_lc(line.getLc());
+
+            lineStation_now.setSf(ZPnt);
+            lineStationService.saveLineStation(lineStation_now);
+
+            lineStationService.saveLineStation(lineStation_new);
+
+            lineStationList.add(lineStation_new);
+
+            lineStation2ListData(lineStationList);
+
+
+            drawerAdapter.notifyDataSetChanged();
+
+        }
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -201,42 +233,30 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
         Tasks.executeInBackground(this, new BackgroundWork<List<Map<String, Object>>>() {
             @Override
             public List<Map<String, Object>> doInBackground() throws Exception {
-                List<LineStation> lineStationList = lineStationService.queryLineStation(" where f_lc=? order by abs(sno)", line.getLc());
-                left_measure_line_data = new ArrayList<Map<String, Object>>();
-                if (lineStationList.size() != 0) {
-                    for (int i = 0; i < lineStationList.size(); i++) {
-                        Map<String, Object> measure_station = new HashMap<String, Object>();
-                        measure_station.put("station_code", i + 1);
-                        measure_station.put("b_pnt_name", lineStationList.get(i).getSb());
-                        measure_station.put("f_pnt_name", lineStationList.get(i).getSf());
-                        left_measure_line_data.add(measure_station);
-                    }
-                } else {//没有测站数据，则初始化测站，并保存
+                lineStationList = lineStationService.queryLineStation(" where f_lc=? order by abs(sno)", line.getLc());
+                if (lineStationList.size() == 0) {
+                    lineStationList=new ArrayList<LineStation>();
                     for (int i = 0; i < bwInfo_list.size() - 1; i++) {
-                        Map<String, Object> measure_station = new HashMap<String, Object>();
                         BwInfo back_pnt = bwInfo_list.get(i);
                         BwInfo front_pnt = bwInfo_list.get(i + 1);
-                        measure_station.put("station_code", i + 1);
-                        measure_station.put("b_pnt_name", (back_pnt.getTy().equalsIgnoreCase("1") ? "B" : "P") + back_pnt.getId());
-                        measure_station.put("f_pnt_name", (front_pnt.getTy().equalsIgnoreCase("1") ? "B" : "P") + front_pnt.getId());
-                        left_measure_line_data.add(measure_station);
-
                         LineStation lineStation=new LineStation();
-                        lineStation.setSno((i+1)+"");
                         lineStation.setSb((back_pnt.getTy().equalsIgnoreCase("1") ? "B" : "P") + back_pnt.getId());
                         lineStation.setSf((front_pnt.getTy().equalsIgnoreCase("1") ? "B" : "P") + front_pnt.getId());
                         lineStation.setF_lc(line.getLc());
                         lineStationService.saveLineStation(lineStation);
+                        lineStationList.add(lineStation);
                     }
-
                 }
+
+                lineStation2ListData(lineStationList);
+
                 return left_measure_line_data;
             }
         }, new Completion<List<Map<String, Object>>>() {
             @Override
             public void onSuccess(Context context, List<Map<String, Object>> result) {
                 mDrawerList = (ListView) findViewById(R.id.measure_line_drawer_list);
-                SimpleAdapter drawerAdapter = new SimpleAdapter(MeasureActivity.this, result, R.layout.measure_line_left_list_item,
+                drawerAdapter = new SimpleAdapter(MeasureActivity.this, result, R.layout.measure_line_left_list_item,
                         new String[]{"station_code", "b_pnt_name", "f_pnt_name"},
                         new int[]{R.id.measure_list_itme_station_code, R.id.measure_list_itme_b_pnt, R.id.measure_list_itme_f_pnt});
                 mDrawerList.setAdapter(drawerAdapter);
@@ -270,7 +290,7 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
         Map<String, Object> measure_station = left_measure_line_data.get(position);
         measure_textview_station_code.setText(position + 1 + "");
         //充值测量计数
-        measureCounterForStation = 0;
+        measureCounterForStation = 0;//开始奇数测量次数
         measure_textview_station_b.setText(measure_station.get("b_pnt_name") + "");
         measure_textview_station_f.setText(measure_station.get("f_pnt_name") + "");
         mDrawerLayout.closeDrawers();
@@ -436,4 +456,57 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
         }
 
     }
+
+    //测站数据转换成list数据
+    private void  lineStation2ListData(List<LineStation> lineStations){
+        //List<Map<String, Object>> lineStationListData = new ArrayList<Map<String, Object>>();
+        left_measure_line_data.clear();
+
+        List<LineStation> lineStations_ori=new ArrayList<LineStation>();
+        lineStations_ori.addAll(lineStations);
+
+        List<LineStation> lineStations_dst=new ArrayList<LineStation>();
+
+
+
+        for (int i = 0; i < lineStations.size(); i++) {
+
+            LineStation lineStation=lineStations.get(i);
+            if (lineStation.getSb().contains("B")){//找到第一个测站
+                lineStations_dst.add(lineStation);
+                searchByBpnt(lineStation,
+                        lineStations_ori,
+                        lineStations_dst);
+            }
+        }
+
+        for (int j = 0; j < lineStations_dst.size(); j++) {
+            Map<String, Object> measure_station = new HashMap<String, Object>();
+            measure_station.put("station_code", j + 1);
+            measure_station.put("b_pnt_name", lineStations_dst.get(j).getSb());
+            measure_station.put("f_pnt_name", lineStations_dst.get(j).getSf());
+            left_measure_line_data.add(measure_station);
+        }
+
+    }
+
+    //测站智能排序
+    private LineStation searchByBpnt(LineStation lineStation,
+                                     List<LineStation> lineStations_ori,
+                                     List<LineStation> lineStations_dst){
+
+        LineStation lineStation_result=null;
+        if (lineStation!=null && lineStations_ori.size()!=0){
+            for (int i = 0; i <lineStations_ori.size() ; i++) {
+                if (lineStations_ori.get(i).getSb().equalsIgnoreCase(lineStation.getSf())){//找到测站
+                    lineStations_dst.add(lineStations_ori.get(i));
+                    lineStation_result=lineStations_ori.get(i);
+                    lineStations_ori.remove(i);
+                    return searchByBpnt(lineStation_result, lineStations_ori, lineStations_dst);
+                }
+            }
+        }
+        return lineStation_result;
+    }
+
 }

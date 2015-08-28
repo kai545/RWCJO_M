@@ -12,7 +12,7 @@ import de.greenrobot.dao.DaoException;
  */
 public class LineStation {
 
-    private String sno;
+    private Long sno;
     private String sb;
     private String sf;
     private String shd_diff;
@@ -39,7 +39,11 @@ public class LineStation {
     public LineStation() {
     }
 
-    public LineStation(String sno, String sb, String sf, String shd_diff, String shd_diff_all, String sr_diff, String sr_diff_diff, String sr_diff_all, String f_lc) {
+    public LineStation(Long sno) {
+        this.sno = sno;
+    }
+
+    public LineStation(Long sno, String sb, String sf, String shd_diff, String shd_diff_all, String sr_diff, String sr_diff_diff, String sr_diff_all, String f_lc) {
         this.sno = sno;
         this.sb = sb;
         this.sf = sf;
@@ -57,11 +61,11 @@ public class LineStation {
         myDao = daoSession != null ? daoSession.getLineStationDao() : null;
     }
 
-    public String getSno() {
+    public Long getSno() {
         return sno;
     }
 
-    public void setSno(String sno) {
+    public void setSno(Long sno) {
         this.sno = sno;
     }
 

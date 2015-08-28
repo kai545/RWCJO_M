@@ -19,7 +19,7 @@ import rwcjom.awit.com.rwcjo_m.dao.OriData;
 /** 
  * DAO for table ORI_DATA.
 */
-public class OriDataDao extends AbstractDao<OriData, Void> {
+public class OriDataDao extends AbstractDao<OriData, Long> {
 
     public static final String TABLENAME = "ORI_DATA";
 
@@ -28,12 +28,13 @@ public class OriDataDao extends AbstractDao<OriData, Void> {
      * Can be used for QueryBuilder and for referencing column names.
     */
     public static class Properties {
-        public final static Property Bffb = new Property(0, String.class, "bffb", false, "BFFB");
-        public final static Property Bfpcode = new Property(1, String.class, "bfpcode", false, "BFPCODE");
-        public final static Property Bfpl = new Property(2, String.class, "bfpl", false, "BFPL");
-        public final static Property Bfpvalue = new Property(3, String.class, "bfpvalue", false, "BFPVALUE");
-        public final static Property Mtime = new Property(4, String.class, "mtime", false, "MTIME");
-        public final static Property F_lc = new Property(5, String.class, "f_lc", false, "F_LC");
+        public final static Property Id = new Property(0, Long.class, "id", true, "ID");
+        public final static Property Bffb = new Property(1, String.class, "bffb", false, "BFFB");
+        public final static Property Bfpcode = new Property(2, String.class, "bfpcode", false, "BFPCODE");
+        public final static Property Bfpl = new Property(3, String.class, "bfpl", false, "BFPL");
+        public final static Property Bfpvalue = new Property(4, String.class, "bfpvalue", false, "BFPVALUE");
+        public final static Property Mtime = new Property(5, String.class, "mtime", false, "MTIME");
+        public final static Property F_lc = new Property(6, String.class, "f_lc", false, "F_LC");
     };
 
     private DaoSession daoSession;
@@ -53,12 +54,13 @@ public class OriDataDao extends AbstractDao<OriData, Void> {
     public static void createTable(SQLiteDatabase db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "'ORI_DATA' (" + //
-                "'BFFB' TEXT," + // 0: bffb
-                "'BFPCODE' TEXT," + // 1: bfpcode
-                "'BFPL' TEXT," + // 2: bfpl
-                "'BFPVALUE' TEXT," + // 3: bfpvalue
-                "'MTIME' TEXT," + // 4: mtime
-                "'F_LC' TEXT NOT NULL );"); // 5: f_lc
+                "'ID' INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
+                "'BFFB' TEXT," + // 1: bffb
+                "'BFPCODE' TEXT," + // 2: bfpcode
+                "'BFPL' TEXT," + // 3: bfpl
+                "'BFPVALUE' TEXT," + // 4: bfpvalue
+                "'MTIME' TEXT," + // 5: mtime
+                "'F_LC' TEXT NOT NULL );"); // 6: f_lc
     }
 
     /** Drops the underlying database table. */
@@ -72,31 +74,36 @@ public class OriDataDao extends AbstractDao<OriData, Void> {
     protected void bindValues(SQLiteStatement stmt, OriData entity) {
         stmt.clearBindings();
  
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
+        }
+ 
         String bffb = entity.getBffb();
         if (bffb != null) {
-            stmt.bindString(1, bffb);
+            stmt.bindString(2, bffb);
         }
  
         String bfpcode = entity.getBfpcode();
         if (bfpcode != null) {
-            stmt.bindString(2, bfpcode);
+            stmt.bindString(3, bfpcode);
         }
  
         String bfpl = entity.getBfpl();
         if (bfpl != null) {
-            stmt.bindString(3, bfpl);
+            stmt.bindString(4, bfpl);
         }
  
         String bfpvalue = entity.getBfpvalue();
         if (bfpvalue != null) {
-            stmt.bindString(4, bfpvalue);
+            stmt.bindString(5, bfpvalue);
         }
  
         String mtime = entity.getMtime();
         if (mtime != null) {
-            stmt.bindString(5, mtime);
+            stmt.bindString(6, mtime);
         }
-        stmt.bindString(6, entity.getF_lc());
+        stmt.bindString(7, entity.getF_lc());
     }
 
     @Override
@@ -107,20 +114,21 @@ public class OriDataDao extends AbstractDao<OriData, Void> {
 
     /** @inheritdoc */
     @Override
-    public Void readKey(Cursor cursor, int offset) {
-        return null;
+    public Long readKey(Cursor cursor, int offset) {
+        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
     }    
 
     /** @inheritdoc */
     @Override
     public OriData readEntity(Cursor cursor, int offset) {
         OriData entity = new OriData( //
-            cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0), // bffb
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // bfpcode
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // bfpl
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // bfpvalue
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // mtime
-            cursor.getString(offset + 5) // f_lc
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // bffb
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // bfpcode
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // bfpl
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // bfpvalue
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // mtime
+            cursor.getString(offset + 6) // f_lc
         );
         return entity;
     }
@@ -128,25 +136,30 @@ public class OriDataDao extends AbstractDao<OriData, Void> {
     /** @inheritdoc */
     @Override
     public void readEntity(Cursor cursor, OriData entity, int offset) {
-        entity.setBffb(cursor.isNull(offset + 0) ? null : cursor.getString(offset + 0));
-        entity.setBfpcode(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setBfpl(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setBfpvalue(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setMtime(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setF_lc(cursor.getString(offset + 5));
+        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
+        entity.setBffb(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setBfpcode(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setBfpl(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setBfpvalue(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setMtime(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setF_lc(cursor.getString(offset + 6));
      }
     
     /** @inheritdoc */
     @Override
-    protected Void updateKeyAfterInsert(OriData entity, long rowId) {
-        // Unsupported or missing PK type
-        return null;
+    protected Long updateKeyAfterInsert(OriData entity, long rowId) {
+        entity.setId(rowId);
+        return rowId;
     }
     
     /** @inheritdoc */
     @Override
-    public Void getKey(OriData entity) {
-        return null;
+    public Long getKey(OriData entity) {
+        if(entity != null) {
+            return entity.getId();
+        } else {
+            return null;
+        }
     }
 
     /** @inheritdoc */
