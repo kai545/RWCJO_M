@@ -52,7 +52,14 @@ public class LineStationService {
         return lineStationDao.queryRaw(where, params);
     }
 
-
+    public LineStation queryLineStationByBFCODE(String bcode,String fcode,String f_lc){
+        List<LineStation> lineStationList=queryLineStation(" where f_lc=? and sb=? and sf=?", f_lc,bcode,fcode);
+        if (lineStationList.size()>0){
+            return lineStationList.get(0);//返回第一条结果
+        }else{
+            return null;
+        }
+    }
 
     /**
      * insert or update note

@@ -36,10 +36,12 @@ import rwcjom.awit.com.rwcjo_m.dao.BwInfo;
 import rwcjom.awit.com.rwcjo_m.dao.Line;
 import rwcjom.awit.com.rwcjo_m.dao.LineExtra;
 import rwcjom.awit.com.rwcjo_m.dao.LineStation;
+import rwcjom.awit.com.rwcjo_m.dao.OriData;
 import rwcjom.awit.com.rwcjo_m.event.BluetoothDataEvent;
 import rwcjom.awit.com.rwcjo_m.event.MainActivityEvent;
 import rwcjom.awit.com.rwcjo_m.listener.MeasureBluetoothListener;
 import rwcjom.awit.com.rwcjo_m.service.LineStationService;
+import rwcjom.awit.com.rwcjo_m.service.OriDataService;
 import rwcjom.awit.com.rwcjo_m.util.CommonTools;
 
 @EActivity
@@ -54,17 +56,22 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
     private SimpleAdapter drawerAdapter;//测站适配器
     private ActionBarDrawerToggle mDrawerToggle;
     private List<Map<String, Object>> left_measure_line_data=new ArrayList<Map<String, Object>>();//左侧测站列表数据
-    private List<LineStation> lineStationList;//数据库中的测站
+    private List<LineStation> lineStationList;//数据库中的测站列表（已排序）
+    private LineStation lineStation_now;
 
     private SmoothBluetooth mSmoothBluetooth;
 
     private LineExtra lineExtra;
 
     private int measureCounterForStation = -1,measureStaion_now=-1;
+    private int totalMeasureCount;//本次需要测量的次数
 
     private double data_houju1,data_houju2,data_qianju1,data_qianju2,data_houchi1,data_houchi2,data_qianchi1,data_qianchi2;
+    private String bffb,bcode,fcode;
 
     private LineStationService lineStationService;
+    private OriDataService oriDataService;
+    private List<OriData> measureOriDataForStation=new ArrayList<OriData>();
 
     @ViewById(R.id.measure_textview_station_code)
     TextView measure_textview_station_code;//测站编号
@@ -178,10 +185,12 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
         setContentView(R.layout.activity_measure);
         EventBus.getDefault().register(this);//注册事件总线
         lineExtra = (LineExtra) getIntent().getSerializableExtra("line_extra");
+        totalMeasureCount=lineExtra.getMtype().contains("BFFB")?4:2;
         lineinfoMap = (Map<String, Object>) getIntent().getSerializableExtra("lineinfo");
         line = (Line) lineinfoMap.get("line");
         bwInfo_list = (List<BwInfo>) lineinfoMap.get("bw");
         lineStationService=LineStationService.getInstance(this);
+        oriDataService=OriDataService.getInstance(this);//initial oridataservice
         initDrawerMenu();
     }
 
@@ -281,19 +290,27 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
                             int position, long id) {
         // TODO Auto-generated method stub
         measureStaion_now=position;
-        //此处应从数据读取
 
         Map<String, Object> measure_station = left_measure_line_data.get(position);
         measure_textview_station_code.setText(position + 1 + "");
         //充值测量计数
         measureCounterForStation = 0;//开始奇数测量次数
-        measure_textview_station_b.setText(measure_station.get("b_pnt_name") + "");
-        measure_textview_station_f.setText(measure_station.get("f_pnt_name") + "");
+        measureOriDataForStation.clear();//初始化存储当前测站数据的LSIT
+        bcode=measure_station.get("b_pnt_name") + "";
+        fcode=measure_station.get("f_pnt_name") + "";
+        measure_textview_station_b.setText(bcode);
+        measure_textview_station_f.setText(fcode);
         mDrawerLayout.closeDrawers();
+
+        //此处应从数据库读取
+        lineStation_now=lineStationService.queryLineStationByBFCODE(bcode,fcode,line.getLc());
+        readMeasureDataFromDB();
     }
 
     //重置测量数据
     private void resetAllData(){
+        measureCounterForStation = 0;//重置当前测站测量计数
+        measureOriDataForStation.clear();//清空当前测站的测量数据表
         data_houju1=0;
         data_houju2=0;
         data_qianju1=0;
@@ -302,6 +319,12 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
         data_houchi2=0;
         data_qianchi1=0;
         data_qianchi2=0;
+        //清除数据库数据
+        List<OriData> oriDataList=oriDataService.queryOriData(" where f_lc=? and bffb like 'B%' and bfpcode=?", line.getLc(),bcode);
+        oriDataList.addAll(oriDataService.queryOriData(" where f_lc=? and bffb like 'F%' and bfpcode=?", line.getLc(),fcode));
+        for (int i = 0; i <oriDataList.size() ; i++) {
+            oriDataService.deleteOriData(oriDataList.get(i));
+        }
     }
 
     //刷新Tv显示
@@ -354,7 +377,7 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
     //处理蓝牙数据
     public void onEventMainThread(BluetoothDataEvent event) {
         //CommonTools.showToast(this, event.getData());//收到水准仪数据
-        if (measureCounterForStation >= 0 && measureCounterForStation < 4) {
+        if (measureCounterForStation >= 0 && measureCounterForStation < totalMeasureCount) {
             measureCounterForStation++;
             //数据示例：R2.16841 HD1.750
             String data = event.getData();
@@ -390,18 +413,22 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
         if (mtype.equalsIgnoreCase("BFFB")) {
             switch (order) {
                 case 1:
+                    bffb="B1";
                     data_houju1=hd;
                     data_houchi1=r;
                     break;
                 case 2:
+                    bffb="F1";
                     data_qianju1=hd;
                     data_qianchi1=r;
                     break;
                 case 3:
+                    bffb="F2";
                     data_qianju2=hd;
                     data_qianchi2=r;
                     break;
                 case 4:
+                    bffb="B2";
                     data_houju2=hd;
                     data_houchi2=r;
                     break;
@@ -410,18 +437,22 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
             switch (order) {
 
                 case 1:
+                    bffb="F1";
                     data_qianju1=hd;
                     data_qianchi1=r;
                     break;
                 case 2:
+                    bffb="B1";
                     data_houju1=hd;
                     data_houchi1=r;
                     break;
                 case 3:
+                    bffb="B2";
                     data_houju2=hd;
                     data_houchi2=r;
                     break;
                 case 4:
+                    bffb="F2";
                     data_qianju2=hd;
                     data_qianchi2=r;
                     break;
@@ -430,10 +461,12 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
         } else if (mtype.equalsIgnoreCase("BF")) {
             switch (order) {
                 case 1:
+                    bffb="B1";
                     data_houju1=hd;
                     data_houchi1=r;
                     break;
                 case 2:
+                    bffb="F1";
                     data_qianju1=hd;
                     data_qianchi1=r;
                     break;
@@ -441,14 +474,33 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
         } else if (mtype.equalsIgnoreCase("FB")) {
             switch (order) {
                 case 1:
+                    bffb="F1";
                     data_qianju1=hd;
                     data_qianchi1=r;
                     break;
                 case 2:
+                    bffb="B1";
                     data_houju1=hd;
                     data_houchi1=r;
                     break;
             }
+        }
+    //保存单次的测量数据
+        OriData oriData=new OriData();
+        oriData.setF_lc(line.getLc());
+        oriData.setBffb(bffb);
+        oriData.setBfpcode(bffb.contains("F") ? fcode : bcode);
+        oriData.setBfpvalue(r + "");//R
+        oriData.setBfpl(hd + "");//HD
+        oriData.setMtime(CommonTools.getDateWith("yyyy-MM-dd HH:mm:ss"));
+        measureOriDataForStation.add(oriData);
+        if (order==totalMeasureCount){//本次测量完成
+            oriDataService.saveOriDataLists(measureOriDataForStation);//保存本站全部数据
+            //保存视距差/高差/高差之差
+            lineStation_now.setShd_diff(measure_textview_station_shijucha.getText()+"");
+            lineStation_now.setSr_diff(measure_textview_station_gaocha.getText() + "");
+            lineStation_now.setSr_diff_diff(measure_textview_station_gaocha_cha.getText()+"");
+            lineStationService.saveLineStation(lineStation_now);
         }
 
     }
@@ -504,6 +556,38 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
             }
         }
         return lineStation_result;
+    }
+
+    //从数据库读取测量数据
+    private void readMeasureDataFromDB(){
+        List<OriData> oriDataList=oriDataService.queryOriData(" where f_lc=? and bffb like 'B%' and bfpcode=?", line.getLc(),bcode);
+        oriDataList.addAll(oriDataService.queryOriData(" where f_lc=? and bffb like 'F%' and bfpcode=?", line.getLc(),fcode));
+
+        if (oriDataList.size()!=0){
+            for (int i = 0; i <oriDataList.size() ; i++) {
+                OriData oriData=oriDataList.get(i);
+                double hd=Double.valueOf(oriData.getBfpl());
+                double r=Double.valueOf(oriData.getBfpvalue());
+
+                if (oriData.getBffb().equalsIgnoreCase("F1")){
+                    data_qianju1=hd;
+                    data_qianchi1=r;
+                }else if (oriData.getBffb().equalsIgnoreCase("B1")){
+                    data_houju1=hd;
+                    data_houchi1=r;
+                }else if (oriData.getBffb().equalsIgnoreCase("F2")){
+                    data_qianju2=hd;
+                    data_qianchi2=r;
+                }else{//B2
+                    data_houju2=hd;
+                    data_houchi2=r;
+                }
+            }
+        }else{
+            resetAllData();
+        }
+
+        refreshAllTextView();
     }
 
 }
