@@ -405,7 +405,6 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
             measureDataWrite("BFFB",measureCounterForStation,hd,r);
         }
 
-        refreshAllTextView();//数据就位后，刷新显示
     }
 
     //数据填充
@@ -485,6 +484,7 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
                     break;
             }
         }
+        refreshAllTextView();//数据就位后，刷新显示
     //保存单次的测量数据
         OriData oriData=new OriData();
         oriData.setF_lc(line.getLc());
