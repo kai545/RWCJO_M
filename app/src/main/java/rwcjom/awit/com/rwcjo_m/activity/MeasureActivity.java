@@ -14,6 +14,11 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import com.mor.dataacquisition.DataAcquisition;
+import com.mor.dataacquisition.net.dataCallBacks.CJUpOriginalDataCallBack;
+import com.mor.dataacquisition.net.dataCallBacks.CJUpRecordInitDataCallBack;
+import com.mor.dataacquisition.net.parsedData.CJResutResult;
+import com.mor.dataacquisition.struct.BClass;
 import com.nanotasks.BackgroundWork;
 import com.nanotasks.Completion;
 import com.nanotasks.Tasks;
@@ -67,7 +72,7 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
     private int totalMeasureCount;//本次需要测量的次数
 
     private double data_houju1,data_houju2,data_qianju1,data_qianju2,data_houchi1,data_houchi2,data_qianchi1,data_qianchi2;
-    private String bffb,bcode,fcode;
+    private String bffb,bfpcode,bcode,fcode;
 
     private LineStationService lineStationService;
     private OriDataService oriDataService;
@@ -136,11 +141,23 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
     @ViewById(R.id.measure_textview_station_freadcha)
     TextView measure_textview_station_freadcha;//前尺读数差
 
+    @ViewById(R.id.measure_main_over_tv)
+    TextView measure_main_over_tv;//前尺读数差
+
     @AfterViews
     void initBluetooth() {//初始化蓝牙
         mSmoothBluetooth = new SmoothBluetooth(this);
         mSmoothBluetooth.setListener(new MeasureBluetoothListener(this, mSmoothBluetooth));
         mSmoothBluetooth.tryConnection();
+
+        //接口要求初始化
+        DataAcquisition.getInstance().CjUpRecordInit("liujunfeng",this,new CJUpRecordInitDataCallBack(){
+            @Override
+            public void processData(CJResutResult data) {
+                super.processData(data);
+                CommonTools.showToast(MeasureActivity.this,"CjUpRecordInit："+data.returnCode);
+            }
+        });
     }
 
     @Click(R.id.measure_station_btn_remeasure)
@@ -176,6 +193,48 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
             drawerAdapter.notifyDataSetChanged();
 
         }
+
+    }
+
+    @Click(R.id.measure_main_over_tv)
+    void measure_over() {//点击完成
+        //List<BClass> bClassList=new ArrayList<BClass>();
+        List<OriData> oriDataList=oriDataService.loadAllOriData();
+        BClass[] blist=new BClass[oriDataList.size()];
+        for (int i = 0; i <oriDataList.size() ; i++) {
+            OriData oriData=oriDataList.get(i);
+            BClass bclass=new BClass();
+            bclass.bffb=oriData.getBffb();
+            bclass.bfpcode=oriData.getBfpcode();
+            bclass.bfpl=oriData.getBfpl();
+            bclass.bfpvalue=oriData.getBfpvalue();
+            bclass.mtime=oriData.getMtime();
+            blist[i]=bclass;
+        }
+
+        DataAcquisition.getInstance().CJUpOriginal(blist,
+                lineExtra.getDevBrand(),
+                lineExtra.getDevType(),
+                lineExtra.getDevSN(),
+                lineExtra.getStuffid(),
+                lineExtra.getTemp(),
+                lineExtra.getAir(),
+                lineExtra.getWeather(),
+                lineExtra.getBpntsq(),
+                lineExtra.getMtype(),
+                lineExtra.getMdate(),
+                lineExtra.getLc(),
+                lineExtra.getStuff_name(),
+                lineExtra.getStuff_pwd(),
+                this,
+                new CJUpOriginalDataCallBack() {
+                    @Override
+                    public void processData(CJResutResult data) {
+                        super.processData(data);
+                        CommonTools.showToast(MeasureActivity.this, "RESULT:" + data.returnCode);
+                    }
+                }
+        );
 
     }
 
@@ -302,7 +361,7 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
         measure_textview_station_f.setText(fcode);
         mDrawerLayout.closeDrawers();
 
-        //此处应从数据库读取
+        //此处应从数据库读取测站数据以及该测站的测量数据
         lineStation_now=lineStationService.queryLineStationByBFCODE(bcode,fcode,line.getLc());
         readMeasureDataFromDB();
     }
@@ -399,7 +458,7 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
             if (Integer.parseInt(measure_textview_station_code.getText() + "") % 2 != 0) {//奇测站
                 measureDataWrite("BFFB",measureCounterForStation,hd,r);
             } else {//偶测站
-                measureDataWrite("FBBF",measureCounterForStation,hd,r);
+                measureDataWrite("FBBF", measureCounterForStation, hd, r);
             }
         }else if (lineExtra.getMtype().equalsIgnoreCase("BFFB")) {
             measureDataWrite("BFFB",measureCounterForStation,hd,r);
@@ -413,21 +472,25 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
             switch (order) {
                 case 1:
                     bffb="B1";
+                    bfpcode=bcode;
                     data_houju1=hd;
                     data_houchi1=r;
                     break;
                 case 2:
                     bffb="F1";
+                    bfpcode=fcode;
                     data_qianju1=hd;
                     data_qianchi1=r;
                     break;
                 case 3:
                     bffb="F2";
+                    bfpcode=fcode;
                     data_qianju2=hd;
                     data_qianchi2=r;
                     break;
                 case 4:
                     bffb="B2";
+                    bfpcode=bcode;
                     data_houju2=hd;
                     data_houchi2=r;
                     break;
@@ -437,21 +500,25 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
 
                 case 1:
                     bffb="F1";
+                    bfpcode=fcode;
                     data_qianju1=hd;
                     data_qianchi1=r;
                     break;
                 case 2:
                     bffb="B1";
+                    bfpcode=bcode;
                     data_houju1=hd;
                     data_houchi1=r;
                     break;
                 case 3:
                     bffb="B2";
+                    bfpcode=bcode;
                     data_houju2=hd;
                     data_houchi2=r;
                     break;
                 case 4:
                     bffb="F2";
+                    bfpcode=fcode;
                     data_qianju2=hd;
                     data_qianchi2=r;
                     break;
@@ -461,11 +528,13 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
             switch (order) {
                 case 1:
                     bffb="B1";
+                    bfpcode=bcode;
                     data_houju1=hd;
                     data_houchi1=r;
                     break;
                 case 2:
                     bffb="F1";
+                    bfpcode=fcode;
                     data_qianju1=hd;
                     data_qianchi1=r;
                     break;
@@ -474,34 +543,45 @@ public class MeasureActivity extends ActionBarActivity implements AdapterView.On
             switch (order) {
                 case 1:
                     bffb="F1";
+                    bfpcode=fcode;
                     data_qianju1=hd;
                     data_qianchi1=r;
                     break;
                 case 2:
                     bffb="B1";
+                    bfpcode=bcode;
                     data_houju1=hd;
                     data_houchi1=r;
                     break;
             }
         }
         refreshAllTextView();//数据就位后，刷新显示
-    //保存单次的测量数据
-        OriData oriData=new OriData();
-        oriData.setF_lc(line.getLc());
-        oriData.setBffb(bffb);
-        oriData.setBfpcode(bffb.contains("F") ? fcode : bcode);
-        oriData.setBfpvalue(r + "");//R
-        oriData.setBfpl(hd + "");//HD
-        oriData.setMtime(CommonTools.getDateWith("yyyy-MM-dd HH:mm:ss"));
-        measureOriDataForStation.add(oriData);
-        if (order==totalMeasureCount){//本次测量完成
-            oriDataService.saveOriDataLists(measureOriDataForStation);//保存本站全部数据
-            //保存视距差/高差/高差之差
-            lineStation_now.setShd_diff(measure_textview_station_shijucha.getText()+"");
-            lineStation_now.setSr_diff(measure_textview_station_gaocha.getText() + "");
-            lineStation_now.setSr_diff_diff(measure_textview_station_gaocha_cha.getText()+"");
-            lineStationService.saveLineStation(lineStation_now);
+
+        //接口要求，每次都要调用
+        int Api_CjUpRecord_return=DataAcquisition.getInstance().CjUpRecord(bffb,bfpcode,hd+"",r+"",this);
+        if (Api_CjUpRecord_return==0){
+            //保存单次的测量数据
+            OriData oriData=new OriData();
+            oriData.setF_lc(line.getLc());
+            oriData.setBffb(bffb);
+            oriData.setBfpcode(bffb.contains("F") ? fcode : bcode);
+            oriData.setBfpvalue(r + "");//R
+            oriData.setBfpl(hd + "");//HD
+            oriData.setMtime(CommonTools.getDateWith("yyyy-MM-dd HH:mm:ss"));
+            measureOriDataForStation.add(oriData);
+            if (order==totalMeasureCount){//本次测量完成
+                oriDataService.saveOriDataLists(measureOriDataForStation);//保存本站全部数据
+                //保存视距差/高差/高差之差
+                lineStation_now.setShd_diff(measure_textview_station_shijucha.getText()+"");
+                lineStation_now.setSr_diff(measure_textview_station_gaocha.getText() + "");
+                lineStation_now.setSr_diff_diff(measure_textview_station_gaocha_cha.getText() + "");
+                lineStationService.saveLineStation(lineStation_now);
+                CommonTools.showToast(this, "measure data had saved");
+            }
+        }else{
+            CommonTools.showToast(this,"CjUpRecord Return :"+Api_CjUpRecord_return);
         }
+
 
     }
 

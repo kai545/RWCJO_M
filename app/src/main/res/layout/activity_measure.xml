@@ -12,14 +12,28 @@
 
         <include layout="@layout/toolbar" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:padding="6dp"
-            android:text="@string/title_activity_measure"
-            android:textColor="#ffffffff"
-            android:textSize="22sp" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="6dp"
+                android:text="@string/title_activity_measure"
+                android:textColor="#ffffffff"
+                android:textSize="22sp"
+                android:layout_gravity="left" />
+            <TextView
+                android:id="@+id/measure_main_over_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="6dp"
+                android:text="完成"
+                android:textColor="#ffffffff"
+                android:textSize="22sp"
+                android:layout_gravity="right"/>
+        </LinearLayout>
+
     </FrameLayout>
 
     <android.support.v4.widget.DrawerLayout
