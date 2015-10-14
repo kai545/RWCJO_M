@@ -6,109 +6,110 @@
     android:orientation="vertical">
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
 
 
+        <EditText
+            android:id="@+id/message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:hint="message"
+            android:textColor="@color/listTextColor" />
+
+        <CheckBox
+            android:id="@+id/carrage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CRLF" />
+
+        <Button
+            android:id="@+id/send"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Send"
+            android:textColor="#259b2c" />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/responses"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/disconnect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="断开连接"
+            android:textColor="#259b2c"
+            android:visibility="gone" />
 
         <LinearLayout
+            android:id="@+id/connection"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:orientation="horizontal">
 
-
-            <EditText
-                android:id="@+id/message"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="message"
-                android:textColor="@color/listTextColor"
-                android:layout_weight="3"
-                />
-            <CheckBox
-                android:id="@+id/carrage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="CRLF"
-                />
             <Button
-                android:id="@+id/send"
+                android:id="@+id/scan"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Send"
                 android:layout_weight="1"
+                android:text="扫描"
                 android:textColor="#259b2c" />
 
-        </LinearLayout>
-
-        <ListView
-            android:id="@+id/responses"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="6" />
-
-
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:layout_height="0dp">
             <Button
-                android:id="@+id/disconnect"
-                android:layout_width="match_parent"
+                android:id="@+id/paired"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:visibility="gone"
-                android:text="断开连接"
+                android:layout_weight="1"
+                android:text="已配对"
                 android:textColor="#259b2c" />
-
-            <LinearLayout
-                android:id="@+id/connection"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:orientation="horizontal">
-                <Button
-                    android:id="@+id/scan"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="扫描"
-                    android:layout_weight="1"
-                    android:textColor="#259b2c" />
-
-                <Button
-                    android:id="@+id/paired"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="已配对"
-                    android:textColor="#259b2c" />
-            </LinearLayout>
-        </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
 
 
     <LinearLayout
         android:id="@+id/connection_state"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@android:color/black"
         android:layout_alignParentBottom="true"
+        android:background="@android:color/black"
+        android:orientation="horizontal"
         android:padding="10dp">
 
         <TextView
             android:id="@+id/state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/white"/>
 
-        <Space android:layout_width="5dp" android:layout_height="match_parent"/>
+            android:textColor="@android:color/white" />
+
+        <Space
+            android:layout_width="5dp"
+            android:layout_height="match_parent" />
 
         <TextView
             android:id="@+id/device"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/white"/>
+
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 </LinearLayout>

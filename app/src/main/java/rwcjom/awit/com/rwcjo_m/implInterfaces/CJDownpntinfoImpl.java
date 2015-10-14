@@ -46,9 +46,11 @@ public class CJDownpntinfoImpl implements CJDownpntinfoInterface {
 					// 获取返回的结果
 					for(int i=0;i<object.getPropertyCount();i++){
 						 result = object.getProperty(i).toString();
+						Log.i(TAG,result);//测试
 						 jsonpnt=new JSONArray(result);
 							 for(int j=0;j<jsonpnt.length();j++){
 								 String data=jsonpnt.get(j).toString();
+								 Log.i(TAG,data);//测试
 								 jsonObj=new JSONObject(data);
 								 if(jsonObj.length()>4){
 									 downpntinfoObj.setFlag(0);

@@ -51,6 +51,7 @@
                             android:id="@+id/measure_textview_station_code"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+
                             android:layout_centerInParent="true"
                             android:textColor="@color/measure_measure_station_xuhao_text_color"
                             android:textSize="40.0sp" />
@@ -73,6 +74,7 @@
                             android:background="@color/measure_measure_station_bg_gray_color">
 
                             <TextView
+
                                 android:id="@+id/measure_textview_station_b"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"

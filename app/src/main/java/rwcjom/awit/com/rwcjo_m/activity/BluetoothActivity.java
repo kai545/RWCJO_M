@@ -161,24 +161,38 @@ public class BluetoothActivity extends AppCompatActivity {
     }
 
     private SmoothBluetooth.Listener mListener = new SmoothBluetooth.Listener() {
+        /**
+         * 不支持蓝牙
+         */
         @Override
         public void onBluetoothNotSupported() {
             Toast.makeText(BluetoothActivity.this, "Bluetooth not found", Toast.LENGTH_SHORT).show();
             finish();
         }
 
+        /**
+         *蓝牙未开启，跳转到蓝牙界面
+         */
         @Override
         public void onBluetoothNotEnabled() {
             Intent enableBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBluetooth, ENABLE_BT__REQUEST);
         }
 
+        /**
+         * 正在连接蓝牙
+         * @param device 蓝牙设备
+         */
         @Override
         public void onConnecting(Device device) {
             mStateTv.setText("Connecting to");
             mDeviceTv.setText(device.getName());
         }
 
+        /**
+         * 已经连接上的蓝牙设备
+         * @param device 蓝牙设备
+         */
         @Override
         public void onConnected(Device device) {
             mStateTv.setText("Connected to");
@@ -187,6 +201,9 @@ public class BluetoothActivity extends AppCompatActivity {
             mDisconnectButton.setVisibility(View.VISIBLE);
         }
 
+        /**
+         * 未连接
+         */
         @Override
         public void onDisconnected() {
             mStateTv.setText("Disconnected");

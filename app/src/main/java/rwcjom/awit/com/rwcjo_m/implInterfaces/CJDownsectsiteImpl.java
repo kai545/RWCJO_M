@@ -51,6 +51,7 @@ public class CJDownsectsiteImpl implements CJDownsectsiteInterface {
 						result = object.getProperty(i).toString();
 						Log.i(TAG,result);
 						resultStr=result.split(ValueConfig.SPLIT_CHAR);
+						Log.i(TAG,resultStr.length+"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");//测试接口的代码
 						if(resultStr.length==4){
 							downsectsite.setFlag(-1);
 							if(resultStr[0].equals("-1")){

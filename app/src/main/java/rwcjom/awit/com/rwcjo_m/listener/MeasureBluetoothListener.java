@@ -138,7 +138,7 @@ public class MeasureBluetoothListener implements SmoothBluetooth.Listener {
             mBuffer.clear();
             //mResponseBuffer.add(0, sb.toString());
 
-            //CommonTools.showToast(activity,sb.toString());
+
             //发送数据
             EventBus.getDefault().post(new BluetoothDataEvent(sb.toString()));
         }

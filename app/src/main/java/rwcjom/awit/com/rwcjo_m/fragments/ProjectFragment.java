@@ -78,7 +78,9 @@ public class ProjectFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_tab,null);
     }
 
-
+    /**
+     * 初始化Fragment和设置适配器
+     */
     private void initPager(){
         mPagerSlidingTabStrip = (PagerSlidingTabStrip) getView().findViewById(R.id.tabs);
         mViewPager = (ViewPager) getView().findViewById(R.id.pager);

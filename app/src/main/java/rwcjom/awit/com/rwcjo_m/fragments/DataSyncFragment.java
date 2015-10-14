@@ -111,7 +111,7 @@ public class DataSyncFragment extends Fragment {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         EventBus.getDefault().post(new MainActivityEvent("数据同步"));
-        EventBus.getDefault().register(this);
+        EventBus.getDefault().register(this);//注册
         randomCode=getArguments().getString("randomCode");
         username=getArguments().getString("username");
     }
@@ -149,11 +149,15 @@ public class DataSyncFragment extends Fragment {
     //处理事件
     public void onEventMainThread(DataSyncFragmentEvent event) {
         CircularProgressButton btn=(CircularProgressButton)view.findViewById(event.getId());
-        btn.setIndeterminateProgressMode(true);
+        btn.setIndeterminateProgressMode(true);//(true)就是根据你的进度可以设置现在的进度值。
         btn.setProgress(event.getCircularProgressButtonProgress());
     }
 
-    //清除所有数据
+
+    /**
+     * 清除所有数据
+     *
+     */
     private void deleteAllLocalData(){
         Tasks.executeInBackground(context, new BackgroundWork<String>() {
             @Override
@@ -188,7 +192,12 @@ public class DataSyncFragment extends Fragment {
     }
 
 
-    //下载标段和工点信息
+
+
+    /**
+     * 一键全部下载
+     * //下载标段和工点信息
+     */
     private void downloadSectionSite(){
         Tasks.executeInBackground(context, new BackgroundWork<Map<String, Object>>() {
             @Override
@@ -205,15 +214,16 @@ public class DataSyncFragment extends Fragment {
 
                         if (thismCJDownsectsite.getFlag() == 0) {
                             //有工点信息
-                            result.put("section", thismCJDownsectsite.getSecObj());
-                            secNewsService.saveSecNews(thismCJDownsectsite.getSecObj());
+                            result.put("section", thismCJDownsectsite.getSecObj());//存放secNews对象到map中
+                            secNewsService.saveSecNews(thismCJDownsectsite.getSecObj());//插入信息到secNews表中
                             List<SiteNews> sitelist = thismCJDownsectsite.getSitelist();//单个工点类型下的工点列表
                             sitelist_all.addAll(sitelist);//将所有类型的工点放入总list
                             for (int j = 0; j < sitelist.size(); j++) {
                                 SiteNews siteNews = sitelist.get(j);
                                 siteNews.setSitetype("" + i);
                                 siteNews.setF_sectionid(thismCJDownsectsite.getSecObj().getSectid());
-                                siteNewsService.saveSiteNews(siteNews);
+
+                                siteNewsService.saveSiteNews(siteNews);//插入信息到SiteNews表中
                             }
                             //开始保存数据
 
@@ -222,7 +232,7 @@ public class DataSyncFragment extends Fragment {
                         }
 
                     }
-                    result.put("sites", sitelist_all);
+                    result.put("sites", sitelist_all);//存放集合到map中
                 }
                 return result;
             }
@@ -251,8 +261,8 @@ public class DataSyncFragment extends Fragment {
             @Override
             public Map<String, Object> doInBackground() throws Exception {
                 EventBus.getDefault().post(new DataSyncFragmentEvent(R.id.data_sync_dl_face, 50));//进度条
-                Map<String, Object> face_retult = readyResult;//存放ID;
-                List<SiteNews> siteList = (List<SiteNews>) face_retult.get("sites");//获取标段和工点
+                Map<String, Object> face_retult = readyResult;
+                List<SiteNews> siteList = (List<SiteNews>) face_retult.get("sites");//获取标段和工点（List<SiteNews>）
                 List<FaceNews> faceNews_all = new ArrayList<FaceNews>();
                 for (int i = 0; i < siteList.size(); i++) {
                     CJDownfaceImpl mCJDownfaceImpl = new CJDownfaceImpl();
@@ -285,7 +295,7 @@ public class DataSyncFragment extends Fragment {
 
                     }
                 }
-                readyResult.put("faceNewses", faceNews_all);
+                readyResult.put("faceNewses", faceNews_all);//将集合保存到map中（list<FaceNews>）
                 face_retult.putAll(readyResult);
                 return face_retult;
             }
@@ -306,7 +316,10 @@ public class DataSyncFragment extends Fragment {
     }
 
 
-    //下载测点信息 lastResult包含标段、工点列表、断面基础信息列表
+    /**
+     * 下载测点信息 lastResult包含标段、工点列表、断面基础信息列表
+     */
+
     private void downloadPntInfo(Map<String,Object> lastResult){
         final Map<String,Object> readyResult=lastResult;
         Tasks.executeInBackground(context, new BackgroundWork<Map<String, Object>>() {
@@ -434,7 +447,10 @@ public class DataSyncFragment extends Fragment {
     }
 
 
-    //下载水准线路信息 lastResult包含标段、工点列表
+    /**
+     * 下载水准线路信息 lastResult包含标段、工点列表
+     */
+
     private void downloadLine(Map<String,Object> lastResult){
         final Map<String,Object> readyResult=lastResult;
         Tasks.executeInBackground(context, new BackgroundWork<Map<String, Object>>() {

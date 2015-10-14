@@ -38,7 +38,7 @@ public class CJDownfaceinfoImpl implements CJDownfaceinfoInterface {
 						Log.i(TAG, "Object is null");
 					}
 					// 获取返回的结果
-					Log.i("CJDownfaceinfoLength", object.getPropertyCount() + "");
+					Log.i("CJDownfaceinfoLength", object.getPropertyCount() + "");//测试数据判断数据的长度
 					if(object.getPropertyCount()==3){
 						downfaceinfoObj.setFlag(-1);
 						if(object.getProperty(0).toString().equals("-1")){
@@ -53,6 +53,7 @@ public class CJDownfaceinfoImpl implements CJDownfaceinfoInterface {
 						faceinfoObj=new FaceInfo();
 						for(int i=0;i<object.getPropertyCount();i++){
 							String var=object.getProperty(i).toString();
+							Log.i(TAG,var);//测试数据
 							if(var.equals("anyType{}")){
 								var=" ";
 							}

@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -42,7 +43,7 @@ import rwcjom.awit.com.rwcjo_m.util.CommonTools;
 import rwcjom.awit.com.rwcjo_m.util.ValueConfig;
 
 @EActivity
-public class LineInfoActivity extends ActionBarActivity {
+public class LineInfoActivity extends AppCompatActivity {
     public final String TAG="LineInfoActivity";
 
     private Toolbar toolbar;
@@ -154,8 +155,8 @@ public class LineInfoActivity extends ActionBarActivity {
         saveLineExtra();
         Intent it=new Intent(this,MeasureActivity_.class);//启动测量界面
         Bundle bundle = new Bundle();
-        bundle.putSerializable("lineinfo", (Serializable) lineinfoMap);
-        bundle.putSerializable("line_extra", (Serializable) lineExtra);
+        bundle.putSerializable("lineinfo", (Serializable) lineinfoMap);//line &&bw
+        bundle.putSerializable("line_extra", (Serializable) lineExtra);//lineExtra
         it.putExtras(bundle);
         startActivity(it);
     }

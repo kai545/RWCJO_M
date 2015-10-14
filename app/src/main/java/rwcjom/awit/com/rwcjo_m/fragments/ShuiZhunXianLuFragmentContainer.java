@@ -59,7 +59,7 @@ public class ShuiZhunXianLuFragmentContainer extends Fragment {
             @Override
             public List<SecNews> doInBackground() throws Exception {
                 //考虑有多个标段的情况（实际只有一个标段）
-                return secNewsService.loadAllSecNews();
+                return secNewsService.loadAllSecNews();//查询数据库中的SecNews表中的数据
             }
         }, new Completion<List<SecNews>>() {
             @Override
@@ -94,9 +94,9 @@ public class ShuiZhunXianLuFragmentContainer extends Fragment {
             public void onPageSelected(int arg0) {
                 Log.i(LOGTAG, "argo:" + arg0);
                 if (arg0 == 1) {
-                    //EventBus.getDefault().post(new MainActivityEvent(true));
+                    EventBus.getDefault().post(new MainActivityEvent(true));
                 } else {
-                    //EventBus.getDefault().post(new MainActivityEvent(false));
+                    EventBus.getDefault().post(new MainActivityEvent(false));
                 }
             }
 
