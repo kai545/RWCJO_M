@@ -3,7 +3,6 @@ package rwcjom.awit.com.rwcjo_m.activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -473,7 +472,7 @@ public class MeasureActivity extends AppCompatActivity implements AdapterView.On
     }
 
     /**
-     * 数据处理
+     * 数据处理(正测)
      *
      * @param hd 尺度
      * @param r  距离
@@ -490,6 +489,30 @@ public class MeasureActivity extends AppCompatActivity implements AdapterView.On
         }
 
     }
+
+    /**
+     *反侧
+     * @param hd
+     * @param r
+     */
+    private void opposeMesuredataFlow(double hd, double r) {
+        if (lineExtra.getMtype().equalsIgnoreCase("aBFFB")) {
+            if (Integer.parseInt(measure_textview_station_code.getText() + "") % 2 != 0) {//奇测站
+                measureDataWrite("BFFB", measureCounterForStation, hd, r);
+            } else {//偶测站
+                measureDataWrite("FBBF", measureCounterForStation, hd, r);
+            }
+        } else if (lineExtra.getMtype().equalsIgnoreCase("BFFB")) {
+            measureDataWrite("BFFB", measureCounterForStation, hd, r);
+        }
+    }
+
+private void fillMeasure(String mtype, int order, double hd, double r){
+    if(true){
+
+    }
+}
+
 
     /**
      * 数据填充
@@ -637,8 +660,8 @@ public class MeasureActivity extends AppCompatActivity implements AdapterView.On
             if (lineStation.getSb().contains("B")) {//找到第一个测站
                 lineStations_dst.add(lineStation);
                 searchByBpnt(lineStation,
-                        lineStations_ori,
-                        lineStations_dst);
+                        lineStations_dst,
+                        lineStations_ori);
             }
         }
         lineStationList = lineStations_dst;//将排序后的赋值给测站列表
