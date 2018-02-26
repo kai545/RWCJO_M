@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
-import com.afollestad.materialdialogs.ThemeSingleton;
+//import com.afollestad.materialdialogs.ThemeSingleton;
 import com.afollestad.materialdialogs.internal.MDTintHelper;
 import com.nanotasks.BackgroundWork;
 import com.nanotasks.Completion;
@@ -306,13 +306,13 @@ public class MainActivity extends ActionBarActivity implements Toolbar.OnMenuIte
             passwordInput.setText(ValueConfig.TEST_PASSWORD);
         }
 
-        int widgetColor = ThemeSingleton.get().widgetColor;
+//        int widgetColor = ThemeSingleton.get().widgetColor;
 
-        MDTintHelper.setEditTextTint(accountInput,
-                widgetColor == 0 ? getResources().getColor(R.color.syscolor) : widgetColor);
-
-        MDTintHelper.setEditTextTint(passwordInput,
-                widgetColor == 0 ? getResources().getColor(R.color.syscolor) : widgetColor);
+//        MDTintHelper.setEditTextTint(accountInput,
+//                widgetColor == 0 ? getResources().getColor(R.color.syscolor) : widgetColor);
+//
+//        MDTintHelper.setEditTextTint(passwordInput,
+//                widgetColor == 0 ? getResources().getColor(R.color.syscolor) : widgetColor);
 
         loginDialog.show();
     }
